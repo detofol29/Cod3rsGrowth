@@ -2,13 +2,13 @@
 
 namespace Cod3rsGrowth_Dominio;
 
-public enum Genero
+public enum GeneroEnum
 {
-    Fiction,
-    Action,
-    Horror,
+    Ficcao,
+    Acao,
+    Terror,
     Romance,
     Drama,
-    Adventure,
-    Comady
+    Aventura,
+    Comedia
 }

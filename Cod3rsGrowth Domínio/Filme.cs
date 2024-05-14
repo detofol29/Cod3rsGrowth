@@ -6,7 +6,7 @@ public class Filme
 {
     public string Titulo { get; set; }
     public DateTime DataDeLancamento { get; set; }
-    public Genero genero { get; set; } 
+    public GeneroEnum Genero { get; set; } 
     public bool EmCartaz { get; set; }
     public Decimal Nota { get; set; }
     public int Duracao { get; set; }
