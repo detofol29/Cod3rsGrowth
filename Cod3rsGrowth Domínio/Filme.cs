@@ -13,4 +13,5 @@ public class Filme
     public bool DisponivelNoPlano { get; set; }
     public string Diretor { get; set; }
     public List<Ator> Atores {  get; set; }
+
 }

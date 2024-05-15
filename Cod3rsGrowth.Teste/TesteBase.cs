@@ -7,6 +7,10 @@ namespace Cod3rsGrowth.Teste
 {
     public class TesteBase : IDisposable
     {
+        public TesteBase(ServiceProvider serviceprovider)
+        {
+            _serviceProvider = serviceprovider;
+        }
         protected ServiceProvider _serviceProvider { get; set; }
 
         // Metodo herdado da interface IDisposable 
