@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cod3rsGrowth.Dominio;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 using Xunit.Microsoft.DependencyInjection;
 
 namespace Cod3rsGrowth.Teste;
 
 public class ModuloInjecao
 {
-    static public void ImplementarServico(IServiceCollection serviceCollection)
+    public static ServiceProvider Configure()
     {
-
+        var services = new ServiceCollection();
+        return services.BuildServiceProvider(); 
+        
     }
 }

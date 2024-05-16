@@ -2,18 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection;
 using Cod3rsGrowth.Dominio;
+using System.Runtime.CompilerServices;
 
 namespace Cod3rsGrowth.Teste
 {
     public class TesteBase : IDisposable
     {
-        protected ServiceProvider ServiceProvider { get; set; }
+        protected readonly ServiceProvider ServiceProvider;
 
         public TesteBase()
         {
-            var service = new ServiceCollection();
-            ModuloInjecao.ImplementarServico(service);
-            ServiceProvider = service.BuildServiceProvider();
+            ServiceProvider = ModuloInjecao.Configure();
         }
 
         public void Dispose()
