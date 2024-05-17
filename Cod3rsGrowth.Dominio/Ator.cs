@@ -8,5 +8,4 @@ public class Ator : IAtor
     public int Id { get; set; }
     public int IdFilme { get; set; }
     public List<string> Premios { get; set; }
-    
 }

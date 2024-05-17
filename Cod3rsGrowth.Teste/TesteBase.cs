@@ -19,6 +19,4 @@ public class TesteBase : IDisposable
     {
         ServiceProvider.Dispose();
     }
-
-    
 }

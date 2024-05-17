@@ -15,12 +15,8 @@ public class ModuloInjecao
     public static ServiceProvider Configure()
     {
         var services = new ServiceCollection();
-
         services.AddScoped<IAtor, Ator>();
         services.AddScoped<IAtorServico, AtorServicos>();
-
-
         return services.BuildServiceProvider(); 
-        
-    }
+     }
 }

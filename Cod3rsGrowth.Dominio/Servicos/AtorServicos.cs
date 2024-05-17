@@ -25,5 +25,4 @@ public class AtorServicos : IAtorServico
         }
         return list;
     }
-
 }
