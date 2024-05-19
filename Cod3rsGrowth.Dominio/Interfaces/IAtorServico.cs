@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Dominio;
+using System;
 
-namespace Cod3rsGrowth_Domínio.Interfaces;
+namespace Cod3rsGrowth.Dominio.Interfaces;
 
 public interface IAtorServico
 {
-    List<string> ObterPremiosDoAtor();
+    List<string> ObterPremiosDoAtor(Ator ator);
 }

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cod3rsGrowth.Dominio.Interfaces;
+namespace Cod3rsGrowth.Dominio;
 
-public interface IAtor
+public enum PlanoEnum
 {
-    public List<string> Premios { get; set; }
+    Free,
+    Premium,
+    Nerd,
+    Kids
 }
