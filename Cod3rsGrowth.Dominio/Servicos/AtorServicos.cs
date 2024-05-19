@@ -9,7 +9,7 @@ namespace Cod3rsGrowth.Dominio.Servicos;
 
 public class AtorServicos : IAtorServico
 {
-    List<string> IAtorServico.ObterPremiosDoAtor(Ator ator)
+    public List<string> ObterPremiosDoAtor(Ator ator)
     {
         var list = new List<string>();
         foreach (var premio in ator.Premios)
