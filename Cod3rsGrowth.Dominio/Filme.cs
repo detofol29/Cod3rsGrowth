@@ -4,6 +4,7 @@ namespace Cod3rsGrowth.Dominio;
 
 public class Filme
 {
+    public int Id { get; set; }
     public string Titulo { get; set; }
     public DateTime DataDeLancamento { get; set; }
     public GeneroEnum Genero { get; set; } 
