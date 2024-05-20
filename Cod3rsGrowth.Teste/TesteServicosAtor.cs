@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth_Domínio.Interfaces;
+using Cod3rsGrowth.Dominio;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -19,7 +19,7 @@ public class TesteServicosAtor : TesteBase
     }
 
     [Fact]
-    public void TesteRetornaListaDeAtores()
+    public void TesteRetornaListaDePremiosDoAtor()
     {
        
     }

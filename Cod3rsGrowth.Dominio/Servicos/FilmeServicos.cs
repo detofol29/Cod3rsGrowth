@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using Cod3rsGrowth.Dominio.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,3 +20,14 @@ public class FilmeServicos : IFilmeServico
         return list;
     }
 }
+=======
+﻿using System;
+using Cod3rsGrowth.Dominio.Interfaces;
+
+namespace Cod3rsGrowth.Dominio.Servicos;
+
+public class FilmeServicos : IFilmeServicos
+{
+   
+}
+>>>>>>> 7c31adb2fe8c0eba90fb0a7cb563f8461ae8f424

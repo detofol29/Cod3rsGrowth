@@ -2,7 +2,7 @@
 using System;
 namespace Cod3rsGrowth.Dominio;
 
-public class Ator : IAtor
+public class Ator
 {
     public string Nome { get; set; }
     public int Id { get; set; }
