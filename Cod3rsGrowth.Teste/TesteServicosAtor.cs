@@ -14,8 +14,8 @@ public class TesteServicosAtor : TesteBase
 
     public TesteServicosAtor()
     {
-        atorServico = ServiceProvider.GetService<AtorServicos>();
-        if(atorServico == null)
+        atorServico = serviceProvider.GetService<AtorServicos>();
+        if (atorServico == null)
         {
             throw new Exception();
         }
