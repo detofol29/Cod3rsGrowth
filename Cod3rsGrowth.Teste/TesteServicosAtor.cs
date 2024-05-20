@@ -1,21 +1,24 @@
 ﻿using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio;
+using Cod3rsGrowth.Dominio.Servicos;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Data;
 
 
 namespace Cod3rsGrowth.Teste;
 
 public class TesteServicosAtor : TesteBase
 {
-    private readonly ServiceProvider ServiceProvider;
-    public IAtorServico atorServico;
+    public AtorServicos atorServico;
 
     public TesteServicosAtor()
     {
-        ServiceProvider = base.ServiceProvider;
-        atorServico = ServiceProvider.GetService<IAtorServico>();
-
+        atorServico = ServiceProvider.GetService<AtorServicos>();
+        if(atorServico == null)
+        {
+            throw new Exception();
+        }
     }
 
     [Fact]
