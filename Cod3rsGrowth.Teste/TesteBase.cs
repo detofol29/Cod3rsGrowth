@@ -3,8 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection;
 using Cod3rsGrowth.Dominio;
 using System.Runtime.CompilerServices;
-using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Dominio.Servicos;
+using Cod3rsGrowth.Servicos.Interfaces;
 
 namespace Cod3rsGrowth.Teste;
 
@@ -15,13 +14,10 @@ public class TesteBase : IDisposable
     public TesteBase()
     {
         var services = new ServiceCollection();
-        Configurar(services);
+        ModuloInjetor.ObterServicosParaServiceCollection(services);
         serviceProvider = services.BuildServiceProvider();
     }
-    public static void Configurar(ServiceCollection services)
-    {
-        services.AddScoped<IAtorServico, AtorServicos>();
-    }
+    
 
 
     public void Dispose()

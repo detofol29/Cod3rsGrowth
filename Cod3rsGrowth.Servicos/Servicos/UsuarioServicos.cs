@@ -1,7 +1,8 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Servicos.Interfaces;
+using Cod3rsGrowth.Dominio;
 using System;
 
-namespace Cod3rsGrowth.Dominio.Servicos
+namespace Cod3rsGrowth.Servicos.Servicos
 {
     public class UsuarioServicos : IUsuarioServicos
     {

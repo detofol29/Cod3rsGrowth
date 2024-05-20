@@ -1,5 +1,4 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
-using System;
+﻿using System;
 namespace Cod3rsGrowth.Dominio;
 
 public class Ator

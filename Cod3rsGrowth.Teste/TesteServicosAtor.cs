@@ -1,6 +1,7 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Dominio;
-using Cod3rsGrowth.Dominio.Servicos;
+﻿using Cod3rsGrowth.Dominio;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Servicos;
+using Cod3rsGrowth.Servicos.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Data;
@@ -14,11 +15,7 @@ public class TesteServicosAtor : TesteBase
 
     public TesteServicosAtor()
     {
-        atorServico = serviceProvider.GetService<AtorServicos>();
-        if (atorServico == null)
-        {
-            throw new Exception();
-        }
+        atorServico = serviceProvider.GetService<AtorServicos>() ?? throw new Exception("Serviço não foi encontrado");
     }
 
     [Fact]

@@ -1,11 +1,9 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Servicos.Interfaces;
+using Cod3rsGrowth.Dominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cod3rsGrowth.Dominio.Servicos;
+
+namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class AtorServicos : IAtorServico
 {

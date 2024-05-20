@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cod3rsGrowth.Dominio.Interfaces;
+namespace Cod3rsGrowth.Servicos.Interfaces;
 
 public interface IFilmeServicos
 {
