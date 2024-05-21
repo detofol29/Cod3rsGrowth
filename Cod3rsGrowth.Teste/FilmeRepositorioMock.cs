@@ -9,20 +9,20 @@ namespace Cod3rsGrowth.Teste;
 
 public class FilmeRepositorioMock : IFilmeRepositorio
 {
-    private readonly List<Filme> filmes;
-
-    public FilmeRepositorioMock()
+    public Filme ObterPorId(int id, List<Filme> filmes)
     {
-        filmes = new List<Filme>()
+       var filme = filmes.FirstOrDefault(a => a.Id == id);
+       return filme;
+    }
+
+    public List<Filme> RetornarListaDeFilmesMock()
+    {
+        var filmes = new List<Filme>()
         {
             new Filme() {Id = 1, Titulo = "Star Wars"},
             new Filme() {Id = 2, Titulo = "Star Track"},
             new Filme() {Id = 3, Titulo = "Star Top"}
         };
-    }
-    public Filme EncontrarFilmePorId(int id)
-    {
-       var filme = filmes.FirstOrDefault(a => a.Id == id);
-       return filme;
+        return filmes;
     }
 }
