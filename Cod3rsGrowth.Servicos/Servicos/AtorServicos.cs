@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Servicos.Interfaces;
-using Cod3rsGrowth.Dominio;
 using System;
+using Cod3rsGrowth.Dominio.Modelos;
 
 
 namespace Cod3rsGrowth.Servicos.Servicos;
