@@ -8,10 +8,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Forms", "Cod3rsGrowth.Forms\Cod3rsGrowth.Forms.csproj", "{753E4E44-7446-4FB4-A643-D8BDE8DD3135}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Teste", "Cod3rsGrowth.Teste\Cod3rsGrowth.Teste.csproj", "{F971DB34-A011-4423-927A-E46B1136B304}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0FE26212-9CA5-43DA-96BE-18EC9030529D} = {0FE26212-9CA5-43DA-96BE-18EC9030529D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.web", "Cod3rsGrowth.web\Cod3rsGrowth.web.csproj", "{9D5D6B57-14CA-4E22-ACC2-6435E764367F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Dominio", "Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj", "{0FE26212-9CA5-43DA-96BE-18EC9030529D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Servicos", "Cod3rsGrowth.Servicos\Cod3rsGrowth.Servicos.csproj", "{DDED1034-8923-4F06-ABE6-027BCA898CF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,10 @@ Global
 		{0FE26212-9CA5-43DA-96BE-18EC9030529D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FE26212-9CA5-43DA-96BE-18EC9030529D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FE26212-9CA5-43DA-96BE-18EC9030529D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDED1034-8923-4F06-ABE6-027BCA898CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDED1034-8923-4F06-ABE6-027BCA898CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDED1034-8923-4F06-ABE6-027BCA898CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDED1034-8923-4F06-ABE6-027BCA898CF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

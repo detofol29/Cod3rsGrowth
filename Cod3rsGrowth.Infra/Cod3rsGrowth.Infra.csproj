@@ -11,4 +11,8 @@
     <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="7.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj" />
+  </ItemGroup>
+
 </Project>

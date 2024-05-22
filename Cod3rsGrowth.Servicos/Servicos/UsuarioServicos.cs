@@ -1,14 +1,23 @@
 ﻿using Cod3rsGrowth.Servicos.Interfaces;
-using Cod3rsGrowth.Dominio;
 using System;
+using Cod3rsGrowth.Dominio.Modelos;
 
-namespace Cod3rsGrowth.Servicos.Servicos
+namespace Cod3rsGrowth.Servicos.Servicos;
+
+public class UsuarioServicos : IUsuarioServicos
 {
-    public class UsuarioServicos : IUsuarioServicos
+    public void AdicionarFilmeNaMinhaLista(Filme filme, Usuario usuario)
     {
-        public void AdicionarFilmeNaMinhaLista(Filme filme, Usuario usuario)
-        {
-            usuario.MinhaLista.Add(filme);
-        }
+        usuario.MinhaLista.Add(filme);
+    }
+
+    public void Logar(Usuario usuario)
+    {
+
+    }
+
+    public void Deslogar(Usuario usuario)
+    {
+
     }
 }

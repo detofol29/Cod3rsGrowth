@@ -1,19 +1,36 @@
 ﻿using Cod3rsGrowth.Servicos.Interfaces;
 using System;
-using Cod3rsGrowth.Dominio;
 using System.Linq;
+using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class FilmeServicos : IFilmeServico
 {
-    List<Ator> IFilmeServico.ObterAtoresDoFilme(Filme filme)
+    public List<Ator> ObterAtoresDoFilme(Filme filme)
     {
-        var list = new List<Ator>();
-        foreach(var ator in filme.Atores)
+        return filme.Atores;
+    }
+
+    public static bool VerificarDisponibilidadeDoFilme(Usuario usuario, Filme filme)
+    {
+        switch (usuario.Plano)
         {
-            list.Add(ator);
+            case PlanoEnum.Premium:
+                return true;
+                break;
+            case PlanoEnum.Nerd when filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia:
+                return true;
+                break;
+            case PlanoEnum.Kids when filme.Classificacao == ClassificacaoIndicativa.livre:
+                return true;
+                break;
+            case PlanoEnum.Free when filme.Genero == GeneroEnum.Comedia:
+                return true;
+                break;
+            default:
+                return false;
+                break;
         }
-        return list;
     }
 }
