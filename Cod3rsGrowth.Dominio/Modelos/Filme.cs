@@ -13,6 +13,6 @@ public class Filme
     public int Duracao { get; set; }
     public bool DisponivelNoPlano { get; set; }
     public string Diretor { get; set; }
+    public ClassificacaoIndicativa Classificacao { get; set; }
     public List<Ator> Atores { get; set; }
-
 }

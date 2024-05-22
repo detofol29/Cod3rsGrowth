@@ -10,5 +10,6 @@ public enum GeneroEnum
     Romance,
     Drama,
     Aventura,
-    Comedia
+    Comedia,
+    fantasia
 }

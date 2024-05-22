@@ -17,8 +17,6 @@ public class TesteBase : IDisposable
         ModuloInjetor.ObterServicosParaServiceCollection(services);
         serviceProvider = services.BuildServiceProvider();
     }
-    
-
 
     public void Dispose()
     {

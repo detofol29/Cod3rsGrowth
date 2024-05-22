@@ -9,12 +9,12 @@ namespace Cod3rsGrowth.Teste;
 
 public class FilmeRepositorioMock : IFilmeRepositorio
 {
-    public Filme ObterPorId(int id, List<Filme> filmes)
+    public Filme ObterPorId(int id)
     {
-       return filmes.FirstOrDefault(a => a.Id == id);
+       throw new NotImplementedException();
     }
 
-    public List<Filme> ObterTodos()
+    public List<Filme> ObterTodos() 
     {
         return new List<Filme>();
     }
