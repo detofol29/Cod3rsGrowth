@@ -9,38 +9,28 @@ public class FilmeServicos : IFilmeServico
 {
     public List<Ator> ObterAtoresDoFilme(Filme filme)
     {
-        var list = new List<Ator>();
-        foreach(var ator in filme.Atores)
-        {
-            list.Add(ator);
-        }
-        return list;
+        return filme.Atores;
     }
 
-    public static bool VerificarDisponibilidadeDoFilme(Usuario usuario,Filme filme)
+    public static bool VerificarDisponibilidadeDoFilme(Usuario usuario, Filme filme)
     {
-        bool disponivelNoPlano;
-
-        if (usuario.Plano == PlanoEnum.Premium)
+        switch (usuario.Plano)
         {
-             disponivelNoPlano = true;
-        }    
-        else if (usuario.Plano == PlanoEnum.Nerd && filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.fantasia)
-        {    
-             disponivelNoPlano = true;
-        }    
-        else if (usuario.Plano == PlanoEnum.Kids && filme.Classificacao == ClassificacaoIndicativa.livre)
-        {    
-             disponivelNoPlano = true;
-        }    
-        else if (usuario.Plano == PlanoEnum.Free && filme.Genero == GeneroEnum.Comedia)
-        {    
-             disponivelNoPlano = true;
-        }    
-        else 
-        {    
-             disponivelNoPlano = false;
+            case PlanoEnum.Premium:
+                return true;
+                break;
+            case PlanoEnum.Nerd when filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia:
+                return true;
+                break;
+            case PlanoEnum.Kids when filme.Classificacao == ClassificacaoIndicativa.livre:
+                return true;
+                break;
+            case PlanoEnum.Free when filme.Genero == GeneroEnum.Comedia:
+                return true;
+                break;
+            default:
+                return false;
+                break;
         }
-        return disponivelNoPlano;
     }
 }

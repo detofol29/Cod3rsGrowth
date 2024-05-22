@@ -10,16 +10,15 @@ namespace Cod3rsGrowth.Teste;
 
 public class TesteServicosAtor : TesteBase
 {
-    public AtorServicos atorServico;
+    public IAtorServico atorServico;
 
     public TesteServicosAtor()
     {
-        atorServico = serviceProvider.GetService<AtorServicos>() ?? throw new Exception("Serviço não foi encontrado");
+        atorServico = serviceProvider.GetService<IAtorServico>() ?? throw new Exception("Serviço não foi encontrado");
     }
 
     [Fact]
     public void TesteRetornaListaDePremiosDoAtor()
     {
-       
     }
 }
