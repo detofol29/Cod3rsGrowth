@@ -5,5 +5,7 @@ namespace Cod3rsGrowth.Infra;
 
 public interface IFilmeRepositorio
 {
-    Filme ObterPorId(int id, List<Filme> filmes); 
+    Filme ObterPorId(int id, List<Filme> filmes);
+
+    List<Filme> ObterTodos();
 }

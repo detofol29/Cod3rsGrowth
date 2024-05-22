@@ -14,7 +14,7 @@ public class FilmeRepositorioMock : IFilmeRepositorio
        return filmes.FirstOrDefault(a => a.Id == id);
     }
 
-    public static List<Filme> RetornarListaDeFilmesMock()
+    public List<Filme> ObterTodos()
     {
         return new List<Filme>();
     }
