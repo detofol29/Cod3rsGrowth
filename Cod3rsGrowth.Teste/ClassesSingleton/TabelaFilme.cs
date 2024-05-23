@@ -25,20 +25,19 @@ public class TabelaFilme
     {
         filmes = new List<Filme>
         {
-            new Filme { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Atores = AdicionarAtoresAoFilme(1) },
-            new Filme { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Atores = AdicionarAtoresAoFilme(2) },
-            new Filme { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Atores = AdicionarAtoresAoFilme(3) },
-            new Filme { Id = 4, Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Atores = AdicionarAtoresAoFilme(4) },
-            new Filme { Id = 5, Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Atores = AdicionarAtoresAoFilme(5) },
-            new Filme { Id = 6, Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Atores = AdicionarAtoresAoFilme(6) },
-            new Filme { Id = 7, Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Atores = AdicionarAtoresAoFilme(7) },
-            new Filme { Id = 8, Titulo = "Gladiador", Genero = GeneroEnum.Acao, Atores = AdicionarAtoresAoFilme(8) },
-            new Filme { Id = 9, Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Atores = AdicionarAtoresAoFilme(9) },
-            new Filme { Id = 10, Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Atores = AdicionarAtoresAoFilme(10) },
-            new Filme { Id = 11, Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Atores = AdicionarAtoresAoFilme(11) },
-            new Filme { Id = 12, Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Atores = AdicionarAtoresAoFilme(12) }
+            new Filme { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Atores = AdicionarAtoresAoFilme(1), Classificacao = ClassificacaoIndicativa.livre },
+            new Filme { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Atores = AdicionarAtoresAoFilme(2), Classificacao = ClassificacaoIndicativa.doze },
+            new Filme { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Atores = AdicionarAtoresAoFilme(3), Classificacao = ClassificacaoIndicativa.livre },
+            new Filme { Id = 4, Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Atores = AdicionarAtoresAoFilme(4), Classificacao = ClassificacaoIndicativa.quatorze },
+            new Filme { Id = 5, Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Atores = AdicionarAtoresAoFilme(5), Classificacao = ClassificacaoIndicativa.quatorze },
+            new Filme { Id = 6, Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Atores = AdicionarAtoresAoFilme(6), Classificacao = ClassificacaoIndicativa.quatorze },
+            new Filme { Id = 7, Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Atores = AdicionarAtoresAoFilme(7), Classificacao = ClassificacaoIndicativa.dezesseis},
+            new Filme { Id = 8, Titulo = "Gladiador", Genero = GeneroEnum.Acao, Atores = AdicionarAtoresAoFilme(8), Classificacao = ClassificacaoIndicativa.dezesseis},
+            new Filme { Id = 9, Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Atores = AdicionarAtoresAoFilme(9), Classificacao = ClassificacaoIndicativa.dezoito },
+            new Filme { Id = 10, Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Atores = AdicionarAtoresAoFilme(10), Classificacao = ClassificacaoIndicativa.quatorze },
+            new Filme { Id = 11, Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Atores = AdicionarAtoresAoFilme(11), Classificacao = ClassificacaoIndicativa.dezoito},
+            new Filme { Id = 12, Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Atores = AdicionarAtoresAoFilme(12), Classificacao = ClassificacaoIndicativa.quatorze }
         };
-
     }
     public static TabelaFilme Instance
         {
