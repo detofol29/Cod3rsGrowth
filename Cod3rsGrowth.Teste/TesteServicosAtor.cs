@@ -16,9 +16,4 @@ public class TesteServicosAtor : TesteBase
     {
         atorServico = serviceProvider.GetService<IAtorServico>() ?? throw new Exception("Serviço não foi encontrado");
     }
-
-    [Fact]
-    public void TesteRetornaListaDePremiosDoAtor()
-    {
-    }
 }
