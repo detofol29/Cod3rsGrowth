@@ -2,6 +2,7 @@
 using System;
 using Cod3rsGrowth.Dominio.Modelos;
 
+
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class UsuarioServicos : IUsuarioServicos
@@ -11,13 +12,15 @@ public class UsuarioServicos : IUsuarioServicos
         usuario.MinhaLista.Add(filme);
     }
 
-    public void Logar(Usuario usuario)
+    public void Logar(string nick, string senha)
     {
-
     }
 
     public void Deslogar(Usuario usuario)
     {
+    }
 
+    public void LicenciarFilmePorUsuario(Usuario usuario)
+    {
     }
 }

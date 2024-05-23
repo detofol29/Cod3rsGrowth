@@ -10,26 +10,26 @@ namespace Cod3rsGrowth.Teste;
 
 public class FilmeRepositorioMock : IFilmeRepositorio
 {
-    private readonly TabelaFilme tabelaFilme;
+    private readonly TabelasSingleton tabelasSingleton;
 
     public FilmeRepositorioMock()
     {
-        tabelaFilme = TabelaFilme.Instance;
+        tabelasSingleton = TabelasSingleton.Instance;
     }
 
     public Filme ObterPorId(int id)
     {
-        return tabelaFilme.Filmes.FirstOrDefault(a => a.Id == id);
+        return tabelasSingleton.Filmes.FirstOrDefault(a => a.Id == id);
     }
 
     public List<Filme> ObterTodos() 
     {
-        return tabelaFilme.Filmes;
+        return tabelasSingleton.Filmes;
     }
 
     public void Adicionar(Filme filme)
     {
-        tabelaFilme.Filmes.Add(filme);
+        tabelasSingleton.Filmes.Add(filme);
     }
 
     public void Remover(int id)
@@ -37,7 +37,7 @@ public class FilmeRepositorioMock : IFilmeRepositorio
         var filme = ObterPorId(id);
         if(filme != null)
         {
-            tabelaFilme.Filmes.Remove(filme);
+            tabelasSingleton.Filmes.Remove(filme);
         }
     }
 }
