@@ -1,15 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <RootNamespace>Cod3rsGrowth_Domínio</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.17" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="7.0.2" />
   </ItemGroup>
 

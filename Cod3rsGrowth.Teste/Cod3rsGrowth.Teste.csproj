@@ -11,9 +11,17 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="7.0.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj" />
+    <ProjectReference Include="..\Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj" />
+    <ProjectReference Include="..\Cod3rsGrowth.Servicos\Cod3rsGrowth.Servicos.csproj" />
   </ItemGroup>
 
   <ItemGroup>
