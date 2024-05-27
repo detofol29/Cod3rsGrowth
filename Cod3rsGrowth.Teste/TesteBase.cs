@@ -1,10 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit.Microsoft.DependencyInjection;
-using Cod3rsGrowth.Dominio;
-using System.Runtime.CompilerServices;
-using Cod3rsGrowth.Servicos.Interfaces;
-using Cod3rsGrowth.Teste.ClassesSingleton;
 
 namespace Cod3rsGrowth.Teste;
 

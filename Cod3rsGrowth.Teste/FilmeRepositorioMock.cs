@@ -1,8 +1,4 @@
-﻿using System;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Servicos.Interfaces;
-using Cod3rsGrowth.Infra;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 
@@ -19,7 +15,7 @@ public class FilmeRepositorioMock : IFilmeRepositorio
 
     public Filme ObterPorId(int id)
     {
-        return tabelasSingleton.FirstOrDefault(a => a.Id == id);
+        return tabelasSingleton.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Filme nao encontrado");
     }
 
     public List<Filme> ObterTodos() 
@@ -34,6 +30,7 @@ public class FilmeRepositorioMock : IFilmeRepositorio
 
     public void Remover(int id)
     {
-        tabelasSingleton.Remove(ObterPorId(id) ?? null);
+        var filme = ObterPorId(id);
+        tabelasSingleton.Remove(filme);
     }
 }
