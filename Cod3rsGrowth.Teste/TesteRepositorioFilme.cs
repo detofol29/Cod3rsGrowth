@@ -1,12 +1,34 @@
-﻿using System;
+﻿using Cod3rsGrowth.Infra;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
+using System;
+using Cod3rsGrowth.Dominio;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Servicos.Interfaces;
+using System.Runtime.CompilerServices;
 using Cod3rsGrowth.Dominio.Modelos;
+using NuGet.Frameworks;
+using Cod3rsGrowth.Teste.ClassesSingleton;
 
-namespace Cod3rsGrowth.Teste.ClassesSingleton;
+namespace Cod3rsGrowth.Teste;
 
-public class TabelasSingleton
+public class TesteRepositorioFilme : TesteBase
 {
-    private static readonly Lazy<List<Filme>> instanciaFilme = new(() => new List<Filme>()
+    private readonly IFilmeRepositorio filmeRepositorio;
+    public TesteRepositorioFilme()
     {
+        filmeRepositorio = serviceProvider.GetService<IFilmeRepositorio>() ?? throw new Exception("Repositorio nao encontrado");
+    }
+
+
+    [Theory]
+    [InlineData(0)][InlineData(1)][InlineData(2)][InlineData(3)][InlineData(4)][InlineData(5)]
+    [InlineData(6)][InlineData(7)][InlineData(8)][InlineData(9)][InlineData(10)][InlineData(11)]
+    public void ObterTodosRetornaListaDeTodosOsFilmesDoRepositorioQuandoListaNaoNula(int indice)
+    {
+        //Arrange
+        List<Filme> listaEsperada = new List<Filme>()
+        {
             new Filme { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre },
             new Filme { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze },
             new Filme { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre },
@@ -19,15 +41,21 @@ public class TabelasSingleton
             new Filme { Id = 10, Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze },
             new Filme { Id = 11, Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito},
             new Filme { Id = 12, Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze }
-    });
-    private static readonly Lazy<List<Ator>> instanciaAtor = new(() => new List<Ator>());
-    private static readonly Lazy<List<Usuario>> instanciaUsuario = new(() => new List<Usuario>());
-    
-    private TabelasSingleton()
-    {
-    }
+        };
 
-    public static List<Filme> ObterInstacniaFilmes => instanciaFilme.Value;
-    public static List<Ator> ObterInstanciaAtores => instanciaAtor.Value;
-    public static List<Usuario> ObterInstanciaUsuarios => instanciaUsuario.Value;
+        string titulo = listaEsperada[indice].Titulo;
+        int id = listaEsperada[indice].Id;
+        GeneroEnum genero = listaEsperada[indice].Genero;
+        ClassificacaoIndicativa classificacao = listaEsperada[indice].Classificacao;
+
+        //Act
+        var lista = filmeRepositorio.ObterTodos();
+
+        //Assart
+        Assert.NotNull(lista);
+        Assert.Equal(lista[indice].Titulo, titulo);
+        Assert.Equal(lista[indice].Id, id);
+        Assert.Equal(lista[indice].Genero, genero);
+        Assert.Equal(lista[indice].Classificacao, classificacao);
+    }
 }
