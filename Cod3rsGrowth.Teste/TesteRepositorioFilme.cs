@@ -41,5 +41,6 @@ public class TesteRepositorioFilme : TesteBase
         Assert.Equal(lista[indice].Id, id);
         Assert.Equal(lista[indice].Genero, genero);
         Assert.Equal(lista[indice].Classificacao, classificacao);
+        Assert.Equal(12, lista.Count());
     }
 }
