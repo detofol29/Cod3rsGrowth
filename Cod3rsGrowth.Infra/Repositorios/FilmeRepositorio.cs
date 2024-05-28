@@ -4,7 +4,7 @@ using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 
-public class FilmeRepositorio : IFilmeRepositorio
+public class FilmeRepositorio : IRepositorio<Filme>
 {
     private readonly List<Filme> tabelaFilme;
     public Filme ObterPorId(int id)

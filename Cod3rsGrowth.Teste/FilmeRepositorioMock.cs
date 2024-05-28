@@ -2,10 +2,11 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using System.Reflection.Metadata.Ecma335;
+using Cod3rsGrowth.Infra.Interfaces;
 
 namespace Cod3rsGrowth.Teste;
 
-public class FilmeRepositorioMock : IFilmeRepositorio
+public class FilmeRepositorioMock : IRepositorio<Filme>
 {
     private readonly List<Filme> tabelasSingleton;
 
