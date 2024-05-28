@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Teste;
 
@@ -10,7 +11,7 @@ public class FilmeRepositorioMock : IFilmeRepositorio
 
     public FilmeRepositorioMock()
     {
-        tabelasSingleton = TabelasSingleton.ObterInstacniaFilmes;
+        tabelasSingleton = TabelasSingleton.ObterInstanciaFilmes;
     }
 
     public Filme ObterPorId(int id)

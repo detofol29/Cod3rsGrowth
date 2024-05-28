@@ -27,7 +27,7 @@ public class TabelasSingleton
     {
     }
 
-    public static List<Filme> ObterInstacniaFilmes => instanciaFilme.Value;
+    public static List<Filme> ObterInstanciaFilmes => instanciaFilme.Value;
     public static List<Ator> ObterInstanciaAtores => instanciaAtor.Value;
     public static List<Usuario> ObterInstanciaUsuarios => instanciaUsuario.Value;
 }
