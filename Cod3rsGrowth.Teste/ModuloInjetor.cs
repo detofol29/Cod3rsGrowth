@@ -1,9 +1,6 @@
-﻿using System;
-using Cod3rsGrowth.Servicos.Interfaces;
-using Cod3rsGrowth.Dominio;
+﻿using Cod3rsGrowth.Servicos.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 
@@ -16,6 +13,5 @@ public static class ModuloInjetor
         services.AddScoped<IRepositorio<Filme>, FilmeRepositorioMock>();
         services.AddScoped<IRepositorio<Ator>, AtorRepositorioMock>();
         services.AddScoped<IRepositorio<Usuario>, UsuarioRepositorioMock>();
-
     }
 }

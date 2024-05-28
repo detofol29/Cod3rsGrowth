@@ -1,10 +1,5 @@
-﻿using System;
-using Cod3rsGrowth.Dominio;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Servicos;
-using Cod3rsGrowth.Servicos.Interfaces;
+﻿using Cod3rsGrowth.Servicos.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-
 
 namespace Cod3rsGrowth.Teste;
 

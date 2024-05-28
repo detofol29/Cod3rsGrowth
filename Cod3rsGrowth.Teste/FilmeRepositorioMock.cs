@@ -1,7 +1,5 @@
-﻿using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using System.Reflection.Metadata.Ecma335;
 using Cod3rsGrowth.Infra.Interfaces;
 
 namespace Cod3rsGrowth.Teste;
