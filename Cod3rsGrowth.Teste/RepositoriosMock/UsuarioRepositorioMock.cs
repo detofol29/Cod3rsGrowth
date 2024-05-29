@@ -1,12 +1,10 @@
-﻿using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using System.Reflection.Metadata.Ecma335;
 using Cod3rsGrowth.Infra.Interfaces;
 
-namespace Cod3rsGrowth.Teste;
+namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
-public class UsuarioRepositorioMock : IRepositorio<Usuario>
+public class UsuarioRepositorioMock : IUsuarioRepositorio
 {
     private readonly List<Usuario> tabelasSingleton;
 
@@ -20,7 +18,7 @@ public class UsuarioRepositorioMock : IRepositorio<Usuario>
         return tabelasSingleton.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Usuario nao encontrado");
     }
 
-    public List<Usuario> ObterTodos() 
+    public List<Usuario> ObterTodos()
     {
         return tabelasSingleton;
     }

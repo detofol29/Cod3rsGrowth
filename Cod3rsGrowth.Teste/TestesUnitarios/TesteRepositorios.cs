@@ -1,26 +1,35 @@
-﻿using Cod3rsGrowth.Infra;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 
-namespace Cod3rsGrowth.Teste;
+namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
 public class TesteRepositorios : TesteBase
 {
-    private readonly IRepositorio<Filme> filmeRepositorio;
-    private readonly IRepositorio<Ator> atorRepositorio;
-    private readonly IRepositorio<Usuario> usuarioRepositorio;
+    private readonly IFilmeRepositorio filmeRepositorio;
+    private readonly IAtorRepositorio atorRepositorio;
+    private readonly IUsuarioRepositorio usuarioRepositorio;
     public TesteRepositorios()
     {
-        filmeRepositorio = serviceProvider.GetService<IRepositorio<Filme>>() ?? throw new Exception("Repositorio nao encontrado");
-        atorRepositorio = serviceProvider.GetService<IRepositorio<Ator>>() ?? throw new Exception("Repositorio nao encontrado");
-        usuarioRepositorio = serviceProvider.GetService<IRepositorio<Usuario>>() ?? throw new Exception("Repositorio nao encontrado");
+        filmeRepositorio = serviceProvider.GetService<IFilmeRepositorio>() ?? throw new Exception("Repositorio nao encontrado");
+        atorRepositorio = serviceProvider.GetService<IAtorRepositorio>() ?? throw new Exception("Repositorio nao encontrado");
+        usuarioRepositorio = serviceProvider.GetService<IUsuarioRepositorio>() ?? throw new Exception("Repositorio nao encontrado");
     }
 
     [Theory]
-    [InlineData(0)][InlineData(1)][InlineData(2)][InlineData(3)][InlineData(4)][InlineData(5)]
-    [InlineData(6)][InlineData(7)][InlineData(8)][InlineData(9)][InlineData(10)][InlineData(11)]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(5)]
+    [InlineData(6)]
+    [InlineData(7)]
+    [InlineData(8)]
+    [InlineData(9)]
+    [InlineData(10)]
+    [InlineData(11)]
     public void ObterTodosRetornaListaDeTodosOsFilmesDoRepositorioQuandoListaNaoNula(int indice)
     {
         List<Filme> listaEsperada = TabelasSingleton.ObterInstanciaFilmes;
@@ -63,7 +72,10 @@ public class TesteRepositorios : TesteBase
     }
 
     [Theory]
-    [InlineData(0)][InlineData(1)][InlineData(2)][InlineData(3)]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
     public void ObterTodosRetornaListaDeTodosOsUsuariosDoRepositorioQuandoListaNaoNula(int indice)
     {
         var listaEsperada = TabelasSingleton.ObterInstanciaUsuarios;

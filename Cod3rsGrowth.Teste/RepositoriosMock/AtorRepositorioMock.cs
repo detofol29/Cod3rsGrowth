@@ -1,12 +1,10 @@
-﻿using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using System.Reflection.Metadata.Ecma335;
 using Cod3rsGrowth.Infra.Interfaces;
 
-namespace Cod3rsGrowth.Teste;
+namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
-public class AtorRepositorioMock : IRepositorio<Ator>
+public class AtorRepositorioMock : IAtorRepositorio
 {
     private readonly List<Ator> tabelasSingleton;
 
@@ -20,7 +18,7 @@ public class AtorRepositorioMock : IRepositorio<Ator>
         return tabelasSingleton.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Ator nao encontrado");
     }
 
-    public List<Ator> ObterTodos() 
+    public List<Ator> ObterTodos()
     {
         return tabelasSingleton;
     }

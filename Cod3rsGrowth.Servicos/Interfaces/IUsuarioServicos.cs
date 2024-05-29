@@ -1,5 +1,4 @@
-﻿using System;
-using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Servicos.Interfaces;
 

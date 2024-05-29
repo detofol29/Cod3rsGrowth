@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Servicos.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Teste;
+namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
 public class TesteServicosAtor : TesteBase
 {

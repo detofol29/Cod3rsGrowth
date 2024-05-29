@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using System.Threading.Channels;
-
-namespace Cod3rsGrowth.Dominio;
+﻿namespace Cod3rsGrowth.Dominio;
 public class Dominio
 {
-    
 }

@@ -1,10 +1,9 @@
 ﻿using Cod3rsGrowth.Infra.Interfaces;
-using System;
 using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 
-public class FilmeRepositorio : IRepositorio<Filme>
+public class FilmeRepositorio : IFilmeRepositorio
 {
     private readonly List<Filme> tabelaFilme;
     public Filme ObterPorId(int id)
@@ -25,9 +24,6 @@ public class FilmeRepositorio : IRepositorio<Filme>
     public void Remover(int id)
     {
         var filme = ObterPorId(id);
-        if (filme != null)
-        {
-            tabelaFilme.Remove(filme);
-        }
+        tabelaFilme.Remove(filme);
     }
 }

@@ -2,9 +2,9 @@
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 
-namespace Cod3rsGrowth.Teste;
+namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
-public class FilmeRepositorioMock : IRepositorio<Filme>
+public class FilmeRepositorioMock : IFilmeRepositorio
 {
     private readonly List<Filme> tabelasSingleton;
 
@@ -18,7 +18,7 @@ public class FilmeRepositorioMock : IRepositorio<Filme>
         return tabelasSingleton.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Filme nao encontrado");
     }
 
-    public List<Filme> ObterTodos() 
+    public List<Filme> ObterTodos()
     {
         return tabelasSingleton;
     }
