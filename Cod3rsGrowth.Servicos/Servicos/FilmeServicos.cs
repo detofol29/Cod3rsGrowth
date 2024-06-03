@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Servicos.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Infra.Repositorios;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
