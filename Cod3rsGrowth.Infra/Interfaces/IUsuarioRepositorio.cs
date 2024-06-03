@@ -4,7 +4,7 @@ namespace Cod3rsGrowth.Infra.Interfaces;
 
 public interface IUsuarioRepositorio  
 {
-     Usuario ObterPorId(int id);
-
+    Usuario ObterPorId(int id);
+    void Inserir(Usuario usuario);
     List<Usuario> ObterTodos();
 }

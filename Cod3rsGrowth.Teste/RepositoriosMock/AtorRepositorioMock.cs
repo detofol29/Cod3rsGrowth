@@ -23,6 +23,11 @@ public class AtorRepositorioMock : IAtorRepositorio
         return tabelasSingleton;
     }
 
+    public void Inserir(Ator ator)
+    {
+        TabelasSingleton.ObterInstanciaAtores.Add(ator);
+    }
+
     public void Adicionar(Ator ator)
     {
         tabelasSingleton.Add(ator);

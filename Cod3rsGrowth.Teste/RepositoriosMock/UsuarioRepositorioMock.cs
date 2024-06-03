@@ -18,6 +18,11 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         return tabelasSingleton.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Usuario nao encontrado");
     }
 
+    public void Inserir(Usuario usuario)
+    {
+        TabelasSingleton.ObterInstanciaUsuarios.Add(usuario);
+    }
+
     public List<Usuario> ObterTodos()
     {
         return tabelasSingleton;

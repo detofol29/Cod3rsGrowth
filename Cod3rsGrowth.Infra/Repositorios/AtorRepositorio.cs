@@ -16,6 +16,11 @@ public class AtorRepositorio : IAtorRepositorio
         return tabelaAtor;
     }
 
+    public void Inserir(Ator ator)
+    {
+        tabelaAtor.Add(ator);
+    }
+
     public void Adicionar(Ator ator)
     {
         tabelaAtor.Add(ator);

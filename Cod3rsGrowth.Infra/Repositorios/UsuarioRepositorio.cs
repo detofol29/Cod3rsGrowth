@@ -16,6 +16,12 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         return tabelaUsuarios;
     }
 
+    public void Inserir(Usuario usuario)
+    {
+        tabelaUsuarios.Add(usuario);
+    }
+
+
     public void Adicionar(Usuario usuario)
     {
         tabelaUsuarios.Add(usuario);

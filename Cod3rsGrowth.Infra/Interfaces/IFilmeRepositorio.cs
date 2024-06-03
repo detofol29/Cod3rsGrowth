@@ -7,4 +7,5 @@ public interface IFilmeRepositorio
     Filme ObterPorId(int id);
 
     List<Filme> ObterTodos();
+    void Inserir(Filme filme);
 }
