@@ -9,10 +9,10 @@ public class FilmeRepositorio : IFilmeRepositorio
     private readonly List<Filme> tabelaFilme;
     public Filme ObterPorId(int id)
     {
-        return tabelaFilme.FirstOrDefault(a => a.Id == id);
+        return tabelaFilme.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Id nao encontrado");
     }
 
-    public List<Filme> ObterTodos()
+     public List<Filme> ObterTodos()
     {
         return tabelaFilme;
     }

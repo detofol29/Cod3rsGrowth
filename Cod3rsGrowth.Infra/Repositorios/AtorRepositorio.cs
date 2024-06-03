@@ -8,7 +8,7 @@ public class AtorRepositorio : IAtorRepositorio
     private readonly List<Ator> tabelaAtor;
     public Ator ObterPorId(int id)
     {
-        return tabelaAtor.FirstOrDefault(a => a.Id == id);
+        return tabelaAtor.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Id nao encontrado");
     }
 
     public List<Ator> ObterTodos()

@@ -8,7 +8,7 @@ public class UsuarioRepositorio : IUsuarioRepositorio
     private readonly List<Usuario> tabelaUsuarios;
     public Usuario ObterPorId(int id)
     {
-        return tabelaUsuarios.FirstOrDefault(a => a.IdUsuario == id);
+        return tabelaUsuarios.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Id nao encontrado");
     }
 
     public List<Usuario> ObterTodos()
