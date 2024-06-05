@@ -57,8 +57,9 @@ public class TesteAtorServico : TesteBase
         _servicos.Inserir(new() {Id = 38, Nome = "Aaron Eckhart", IdFilme = 12, Premios = new List<string> { "SAG Awards", "Black Reel Awards"}});
 
         var lista = _servicos.ObterTodos();
+        var valorEsperado = 38;
 
         Assert.NotEmpty(lista);
-        Assert.Equal(38, lista.Count());
+        Assert.Equal(valorEsperado, lista.Count());
     }
 }

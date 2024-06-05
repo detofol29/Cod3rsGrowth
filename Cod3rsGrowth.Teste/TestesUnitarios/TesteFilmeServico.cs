@@ -31,8 +31,9 @@ public class TesteFilmeServico : TesteBase
         _servicos.Inserir(new Filme { Id = 12, Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze});
 
         var lista = _servicos.ObterTodos();
+        var valorEsperado = 12;
 
         Assert.NotEmpty(lista);
-        Assert.Equal(12, lista.Count());
+        Assert.Equal(valorEsperado, lista.Count());
     }
 }
