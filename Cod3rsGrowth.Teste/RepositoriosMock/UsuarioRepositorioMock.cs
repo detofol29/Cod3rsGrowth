@@ -20,7 +20,7 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
 
     public void Inserir(Usuario usuario)
     {
-        TabelasSingleton.ObterInstanciaUsuarios.Add(usuario);
+        tabelasSingleton.Add(usuario);
     }
 
     public List<Usuario> ObterTodos()

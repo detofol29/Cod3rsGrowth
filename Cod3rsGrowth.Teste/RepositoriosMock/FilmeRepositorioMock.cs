@@ -7,16 +7,14 @@ namespace Cod3rsGrowth.Teste.RepositoriosMock;
 public class FilmeRepositorioMock : IFilmeRepositorio
 {
     private readonly List<Filme> tabelasSingleton;
-    public void Inserir(Filme filme)
-    {
-        TabelasSingleton.ObterInstanciaFilmes.Add(filme);
-    }
-
     public FilmeRepositorioMock()
     {
         tabelasSingleton = TabelasSingleton.ObterInstanciaFilmes;
     }
-
+    public void Inserir(Filme filme)
+    {
+        tabelasSingleton.Add(filme);
+    }
 
     public Filme ObterPorId(int id)
     {
