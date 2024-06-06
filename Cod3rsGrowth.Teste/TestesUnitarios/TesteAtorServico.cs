@@ -73,6 +73,8 @@ public class TesteAtorServico : TesteBase
     [Fact]
     public void ao_ObterPorId_retorna_ator_com_id_igual_a_3()
     {
+        const int idAtor = 3;
+
         _servicos.Inserir(new() { Id = 1, Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.Inserir(new() { Id = 2, Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.Inserir(new() { Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
@@ -81,13 +83,15 @@ public class TesteAtorServico : TesteBase
         _servicos.Inserir(new() { Id = 6, Nome = "Elijah Wood", IdFilme = 4, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
 
         var atorEsperado = ObterAtorEsperado();
-        var atorEncontrado = _servicos.ObterPorId(3);
+        var atorEncontrado = _servicos.ObterPorId(idAtor);
 
         Assert.Equivalent(atorEsperado, atorEncontrado);
     }
     [Fact]
     public void ao_ObterPorId_retorna_mensagem_de_erro_quando_id_nao_encontrado()
     {
+        const int idNaoExistente = -1;
+
         _servicos.Inserir(new() { Id = 1, Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.Inserir(new() { Id = 2, Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.Inserir(new() { Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
@@ -96,8 +100,8 @@ public class TesteAtorServico : TesteBase
         _servicos.Inserir(new() { Id = 6, Nome = "Elijah Wood", IdFilme = 4, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         var mensagemEsperada = "Ator nao encontrado";
 
-        var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(77));
+        var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
 
-        Assert.Equal(mensagemEsperada, excecao.Message);
+        Assert.Equal(mensagemEsperada, excecao.Message); 
     }
 }

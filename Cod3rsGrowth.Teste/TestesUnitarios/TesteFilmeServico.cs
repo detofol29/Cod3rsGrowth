@@ -46,6 +46,8 @@ public class TesteFilmeServico : TesteBase
     [Fact]
     public void ao_ObterPorId_retorna_filme_com_id_igual_a_3()
     {
+        const int idFilme = 3;
+
         _servicos.Inserir(new Filme { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
         _servicos.Inserir(new Filme { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
         _servicos.Inserir(new Filme { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
@@ -60,7 +62,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.Inserir(new Filme { Id = 12, Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
         var filmeEsperado = ObterFilmeEsperado();
 
-        var filmeEncontrado = _servicos.ObterPorId(3);
+        var filmeEncontrado = _servicos.ObterPorId(idFilme);
 
         Assert.NotNull(filmeEncontrado);
         Assert.Equivalent(filmeEsperado, filmeEncontrado);
@@ -68,6 +70,8 @@ public class TesteFilmeServico : TesteBase
 
     public void ao_ObterPorId_retorna_mensagem_de_erro_quando_id_nao_encontrado()
     {
+        const int idNaoExistente = 13;
+
         _servicos.Inserir(new Filme { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
         _servicos.Inserir(new Filme { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
         _servicos.Inserir(new Filme { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
@@ -82,7 +86,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.Inserir(new Filme { Id = 12, Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
 
         var mensagemEsperada = "Filme nao encontrado";
-        var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(13));
+        var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
 
         Assert.Equal(mensagemEsperada, excecao.Message);
     }
