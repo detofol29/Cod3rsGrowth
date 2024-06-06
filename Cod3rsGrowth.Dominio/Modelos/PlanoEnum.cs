@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Cod3rsGrowth.Dominio.Modelos;
+﻿namespace Cod3rsGrowth.Dominio.Modelos;
 
 public enum PlanoEnum
 {
