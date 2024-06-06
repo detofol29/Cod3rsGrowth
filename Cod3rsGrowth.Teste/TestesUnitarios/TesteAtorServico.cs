@@ -3,6 +3,7 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -14,9 +15,16 @@ public class TesteAtorServico : TesteBase
         _servicos = serviceProvider.GetService<AtorServicos>() ?? throw new Exception("Servico nao encontrado");
     }
 
+    private Ator ObterAtorEsperado()
+    {
+        return new Ator() { Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } };
+    }
+
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_trinta_e_oito_atores()
     {
+        const int valorEsperado = 38;
+
         _servicos.Inserir(new() {Id = 1, Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards"}});
         _servicos.Inserir(new() {Id = 2, Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" }});
         _servicos.Inserir(new() {Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards"}});
@@ -57,9 +65,43 @@ public class TesteAtorServico : TesteBase
         _servicos.Inserir(new() {Id = 38, Nome = "Aaron Eckhart", IdFilme = 12, Premios = new List<string> { "SAG Awards", "Black Reel Awards"}});
 
         var lista = _servicos.ObterTodos();
-        var valorEsperado = 38;
 
         Assert.NotEmpty(lista);
         Assert.Equal(valorEsperado, lista.Count());
+    }
+
+    [Fact]
+    public void ao_ObterPorId_retorna_ator_com_id_igual_a_3()
+    {
+        const int idAtor = 3;
+
+        _servicos.Inserir(new() { Id = 1, Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 2, Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 4, Nome = "Michael J. Fox", IdFilme = 1, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 5, Nome = "Leonardo DiCaprio", IdFilme = 2, Premios = new List<string> { "Oscar Melhor Ator(2016)", "Golden Globe Awards" } });
+        _servicos.Inserir(new() { Id = 6, Nome = "Elijah Wood", IdFilme = 4, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+
+        var atorEsperado = ObterAtorEsperado();
+        var atorEncontrado = _servicos.ObterPorId(idAtor);
+
+        Assert.Equivalent(atorEsperado, atorEncontrado);
+    }
+    [Fact]
+    public void ao_ObterPorId_retorna_mensagem_de_erro_quando_id_nao_encontrado()
+    {
+        const int idNaoExistente = -1;
+
+        _servicos.Inserir(new() { Id = 1, Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 2, Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 4, Nome = "Michael J. Fox", IdFilme = 1, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        _servicos.Inserir(new() { Id = 5, Nome = "Leonardo DiCaprio", IdFilme = 2, Premios = new List<string> { "Oscar Melhor Ator(2016)", "Golden Globe Awards" } });
+        _servicos.Inserir(new() { Id = 6, Nome = "Elijah Wood", IdFilme = 4, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
+        var mensagemEsperada = "Ator nao encontrado";
+
+        var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
+
+        Assert.Equal(mensagemEsperada, excecao.Message); 
     }
 }
