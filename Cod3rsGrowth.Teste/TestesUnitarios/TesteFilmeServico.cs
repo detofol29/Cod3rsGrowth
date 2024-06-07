@@ -17,6 +17,7 @@ public class TesteFilmeServico : TesteBase
     {
         _servicos = serviceProvider.GetService<FilmeServicos>() ?? throw new Exception("servico nao encontrado");
         _validator = new FilmeValidation();
+        _servicos.ObterTodos().Clear();
     }
 
     private Filme ObterFilmeEsperado()
