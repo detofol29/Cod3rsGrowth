@@ -1,14 +1,21 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Interfaces;
+using FluentValidation;
+using FluentValidation.Results;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class FilmeServicos : IFilmeRepositorio
 {
+    private readonly IValidator<Filme> _validator;
     private readonly IFilmeRepositorio _filmeRepositorio;
-    public FilmeServicos(IFilmeRepositorio filmeRepositorio)
+    public FilmeServicos(IFilmeRepositorio filmeRepositorio, IValidator<Filme> validator)
     {
         _filmeRepositorio = filmeRepositorio;
+        _validator = validator;
     }
 
     public List<Filme> ObterTodos()
@@ -51,5 +58,20 @@ public class FilmeServicos : IFilmeRepositorio
                 return false;
                 break;
         }
+    }
+
+    public ValidationResult CriarFilme(Filme filme)
+    {
+        ValidationResult result = _validator.Validate(filme);
+        if (result.IsValid)
+        {
+            Inserir(filme);
+        }
+        return result;
+    }
+
+    public int GerarId()
+    {
+        return _filmeRepositorio.ObterTodos().Count() + 1;
     }
 }

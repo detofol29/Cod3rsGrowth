@@ -1,15 +1,19 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class UsuarioServicos : IUsuarioRepositorio
 {
     private readonly IUsuarioRepositorio _usuarioRepositorio;
-    public UsuarioServicos(IUsuarioRepositorio usuarioRepositorio)
+    private readonly IValidator<Usuario> _validator;
+    public UsuarioServicos(IUsuarioRepositorio usuarioRepositorio, IValidator<Usuario> validator)
     {
         _usuarioRepositorio = usuarioRepositorio;
+        _validator = validator;
     }
     
     public List<Usuario> ObterTodos()
@@ -42,5 +46,15 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public void LicenciarFilmePorUsuario(Usuario usuario)
     {
+    }
+
+    public ValidationResult CriarUsuario(Usuario usuario)
+    {
+        ValidationResult result = _validator.Validate(usuario);
+        if (result.IsValid)
+        {
+            Inserir(usuario);
+        }
+        return result;
     }
 }

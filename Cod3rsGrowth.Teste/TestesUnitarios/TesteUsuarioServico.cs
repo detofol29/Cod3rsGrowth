@@ -3,15 +3,19 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Dominio.Validations;
+using System.Globalization;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
 public class TesteUsuarioServico : TesteBase
 {
     private readonly UsuarioServicos _servicos;
+    private readonly UsuarioValidation _validator;
     public TesteUsuarioServico()
     {
         _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Servico nao encontrado");
+        _validator = new UsuarioValidation();
     }
 
     private Usuario ObterUsuarioEsperado()
@@ -64,5 +68,123 @@ public class TesteUsuarioServico : TesteBase
         var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
 
         Assert.Equal(mensagemEsperada, excecao.Message);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_nome_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "Nome nao pode estar vazio";
+
+        Usuario usuario = new()
+        {
+            Nome = "",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = "123456"
+        };
+
+        var resultado = _validator.Validate(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Nome")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_nickname_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O nome de usuario nao pode estar vazio";
+
+        Usuario usuario = new()
+        {
+            Nome = "Robertinho",
+            IdUsuario = id,
+            NickName = "",
+            Senha = "123456"
+        };
+
+        var resultado = _validator.Validate(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "NickName")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_senha_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "A senha deve ter no minimo 6 digitos";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = ""
+        };
+
+        var resultado = _validator.Validate(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_inferior_a_6_caracteres_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "A senha deve ter no minimo 6 digitos";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = "12345"
+        };
+
+        var resultado = _validator.Validate(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_id_negativo_retorna_mensagem_de_erro()
+    {
+        const int idNegativo = -1;
+        const string mensagemEsperada = "Id precisa ser um numero positivo";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = idNegativo,
+            NickName = "Robertinho",
+            Senha = "12345"
+        };
+
+        var resultado = _validator.Validate(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "IdUsuario")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_id_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "Id nao pode ser nulo";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            NickName = "Robertinho",
+            Senha = "12345"
+        };
+
+        var resultado = _validator.Validate(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "IdUsuario")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
     }
 }

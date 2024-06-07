@@ -4,15 +4,19 @@ using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
 using System.Reflection.Metadata.Ecma335;
+using Cod3rsGrowth.Dominio.Validations;
+using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
 public class TesteAtorServico : TesteBase
 {
     private readonly AtorServicos _servicos;
+    private readonly AtorValidation _validator;
     public TesteAtorServico()
     {
         _servicos = serviceProvider.GetService<AtorServicos>() ?? throw new Exception("Servico nao encontrado");
+        _validator = new AtorValidation();
     }
 
     private Ator ObterAtorEsperado()
@@ -103,5 +107,54 @@ public class TesteAtorServico : TesteBase
         var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
 
         Assert.Equal(mensagemEsperada, excecao.Message); 
+    }
+
+    [Fact]
+    public void ao_criar_ator_sem_nome_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "Nome nao pode estar vazio";
+
+        Ator ator = new()
+        {
+            Nome = "",
+            Id = id
+        };
+
+        ValidationResult resultado = _servicos.CriarAtor(ator);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Nome")?.ErrorMessage;
+        Assert.Equal(mensagemEsperada, mensagemErro);
+    }
+
+    [Fact]
+    public void ao_criar_ator_sem_id_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "Id nao pode ser nulo";
+
+        Ator ator = new()
+        {
+            Nome = "Fernandin",
+        };
+
+        ValidationResult resultado = _servicos.CriarAtor(ator);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Id")?.ErrorMessage;
+        Assert.Equal(mensagemEsperada, mensagemErro);
+    }
+
+    [Fact]
+    public void ao_criar_ator_com_id_negativo_retorna_mensagem_de_erro()
+    {
+        const int idNegativo = -1;
+        const string mensagemEsperada = "Id precisa ser um numero positivo";
+
+        Ator ator = new()
+        {
+            Nome = "Fernandin",
+            Id = idNegativo
+        };
+
+        ValidationResult resultado = _servicos.CriarAtor(ator);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Id")?.ErrorMessage;
+        Assert.Equal(mensagemEsperada, mensagemErro);
     }
 }

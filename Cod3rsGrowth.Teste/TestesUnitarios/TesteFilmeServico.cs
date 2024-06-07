@@ -3,15 +3,20 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Dominio.Validations;
+using FluentValidation.Results;
+using System;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
 public class TesteFilmeServico : TesteBase
 {
     private readonly FilmeServicos _servicos;
+    private readonly FilmeValidation _validator;
     public TesteFilmeServico()
     {
         _servicos = serviceProvider.GetService<FilmeServicos>() ?? throw new Exception("servico nao encontrado");
+        _validator = new FilmeValidation();
     }
 
     private Filme ObterFilmeEsperado()
@@ -68,6 +73,7 @@ public class TesteFilmeServico : TesteBase
         Assert.Equivalent(filmeEsperado, filmeEncontrado);
     }
 
+    [Fact]
     public void ao_ObterPorId_retorna_mensagem_de_erro_quando_id_nao_encontrado()
     {
         const int idNaoExistente = 13;
@@ -89,5 +95,68 @@ public class TesteFilmeServico : TesteBase
         var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
 
         Assert.Equal(mensagemEsperada, excecao.Message);
+    }
+
+    [Fact]
+    public void ao_criar_filme_com_titulo_vazio_retorna_mensagem_de_erro()
+    {
+        const int id = 20;
+        const string resultadoEsperado = "Campo de titulo obrigatorio";
+        Filme filme = new()
+        {
+            Titulo = "",
+            Id = id
+        };
+
+        ValidationResult resultado = _servicos.CriarFilme(filme);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Titulo")?.ErrorMessage;
+
+        Assert.Equal(resultadoEsperado, mensagemErro);
+    }
+
+    [Fact]
+    public void ao_criar_filme_com_id_nulo_retorna_mensagem_de_erro()
+    {
+        const string resultadoEsperado = "Id não cadastrado";
+        Filme filme = new()
+        {
+            Titulo = "Tucanos Assassinos",
+        };
+        ValidationResult resultado = _servicos.CriarFilme(filme);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Id")?.ErrorMessage;
+        Assert.Equal(resultadoEsperado, mensagemErro);
+    }
+
+    [Fact]
+    public void ao_criar_filme_com_id_negativo_retorna_mensagem_de_erro()
+    {
+        const string resultadoEsperado = "Id nao pode ser negativo";
+        const int idNegativo = -12;
+        Filme filme = new()
+        {
+            Titulo = "Tucanos Assassinos",
+            Id = idNegativo
+        };
+        ValidationResult resultado = _servicos.CriarFilme(filme);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Id")?.ErrorMessage;
+        Assert.Equal(resultadoEsperado, mensagemErro);
+    }
+
+    [Fact]
+    public void ao_criar_filme_com_data_de_lancamento_superior_a_data_atual_retorna_mensagem_de_erro()
+    {
+        const int acrescimo = 1;
+        const string resultadoEsperado = "A data de lancamento nao pode ser superior a data atual";
+        DateTime dataFutura = DateTime.Now.AddDays(acrescimo);
+
+        Filme filme = new()
+        {
+            Titulo = "A revolta dos tomates",
+            DataDeLancamento = dataFutura
+        };
+
+        ValidationResult resultado = _servicos.CriarFilme(filme);
+        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "DataDeLancamento")?.ErrorMessage;
+        Assert.Equal(resultadoEsperado, mensagemErro);
     }
 }
