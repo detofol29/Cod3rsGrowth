@@ -79,7 +79,7 @@ public class TesteUsuarioServico : TesteBase
             Nome = "",
             IdUsuario = id,
             NickName = "Robertinho",
-            Senha = "123456"
+            Senha = "Abc123456"
         };
 
         var resultado = _servicos.CriarUsuario(usuario);
@@ -99,7 +99,7 @@ public class TesteUsuarioServico : TesteBase
             Nome = "Robertinho",
             IdUsuario = id,
             NickName = "",
-            Senha = "123456"
+            Senha = "Abc123456"
         };
 
         var resultado = _servicos.CriarUsuario(usuario);
@@ -139,7 +139,70 @@ public class TesteUsuarioServico : TesteBase
             Nome = "Roberto",
             IdUsuario = id,
             NickName = "Robertinho",
-            Senha = "12345"
+            Senha = "Ab123"
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_que_nao_possui_uma_letra_maiuscula_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra maiúscula!";
+        const string senhaSemLetraMaiuscula = "robertinho123";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = senhaSemLetraMaiuscula
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_que_nao_possui_uma_letra_minuscula_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra minuscula!";
+        const string senhaSemLetraMinuscula = "ROBERTINHO123";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = senhaSemLetraMinuscula
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_sem_numero_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos um número!";
+        const string senhaSemNumero = "Robertinha";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = senhaSemNumero
         };
 
         var resultado = _servicos.CriarUsuario(usuario);
@@ -159,7 +222,7 @@ public class TesteUsuarioServico : TesteBase
             Nome = "Roberto",
             IdUsuario = idNegativo,
             NickName = "Robertinho",
-            Senha = "12345"
+            Senha = "Abc12345"
         };
 
         var resultado = _servicos.CriarUsuario(usuario);
@@ -177,7 +240,7 @@ public class TesteUsuarioServico : TesteBase
         {
             Nome = "Roberto",
             NickName = "Robertinho",
-            Senha = "12345"
+            Senha = "Abc12345"
         };
 
         var resultado = _servicos.CriarUsuario(usuario);

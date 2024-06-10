@@ -27,12 +27,12 @@ public class UsuarioValidacao : AbstractValidator<Usuario>
             .WithMessage("O campo 'senha' não pode estar vazio!")
             .MinimumLength(6)
             .WithMessage("O campo 'senha' deve ter no mínimo 6 digitos!")
-            .Matches(@"[A-Z]")
+            .Matches("[A-Z]")
             .WithMessage("O campo 'senha' deve conter pelo menos uma letra maiúscula!")
-            .Matches("@[0-9]")
-            .WithMessage("O campo 'senha' deve conter pelo menos um número!")
-            .Matches("@[a-z]")
-            .WithMessage("O campo 'senha' deve conter pelo menos uma letra minuscula!");
+            .Matches("[a-z]")
+            .WithMessage("O campo 'senha' deve conter pelo menos uma letra minuscula!")
+            .Matches("[0-9]")
+            .WithMessage("O campo 'senha' deve conter pelo menos um número!");
             
 
         RuleFor(id => id.IdUsuario)
