@@ -36,11 +36,15 @@ public class AtorServicos : IAtorRepositorio
 
     public ValidationResult CriarAtor(Ator ator)
     {
-        ValidationResult result = _validator.Validate(ator);
-        if (result.IsValid)
+        try
         {
+            _validator.ValidateAndThrow(ator);
             Inserir(ator);
+            return new ValidationResult();
         }
-        return result;
+        catch(ValidationException ex)
+        {
+            return new ValidationResult(ex.Errors);
+        }
     }
 }

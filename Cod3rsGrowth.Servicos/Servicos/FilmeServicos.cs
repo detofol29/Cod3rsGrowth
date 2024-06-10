@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
+using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
@@ -60,18 +61,23 @@ public class FilmeServicos : IFilmeRepositorio
         }
     }
 
-    public ValidationResult CriarFilme(Filme filme)
-    {
-        ValidationResult result = _validator.Validate(filme);
-        if (result.IsValid)
-        {
-            Inserir(filme);
-        }
-        return result;
-    }
-
     public int GerarId()
     {
         return _filmeRepositorio.ObterTodos().Count() + 1;
     }
+
+    public ValidationResult CriarFilme(Filme filme)
+    {
+        try
+        {
+            _validator.ValidateAndThrow(filme);
+            Inserir(filme);
+            return new ValidationResult();
+        }
+        catch (ValidationException ex)
+        {
+            return new ValidationResult(ex.Errors);
+        }
+    }
+
 }

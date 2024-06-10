@@ -4,7 +4,7 @@ using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.RepositoriosMock;
 using FluentValidation;
-using Cod3rsGrowth.Dominio.Validations;
+using Cod3rsGrowth.Dominio.Validacoes;
 
 namespace Cod3rsGrowth.Teste;
 public static class ModuloInjetor
@@ -17,8 +17,8 @@ public static class ModuloInjetor
         services.AddScoped<UsuarioServicos>();
         services.AddScoped<FilmeServicos>();
         services.AddScoped<AtorServicos>();
-        services.AddScoped<IValidator<Filme>, FilmeValidation>();
-        services.AddScoped<IValidator<Ator>, AtorValidation>();
-        services.AddScoped<IValidator<Usuario>, UsuarioValidation>();
+        services.AddScoped<IValidator<Filme>, FilmeValidacao>();
+        services.AddScoped<IValidator<Ator>, AtorValidacao>();
+        services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
     }
 }

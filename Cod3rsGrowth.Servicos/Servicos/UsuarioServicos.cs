@@ -50,11 +50,15 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public ValidationResult CriarUsuario(Usuario usuario)
     {
-        ValidationResult result = _validator.Validate(usuario);
-        if (result.IsValid)
+        try
         {
+            _validator.ValidateAndThrow(usuario);
             Inserir(usuario);
+            return new ValidationResult();
         }
-        return result;
+        catch (ValidationException ex)
+        {
+            return new ValidationResult(ex.Errors);
+        }
     }
 }
