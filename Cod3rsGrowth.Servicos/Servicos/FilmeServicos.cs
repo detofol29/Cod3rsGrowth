@@ -1,14 +1,22 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Interfaces;
+using FluentValidation;
+using FluentValidation.Results;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
+using ValidationException = FluentValidation.ValidationException;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class FilmeServicos : IFilmeRepositorio
 {
+    private readonly IValidator<Filme> _validator;
     private readonly IFilmeRepositorio _filmeRepositorio;
-    public FilmeServicos(IFilmeRepositorio filmeRepositorio)
+    public FilmeServicos(IFilmeRepositorio filmeRepositorio, IValidator<Filme> validator)
     {
         _filmeRepositorio = filmeRepositorio;
+        _validator = validator;
     }
 
     public List<Filme> ObterTodos()
@@ -51,5 +59,38 @@ public class FilmeServicos : IFilmeRepositorio
                 return false;
                 break;
         }
+    }
+
+
+    public ValidationResult CriarFilme(Filme filme)
+    {
+        try
+        {
+            filme.Id = GerarId();
+            _validator.ValidateAndThrow(filme);
+            Inserir(filme);
+            return new ValidationResult();
+        }
+        catch (ValidationException ex)
+        {
+            return new ValidationResult(ex.Errors);
+        }
+    }
+    
+    private int GerarId()
+    {
+        const int idInicial = 1;
+        const int indiceVazio = 0;
+
+        List<int> ListaIds = new List<int>();
+        foreach(var filme in _filmeRepositorio.ObterTodos())
+        {
+            ListaIds.Add(filme.Id);
+        }
+        if(ListaIds.Count() == indiceVazio) { return  idInicial; }
+        ListaIds.Sort();
+        var indiceUltimo = ListaIds.Count() - idInicial;
+        var idFinal = ListaIds[indiceUltimo] + idInicial;
+        return idFinal;
     }
 }

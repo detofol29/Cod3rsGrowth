@@ -3,6 +3,8 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Dominio.Validacoes;
+using System.Globalization;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -11,7 +13,7 @@ public class TesteUsuarioServico : TesteBase
     private readonly UsuarioServicos _servicos;
     public TesteUsuarioServico()
     {
-        _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Servico nao encontrado");
+        _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Serviço não encontrado!");
     }
 
     private Usuario ObterUsuarioEsperado()
@@ -64,5 +66,168 @@ public class TesteUsuarioServico : TesteBase
         var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
 
         Assert.Equal(mensagemEsperada, excecao.Message);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_nome_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'Nome' não pode estar vazio!";
+
+        Usuario usuario = new()
+        {
+            Nome = "",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = "Abc123456"
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Nome")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_nickname_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'nome de usuário' não pode estar vazio!";
+
+        Usuario usuario = new()
+        {
+            Nome = "Robertinho",
+            IdUsuario = id,
+            NickName = "",
+            Senha = "Abc123456"
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "NickName")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_sem_senha_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' não pode estar vazio!";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = ""
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_inferior_a_6_caracteres_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve ter no mínimo 6 digitos!";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = "Ab123"
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_que_nao_possui_uma_letra_maiuscula_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra maiúscula!";
+        const string senhaSemLetraMaiuscula = "robertinho123";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = senhaSemLetraMaiuscula
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_que_nao_possui_uma_letra_minuscula_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra minuscula!";
+        const string senhaSemLetraMinuscula = "ROBERTINHO123";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = senhaSemLetraMinuscula
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_senha_sem_numero_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos um número!";
+        const string senhaSemNumero = "Robertinha";
+
+        Usuario usuario = new()
+        {
+            Nome = "Roberto",
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = senhaSemNumero
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Senha")?.ErrorMessage;
+
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_criar_usuario_com_nome_contendo_numero_retorna_mensagem_de_erro()
+    {
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
+        const string nomeComNumero = "Roberto7";
+
+        Usuario usuario = new()
+        {
+            Nome = nomeComNumero,
+            IdUsuario = id,
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        var resultado = _servicos.CriarUsuario(usuario);
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Nome")?.ErrorMessage;
+        Assert.Equal(mensagemEsperada, mensagemDeErro);
     }
 }
