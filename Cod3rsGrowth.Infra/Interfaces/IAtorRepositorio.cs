@@ -6,5 +6,5 @@ public interface IAtorRepositorio
 {
     Ator ObterPorId(int id);
     void Inserir(Ator ator);
-    List<Ator> ObterTodos();
+    List<Ator> ObterTodos(); 
 }
