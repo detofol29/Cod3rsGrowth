@@ -212,40 +212,22 @@ public class TesteUsuarioServico : TesteBase
     }
 
     [Fact]
-    public void ao_criar_usuario_com_id_negativo_retorna_mensagem_de_erro()
+    public void ao_criar_usuario_com_nome_contendo_numero_retorna_mensagem_de_erro()
     {
-        const int idNegativo = -1;
-        const string mensagemEsperada = "O campo 'Id' precisa conter um número positivo!";
+        const int id = 3;
+        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
+        const string nomeComNumero = "Roberto7";
 
         Usuario usuario = new()
         {
-            Nome = "Roberto",
-            IdUsuario = idNegativo,
+            Nome = nomeComNumero,
+            IdUsuario = id,
             NickName = "Robertinho",
             Senha = "Abc12345"
         };
 
         var resultado = _servicos.CriarUsuario(usuario);
-        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "IdUsuario")?.ErrorMessage;
-
-        Assert.Equal(mensagemEsperada, mensagemDeErro);
-    }
-
-    //[Fact]
-    public void ao_criar_usuario_sem_id_retorna_mensagem_de_erro()
-    {
-        const string mensagemEsperada = "Id nao pode ser nulo";
-
-        Usuario usuario = new()
-        {
-            Nome = "Roberto",
-            NickName = "Robertinho",
-            Senha = "Abc12345"
-        };
-
-        var resultado = _servicos.CriarUsuario(usuario);
-        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "IdUsuario")?.ErrorMessage;
-
+        var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Nome")?.ErrorMessage;
         Assert.Equal(mensagemEsperada, mensagemDeErro);
     }
 }

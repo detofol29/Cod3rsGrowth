@@ -52,6 +52,7 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
         try
         {
+            usuario.IdUsuario = GerarId();
             _validator.ValidateAndThrow(usuario);
             Inserir(usuario);
             return new ValidationResult();
@@ -60,5 +61,22 @@ public class UsuarioServicos : IUsuarioRepositorio
         {
             return new ValidationResult(ex.Errors);
         }
+    }
+
+    private int GerarId()
+    {
+        const int idInicial = 1;
+        const int indiceVazio = 0;
+
+        List<int> ListaIds = new List<int>();
+        foreach (var usuario in _usuarioRepositorio.ObterTodos())
+        {
+            ListaIds.Add(usuario.IdUsuario);
+        }
+        if (ListaIds.Count() == indiceVazio) { return idInicial; }
+        ListaIds.Sort();
+        var indiceUltimo = ListaIds.Count() - idInicial;
+        var idFinal = ListaIds[indiceUltimo] + idInicial;
+        return idFinal;
     }
 }

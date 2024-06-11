@@ -61,15 +61,12 @@ public class FilmeServicos : IFilmeRepositorio
         }
     }
 
-    public int GerarId()
-    {
-        return _filmeRepositorio.ObterTodos().Count() + 1;
-    }
 
     public ValidationResult CriarFilme(Filme filme)
     {
         try
         {
+            filme.Id = GerarId();
             _validator.ValidateAndThrow(filme);
             Inserir(filme);
             return new ValidationResult();
@@ -79,5 +76,21 @@ public class FilmeServicos : IFilmeRepositorio
             return new ValidationResult(ex.Errors);
         }
     }
+    
+    private int GerarId()
+    {
+        const int idInicial = 1;
+        const int indiceVazio = 0;
 
+        List<int> ListaIds = new List<int>();
+        foreach(var filme in _filmeRepositorio.ObterTodos())
+        {
+            ListaIds.Add(filme.Id);
+        }
+        if(ListaIds.Count() == indiceVazio) { return  idInicial; }
+        ListaIds.Sort();
+        var indiceUltimo = ListaIds.Count() - idInicial;
+        var idFinal = ListaIds[indiceUltimo] + idInicial;
+        return idFinal;
+    }
 }

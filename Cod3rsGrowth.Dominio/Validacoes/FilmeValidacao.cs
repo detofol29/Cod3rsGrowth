@@ -17,9 +17,5 @@ public class FilmeValidacao : AbstractValidator<Filme>
         RuleFor(d => d.DataDeLancamento)
             .LessThan(DateTime.Now)
             .WithMessage("O campo 'data de lançamento' não pode ser superior a data atual");
-
-        RuleFor(id => id.Id)
-            .Must(id => id > IdBase)
-            .WithMessage("O campo 'Id' não pode ser um número negativo!");
     }
 }
