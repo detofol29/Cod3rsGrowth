@@ -159,8 +159,11 @@ public class TesteAtorServico : TesteBase
         Assert.Equal(atorEditado.Nome, atorEncontrado.Nome);
     }
 
-    public void ao_editar_ator_retorna_ator_com_mesmo_id_do_anterior()
+    [Fact]
+    public void ao_editar_ator_com_nome_vazio_retorna_mensagem_de_erro()
     {
+        const string mensagemEsperada = "O campo de 'Nome' não pode estar vazio!";
+
         Ator atorBase = new()
         {
             Nome = "Criss Byuither"
@@ -168,14 +171,33 @@ public class TesteAtorServico : TesteBase
 
         Ator atorEditado = new()
         {
-            Nome = "Criss Byuither Silva"
+            Nome = ""
         };
+
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
 
-        _servicos.Editar(idBase, atorEditado);
-        var atorEncontrado = _servicos.ObterPorId(idBase);
+    [Fact]
+    public void ao_editar_ator_com_nome_contendo_numeros_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
 
-        Assert.Equal(atorEditado.Id, atorEncontrado.Id);
+        Ator atorBase = new()
+        {
+            Nome = "Criss Byuither"
+        };
+
+        Ator atorEditado = new()
+        {
+            Nome = "Criss Byuither Silva45"
+        };
+
+        _servicos.CriarAtor(atorBase);
+        var idBase = atorBase.Id;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
     }
 }

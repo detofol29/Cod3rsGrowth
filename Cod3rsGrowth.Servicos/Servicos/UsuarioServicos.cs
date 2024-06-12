@@ -63,22 +63,16 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
     }
 
-    public ValidationResult Editar(int id, Usuario usuario)
+    public void Editar(int id, Usuario usuario)
     {
-        var UsuarioEncontrado = ObterPorId(id);
-        Remover(id);
-
-        try
+        var validacao = _validator.Validate(usuario);
+        if (validacao.IsValid)
         {
-            usuario.IdUsuario = id;
-            _validator.ValidateAndThrow(usuario);
-            Inserir(usuario);
-            Ordenar();
-            return new ValidationResult();
+            _usuarioRepositorio.Editar(id, usuario);
         }
-        catch (ValidationException ex)
+        else
         {
-            return new ValidationResult(ex.Errors);
+            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
 

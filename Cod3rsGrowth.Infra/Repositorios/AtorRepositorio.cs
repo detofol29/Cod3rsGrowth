@@ -36,4 +36,12 @@ public class AtorRepositorio : IAtorRepositorio
     {
         tabelaAtor.OrderBy(n => n.Id);
     }
+
+    public void Editar(int id, Ator ator)
+    {
+        var alterarAtor = ObterPorId(id);
+        alterarAtor.Nome = ator.Nome;
+        alterarAtor.Premios = ator.Premios;
+        alterarAtor.IdFilme = ator.IdFilme;
+    }
 }

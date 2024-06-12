@@ -36,4 +36,14 @@ public class UsuarioRepositorio : IUsuarioRepositorio
     {
         tabelaUsuarios.OrderBy(n => n.IdUsuario);
     }
+
+    public void Editar(int id,  Usuario usuario)
+    {
+        var alterarUsuario = ObterPorId(id);
+        alterarUsuario.Nome = usuario.Nome;
+        alterarUsuario.MinhaLista = usuario.MinhaLista;
+        alterarUsuario.Plano = usuario.Plano;
+        alterarUsuario.Senha = usuario.Senha;
+        alterarUsuario.NickName = usuario.NickName;
+    }
 }

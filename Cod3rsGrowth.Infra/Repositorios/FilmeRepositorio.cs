@@ -37,4 +37,19 @@ public class FilmeRepositorio : IFilmeRepositorio
     {
         tabelaFilme.OrderBy(n => n.Id);
     }
+
+    public void Editar(int id, Filme filme)
+    {
+        var AlterarFilme = ObterPorId(id);
+        AlterarFilme.Titulo = filme.Titulo;
+        AlterarFilme.Nota = filme.Nota;
+        AlterarFilme.DataDeLancamento = filme.DataDeLancamento;
+        AlterarFilme.Genero = filme.Genero;
+        AlterarFilme.EmCartaz = filme.EmCartaz;
+        AlterarFilme.Duracao = filme.Duracao;
+        AlterarFilme.DisponivelNoPlano = filme.DisponivelNoPlano;
+        AlterarFilme.Diretor = filme.Diretor;
+        AlterarFilme.Classificacao = filme.Classificacao;
+        AlterarFilme.Atores = filme.Atores;
+    }
 }

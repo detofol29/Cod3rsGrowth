@@ -254,9 +254,12 @@ public class TesteUsuarioServico : TesteBase
 
         Assert.Equal(usuarioEditado.Nome, usuarioEncontrado.Nome);
     }
+
     [Fact]
-    public void ao_editar_usuario_retorna_usuario_com_mesmo_id_do_anterior()
+    public void ao_editar_usuario_sem_nome_retorna_mensagem_de_erro()
     {
+        const string mensagemEsperada = "O campo 'Nome' não pode estar vazio!";
+
         Usuario usuarioBase = new()
         {
             Nome = "Criss Byuither",
@@ -266,16 +269,39 @@ public class TesteUsuarioServico : TesteBase
 
         Usuario usuarioEditado = new()
         {
-            Nome = "Criss Byuither Silva",
+            Nome = "",
             NickName = "Robertinho",
             Senha = "Abc12345"
         };
+
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
 
-        _servicos.Editar(idBase,usuarioEditado);
-        var usuarioEncontrado = _servicos.ObterPorId(idBase);
+    [Fact]
+    public void ao_editar_usuario_com_nome_contendo_numeros_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
 
-        Assert.Equal(usuarioEditado.IdUsuario, usuarioEncontrado.IdUsuario);
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Criss Byuither77",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
     }
 }

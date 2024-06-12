@@ -50,22 +50,16 @@ public class AtorServicos : IAtorRepositorio
         }
     }
 
-    public ValidationResult Editar(int id, Ator ator)
+    public void Editar(int id, Ator ator)
     {
-        var atorEncontrado = ObterPorId(id);
-        Remover(id);
-
-        try
+        var validacao = _validator.Validate(ator);
+        if (validacao.IsValid)
         {
-            ator.Id = id;
-            _validator.ValidateAndThrow(ator);
-            Inserir(ator);
-            Ordenar();
-            return new ValidationResult();
+            _atorRepositorio.Editar(id, ator);
         }
-        catch (ValidationException ex)
+        else
         {
-            return new ValidationResult(ex.Errors);
+            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
 

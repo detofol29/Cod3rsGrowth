@@ -78,25 +78,19 @@ public class FilmeServicos : IFilmeRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
-        }
+        } 
     }
 
-    public ValidationResult Editar(int id, Filme filme)
+    public void Editar(int id, Filme filme)
     {
-        var filmeEncontrado = ObterPorId(id);
-        Remover(id);
-
-        try
+        var validacao = _validator.Validate(filme);
+        if (validacao.IsValid)
         {
-            filme.Id = id;
-            _validator.ValidateAndThrow(filme);
-            Inserir(filme);
-            Ordenar();
-            return new ValidationResult();
+            _filmeRepositorio.Editar(id, filme);
         }
-        catch (ValidationException ex)
+        else
         {
-            return new ValidationResult(ex.Errors);
+            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
 

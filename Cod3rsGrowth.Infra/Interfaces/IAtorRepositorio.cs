@@ -9,4 +9,5 @@ public interface IAtorRepositorio
     List<Ator> ObterTodos();
     public void Ordenar();
     public void Remover(int id);
+    public void Editar(int id, Ator ator);
 }

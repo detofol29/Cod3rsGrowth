@@ -9,4 +9,5 @@ public interface IUsuarioRepositorio
     List<Usuario> ObterTodos();
     public void Remover(int id);
     public void Ordenar();
+    public void Editar(int id, Usuario usuario);
 }
