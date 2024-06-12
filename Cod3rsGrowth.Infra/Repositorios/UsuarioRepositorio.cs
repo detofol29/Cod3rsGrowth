@@ -31,4 +31,9 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         var usuario = ObterPorId(id);
         tabelaUsuarios.Remove(usuario);
     }
+
+    public void Ordenar()
+    {
+        tabelaUsuarios.OrderBy(n => n.IdUsuario);
+    }
 }

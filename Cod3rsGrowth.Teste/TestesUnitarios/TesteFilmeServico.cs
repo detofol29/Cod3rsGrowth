@@ -128,4 +128,47 @@ public class TesteFilmeServico : TesteBase
         var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "DataDeLancamento")?.ErrorMessage;
         Assert.Equal(resultadoEsperado, mensagemErro);
     }
+
+    [Fact]
+    public void ao_editar_filme_retorna_o_filme_editado_com_o_mesmo_id_do_filme_substituido()
+    {
+        Filme filmeBase = new Filme()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A vingança de Zuck"
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+
+        _servicos.Editar(idBase, filmeEditado);
+        
+        Assert.Equal(idBase, filmeEditado.Id);
+    }
+
+    [Fact]
+    public void ao_editar_filme_retorna_filme_com_titulo_editado()
+    {
+        Filme filmeBase = new Filme()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A vingança de Zuck"
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+        _servicos.Editar(idBase,filmeEditado);
+
+        var filmeObtido = _servicos.ObterPorId(idBase);
+
+        Assert.Equal(filmeEditado.Titulo, filmeObtido.Titulo);
+    }
 }

@@ -7,4 +7,6 @@ public interface IUsuarioRepositorio
     Usuario ObterPorId(int id);
     void Inserir(Usuario usuario);
     List<Usuario> ObterTodos();
+    public void Remover(int id);
+    public void Ordenar();
 }

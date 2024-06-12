@@ -38,4 +38,9 @@ public class AtorRepositorioMock : IAtorRepositorio
         var ator = ObterPorId(id);
         tabelasSingleton.Remove(ator);
     }
+
+    public void Ordenar()
+    {
+        tabelasSingleton.OrderBy(n => n.Id);
+    }
 }

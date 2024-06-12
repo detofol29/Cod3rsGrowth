@@ -63,6 +63,35 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
     }
 
+    public ValidationResult Editar(int id, Usuario usuario)
+    {
+        var UsuarioEncontrado = ObterPorId(id);
+        Remover(id);
+
+        try
+        {
+            usuario.IdUsuario = id;
+            _validator.ValidateAndThrow(usuario);
+            Inserir(usuario);
+            Ordenar();
+            return new ValidationResult();
+        }
+        catch (ValidationException ex)
+        {
+            return new ValidationResult(ex.Errors);
+        }
+    }
+
+    public void Ordenar()
+    {
+        _usuarioRepositorio.Ordenar();
+    }
+
+    public void Remover(int id)
+    {
+        _usuarioRepositorio.Remover(id);
+    }
+
     private int GerarId()
     {
         const int idInicial = 1;

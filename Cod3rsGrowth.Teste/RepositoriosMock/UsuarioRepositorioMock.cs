@@ -38,4 +38,9 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         var usuario = ObterPorId(id);
         tabelasSingleton.Remove(usuario);
     }
+
+    public void Ordenar()
+    {
+        tabelasSingleton.OrderBy(n => n.IdUsuario);
+    }
 }

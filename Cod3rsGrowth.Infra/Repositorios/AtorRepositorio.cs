@@ -31,4 +31,9 @@ public class AtorRepositorio : IAtorRepositorio
         var ator = ObterPorId(id);
         tabelaAtor.Remove(ator);
     }
+
+    public void Ordenar()
+    {
+        tabelaAtor.OrderBy(n => n.Id);
+    }
 }

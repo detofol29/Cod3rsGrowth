@@ -50,6 +50,35 @@ public class AtorServicos : IAtorRepositorio
         }
     }
 
+    public ValidationResult Editar(int id, Ator ator)
+    {
+        var atorEncontrado = ObterPorId(id);
+        Remover(id);
+
+        try
+        {
+            ator.Id = id;
+            _validator.ValidateAndThrow(ator);
+            Inserir(ator);
+            Ordenar();
+            return new ValidationResult();
+        }
+        catch (ValidationException ex)
+        {
+            return new ValidationResult(ex.Errors);
+        }
+    }
+
+    public void Ordenar()
+    {
+        _atorRepositorio.Ordenar();
+    }
+
+    public void Remover(int id)
+    {
+        _atorRepositorio.Remover(id);
+    }
+
     private int GerarId()
     {
         const int idInicial = 1;
