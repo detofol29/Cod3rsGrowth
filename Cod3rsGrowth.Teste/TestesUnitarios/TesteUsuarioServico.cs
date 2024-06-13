@@ -304,4 +304,53 @@ public class TesteUsuarioServico : TesteBase
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
+
+    [Fact]
+    public void ao_editar_usuario_com_nickname_vazio_retorna_mensagem_de_erro()
+    {
+        const string mensagemDeErro = "O campo 'nome de usuário' não pode estar vazio!";
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "",
+            Senha = "Abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemDeErro, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_vazio_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' não pode estar vazio!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = ""
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
 }
