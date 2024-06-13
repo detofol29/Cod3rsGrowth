@@ -353,4 +353,79 @@ public class TesteUsuarioServico : TesteBase
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_sem_letra_maiuscula_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra maiúscula!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = "abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_sem_letra_minuscula_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra minuscula!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = "ABC12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_sem_numero_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos um número!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = "AbcDeFGh"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
 }

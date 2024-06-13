@@ -35,6 +35,16 @@ public class AtorServicos : IAtorRepositorio
         _atorRepositorio.Inserir(ator);
     }
 
+    public void Ordenar()
+    {
+        _atorRepositorio.Ordenar();
+    }
+
+    public void Remover(int id)
+    {
+        _atorRepositorio.Remover(id);
+    }
+
     public ValidationResult CriarAtor(Ator ator)
     {
         try
@@ -61,16 +71,6 @@ public class AtorServicos : IAtorRepositorio
         {
             throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
-    }
-
-    public void Ordenar()
-    {
-        _atorRepositorio.Ordenar();
-    }
-
-    public void Remover(int id)
-    {
-        _atorRepositorio.Remover(id);
     }
 
     private int GerarId()

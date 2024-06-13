@@ -48,6 +48,16 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
     }
 
+    public void Ordenar()
+    {
+        _usuarioRepositorio.Ordenar();
+    }
+
+    public void Remover(int id)
+    {
+        _usuarioRepositorio.Remover(id);
+    }
+
     public ValidationResult CriarUsuario(Usuario usuario)
     {
         try
@@ -74,16 +84,6 @@ public class UsuarioServicos : IUsuarioRepositorio
         {
             throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
-    }
-
-    public void Ordenar()
-    {
-        _usuarioRepositorio.Ordenar();
-    }
-
-    public void Remover(int id)
-    {
-        _usuarioRepositorio.Remover(id);
     }
 
     private int GerarId()

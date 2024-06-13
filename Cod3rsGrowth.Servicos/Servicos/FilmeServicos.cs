@@ -39,6 +39,11 @@ public class FilmeServicos : IFilmeRepositorio
         _filmeRepositorio.Remover(id);
     }
 
+    public void Ordenar()
+    {
+        _filmeRepositorio.Ordenar();
+    }
+
     public List<Ator> ObterAtoresDoFilme(Filme filme)
     {
         return filme.Atores;
@@ -50,19 +55,14 @@ public class FilmeServicos : IFilmeRepositorio
         {
             case PlanoEnum.Premium:
                 return true;
-                break;
             case PlanoEnum.Nerd when filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia:
                 return true;
-                break;
             case PlanoEnum.Kids when filme.Classificacao == ClassificacaoIndicativa.livre:
                 return true;
-                break;
             case PlanoEnum.Free when filme.Genero == GeneroEnum.Comedia:
                 return true;
-                break;
             default:
                 return false;
-                break;
         }
     }
 
@@ -92,11 +92,6 @@ public class FilmeServicos : IFilmeRepositorio
         {
             throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
-    }
-
-    public void Ordenar()
-    {
-        _filmeRepositorio.Ordenar();
     }
     
     private int GerarId()

@@ -8,8 +8,6 @@ public class UsuarioValidacao : AbstractValidator<Usuario>
 {
     public UsuarioValidacao()
     {
-        const int IdBase = 0;
-
         RuleFor(n => n.Nome)
             .NotEmpty()
             .WithMessage("O campo 'Nome' não pode estar vazio!")

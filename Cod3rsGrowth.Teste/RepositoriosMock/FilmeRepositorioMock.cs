@@ -32,6 +32,12 @@ public class FilmeRepositorioMock : IFilmeRepositorio
         tabelasSingleton.Add(filme);
     }
 
+    public void Remover(int id)
+    {
+        var filme = ObterPorId(id);
+        tabelasSingleton.Remove(filme);
+    }
+
     public void Ordenar()
     {
         tabelasSingleton.OrderBy(n => n.Id);
@@ -50,11 +56,5 @@ public class FilmeRepositorioMock : IFilmeRepositorio
         AlterarFilme.Diretor = filme.Diretor;
         AlterarFilme.Classificacao = filme.Classificacao;
         AlterarFilme.Atores = filme.Atores;
-    }
-
-    public void Remover(int id)
-    {
-        var filme = ObterPorId(id);
-        tabelasSingleton.Remove(filme);
     }
 }
