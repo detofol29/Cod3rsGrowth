@@ -38,11 +38,6 @@ public class FilmeRepositorioMock : IFilmeRepositorio
         tabelasSingleton.Remove(filme);
     }
 
-    public void Ordenar()
-    {
-        tabelasSingleton.OrderBy(n => n.Id);
-    }
-
     public void Editar(int id, Filme filme)
     {
         var AlterarFilme = ObterPorId(id);

@@ -32,11 +32,6 @@ public class AtorRepositorio : IAtorRepositorio
         tabelaAtor.Remove(ator);
     }
 
-    public void Ordenar()
-    {
-        tabelaAtor.OrderBy(n => n.Id);
-    }
-
     public void Editar(int id, Ator ator)
     {
         var alterarAtor = ObterPorId(id);

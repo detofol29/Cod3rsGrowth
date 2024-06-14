@@ -148,6 +148,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.Editar(idBase, filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
         
+        Assert.Equivalent(filmeBase, filmeRecuperado);
         Assert.Equal(idBase, filmeRecuperado.Id);
     }
 
@@ -169,6 +170,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.Editar(idBase, filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
         Assert.Equal(filmeEditado.Titulo, filmeRecuperado.Titulo);
+        Assert.Equivalent(filmeBase, filmeRecuperado);
     }
 
     [Fact]
@@ -195,6 +197,7 @@ public class TesteFilmeServico : TesteBase
 
         Assert.Equal(notaFinal, filmeRecuperado.Nota);
         Assert.Equal(filmeBase.Titulo, filmeRecuperado.Titulo);
+        Assert.Equivalent(filmeBase, filmeRecuperado);
     }
 
     [Fact]

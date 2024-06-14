@@ -8,6 +8,5 @@ public interface IUsuarioRepositorio
     void Inserir(Usuario usuario);
     List<Usuario> ObterTodos();
     public void Remover(int id);
-    public void Ordenar();
     public void Editar(int id, Usuario usuario);
 }

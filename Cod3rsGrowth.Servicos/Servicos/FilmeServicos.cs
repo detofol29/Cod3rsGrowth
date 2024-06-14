@@ -39,11 +39,6 @@ public class FilmeServicos : IFilmeRepositorio
         _filmeRepositorio.Remover(id);
     }
 
-    public void Ordenar()
-    {
-        _filmeRepositorio.Ordenar();
-    }
-
     public List<Ator> ObterAtoresDoFilme(Filme filme)
     {
         return filme.Atores;
@@ -100,11 +95,11 @@ public class FilmeServicos : IFilmeRepositorio
         const int indiceVazio = 0;
 
         List<int> ListaIds = new List<int>();
-        foreach(var filme in _filmeRepositorio.ObterTodos())
+        foreach (var filme in _filmeRepositorio.ObterTodos())
         {
             ListaIds.Add(filme.Id);
         }
-        if(ListaIds.Count() == indiceVazio) { return  idInicial;}
+        if (ListaIds.Count() == indiceVazio) { return idInicial; }
         ListaIds.Sort();
         var indiceUltimo = ListaIds.Count() - idInicial;
         var idFinal = ListaIds[indiceUltimo] + idInicial;

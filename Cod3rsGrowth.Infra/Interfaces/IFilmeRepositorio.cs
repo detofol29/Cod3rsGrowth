@@ -9,6 +9,5 @@ public interface IFilmeRepositorio
     List<Filme> ObterTodos();
     void Inserir(Filme filme);
     public void Remover(int id);
-    public void Ordenar();
     public void Editar(int id, Filme filme);
 }

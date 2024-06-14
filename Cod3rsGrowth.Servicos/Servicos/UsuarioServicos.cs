@@ -48,11 +48,6 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
     }
 
-    public void Ordenar()
-    {
-        _usuarioRepositorio.Ordenar();
-    }
-
     public void Remover(int id)
     {
         _usuarioRepositorio.Remover(id);

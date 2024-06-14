@@ -253,6 +253,7 @@ public class TesteUsuarioServico : TesteBase
         var usuarioEncontrado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(usuarioEditado.Nome, usuarioEncontrado.Nome);
+        Assert.Equivalent(usuarioBase, usuarioEncontrado);
     }
 
     [Fact]

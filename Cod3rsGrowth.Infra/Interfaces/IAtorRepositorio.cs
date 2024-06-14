@@ -7,7 +7,6 @@ public interface IAtorRepositorio
     Ator ObterPorId(int id);
     void Inserir(Ator ator);
     List<Ator> ObterTodos();
-    public void Ordenar();
     public void Remover(int id);
     public void Editar(int id, Ator ator);
 }

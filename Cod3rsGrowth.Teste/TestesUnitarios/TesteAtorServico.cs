@@ -157,6 +157,7 @@ public class TesteAtorServico : TesteBase
         var atorEncontrado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(atorEditado.Nome, atorEncontrado.Nome);
+        Assert.Equivalent(atorBase, atorEncontrado);
     }
 
     [Fact]

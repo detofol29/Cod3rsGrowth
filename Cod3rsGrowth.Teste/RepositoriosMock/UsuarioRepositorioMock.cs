@@ -39,11 +39,6 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         tabelasSingleton.Remove(usuario);
     }
 
-    public void Ordenar()
-    {
-        tabelasSingleton.OrderBy(n => n.IdUsuario);
-    }
-
     public void Editar(int id, Usuario usuario)
     {
         var alterarUsuario = ObterPorId(id);

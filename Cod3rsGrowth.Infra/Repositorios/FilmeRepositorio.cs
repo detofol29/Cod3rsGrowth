@@ -33,11 +33,6 @@ public class FilmeRepositorio : IFilmeRepositorio
         tabelaFilme.Remove(filme);
     }
 
-    public void Ordenar()
-    {
-        tabelaFilme.OrderBy(n => n.Id);
-    }
-
     public void Editar(int id, Filme filme)
     {
         var AlterarFilme = ObterPorId(id);
