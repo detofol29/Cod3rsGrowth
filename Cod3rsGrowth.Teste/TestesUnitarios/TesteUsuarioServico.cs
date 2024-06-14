@@ -14,6 +14,7 @@ public class TesteUsuarioServico : TesteBase
     public TesteUsuarioServico()
     {
         _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Serviço não encontrado!");
+        _servicos.ObterTodos().Clear();
     }
 
     private Usuario ObterUsuarioEsperado()
@@ -172,14 +173,12 @@ public class TesteUsuarioServico : TesteBase
     [Fact]
     public void ao_criar_usuario_com_senha_que_nao_possui_uma_letra_minuscula_retorna_mensagem_de_erro()
     {
-        const int id = 3;
         const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra minuscula!";
         const string senhaSemLetraMinuscula = "ROBERTINHO123";
 
         Usuario usuario = new()
         {
             Nome = "Roberto",
-            IdUsuario = id,
             NickName = "Robertinho",
             Senha = senhaSemLetraMinuscula
         };
@@ -229,5 +228,205 @@ public class TesteUsuarioServico : TesteBase
         var resultado = _servicos.CriarUsuario(usuario);
         var mensagemDeErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Nome")?.ErrorMessage;
         Assert.Equal(mensagemEsperada, mensagemDeErro);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_retorna_usuario_com_nome_editado()
+    {
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Criss Byuither Silva",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+
+        _servicos.Editar(idBase, usuarioEditado);
+        var usuarioEncontrado = _servicos.ObterPorId(idBase);
+
+        Assert.Equal(usuarioEditado.Nome, usuarioEncontrado.Nome);
+        Assert.Equivalent(usuarioBase, usuarioEncontrado);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_sem_nome_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'Nome' não pode estar vazio!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_nome_contendo_numeros_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Criss Byuither77",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_nickname_vazio_retorna_mensagem_de_erro()
+    {
+        const string mensagemDeErro = "O campo 'nome de usuário' não pode estar vazio!";
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "",
+            Senha = "Abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemDeErro, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_vazio_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' não pode estar vazio!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = ""
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_sem_letra_maiuscula_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra maiúscula!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = "abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_sem_letra_minuscula_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos uma letra minuscula!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = "ABC12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_usuario_com_senha_sem_numero_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'senha' deve conter pelo menos um número!";
+
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        Usuario usuarioEditado = new()
+        {
+            Nome = "Carlos",
+            NickName = "Robertinho",
+            Senha = "AbcDeFGh"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
     }
 }

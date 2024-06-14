@@ -128,4 +128,122 @@ public class TesteFilmeServico : TesteBase
         var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "DataDeLancamento")?.ErrorMessage;
         Assert.Equal(resultadoEsperado, mensagemErro);
     }
+
+    [Fact]
+    public void ao_editar_filme_retorna_o_filme_editado_com_o_mesmo_id_do_filme_substituido()
+    {
+        Filme filmeBase = new Filme()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A vingança de Zuck"
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+
+        _servicos.Editar(idBase, filmeEditado);
+        var filmeRecuperado = _servicos.ObterPorId(idBase);
+        
+        Assert.Equivalent(filmeBase, filmeRecuperado);
+        Assert.Equal(idBase, filmeRecuperado.Id);
+    }
+
+    [Fact]
+    public void ao_editar_filme_retorna_filme_com_titulo_editado()
+    {
+        Filme filmeBase = new Filme()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A vingança de Zuck"
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+        _servicos.Editar(idBase, filmeEditado);
+        var filmeRecuperado = _servicos.ObterPorId(idBase);
+        Assert.Equal(filmeEditado.Titulo, filmeRecuperado.Titulo);
+        Assert.Equivalent(filmeBase, filmeRecuperado);
+    }
+
+    [Fact]
+    public void ao_editar_nota_do_filme_retorna_nota_editada_e_com_mesmo_titulo()
+    {
+        const int notaInicial = 4;
+        const int notaFinal = 7;
+        Filme filmeBase = new Filme()
+        {
+            Titulo = "A revolta de Zuck",
+            Nota = notaInicial            
+        };
+
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A revolta de Zuck",
+            Nota = notaFinal
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+        _servicos.Editar(idBase, filmeEditado);
+        var filmeRecuperado = _servicos.ObterPorId(idBase);
+
+        Assert.Equal(notaFinal, filmeRecuperado.Nota);
+        Assert.Equal(filmeBase.Titulo, filmeRecuperado.Titulo);
+        Assert.Equivalent(filmeBase, filmeRecuperado);
+    }
+
+    [Fact]
+    public void ao_editar_filme_passando_filme_sem_titulo_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "O campo 'Titulo' não pode estar vazio!";
+
+        Filme filmeBase = new()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeEditado = new()
+        {
+            Titulo = ""
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, filmeEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_editar_filme_passando_filme_com_data_de_lancamento_superior_a_atual_retorna_mensagem_de_erro()
+    {
+        const int acrescimo = 1;
+        const string mensagemEsperada = "O campo 'data de lançamento' não pode ser superior a data atual";
+        var dataOriginal = new DateTime(2020, 02, 22, 00, 00,00);
+        var dataFutura = DateTime.Now.AddDays(acrescimo);
+
+        Filme filmeBase = new()
+        {
+            Titulo = "A revolta de Zuck",
+            DataDeLancamento = dataOriginal            
+        };
+
+        Filme filmeEditado = new()
+        {
+            Titulo = "A revolta de Zuck",
+            DataDeLancamento = dataFutura
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        var idBase = filmeBase.Id;
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, filmeEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
 }

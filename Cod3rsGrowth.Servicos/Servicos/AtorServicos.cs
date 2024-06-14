@@ -35,6 +35,11 @@ public class AtorServicos : IAtorRepositorio
         _atorRepositorio.Inserir(ator);
     }
 
+    public void Remover(int id)
+    {
+        _atorRepositorio.Remover(id);
+    }
+
     public ValidationResult CriarAtor(Ator ator)
     {
         try
@@ -47,6 +52,19 @@ public class AtorServicos : IAtorRepositorio
         catch(ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
+        }
+    }
+
+    public void Editar(int id, Ator ator)
+    {
+        var validacao = _validator.Validate(ator);
+        if (validacao.IsValid)
+        {
+            _atorRepositorio.Editar(id, ator);
+        }
+        else
+        {
+            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
 

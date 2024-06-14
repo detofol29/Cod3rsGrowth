@@ -31,4 +31,12 @@ public class AtorRepositorio : IAtorRepositorio
         var ator = ObterPorId(id);
         tabelaAtor.Remove(ator);
     }
+
+    public void Editar(int id, Ator ator)
+    {
+        var alterarAtor = ObterPorId(id);
+        alterarAtor.Nome = ator.Nome;
+        alterarAtor.Premios = ator.Premios;
+        alterarAtor.IdFilme = ator.IdFilme;
+    }
 }

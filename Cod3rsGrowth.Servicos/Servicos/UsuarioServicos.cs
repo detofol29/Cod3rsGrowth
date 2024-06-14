@@ -48,6 +48,11 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
     }
 
+    public void Remover(int id)
+    {
+        _usuarioRepositorio.Remover(id);
+    }
+
     public ValidationResult CriarUsuario(Usuario usuario)
     {
         try
@@ -60,6 +65,19 @@ public class UsuarioServicos : IUsuarioRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
+        }
+    }
+
+    public void Editar(int id, Usuario usuario)
+    {
+        var validacao = _validator.Validate(usuario);
+        if (validacao.IsValid)
+        {
+            _usuarioRepositorio.Editar(id, usuario);
+        }
+        else
+        {
+            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
 

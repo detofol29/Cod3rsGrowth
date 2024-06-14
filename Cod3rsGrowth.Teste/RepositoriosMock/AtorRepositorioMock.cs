@@ -38,4 +38,12 @@ public class AtorRepositorioMock : IAtorRepositorio
         var ator = ObterPorId(id);
         tabelasSingleton.Remove(ator);
     }
+
+    public void Editar(int id, Ator ator)
+    {
+        var alterarAtor = ObterPorId(id);
+        alterarAtor.Nome = ator.Nome;
+        alterarAtor.Premios = ator.Premios;
+        alterarAtor.IdFilme = ator.IdFilme;
+    }
 }

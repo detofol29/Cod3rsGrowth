@@ -8,8 +8,6 @@ public class FilmeValidacao : AbstractValidator<Filme>
 {
     public FilmeValidacao()
     {
-        const int IdBase = 0;
-
         RuleFor(p => p.Titulo)
             .NotEmpty()
             .WithMessage("O campo 'Titulo' não pode estar vazio!");
