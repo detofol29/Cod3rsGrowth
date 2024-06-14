@@ -25,10 +25,10 @@ public class TesteUsuarioServico : TesteBase
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_quatro_usuarios()
     {
-        _servicos.Inserir(new() {Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29"});
-        _servicos.Inserir(new() {Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo"});
-        _servicos.Inserir(new() {Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens"});
-        _servicos.Inserir(new() {Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau"});
+        _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29" });
+        _servicos.Inserir(new() { Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo" });
+        _servicos.Inserir(new() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" });
+        _servicos.Inserir(new() { Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau" });
         var listaEsperada = TabelasSingleton.ObterInstanciaUsuarios;
 
         var lista = _servicos.ObterTodos();
@@ -427,6 +427,40 @@ public class TesteUsuarioServico : TesteBase
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_remover_usuario_e_obter_por_id_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "Usuario nao encontrado";
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+
+        _servicos.CriarUsuario(usuarioBase);
+        var idBase = usuarioBase.IdUsuario;
+        _servicos.Remover(idBase);
+        var ex = Assert.Throws<Exception>(() => _servicos.ObterPorId(idBase));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_remover_usuario_passando_id_invalido_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "Usuario nao encontrado";
+        int idInvalido = _servicos.ObterTodos().Count() + 2;
+        Usuario usuarioBase = new()
+        {
+            Nome = "Criss Byuither",
+            NickName = "Robertinho",
+            Senha = "Abc12345"
+        };
+        _servicos.CriarUsuario(usuarioBase);
+        var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 }

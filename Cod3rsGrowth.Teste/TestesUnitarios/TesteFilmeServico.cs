@@ -28,18 +28,18 @@ public class TesteFilmeServico : TesteBase
     {
         const int valorEsperado = 12;
 
-        _servicos.CriarFilme(new Filme {Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre});
-        _servicos.CriarFilme(new Filme {Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze});
-        _servicos.CriarFilme(new Filme {Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre});
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze});
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze});
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze});
-        _servicos.CriarFilme(new Filme {Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis});
-        _servicos.CriarFilme(new Filme {Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis});
-        _servicos.CriarFilme(new Filme {Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito});
-        _servicos.CriarFilme(new Filme {Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze});
-        _servicos.CriarFilme(new Filme {Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito});
-        _servicos.CriarFilme(new Filme {Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze});
+        _servicos.CriarFilme(new Filme { Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
+        _servicos.CriarFilme(new Filme { Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
+        _servicos.CriarFilme(new Filme { Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis });
+        _servicos.CriarFilme(new Filme { Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis });
+        _servicos.CriarFilme(new Filme { Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito });
+        _servicos.CriarFilme(new Filme { Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
+        _servicos.CriarFilme(new Filme { Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
 
         var lista = _servicos.ObterTodos();
 
@@ -52,18 +52,18 @@ public class TesteFilmeServico : TesteBase
     {
         const int idFilme = 3;
 
-        _servicos.CriarFilme(new Filme {Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
-        _servicos.CriarFilme(new Filme {Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
-        _servicos.CriarFilme(new Filme {Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis });
-        _servicos.CriarFilme(new Filme {Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis });
-        _servicos.CriarFilme(new Filme {Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito });
-        _servicos.CriarFilme(new Filme {Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
-        _servicos.CriarFilme(new Filme {Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
+        _servicos.CriarFilme(new Filme { Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
+        _servicos.CriarFilme(new Filme { Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis });
+        _servicos.CriarFilme(new Filme { Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis });
+        _servicos.CriarFilme(new Filme { Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito });
+        _servicos.CriarFilme(new Filme { Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
+        _servicos.CriarFilme(new Filme { Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
         var filmeEsperado = ObterFilmeEsperado();
 
         var filmeEncontrado = _servicos.ObterPorId(idFilme);
@@ -77,18 +77,18 @@ public class TesteFilmeServico : TesteBase
     {
         const int idNaoExistente = 13;
 
-        _servicos.CriarFilme(new Filme {Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
-        _servicos.CriarFilme(new Filme {Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
-        _servicos.CriarFilme(new Filme {Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis });
-        _servicos.CriarFilme(new Filme {Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis });
-        _servicos.CriarFilme(new Filme {Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito });
-        _servicos.CriarFilme(new Filme {Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme {Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
-        _servicos.CriarFilme(new Filme {Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
+        _servicos.CriarFilme(new Filme { Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
+        _servicos.CriarFilme(new Filme { Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis });
+        _servicos.CriarFilme(new Filme { Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis });
+        _servicos.CriarFilme(new Filme { Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito });
+        _servicos.CriarFilme(new Filme { Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze });
+        _servicos.CriarFilme(new Filme { Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
+        _servicos.CriarFilme(new Filme { Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
 
         var mensagemEsperada = "Filme nao encontrado";
         var excecao = Assert.Throws<Exception>(() => _servicos.ObterPorId(idNaoExistente));
@@ -147,7 +147,7 @@ public class TesteFilmeServico : TesteBase
 
         _servicos.Editar(idBase, filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
-        
+
         Assert.Equivalent(filmeBase, filmeRecuperado);
         Assert.Equal(idBase, filmeRecuperado.Id);
     }
@@ -181,7 +181,7 @@ public class TesteFilmeServico : TesteBase
         Filme filmeBase = new Filme()
         {
             Titulo = "A revolta de Zuck",
-            Nota = notaInicial            
+            Nota = notaInicial
         };
 
         Filme filmeEditado = new Filme()
@@ -226,13 +226,13 @@ public class TesteFilmeServico : TesteBase
     {
         const int acrescimo = 1;
         const string mensagemEsperada = "O campo 'data de lançamento' não pode ser superior a data atual";
-        var dataOriginal = new DateTime(2020, 02, 22, 00, 00,00);
+        var dataOriginal = new DateTime(2020, 02, 22, 00, 00, 00);
         var dataFutura = DateTime.Now.AddDays(acrescimo);
 
         Filme filmeBase = new()
         {
             Titulo = "A revolta de Zuck",
-            DataDeLancamento = dataOriginal            
+            DataDeLancamento = dataOriginal
         };
 
         Filme filmeEditado = new()
@@ -246,4 +246,61 @@ public class TesteFilmeServico : TesteBase
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, filmeEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
-}
+
+    [Fact]
+    public void ao_remover_filme_e_obter_por_id_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "Filme nao encontrado";
+
+        Filme filmeBase = new()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeComplementar = new()
+        {
+            Titulo = "O mergulho do amanhã"
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        _servicos.CriarFilme(filmeComplementar);
+        var idBase = filmeBase.Id;
+        _servicos.Remover(idBase);
+        var ex = Assert.Throws<Exception>(() => _servicos.ObterPorId(idBase));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_remover_filme_passando_um_id_invalido_retorna_mensagem_de_erro()
+    {
+        const int idInvalido = 100;
+        const string mensagemEsperada = "Filme nao encontrado";
+
+        Filme filmeBase = new()
+        {
+            Titulo = "A revolta de Zuck"
+        };
+
+        Filme filmeComplementar = new()
+        {
+            Titulo = "O mergulho do amanhã"
+        };
+
+        Filme filmeComplementar2 = new()
+        {
+            Titulo = "O mergulho de Marcos Paulo"
+        };
+
+        Filme filmeComplementar3 = new()
+        {
+            Titulo = "André, um instruso no formigueiro"
+        };
+
+        _servicos.CriarFilme(filmeBase);
+        _servicos.CriarFilme(filmeComplementar);
+        _servicos.CriarFilme(filmeComplementar2);
+        _servicos.CriarFilme(filmeComplementar3);
+        var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+ }

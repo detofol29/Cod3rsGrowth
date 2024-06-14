@@ -201,4 +201,36 @@ public class TesteAtorServico : TesteBase
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
+
+    [Fact]
+    public void ao_remover_ator_e_obter_por_id_retorna_mensagem_de_erro()
+    {
+        const string mensagemEsperada = "Ator nao encontrado";
+
+        Ator atorBase = new()
+        {
+            Nome = "André Di Caprio"
+        };
+        _servicos.CriarAtor(atorBase);
+        var idBase = atorBase.Id;
+        _servicos.Remover(idBase);
+        var ex = Assert.Throws<Exception>(() => _servicos.ObterPorId(idBase));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_remover_ator_passando_um_id_invalido_retorna_mensagem_de_erro()
+    {
+        const int idInvalido = 100;
+        const string mensagemEsperada = "Ator nao encontrado";
+
+        Ator atorBase = new()
+        {
+            Nome = "Marcos Rubens Paulo"
+        };
+
+        _servicos.CriarAtor(atorBase);
+        var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
 }
