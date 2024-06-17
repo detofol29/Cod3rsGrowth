@@ -23,6 +23,24 @@ public class TesteFilmeServico : TesteBase
         return new Filme() { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
     }
 
+    private List<Filme> ObterFilmes()
+    {
+        List<Filme> filmes = new()
+        {
+            new Filme{Titulo = "Vingadores"},
+            new Filme{Titulo = "Homem de Ferro"},
+            new Filme{Titulo = "Capitão América"},
+            new Filme{Titulo = "Capitão de Ferro"}
+        };
+
+        foreach(var filme in filmes)
+        {
+            _servicos.CriarFilme(filme);
+        }
+
+        return filmes;
+    }
+
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_doze_filmes()
     {
@@ -248,59 +266,33 @@ public class TesteFilmeServico : TesteBase
     }
 
     [Fact]
-    public void ao_remover_filme_e_obter_por_id_retorna_mensagem_de_erro()
+    public void ao_remover_filme_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
     {
-        const string mensagemEsperada = "Filme nao encontrado";
+        const int quantidadeInicial = 4;
+        const int quantidadePosRemocao = 3;
+        const int indiceIdParaRemocao = 3;
 
-        Filme filmeBase = new()
-        {
-            Titulo = "A revolta de Zuck"
-        };
+        var filmes = ObterFilmes();
+        var idParaRemocao = filmes[indiceIdParaRemocao].Id;
+        _servicos.Remover(idParaRemocao);
+        var listaDeFilmesPosRemocao = _servicos.ObterTodos();
 
-        Filme filmeComplementar = new()
-        {
-            Titulo = "O mergulho do amanhã"
-        };
-
-        _servicos.CriarFilme(filmeBase);
-        _servicos.CriarFilme(filmeComplementar);
-        var idBase = filmeBase.Id;
-        _servicos.Remover(idBase);
-        var ex = Assert.Throws<Exception>(() => _servicos.ObterPorId(idBase));
-        Assert.Equal(mensagemEsperada, ex.Message);
+        Assert.Equal(quantidadeInicial, filmes.Count());
+        Assert.Equal(quantidadePosRemocao, listaDeFilmesPosRemocao.Count());
     }
 
-    [Fact]
-    public void ao_remover_filme_passando_um_id_invalido_retorna_mensagem_de_erro()
+    [Theory]
+    [InlineData(-12)]
+    [InlineData(100)]
+    [InlineData(0)]
+    public void ao_remover_filme_passando_um_id_invalido_retorna_mensagem_de_erro(int id)
     {
-        const int idInvalido = 100;
+        var idInvalido = id;
         const string mensagemEsperada = "Filme nao encontrado";
 
-        Filme filmeBase = new()
-        {
-            Titulo = "A revolta de Zuck"
-        };
+        var filmes = ObterFilmes();
 
-        Filme filmeComplementar = new()
-        {
-            Titulo = "O mergulho do amanhã"
-        };
-
-        Filme filmeComplementar2 = new()
-        {
-            Titulo = "O mergulho de Marcos Paulo"
-        };
-
-        Filme filmeComplementar3 = new()
-        {
-            Titulo = "André, um instruso no formigueiro"
-        };
-
-        _servicos.CriarFilme(filmeBase);
-        _servicos.CriarFilme(filmeComplementar);
-        _servicos.CriarFilme(filmeComplementar2);
-        _servicos.CriarFilme(filmeComplementar3);
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
- }
+}

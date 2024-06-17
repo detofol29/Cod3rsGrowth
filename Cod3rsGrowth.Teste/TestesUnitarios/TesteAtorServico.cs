@@ -23,6 +23,24 @@ public class TesteAtorServico : TesteBase
         return new Ator() { Id = 3, Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } };
     }
 
+    private List<Ator> ObterAtores()
+    {
+        List<Ator> atores = new()
+        {
+            new Ator{Nome = "Gabriel"},
+            new Ator{Nome = "Rubens"},
+            new Ator{Nome = "Marcos"},
+            new Ator{Nome = "André"}
+        };
+
+        foreach(var ator in atores)
+        {
+            _servicos.CriarAtor(ator);
+        }
+
+        return atores;
+    } 
+
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_trinta_e_oito_atores()
     {
@@ -203,33 +221,32 @@ public class TesteAtorServico : TesteBase
     }
 
     [Fact]
-    public void ao_remover_ator_e_obter_por_id_retorna_mensagem_de_erro()
+    public void ao_remover_ator_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
     {
-        const string mensagemEsperada = "Ator nao encontrado";
+        const int quantidadeInicial = 4;
+        const int quantidadePosRemocao = 3;
+        const int indiceIdParaRemocao = 3;
 
-        Ator atorBase = new()
-        {
-            Nome = "André Di Caprio"
-        };
-        _servicos.CriarAtor(atorBase);
-        var idBase = atorBase.Id;
-        _servicos.Remover(idBase);
-        var ex = Assert.Throws<Exception>(() => _servicos.ObterPorId(idBase));
-        Assert.Equal(mensagemEsperada, ex.Message);
+        var atores = ObterAtores();
+        var idParaRemocao = atores[indiceIdParaRemocao].Id;
+        _servicos.Remover(idParaRemocao);
+        var listaDeAtoresPosRemocao = _servicos.ObterTodos();
+
+        Assert.Equal(quantidadeInicial, atores.Count());
+        Assert.Equal(quantidadePosRemocao, listaDeAtoresPosRemocao.Count());
     }
 
-    [Fact]
-    public void ao_remover_ator_passando_um_id_invalido_retorna_mensagem_de_erro()
+    [Theory]
+    [InlineData(-12)]
+    [InlineData(100)]
+    [InlineData(0)]
+    public void ao_remover_ator_passando_um_id_invalido_retorna_mensagem_de_erro(int id)
     {
-        const int idInvalido = 100;
+        var idInvalido = id;
         const string mensagemEsperada = "Ator nao encontrado";
 
-        Ator atorBase = new()
-        {
-            Nome = "Marcos Rubens Paulo"
-        };
+        ObterAtores();
 
-        _servicos.CriarAtor(atorBase);
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
     }

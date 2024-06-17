@@ -5,6 +5,7 @@ using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Validacoes;
 using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -20,6 +21,23 @@ public class TesteUsuarioServico : TesteBase
     private Usuario ObterUsuarioEsperado()
     {
         return new Usuario() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" };
+    }
+
+    private List<Usuario> ObterUsuarios()
+    {
+        List<Usuario> usuarios = new()
+        {
+            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345"},
+            new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345"},
+            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345"},
+            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345"},
+        };
+
+        foreach(var usuario in usuarios)
+        {
+            _servicos.CriarUsuario(usuario);
+        }
+        return usuarios;
     }
 
     [Fact]
@@ -431,35 +449,32 @@ public class TesteUsuarioServico : TesteBase
     }
 
     [Fact]
-    public void ao_remover_usuario_e_obter_por_id_retorna_mensagem_de_erro()
+    public void ao_remover_usuario_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
     {
-        const string mensagemEsperada = "Usuario nao encontrado";
-        Usuario usuarioBase = new()
-        {
-            Nome = "Criss Byuither",
-            NickName = "Robertinho",
-            Senha = "Abc12345"
-        };
+        const int quantidadeInicial = 4;
+        const int quantidadePosRemocao = 3;
+        const int indiceIdParaRemocao = 3;
 
-        _servicos.CriarUsuario(usuarioBase);
-        var idBase = usuarioBase.IdUsuario;
-        _servicos.Remover(idBase);
-        var ex = Assert.Throws<Exception>(() => _servicos.ObterPorId(idBase));
-        Assert.Equal(mensagemEsperada, ex.Message);
+        var usuarios = ObterUsuarios();
+        var idParaRemocao = usuarios[indiceIdParaRemocao].IdUsuario;
+        _servicos.Remover(idParaRemocao);
+        var listaDeUsuariosPosRemocao = _servicos.ObterTodos();
+
+        Assert.Equal(quantidadeInicial, usuarios.Count());
+        Assert.Equal(quantidadePosRemocao, listaDeUsuariosPosRemocao.Count());
     }
 
-    [Fact]
-    public void ao_remover_usuario_passando_id_invalido_retorna_mensagem_de_erro()
+    [Theory]
+    [InlineData(-12)]
+    [InlineData(100)]
+    [InlineData(0)]
+    public void ao_remover_usuario_passando_id_invalido_retorna_mensagem_de_erro(int id)
     {
         const string mensagemEsperada = "Usuario nao encontrado";
-        int idInvalido = _servicos.ObterTodos().Count() + 2;
-        Usuario usuarioBase = new()
-        {
-            Nome = "Criss Byuither",
-            NickName = "Robertinho",
-            Senha = "Abc12345"
-        };
-        _servicos.CriarUsuario(usuarioBase);
+        var idInvalido = id;
+
+        ObterUsuarios();
+
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
