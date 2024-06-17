@@ -5,6 +5,7 @@ using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Validacoes;
 using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -22,13 +23,30 @@ public class TesteUsuarioServico : TesteBase
         return new Usuario() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" };
     }
 
+    private List<Usuario> ObterUsuarios()
+    {
+        List<Usuario> usuarios = new()
+        {
+            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345"},
+            new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345"},
+            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345"},
+            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345"},
+        };
+
+        foreach(var usuario in usuarios)
+        {
+            _servicos.CriarUsuario(usuario);
+        }
+        return usuarios;
+    }
+
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_quatro_usuarios()
     {
-        _servicos.Inserir(new() {Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29"});
-        _servicos.Inserir(new() {Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo"});
-        _servicos.Inserir(new() {Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens"});
-        _servicos.Inserir(new() {Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau"});
+        _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29" });
+        _servicos.Inserir(new() { Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo" });
+        _servicos.Inserir(new() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" });
+        _servicos.Inserir(new() { Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau" });
         var listaEsperada = TabelasSingleton.ObterInstanciaUsuarios;
 
         var lista = _servicos.ObterTodos();
@@ -427,6 +445,35 @@ public class TesteUsuarioServico : TesteBase
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Fact]
+    public void ao_remover_usuario_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
+    {
+        const int quantidadePosRemocao = 3;
+        const int indiceIdParaRemocao = 3;
+
+        var usuarios = ObterUsuarios();
+        var idParaRemocao = usuarios[indiceIdParaRemocao].IdUsuario;
+        _servicos.Remover(idParaRemocao);
+        var listaDeUsuariosPosRemocao = _servicos.ObterTodos();
+
+        Assert.Equal(quantidadePosRemocao, listaDeUsuariosPosRemocao.Count());
+    }
+
+    [Theory]
+    [InlineData(-12)]
+    [InlineData(100)]
+    [InlineData(0)]
+    public void ao_remover_usuario_passando_id_invalido_retorna_mensagem_de_erro(int id)
+    {
+        const string mensagemEsperada = "Usuario nao encontrado";
+        var idInvalido = id;
+
+        ObterUsuarios();
+
+        var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 }
