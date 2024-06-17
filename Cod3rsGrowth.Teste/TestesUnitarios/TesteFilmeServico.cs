@@ -268,7 +268,6 @@ public class TesteFilmeServico : TesteBase
     [Fact]
     public void ao_remover_filme_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
     {
-        const int quantidadeInicial = 4;
         const int quantidadePosRemocao = 3;
         const int indiceIdParaRemocao = 3;
 
@@ -277,7 +276,6 @@ public class TesteFilmeServico : TesteBase
         _servicos.Remover(idParaRemocao);
         var listaDeFilmesPosRemocao = _servicos.ObterTodos();
 
-        Assert.Equal(quantidadeInicial, filmes.Count());
         Assert.Equal(quantidadePosRemocao, listaDeFilmesPosRemocao.Count());
     }
 

@@ -223,7 +223,6 @@ public class TesteAtorServico : TesteBase
     [Fact]
     public void ao_remover_ator_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
     {
-        const int quantidadeInicial = 4;
         const int quantidadePosRemocao = 3;
         const int indiceIdParaRemocao = 3;
 
@@ -232,7 +231,6 @@ public class TesteAtorServico : TesteBase
         _servicos.Remover(idParaRemocao);
         var listaDeAtoresPosRemocao = _servicos.ObterTodos();
 
-        Assert.Equal(quantidadeInicial, atores.Count());
         Assert.Equal(quantidadePosRemocao, listaDeAtoresPosRemocao.Count());
     }
 

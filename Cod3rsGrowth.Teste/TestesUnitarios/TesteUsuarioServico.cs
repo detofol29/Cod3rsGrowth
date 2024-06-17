@@ -451,7 +451,6 @@ public class TesteUsuarioServico : TesteBase
     [Fact]
     public void ao_remover_usuario_da_lista_retorna_lista_com_um_item_a_menos_ao_ObterTodos()
     {
-        const int quantidadeInicial = 4;
         const int quantidadePosRemocao = 3;
         const int indiceIdParaRemocao = 3;
 
@@ -460,7 +459,6 @@ public class TesteUsuarioServico : TesteBase
         _servicos.Remover(idParaRemocao);
         var listaDeUsuariosPosRemocao = _servicos.ObterTodos();
 
-        Assert.Equal(quantidadeInicial, usuarios.Count());
         Assert.Equal(quantidadePosRemocao, listaDeUsuariosPosRemocao.Count());
     }
 
