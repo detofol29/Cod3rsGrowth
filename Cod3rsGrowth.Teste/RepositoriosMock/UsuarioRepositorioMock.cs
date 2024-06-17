@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Xunit.Sdk;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -15,7 +16,14 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
 
     public Usuario ObterPorId(int id)
     {
-        return tabelasSingleton.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Usuario nao encontrado");
+        try
+        {
+            return tabelasSingleton.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Usuario nao encontrado");
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public void Inserir(Usuario usuario)
@@ -28,24 +36,33 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         return tabelasSingleton;
     }
 
-    public void Adicionar(Usuario usuario)
-    {
-        tabelasSingleton.Add(usuario);
-    }
-
     public void Remover(int id)
     {
-        var usuario = ObterPorId(id);
-        tabelasSingleton.Remove(usuario);
+        try
+        {
+            var usuario = ObterPorId(id);
+            tabelasSingleton.Remove(usuario);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public void Editar(int id, Usuario usuario)
     {
-        var alterarUsuario = ObterPorId(id);
-        alterarUsuario.Nome = usuario.Nome;
-        alterarUsuario.MinhaLista = usuario.MinhaLista;
-        alterarUsuario.Plano = usuario.Plano;
-        alterarUsuario.Senha = usuario.Senha;
-        alterarUsuario.NickName = usuario.NickName;
+        try
+        {
+            var alterarUsuario = ObterPorId(id);
+            alterarUsuario.Nome = usuario.Nome;
+            alterarUsuario.MinhaLista = usuario.MinhaLista;
+            alterarUsuario.Plano = usuario.Plano;
+            alterarUsuario.Senha = usuario.Senha;
+            alterarUsuario.NickName = usuario.NickName;
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

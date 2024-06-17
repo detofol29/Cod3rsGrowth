@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
 using System.Reflection.Metadata.Ecma335;
-using Cod3rsGrowth.Dominio.Validacoes;
+using Cod3rsGrowth.Servicos.Validacoes;
 using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;

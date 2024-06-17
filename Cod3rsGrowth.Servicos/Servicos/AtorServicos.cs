@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
 using FluentValidation;
 using FluentValidation.Results;
