@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cod3rsGrowth.Dominio.Modelos;
+﻿namespace Cod3rsGrowth.Dominio.Modelos;
 
 public enum GeneroEnum
 {
