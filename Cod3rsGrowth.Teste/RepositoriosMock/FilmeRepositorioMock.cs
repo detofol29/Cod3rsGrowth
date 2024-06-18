@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
@@ -19,7 +19,14 @@ public class FilmeRepositorioMock : IFilmeRepositorio
 
     public Filme ObterPorId(int id)
     {
-        return tabelasSingleton.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Filme nao encontrado");
+        try
+        {
+            return tabelasSingleton.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Filme nao encontrado");
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public List<Filme> ObterTodos()
@@ -27,29 +34,38 @@ public class FilmeRepositorioMock : IFilmeRepositorio
         return tabelasSingleton;
     }
 
-    public void Adicionar(Filme filme)
-    {
-        tabelasSingleton.Add(filme);
-    }
-
     public void Remover(int id)
     {
-        var filme = ObterPorId(id);
-        tabelasSingleton.Remove(filme);
+        try
+        {
+            var filme = ObterPorId(id);
+            tabelasSingleton.Remove(filme);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public void Editar(int id, Filme filme)
     {
-        var AlterarFilme = ObterPorId(id);
-        AlterarFilme.Titulo = filme.Titulo;
-        AlterarFilme.Nota = filme.Nota;
-        AlterarFilme.DataDeLancamento = filme.DataDeLancamento;
-        AlterarFilme.Genero = filme.Genero;
-        AlterarFilme.EmCartaz = filme.EmCartaz;
-        AlterarFilme.Duracao = filme.Duracao;
-        AlterarFilme.DisponivelNoPlano = filme.DisponivelNoPlano;
-        AlterarFilme.Diretor = filme.Diretor;
-        AlterarFilme.Classificacao = filme.Classificacao;
-        AlterarFilme.Atores = filme.Atores;
+        try
+        {
+            var AlterarFilme = ObterPorId(id);
+            AlterarFilme.Titulo = filme.Titulo;
+            AlterarFilme.Nota = filme.Nota;
+            AlterarFilme.DataDeLancamento = filme.DataDeLancamento;
+            AlterarFilme.Genero = filme.Genero;
+            AlterarFilme.EmCartaz = filme.EmCartaz;
+            AlterarFilme.Duracao = filme.Duracao;
+            AlterarFilme.DisponivelNoPlano = filme.DisponivelNoPlano;
+            AlterarFilme.Diretor = filme.Diretor;
+            AlterarFilme.Classificacao = filme.Classificacao;
+            AlterarFilme.Atores = filme.Atores;
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

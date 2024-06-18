@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.RepositoriosMock;
 using FluentValidation;
-using Cod3rsGrowth.Dominio.Validacoes;
+using Cod3rsGrowth.Servicos.Validacoes;
 
 namespace Cod3rsGrowth.Teste;
 public static class ModuloInjetor

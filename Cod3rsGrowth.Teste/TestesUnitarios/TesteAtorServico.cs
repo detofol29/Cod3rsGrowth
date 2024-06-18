@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
 using System.Reflection.Metadata.Ecma335;
-using Cod3rsGrowth.Dominio.Validacoes;
+using Cod3rsGrowth.Servicos.Validacoes;
 using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
@@ -92,9 +92,9 @@ public class TesteAtorServico : TesteBase
     }
 
     [Fact]
-    public void ao_ObterPorId_retorna_ator_com_id_igual_a_3()
+    public void ao_ObterPorId_retorna_ator_com_id_igual_ao_esperado()
     {
-        const int idAtor = 3;
+        const int idAtorEsperado = 3;
 
         _servicos.CriarAtor(new() { Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.CriarAtor(new() { Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
@@ -104,7 +104,7 @@ public class TesteAtorServico : TesteBase
         _servicos.CriarAtor(new() { Nome = "Elijah Wood", IdFilme = 4, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
 
         var atorEsperado = ObterAtorEsperado();
-        var atorEncontrado = _servicos.ObterPorId(idAtor);
+        var atorEncontrado = _servicos.ObterPorId(idAtorEsperado);
 
         Assert.Equivalent(atorEsperado, atorEncontrado);
     }

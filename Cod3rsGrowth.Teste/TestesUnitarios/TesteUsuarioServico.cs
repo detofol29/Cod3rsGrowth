@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Dominio.Validacoes;
+using Cod3rsGrowth.Servicos.Validacoes;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
 
@@ -56,16 +56,16 @@ public class TesteUsuarioServico : TesteBase
     }
 
     [Fact]
-    public void ao_ObterPorId_retorna_usuario_com_id_igual_a_3()
+    public void ao_ObterPorId_retorna_usuario_com_id_igual_ao_esperado()
     {
-        const int idUsuario = 3;
+        const int idUsuarioEsperado = 3;
 
         _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29" });
         _servicos.Inserir(new() { Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo" });
         _servicos.Inserir(new() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" });
         _servicos.Inserir(new() { Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau" });
 
-        var usuarioEncontrado = _servicos.ObterPorId(idUsuario);
+        var usuarioEncontrado = _servicos.ObterPorId(idUsuarioEsperado);
         var usuarioEsperado = ObterUsuarioEsperado();
 
         Assert.Equivalent(usuarioEsperado, usuarioEncontrado);
@@ -148,7 +148,7 @@ public class TesteUsuarioServico : TesteBase
     }
 
     [Fact]
-    public void ao_criar_usuario_com_senha_inferior_a_6_caracteres_retorna_mensagem_de_erro()
+    public void ao_criar_usuario_com_senha_inferior_ao_minimo_caracteres_retorna_mensagem_de_erro()
     {
         const int id = 3;
         const string mensagemEsperada = "O campo 'senha' deve ter no mínimo 6 digitos!";
