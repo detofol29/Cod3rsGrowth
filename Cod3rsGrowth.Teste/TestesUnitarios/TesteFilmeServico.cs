@@ -66,9 +66,9 @@ public class TesteFilmeServico : TesteBase
     }
 
     [Fact]
-    public void ao_ObterPorId_retorna_filme_com_id_igual_a_3()
+    public void ao_ObterPorId_retorna_filme_com_id_igual_ao_esperado()
     {
-        const int idFilme = 3;
+        const int idFilmeEsperado = 3;
 
         _servicos.CriarFilme(new Filme { Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
         _servicos.CriarFilme(new Filme { Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
@@ -84,7 +84,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.CriarFilme(new Filme { Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
         var filmeEsperado = ObterFilmeEsperado();
 
-        var filmeEncontrado = _servicos.ObterPorId(idFilme);
+        var filmeEncontrado = _servicos.ObterPorId(idFilmeEsperado);
 
         Assert.NotNull(filmeEncontrado);
         Assert.Equivalent(filmeEsperado, filmeEncontrado);
