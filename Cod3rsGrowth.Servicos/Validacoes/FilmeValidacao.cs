@@ -2,7 +2,7 @@
 using FluentValidation;
 using System;
 
-namespace Cod3rsGrowth.Dominio.Validacoes;
+namespace Cod3rsGrowth.Servicos.Validacoes;
 
 public class FilmeValidacao : AbstractValidator<Filme>
 {

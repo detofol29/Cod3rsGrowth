@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation.Results;
 
-namespace Cod3rsGrowth.Infra.Interfaces;
+namespace Cod3rsGrowth.Dominio.Interfaces;
 
 public interface IFilmeRepositorio
 {
