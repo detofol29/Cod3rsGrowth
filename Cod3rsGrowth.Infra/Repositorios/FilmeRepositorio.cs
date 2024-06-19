@@ -1,4 +1,5 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Dominio.Filtros;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
@@ -19,9 +20,47 @@ public class FilmeRepositorio : IFilmeRepositorio
         }
     }
 
-    public List<Filme> ObterTodos()
+    public List<Filme> ObterTodos(FiltroFilme? filtroFilme)
     {
-        return tabelaFilme;
+        using (var filmeContexto = new ConexaoDados())
+        {
+            IQueryable<Filme> query;
+
+            query = from a in filmeContexto.TabelaFilme select a;
+
+            if(filtroFilme == null)
+            {
+                return query.ToList();
+            }
+            else
+            {
+                if (filtroFilme.FiltroGenero.HasValue)
+                {
+                    query = query.Where(q => q.Genero == filtroFilme.FiltroGenero);
+                }
+
+                if (filtroFilme.FiltroClassificacao.HasValue)
+                {
+                    query = query.Where(q => q.Classificacao == filtroFilme.FiltroClassificacao);
+                }
+
+                if (filtroFilme.FiltroDisponivelNoPlano.HasValue)
+                {
+                    query = query.Where(q => q.DisponivelNoPlano == filtroFilme.FiltroDisponivelNoPlano);
+                }
+
+                if (filtroFilme.FiltroEmCartaz.HasValue)
+                {
+                    query = query.Where(q => q.EmCartaz == filtroFilme.FiltroEmCartaz);
+                }
+
+                if (filtroFilme.FiltroNotaMinima.HasValue)
+                {
+                    query = query.Where(q => q.Nota >= filtroFilme.FiltroNotaMinima);
+                }
+                return query.ToList();
+            }
+        }
     }
 
     public void Inserir(Filme filme)

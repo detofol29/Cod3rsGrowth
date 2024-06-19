@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -25,7 +26,7 @@ public class AtorRepositorioMock : IAtorRepositorio
         }
     }
 
-    public List<Ator> ObterTodos()
+    public List<Ator> ObterTodos(FiltroAtor? ator)
     {
         return tabelasSingleton;
     }

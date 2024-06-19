@@ -15,7 +15,7 @@ public class TesteAtorServico : TesteBase
     public TesteAtorServico()
     {
         _servicos = serviceProvider.GetService<AtorServicos>() ?? throw new Exception("Servico não encontrado");
-        _servicos.ObterTodos().Clear();
+        _servicos.ObterTodos(null).Clear();
     }
 
     private Ator ObterAtorEsperado()
@@ -85,7 +85,7 @@ public class TesteAtorServico : TesteBase
         _servicos.CriarAtor(new() { Nome = "Heath Ledger", IdFilme = 12, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.CriarAtor(new() { Nome = "Aaron Eckhart", IdFilme = 12, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
 
-        var lista = _servicos.ObterTodos();
+        var lista = _servicos.ObterTodos(null);
 
         Assert.NotEmpty(lista);
         Assert.Equal(valorEsperado, lista.Count());
@@ -229,7 +229,7 @@ public class TesteAtorServico : TesteBase
         var atores = ObterAtores();
         var idParaRemocao = atores[indiceIdParaRemocao].Id;
         _servicos.Remover(idParaRemocao);
-        var listaDeAtoresPosRemocao = _servicos.ObterTodos();
+        var listaDeAtoresPosRemocao = _servicos.ObterTodos(null);
 
         Assert.Equal(quantidadePosRemocao, listaDeAtoresPosRemocao.Count());
     }

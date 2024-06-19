@@ -2,10 +2,11 @@
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
-public class FilmeRepositorioMock : IFilmeRepositorio
+public class FilmeRepositorioMock :IFilmeRepositorio
 {
     private readonly List<Filme> tabelasSingleton;
     public FilmeRepositorioMock()
@@ -29,7 +30,7 @@ public class FilmeRepositorioMock : IFilmeRepositorio
         }
     }
 
-    public List<Filme> ObterTodos()
+    public List<Filme> ObterTodos(FiltroFilme? filtro)
     {
         return tabelasSingleton;
     }

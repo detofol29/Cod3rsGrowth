@@ -1,4 +1,5 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Dominio.Filtros;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
@@ -18,9 +19,29 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         }
     }
 
-    public List<Usuario> ObterTodos()
+    public List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario)
     {
-        return tabelaUsuarios;
+        using (var UsuarioContexto = new ConexaoDados())
+        {
+            IQueryable<Usuario> query;
+
+            query = from a in UsuarioContexto.TabelaUsuario select a;
+
+            if(filtroUsuario == null)
+            {
+                return query.ToList();
+            }
+            else
+            {
+                if (filtroUsuario.FiltroPlano.HasValue)
+                {
+                    query = from a in query
+                            where a.Plano == filtroUsuario.FiltroPlano
+                            select a;
+                }
+                return query.ToList();
+            }
+        }
     }
 
     public void Inserir(Usuario usuario)
