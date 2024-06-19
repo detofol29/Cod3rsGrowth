@@ -11,7 +11,7 @@ namespace Cod3rsGrowth.Infra;
 
 public class ConexaoDados : DataConnection
 {
-    public ConexaoDados() : base("Cod3rsGrowth") { }
+    public ConexaoDados() : base("StreamingFilmesBD") { }
 
     public ITable<Filme> TabelaFilme => this.GetTable<Filme>();
     public ITable<Ator> TabelaAtor => this.GetTable<Ator>();
