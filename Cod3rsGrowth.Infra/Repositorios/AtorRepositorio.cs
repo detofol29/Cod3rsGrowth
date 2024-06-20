@@ -45,15 +45,9 @@ public class AtorRepositorio : IAtorRepositorio
 
     public void Remover(int id)
     {
-        try
-        {
-            var ator = ObterPorId(id);
-            tabelaAtor.Remove(ator);
-        }
-        catch(Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        atorContexto.TabelaAtor
+        .Where(p => p.Id == id)
+        .Delete();
     }
 
     public void Editar(Ator ator)

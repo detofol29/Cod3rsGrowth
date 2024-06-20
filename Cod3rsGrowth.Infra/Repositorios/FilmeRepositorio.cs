@@ -73,15 +73,9 @@ public class FilmeRepositorio : IFilmeRepositorio
 
     public void Remover(int id)
     {
-        try
-        {
-            var filme = ObterPorId(id);
-            tabelaFilme.Remove(filme);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+         filmeContexto.TabelaFilme
+        .Where(p => p.Id == id)
+        .Delete();
     }
 
     public void Editar(Filme filme)

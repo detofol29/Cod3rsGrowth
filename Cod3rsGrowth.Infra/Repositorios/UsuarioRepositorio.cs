@@ -44,15 +44,9 @@ public class UsuarioRepositorio : IUsuarioRepositorio
 
     public void Remover(int id)
     {
-        try
-        {
-            var usuario = ObterPorId(id);
-            tabelaUsuarios.Remove(usuario);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        usuarioContexto.TabelaUsuario
+        .Where(p => p.IdUsuario == id)
+        .Delete();
     }
 
     public void Editar(Usuario usuario)
