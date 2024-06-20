@@ -14,5 +14,4 @@ public class FiltroFilme
     public bool? FiltroDisponivelNoPlano { get; set; }
     public bool? FiltroEmCartaz { get; set; }
     public int? FiltroNotaMinima { get; set; }
-
 }

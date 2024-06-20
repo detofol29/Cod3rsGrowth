@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
-using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Dominio.Interfaces;
 

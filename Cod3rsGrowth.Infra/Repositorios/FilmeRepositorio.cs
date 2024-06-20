@@ -6,7 +6,6 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 
 public class FilmeRepositorio : IFilmeRepositorio
 {
-    private static FilmeRepositorio _instancia;
     private readonly List<Filme> tabelaFilme;
     public Filme ObterPorId(int id)
     {
