@@ -24,9 +24,7 @@ public class UsuarioRepositorio : IUsuarioRepositorio
     {
         using (var UsuarioContexto = new ConexaoDados())
         {
-            IQueryable<Usuario> query;
-
-            query = from a in UsuarioContexto.TabelaUsuario select a;
+            IQueryable<Usuario> query = from a in UsuarioContexto.TabelaUsuario select a;
 
             if (filtroUsuario?.FiltroPlano != null)
             {

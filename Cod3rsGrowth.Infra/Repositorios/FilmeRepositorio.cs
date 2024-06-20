@@ -25,9 +25,7 @@ public class FilmeRepositorio : IFilmeRepositorio
     {
         using (var filmeContexto = new ConexaoDados())
         {
-            IQueryable<Filme> query;
-
-            query = from a in filmeContexto.TabelaFilme select a;
+            IQueryable<Filme> query = from a in filmeContexto.TabelaFilme select a;
 
             if (filtroFilme?.FiltroGenero != null)
             {

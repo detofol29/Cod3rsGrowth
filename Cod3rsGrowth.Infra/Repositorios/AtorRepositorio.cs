@@ -25,9 +25,7 @@ public class AtorRepositorio : IAtorRepositorio
     {
         using (var AtorContexto = new ConexaoDados())
         {
-            IQueryable<Ator> query;
-            query = from a in AtorContexto.TabelaAtor 
-                    select a;
+            IQueryable<Ator> query = from a in AtorContexto.TabelaAtor select a;
 
             if (filtroAtor?.FiltroIdFilme != null)
             {
