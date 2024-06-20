@@ -84,25 +84,8 @@ public class FilmeRepositorio : IFilmeRepositorio
         }
     }
 
-    public void Editar(int id, Filme filme)
+    public void Editar(Filme filme)
     {
-        try
-        {
-            var AlterarFilme = ObterPorId(id);
-            AlterarFilme.Titulo = filme.Titulo;
-            AlterarFilme.Nota = filme.Nota;
-            AlterarFilme.DataDeLancamento = filme.DataDeLancamento;
-            AlterarFilme.Genero = filme.Genero;
-            AlterarFilme.EmCartaz = filme.EmCartaz;
-            AlterarFilme.Duracao = filme.Duracao;
-            AlterarFilme.DisponivelNoPlano = filme.DisponivelNoPlano;
-            AlterarFilme.Diretor = filme.Diretor;
-            AlterarFilme.Classificacao = filme.Classificacao;
-            AlterarFilme.Atores = filme.Atores;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        filmeContexto.Update(filme);
     }
 }

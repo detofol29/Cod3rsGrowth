@@ -56,18 +56,8 @@ public class AtorRepositorio : IAtorRepositorio
         }
     }
 
-    public void Editar(int id, Ator ator)
+    public void Editar(Ator ator)
     {
-        try
-        {
-            var alterarAtor = ObterPorId(id);
-            alterarAtor.Nome = ator.Nome;
-            alterarAtor.Premios = ator.Premios;
-            alterarAtor.IdFilme = ator.IdFilme;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        atorContexto.Update(ator);
     }
 }

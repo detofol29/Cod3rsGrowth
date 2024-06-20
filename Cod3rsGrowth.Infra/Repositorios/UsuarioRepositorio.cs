@@ -55,20 +55,8 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         }
     }
 
-    public void Editar(int id,  Usuario usuario)
+    public void Editar(Usuario usuario)
     {
-        try
-        {
-            var alterarUsuario = ObterPorId(id);
-            alterarUsuario.Nome = usuario.Nome;
-            alterarUsuario.MinhaLista = usuario.MinhaLista;
-            alterarUsuario.Plano = usuario.Plano;
-            alterarUsuario.Senha = usuario.Senha;
-            alterarUsuario.NickName = usuario.NickName;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        usuarioContexto.Update(usuario);
     }
 }
