@@ -9,6 +9,7 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 public class AtorRepositorio : IAtorRepositorio
 {
     private readonly List<Ator> tabelaAtor;
+    ConexaoDados atorContexto = new();
     public Ator ObterPorId(int id)
     {
         try
@@ -39,7 +40,6 @@ public class AtorRepositorio : IAtorRepositorio
 
     public void Inserir(Ator ator)
     {
-        var atorContexto = new ConexaoDados();
         atorContexto.Insert(ator);
     }
 
