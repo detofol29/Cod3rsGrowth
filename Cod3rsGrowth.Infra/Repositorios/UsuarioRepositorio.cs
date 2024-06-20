@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 
@@ -27,26 +28,20 @@ public class UsuarioRepositorio : IUsuarioRepositorio
 
             query = from a in UsuarioContexto.TabelaUsuario select a;
 
-            if(filtroUsuario == null)
+            if (filtroUsuario?.FiltroPlano != null)
             {
-                return query.ToList();
+                query = from a in query
+                        where a.Plano == filtroUsuario.FiltroPlano
+                        select a;
             }
-            else
-            {
-                if (filtroUsuario.FiltroPlano.HasValue)
-                {
-                    query = from a in query
-                            where a.Plano == filtroUsuario.FiltroPlano
-                            select a;
-                }
-                return query.ToList();
-            }
+            return query.ToList();
         }
     }
 
     public void Inserir(Usuario usuario)
     {
-        tabelaUsuarios.Add(usuario);
+        var usuarioContexto = new ConexaoDados();
+        usuarioContexto.Insert(usuario);
     }
 
     public void Remover(int id)

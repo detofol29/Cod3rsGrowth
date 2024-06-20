@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
+using LinqToDB;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
@@ -27,26 +28,20 @@ public class AtorRepositorio : IAtorRepositorio
             IQueryable<Ator> query;
             query = from a in AtorContexto.TabelaAtor select a;
 
-            if(filtroAtor == null)
+            if (filtroAtor?.FiltroIdFilme != null)
             {
-                return query.ToList();
+                query = from a in query
+                        where a.IdFilme == filtroAtor.FiltroIdFilme
+                        select a;
             }
-            else
-            {
-                if(filtroAtor.FiltroIdFilme.HasValue)
-                {
-                    query = from a in query
-                            where a.IdFilme == filtroAtor.FiltroIdFilme
-                            select a;
-                }
-                return query.ToList();
-            }
+            return query.ToList();
         }
     }
 
     public void Inserir(Ator ator)
     {
-        tabelaAtor.Add(ator);
+        var atorContexto = new ConexaoDados();
+        atorContexto.Insert(ator);
     }
 
     public void Remover(int id)

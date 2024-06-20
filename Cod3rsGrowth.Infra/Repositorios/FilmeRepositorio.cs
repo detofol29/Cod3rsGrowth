@@ -1,6 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
+using LinqToDB;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 
@@ -27,44 +29,38 @@ public class FilmeRepositorio : IFilmeRepositorio
 
             query = from a in filmeContexto.TabelaFilme select a;
 
-            if(filtroFilme == null)
+            if (filtroFilme?.FiltroGenero != null)
             {
-                return query.ToList();
+                query = query.Where(q => q.Genero == filtroFilme.FiltroGenero);
             }
-            else
+
+            if (filtroFilme?.FiltroClassificacao != null)
             {
-                if (filtroFilme.FiltroGenero.HasValue)
-                {
-                    query = query.Where(q => q.Genero == filtroFilme.FiltroGenero);
-                }
-
-                if (filtroFilme.FiltroClassificacao.HasValue)
-                {
-                    query = query.Where(q => q.Classificacao == filtroFilme.FiltroClassificacao);
-                }
-
-                if (filtroFilme.FiltroDisponivelNoPlano.HasValue)
-                {
-                    query = query.Where(q => q.DisponivelNoPlano == filtroFilme.FiltroDisponivelNoPlano);
-                }
-
-                if (filtroFilme.FiltroEmCartaz.HasValue)
-                {
-                    query = query.Where(q => q.EmCartaz == filtroFilme.FiltroEmCartaz);
-                }
-
-                if (filtroFilme.FiltroNotaMinima.HasValue)
-                {
-                    query = query.Where(q => q.Nota >= filtroFilme.FiltroNotaMinima);
-                }
-                return query.ToList();
+                query = query.Where(q => q.Classificacao == filtroFilme.FiltroClassificacao);
             }
+
+            if (filtroFilme?.FiltroDisponivelNoPlano != null)
+            {
+                query = query.Where(q => q.DisponivelNoPlano == filtroFilme.FiltroDisponivelNoPlano);
+            }
+
+            if (filtroFilme?.FiltroEmCartaz != null)
+            {
+                query = query.Where(q => q.EmCartaz == filtroFilme.FiltroEmCartaz);
+            }
+
+            if (filtroFilme?.FiltroNotaMinima != null)
+            {
+                query = query.Where(q => q.Nota >= filtroFilme.FiltroNotaMinima);
+            }
+            return query.ToList();
         }
     }
 
     public void Inserir(Filme filme)
     {
-        tabelaFilme.Add(filme);
+        var filmeContexto = new ConexaoDados();
+        filmeContexto.Insert(filme);
     }
 
     public void Remover(int id)
