@@ -8,6 +8,7 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 public class UsuarioRepositorio : IUsuarioRepositorio
 {
     private readonly List<Usuario> tabelaUsuarios;
+    ConexaoDados usuarioContexto = new();
     public Usuario ObterPorId(int id)
     {
         try
@@ -38,7 +39,6 @@ public class UsuarioRepositorio : IUsuarioRepositorio
 
     public void Inserir(Usuario usuario)
     {
-        var usuarioContexto = new ConexaoDados();
         usuarioContexto.Insert(usuario);
     }
 

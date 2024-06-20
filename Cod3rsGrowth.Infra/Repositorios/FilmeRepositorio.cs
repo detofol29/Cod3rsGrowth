@@ -9,6 +9,7 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 public class FilmeRepositorio : IFilmeRepositorio
 {
     private readonly List<Filme> tabelaFilme;
+    ConexaoDados filmeContexto = new();
     public Filme ObterPorId(int id)
     {
         try
@@ -67,7 +68,6 @@ public class FilmeRepositorio : IFilmeRepositorio
 
     public void Inserir(Filme filme)
     {
-        var filmeContexto = new ConexaoDados();
         filmeContexto.Insert(filme);
     }
 
