@@ -15,7 +15,7 @@ public class TesteFilmeServico : TesteBase
     public TesteFilmeServico()
     {
         _servicos = serviceProvider.GetService<FilmeServicos>() ?? throw new Exception("Serviço não encontrado!");
-        _servicos.ObterTodos().Clear();
+        _servicos.ObterTodos(null).Clear();
     }
 
     private Filme ObterFilmeEsperado()
@@ -59,7 +59,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.CriarFilme(new Filme { Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
         _servicos.CriarFilme(new Filme { Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
 
-        var lista = _servicos.ObterTodos();
+        var lista = _servicos.ObterTodos(null);
 
         Assert.NotEmpty(lista);
         Assert.Equal(valorEsperado, lista.Count());
@@ -274,7 +274,7 @@ public class TesteFilmeServico : TesteBase
         var filmes = ObterFilmes();
         var idParaRemocao = filmes[indiceIdParaRemocao].Id;
         _servicos.Remover(idParaRemocao);
-        var listaDeFilmesPosRemocao = _servicos.ObterTodos();
+        var listaDeFilmesPosRemocao = _servicos.ObterTodos(null);
 
         Assert.Equal(quantidadePosRemocao, listaDeFilmesPosRemocao.Count());
     }

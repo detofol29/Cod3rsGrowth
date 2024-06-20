@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
@@ -19,9 +20,9 @@ public class FilmeServicos : IFilmeRepositorio
         _validator = validator;
     }
 
-    public List<Filme> ObterTodos()
+    public List<Filme> ObterTodos(FiltroFilme? filtroFilme)
     {
-        return _filmeRepositorio.ObterTodos();
+        return _filmeRepositorio.ObterTodos(filtroFilme);
     }
 
     public Filme ObterPorId(int id)
@@ -73,7 +74,7 @@ public class FilmeServicos : IFilmeRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
-        } 
+        }
     }
 
     public void Editar(int id, Filme filme)
@@ -88,14 +89,15 @@ public class FilmeServicos : IFilmeRepositorio
             throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
-    
+
     private int GerarId()
     {
         const int idInicial = 1;
         const int indiceVazio = 0;
 
         List<int> ListaIds = new List<int>();
-        foreach (var filme in _filmeRepositorio.ObterTodos())
+        var listaFilmes = _filmeRepositorio.ObterTodos(null);
+        foreach (var filme in listaFilmes)
         {
             ListaIds.Add(filme.Id);
         }

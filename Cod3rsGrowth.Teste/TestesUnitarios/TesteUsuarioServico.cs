@@ -15,7 +15,7 @@ public class TesteUsuarioServico : TesteBase
     public TesteUsuarioServico()
     {
         _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Serviço não encontrado!");
-        _servicos.ObterTodos().Clear();
+        _servicos.ObterTodos(null).Clear();
     }
 
     private Usuario ObterUsuarioEsperado()
@@ -49,7 +49,7 @@ public class TesteUsuarioServico : TesteBase
         _servicos.Inserir(new() { Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau" });
         var listaEsperada = TabelasSingleton.ObterInstanciaUsuarios;
 
-        var lista = _servicos.ObterTodos();
+        var lista = _servicos.ObterTodos(null);
 
         Assert.NotEmpty(lista);
         Assert.Equal(listaEsperada.Count(), lista.Count());
@@ -457,7 +457,7 @@ public class TesteUsuarioServico : TesteBase
         var usuarios = ObterUsuarios();
         var idParaRemocao = usuarios[indiceIdParaRemocao].IdUsuario;
         _servicos.Remover(idParaRemocao);
-        var listaDeUsuariosPosRemocao = _servicos.ObterTodos();
+        var listaDeUsuariosPosRemocao = _servicos.ObterTodos(null);
 
         Assert.Equal(quantidadePosRemocao, listaDeUsuariosPosRemocao.Count());
     }

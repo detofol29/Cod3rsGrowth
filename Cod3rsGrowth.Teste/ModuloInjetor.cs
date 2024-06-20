@@ -5,6 +5,7 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.RepositoriosMock;
 using FluentValidation;
 using Cod3rsGrowth.Servicos.Validacoes;
+using Cod3rsGrowth.Infra.Repositorios;
 
 namespace Cod3rsGrowth.Teste;
 public static class ModuloInjetor
