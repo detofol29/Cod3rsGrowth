@@ -9,5 +9,5 @@ public interface IAtorRepositorio
     void Inserir(Ator ator);
     List<Ator> ObterTodos(FiltroAtor? filtroAtor);
     public void Remover(int id);
-    public void Editar(int id, Ator ator);
+    public void Editar(Ator ator);
 }

@@ -9,5 +9,5 @@ public interface IFilmeRepositorio
     List<Filme> ObterTodos(FiltroFilme? FiltroFilme);
     void Inserir(Filme filme);
     public void Remover(int id);
-    public void Editar(int id, Filme filme);
+    public void Editar(Filme filme);
 }

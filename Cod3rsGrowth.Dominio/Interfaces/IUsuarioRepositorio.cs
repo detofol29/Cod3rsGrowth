@@ -9,5 +9,5 @@ public interface IUsuarioRepositorio
     void Inserir(Usuario usuario);
     List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario);
     public void Remover(int id);
-    public void Editar(int id, Usuario usuario);
+    public void Editar(Usuario usuario);
 }
