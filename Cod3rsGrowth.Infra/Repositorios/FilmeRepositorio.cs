@@ -31,27 +31,37 @@ public class FilmeRepositorio : IFilmeRepositorio
 
             if (filtroFilme?.FiltroGenero != null)
             {
-                query = query.Where(q => q.Genero == filtroFilme.FiltroGenero);
+                query = from a in query
+                        where a.Genero == filtroFilme.FiltroGenero
+                        select a;
             }
 
             if (filtroFilme?.FiltroClassificacao != null)
             {
-                query = query.Where(q => q.Classificacao == filtroFilme.FiltroClassificacao);
+                query = from a in query
+                        where a.Classificacao == filtroFilme.FiltroClassificacao
+                        select a;
             }
 
             if (filtroFilme?.FiltroDisponivelNoPlano != null)
             {
-                query = query.Where(q => q.DisponivelNoPlano == filtroFilme.FiltroDisponivelNoPlano);
+                query = from a in query
+                        where a.DisponivelNoPlano == filtroFilme.FiltroDisponivelNoPlano
+                        select a;
             }
 
             if (filtroFilme?.FiltroEmCartaz != null)
             {
-                query = query.Where(q => q.EmCartaz == filtroFilme.FiltroEmCartaz);
+                query = from a in query
+                        where a.EmCartaz == filtroFilme.FiltroEmCartaz
+                        select a;
             }
 
             if (filtroFilme?.FiltroNotaMinima != null)
             {
-                query = query.Where(q => q.Nota >= filtroFilme.FiltroNotaMinima);
+                query = from a in query
+                        where a.Nota == filtroFilme.FiltroNotaMinima
+                        select a;
             }
             return query.ToList();
         }
