@@ -7,18 +7,10 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 
 public class UsuarioRepositorio : IUsuarioRepositorio
 {
-    private readonly List<Usuario> tabelaUsuarios;
     ConexaoDados usuarioContexto = new();
     public Usuario ObterPorId(int id)
     {
-        try
-        {
-            return tabelaUsuarios.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Id nao encontrado");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        return usuarioContexto.GetTable<Usuario>().FirstOrDefault(p => p.IdUsuario == id) ?? throw new Exception("Usuário não encontrado");
     }
 
     public List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario)

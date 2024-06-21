@@ -8,18 +8,10 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 
 public class AtorRepositorio : IAtorRepositorio
 {
-    private readonly List<Ator> tabelaAtor;
     ConexaoDados atorContexto = new();
     public Ator ObterPorId(int id)
     {
-        try
-        {
-            return tabelaAtor.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Id nao encontrado");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        return atorContexto.GetTable<Ator>().FirstOrDefault(p => p.Id == id) ?? throw new Exception("Ator não encontrado");
     }
 
     public List<Ator> ObterTodos(FiltroAtor? filtroAtor)
