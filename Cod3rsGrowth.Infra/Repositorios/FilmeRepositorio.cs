@@ -74,8 +74,7 @@ public class FilmeRepositorio : IFilmeRepositorio
     public void Remover(int id)
     {
          filmeContexto.TabelaFilme
-        .Where(p => p.Id == id)
-        .Delete();
+        .Delete(p => p.Id == id);
     }
 
     public void Editar(Filme filme)

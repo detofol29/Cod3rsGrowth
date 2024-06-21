@@ -46,8 +46,7 @@ public class AtorRepositorio : IAtorRepositorio
     public void Remover(int id)
     {
         atorContexto.TabelaAtor
-        .Where(p => p.Id == id)
-        .Delete();
+        .Delete(p => p.Id == id);
     }
 
     public void Editar(Ator ator)

@@ -74,7 +74,7 @@ public class UsuarioServicos : IUsuarioRepositorio
         var validacao = _validator.Validate(usuario);
         if (validacao.IsValid)
         {
-            _usuarioRepositorio.Editar(id, usuario);
+            _usuarioRepositorio.Editar(usuario);
         }
         else
         {
