@@ -48,11 +48,11 @@ public class FilmeRepositorioMock :IFilmeRepositorio
         }
     }
 
-    public void Editar(int id, Filme filme)
+    public void Editar(Filme filme)
     {
         try
         {
-            var AlterarFilme = ObterPorId(id);
+            var AlterarFilme = ObterPorId(filme.Id);
             AlterarFilme.Titulo = filme.Titulo;
             AlterarFilme.Nota = filme.Nota;
             AlterarFilme.DataDeLancamento = filme.DataDeLancamento;

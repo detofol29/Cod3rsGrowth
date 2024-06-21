@@ -77,7 +77,7 @@ public class FilmeServicos : IFilmeRepositorio
         }
     }
 
-    public void Editar(int id, Filme filme)
+    public void Editar(Filme filme)
     {
         var validacao = _validator.Validate(filme);
         if (validacao.IsValid)

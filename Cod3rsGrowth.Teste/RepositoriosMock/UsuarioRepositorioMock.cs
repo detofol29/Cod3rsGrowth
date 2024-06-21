@@ -50,11 +50,11 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         }
     }
 
-    public void Editar(int id, Usuario usuario)
+    public void Editar(Usuario usuario)
     {
         try
         {
-            var alterarUsuario = ObterPorId(id);
+            var alterarUsuario = ObterPorId(usuario.IdUsuario);
             alterarUsuario.Nome = usuario.Nome;
             alterarUsuario.MinhaLista = usuario.MinhaLista;
             alterarUsuario.Plano = usuario.Plano;

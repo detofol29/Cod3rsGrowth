@@ -171,7 +171,7 @@ public class TesteAtorServico : TesteBase
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
 
-        _servicos.Editar(idBase, atorEditado);
+        _servicos.Editar(atorEditado);
         var atorEncontrado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(atorEditado.Nome, atorEncontrado.Nome);
@@ -195,7 +195,7 @@ public class TesteAtorServico : TesteBase
 
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(atorEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -216,7 +216,7 @@ public class TesteAtorServico : TesteBase
 
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(atorEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 

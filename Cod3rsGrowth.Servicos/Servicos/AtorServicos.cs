@@ -56,7 +56,7 @@ public class AtorServicos : IAtorRepositorio
         }
     }
 
-    public void Editar(int id, Ator ator)
+    public void Editar(Ator ator)
     {
         var validacao = _validator.Validate(ator);
         if (validacao.IsValid)

@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -25,7 +26,7 @@ public class AtorRepositorioMock : IAtorRepositorio
         }
     }
 
-    public List<Ator> ObterTodos()
+    public List<Ator> ObterTodos(FiltroAtor? filtro)
     {
         return tabelasSingleton;
     }
@@ -48,11 +49,11 @@ public class AtorRepositorioMock : IAtorRepositorio
         }
     }
 
-    public void Editar(int id, Ator ator)
+    public void Editar(Ator ator)
     {
         try
         {
-            var alterarAtor = ObterPorId(id);
+            var alterarAtor = ObterPorId(ator.Id);
             alterarAtor.Nome = ator.Nome;
             alterarAtor.Premios = ator.Premios;
             alterarAtor.IdFilme = ator.IdFilme;

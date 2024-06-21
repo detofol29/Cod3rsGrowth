@@ -69,7 +69,7 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
     }
 
-    public void Editar(int id, Usuario usuario)
+    public void Editar(Usuario usuario)
     {
         var validacao = _validator.Validate(usuario);
         if (validacao.IsValid)

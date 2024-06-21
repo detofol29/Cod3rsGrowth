@@ -163,7 +163,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
 
-        _servicos.Editar(idBase, filmeEditado);
+        _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
 
         Assert.Equivalent(filmeBase, filmeRecuperado);
@@ -185,7 +185,7 @@ public class TesteFilmeServico : TesteBase
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
-        _servicos.Editar(idBase, filmeEditado);
+        _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
         Assert.Equal(filmeEditado.Titulo, filmeRecuperado.Titulo);
         Assert.Equivalent(filmeBase, filmeRecuperado);
@@ -210,7 +210,7 @@ public class TesteFilmeServico : TesteBase
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
-        _servicos.Editar(idBase, filmeEditado);
+        _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(notaFinal, filmeRecuperado.Nota);
@@ -235,7 +235,7 @@ public class TesteFilmeServico : TesteBase
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, filmeEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(filmeEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -261,7 +261,7 @@ public class TesteFilmeServico : TesteBase
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, filmeEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(filmeEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 

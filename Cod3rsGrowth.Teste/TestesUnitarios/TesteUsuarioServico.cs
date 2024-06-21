@@ -267,7 +267,7 @@ public class TesteUsuarioServico : TesteBase
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
 
-        _servicos.Editar(idBase, usuarioEditado);
+        _servicos.Editar(usuarioEditado);
         var usuarioEncontrado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(usuarioEditado.Nome, usuarioEncontrado.Nome);
@@ -295,7 +295,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -320,7 +320,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -344,7 +344,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemDeErro, ex.Message);
     }
 
@@ -369,7 +369,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -394,7 +394,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -419,7 +419,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -444,7 +444,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
