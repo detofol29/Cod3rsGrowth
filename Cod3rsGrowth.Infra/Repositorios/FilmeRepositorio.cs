@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using LinqToDB;
+using System.Data;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
@@ -73,15 +74,8 @@ public class FilmeRepositorio : IFilmeRepositorio
 
     public void Remover(int id)
     {
-        try
-        {
-            var filme = ObterPorId(id);
-            tabelaFilme.Remove(filme);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        var filme = ObterPorId(id);
+        filmeContexto.Delete(filme);
     }
 
     public void Editar(Filme filme)
