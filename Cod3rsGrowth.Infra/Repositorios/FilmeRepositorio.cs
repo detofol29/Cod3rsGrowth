@@ -9,18 +9,10 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 
 public class FilmeRepositorio : IFilmeRepositorio
 {
-    private readonly List<Filme> tabelaFilme;
     ConexaoDados filmeContexto = new();
     public Filme ObterPorId(int id)
     {
-        try
-        {
-            return tabelaFilme.FirstOrDefault(a => a.Id == id) ?? throw new Exception("Id nao encontrado");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        return filmeContexto.GetTable<Filme>().FirstOrDefault(p => p.Id == id) ?? throw new Exception("Filme não encontrado");
     }
 
     public List<Filme> ObterTodos(FiltroFilme? filtroFilme)
