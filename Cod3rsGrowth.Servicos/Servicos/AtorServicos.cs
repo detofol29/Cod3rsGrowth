@@ -3,6 +3,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
 using FluentValidation;
 using FluentValidation.Results;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
@@ -20,9 +21,9 @@ public class AtorServicos : IAtorRepositorio
         return ator.Premios;
     }
 
-    public List<Ator> ObterTodos()
+    public List<Ator> ObterTodos(FiltroAtor? filtroAtor)
     {
-        return _atorRepositorio.ObterTodos();
+        return _atorRepositorio.ObterTodos(filtroAtor);
     }
 
     public Ator ObterPorId(int id)
@@ -60,7 +61,7 @@ public class AtorServicos : IAtorRepositorio
         var validacao = _validator.Validate(ator);
         if (validacao.IsValid)
         {
-            _atorRepositorio.Editar(id, ator);
+            _atorRepositorio.Editar(ator);
         }
         else
         {
@@ -74,7 +75,7 @@ public class AtorServicos : IAtorRepositorio
         const int indiceVazio = 0;
 
         List<int> ListaIds = new List<int>();
-        foreach (var ator in _atorRepositorio.ObterTodos())
+        foreach (var ator in _atorRepositorio.ObterTodos(null))
         {
             ListaIds.Add(ator.Id);
         }

@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Xunit.Sdk;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -31,7 +32,7 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         tabelasSingleton.Add(usuario);
     }
 
-    public List<Usuario> ObterTodos()
+    public List<Usuario> ObterTodos(FiltroUsuario? usuario)
     {
         return tabelasSingleton;
     }
