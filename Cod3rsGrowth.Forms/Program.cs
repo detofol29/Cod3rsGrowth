@@ -49,7 +49,8 @@ namespace Cod3rsGrowth.Forms;
                 // Define the assembly containing the migrations
                 //.ScanIn(typeof(Migracao20240621501000_CriaTabelaAtores).Assembly).For.Migrations()
                 //.ScanIn(typeof(Migracao20240621401000_CriaTabelaFilmes).Assembly).For.Migrations()
-                .ScanIn(typeof(Migracao20240621001100_CriaTabelaUsuarios).Assembly).For.Migrations())
+                //.ScanIn(typeof(Migracao20240621001100_CriaTabelaUsuarios).Assembly).For.Migrations())
+                .ScanIn(typeof(Migracao20240624002100_AdicionaChaveEstrangeira).Assembly).For.Migrations())
             // Enable logging to console in the FluentMigrator way
             .AddLogging(lb => lb.AddFluentMigratorConsole())
             // Build the service provider
@@ -59,6 +60,6 @@ namespace Cod3rsGrowth.Forms;
     private static void UpdateDatabase(IServiceProvider serviceProvider)
     {
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-        runner.MigrateUp(20240621501000);
+        runner.MigrateUp(20240624002100);
     }
 }
