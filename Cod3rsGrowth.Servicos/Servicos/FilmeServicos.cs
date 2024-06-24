@@ -14,9 +14,11 @@ public class FilmeServicos : IFilmeRepositorio
 {
     private readonly IValidator<Filme> _validator;
     private readonly IFilmeRepositorio _filmeRepositorio;
-    public FilmeServicos(IFilmeRepositorio filmeRepositorio, IValidator<Filme> validator)
+    private readonly IAtorRepositorio _atorRepositorio;
+    public FilmeServicos(IFilmeRepositorio filmeRepositorio, IValidator<Filme> validator, IAtorRepositorio atorRepositorio)
     {
         _filmeRepositorio = filmeRepositorio;
+        _atorRepositorio = atorRepositorio;
         _validator = validator;
     }
 
@@ -42,7 +44,8 @@ public class FilmeServicos : IFilmeRepositorio
 
     public List<Ator> ObterAtoresDoFilme(Filme filme)
     {
-        return filme.Atores;
+        FiltroAtor filtro = new() { FiltroIdFilme = filme.Id };
+        return _atorRepositorio.ObterTodos(filtro);
     }
 
     public static bool VerificarDisponibilidadeDoFilme(Usuario usuario, Filme filme)

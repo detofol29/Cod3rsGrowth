@@ -11,8 +11,8 @@ public class Ator
     public string Nome { get; set; }
     [PrimaryKey, Identity]
     public int Id { get; set; }
-    [Column("IdFilme")]
+    [Column("IdFilme"), NotNull]
     public int IdFilme { get; set; }
     [Column("Premios")]
-    public List<string> Premios { get; set; }
+    public List<string>? Premios { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿using FluentMigrator;
+﻿using Cod3rsGrowth.Dominio.Modelos;
+using FluentMigrator;
+using System.Reflection;
 
 namespace Cod3rsGrowth.Infra.Migracoes;
 
@@ -11,14 +13,13 @@ public class Migracao20240621401000_CriaTabelaFilmes : Migration
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
             .WithColumn("Titulo").AsString().NotNullable()
             .WithColumn("DataDeLancamento").AsDateTime()
-	        .WithColumn("Genero").AsString()
-	        .WithColumn("EmCartaz").AsBoolean()
+            .WithColumn("Genero").AsString()
+            .WithColumn("EmCartaz").AsBoolean()
             .WithColumn("Nota").AsDecimal()
-	        .WithColumn("Duracao").AsInt32()
-	        .WithColumn("DisponivelNoPlano").AsBoolean()
-	        .WithColumn("Diretor").AsString()
-	        .WithColumn("Classificacao").AsString()
-	        .WithColumn("Atores");
+            .WithColumn("Duracao").AsInt32()
+            .WithColumn("DisponivelNoPlano").AsBoolean()
+            .WithColumn("Diretor").AsString()
+            .WithColumn("Classificacao").AsString();
     }
 
     public override void Down()

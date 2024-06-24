@@ -9,7 +9,7 @@ public class Usuario
     [PrimaryKey, Identity]
     public int IdUsuario { get; set; }
     [Column("MinhaLista")]
-    public List<Filme> MinhaLista { get; set; }
+    public List<Filme>? MinhaLista { get; set; }
     [Column("Plano")]
     public PlanoEnum Plano { get; set; }
     [Column("Senha")]
