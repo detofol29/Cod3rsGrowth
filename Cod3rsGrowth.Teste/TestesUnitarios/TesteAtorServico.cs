@@ -164,12 +164,13 @@ public class TesteAtorServico : TesteBase
             Nome = "Criss Byuither"
         };
 
-        Ator atorEditado = new()
-        {
-            Nome = "Criss Byuither Silva"
-        };
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
+        Ator atorEditado = new()
+        {
+            Nome = "Criss Byuither Silva",
+            Id = idBase
+        };
 
         _servicos.Editar(atorEditado);
         var atorEncontrado = _servicos.ObterPorId(idBase);

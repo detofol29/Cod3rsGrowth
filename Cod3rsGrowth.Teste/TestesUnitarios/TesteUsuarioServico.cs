@@ -258,14 +258,15 @@ public class TesteUsuarioServico : TesteBase
             Senha = "Abc12345"
         };
 
+        _servicos.CriarUsuario(usuarioBase); 
+        var idBase = usuarioBase.IdUsuario;
         Usuario usuarioEditado = new()
         {
             Nome = "Criss Byuither Silva",
             NickName = "Robertinho",
-            Senha = "Abc12345"
+            Senha = "Abc12345",
+            IdUsuario = idBase
         };
-        _servicos.CriarUsuario(usuarioBase);
-        var idBase = usuarioBase.IdUsuario;
 
         _servicos.Editar(usuarioEditado);
         var usuarioEncontrado = _servicos.ObterPorId(idBase);

@@ -12,9 +12,9 @@ public static class ModuloInjetor
 {
     public static void ObterServicosParaServiceCollection(ServiceCollection services)
     {
-        services.AddScoped<IFilmeRepositorio, FilmeRepositorio>();
-        services.AddScoped<IAtorRepositorio, AtorRepositorio>();
-        services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+        services.AddScoped<IFilmeRepositorio, FilmeRepositorioMock>();
+        services.AddScoped<IAtorRepositorio, AtorRepositorioMock>();
+        services.AddScoped<IUsuarioRepositorio, UsuarioRepositorioMock>();
         services.AddScoped<UsuarioServicos>();
         services.AddScoped<FilmeServicos>();
         services.AddScoped<AtorServicos>();

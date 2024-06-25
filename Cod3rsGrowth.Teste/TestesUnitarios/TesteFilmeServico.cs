@@ -155,13 +155,14 @@ public class TesteFilmeServico : TesteBase
             Titulo = "A revolta de Zuck"
         };
 
-        Filme filmeEditado = new Filme()
-        {
-            Titulo = "A vingança de Zuck"
-        };
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A vingança de Zuck",
+            Id = idBase
+        };
 
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
@@ -178,13 +179,14 @@ public class TesteFilmeServico : TesteBase
             Titulo = "A revolta de Zuck"
         };
 
-        Filme filmeEditado = new Filme()
-        {
-            Titulo = "A vingança de Zuck"
-        };
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A vingança de Zuck",
+            Id = idBase
+        };
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
         Assert.Equal(filmeEditado.Titulo, filmeRecuperado.Titulo);
@@ -202,14 +204,15 @@ public class TesteFilmeServico : TesteBase
             Nota = notaInicial
         };
 
-        Filme filmeEditado = new Filme()
-        {
-            Titulo = "A revolta de Zuck",
-            Nota = notaFinal
-        };
 
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
+        Filme filmeEditado = new Filme()
+        {
+            Titulo = "A revolta de Zuck",
+            Nota = notaFinal,
+            Id = idBase
+        };
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
 

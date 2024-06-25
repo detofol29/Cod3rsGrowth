@@ -1,6 +1,13 @@
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Migracoes;
+using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Servicos.Validacoes;
 using FluentMigrator.Runner;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 namespace Cod3rsGrowth.Forms;
 
 class Program

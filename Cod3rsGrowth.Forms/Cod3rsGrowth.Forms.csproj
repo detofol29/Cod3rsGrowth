@@ -16,6 +16,7 @@
     <PackageReference Include="linq2db.AspNet" Version="5.4.1" />
     <PackageReference Include="linq2db.EntityFrameworkCore" Version="7.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="7.0.2" />
   </ItemGroup>
 
