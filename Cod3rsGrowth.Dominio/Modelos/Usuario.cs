@@ -12,8 +12,8 @@ public class Usuario
     public List<Filme>? MinhaLista { get; set; }
     [Column("Plano")]
     public PlanoEnum Plano { get; set; }
-    [Column("Senha")]
+    [Column("Senha"), NotNull]
     public string Senha {  get; set; }
-    [Column("NickName")]
+    [Column("NickName"), NotNull]
     public string NickName { get; set; }
 }

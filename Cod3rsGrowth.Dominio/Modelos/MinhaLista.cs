@@ -1,11 +1,6 @@
 ﻿using LinqToDB.Mapping;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LinqToDB.Async;
+using ColumnAttribute = System.ComponentModel.DataAnnotations.Schema.ColumnAttribute;
+using TableAttribute = LinqToDB.Mapping.TableAttribute;
 
 namespace Cod3rsGrowth.Dominio.Modelos;
 

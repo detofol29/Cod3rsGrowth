@@ -18,7 +18,7 @@ public class AtorServicos : IAtorRepositorio
     }
     public List<string> ObterPremiosDoAtor(Ator ator)
     {
-        return ator.Premios;
+        return ator.Premios ?? throw new Exception("Lista de [Prêmios] vazia");
     }
 
     public List<Ator> ObterTodos(FiltroAtor? filtroAtor)

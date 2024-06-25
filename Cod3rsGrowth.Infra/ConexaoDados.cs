@@ -11,4 +11,5 @@ public class ConexaoDados : DataConnection
     public ITable<Filme> TabelaFilme => this.GetTable<Filme>();
     public ITable<Ator> TabelaAtor => this.GetTable<Ator>();
     public ITable<Usuario> TabelaUsuario => this.GetTable<Usuario>();
+    public ITable<MinhaLista> MinhaLista => this.GetTable<MinhaLista>();
 }

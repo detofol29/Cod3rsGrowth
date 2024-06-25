@@ -12,8 +12,8 @@ public class Migracao20240624002100_AdicionaChaveEstrangeira : Migration
     public override void Up()
     {
         Create.ForeignKey("FK_MinhaLista_Usuarios")
-                .FromTable("MinhaLista").ForeignColumn("IdUsuario")
-                .ToTable("Usuarios").PrimaryColumn("IdUsuario");
+            .FromTable("MinhaLista").ForeignColumn("IdUsuario")
+            .ToTable("Usuarios").PrimaryColumn("IdUsuario");
 
         Create.ForeignKey("FK_MinhaLista_Filmes")
             .FromTable("MinhaLista").ForeignColumn("IdFilme")
