@@ -30,9 +30,45 @@ public class FilmeRepositorioMock :IFilmeRepositorio
         }
     }
 
-    public List<Filme> ObterTodos(FiltroFilme? filtro)
+    public List<Filme> ObterTodos(FiltroFilme? filtroFilme)
     {
-        return tabelasSingleton;
+        IQueryable<Filme> query = tabelasSingleton.AsQueryable();
+
+        if (filtroFilme?.FiltroGenero != null)
+        {
+            query = from a in query
+                    where a.Genero == filtroFilme.FiltroGenero
+                    select a;
+        }
+        
+        if (filtroFilme?.FiltroClassificacao != null)
+        {
+            query = from a in query
+                    where a.Classificacao == filtroFilme.FiltroClassificacao
+                    select a;
+        }
+
+        if (filtroFilme?.FiltroDisponivelNoPlano != null)
+        {
+            query = from a in query
+                    where a.DisponivelNoPlano == filtroFilme.FiltroDisponivelNoPlano
+                    select a;
+        }
+
+        if (filtroFilme?.FiltroEmCartaz != null)
+        {
+            query = from a in query
+                    where a.EmCartaz == filtroFilme.FiltroEmCartaz
+                    select a;
+        }
+
+        if (filtroFilme?.FiltroNotaMinima != null)
+        {
+            query = from a in query
+                    where a.Nota >= filtroFilme.FiltroNotaMinima
+                    select a;
+        }
+        return query.ToList();
     }
 
     public void Remover(int id)

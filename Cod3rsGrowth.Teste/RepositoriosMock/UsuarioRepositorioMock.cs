@@ -32,9 +32,17 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         tabelasSingleton.Add(usuario);
     }
 
-    public List<Usuario> ObterTodos(FiltroUsuario? usuario)
+    public List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario)
     {
-        return tabelasSingleton;
+        IQueryable<Usuario> query = tabelasSingleton.AsQueryable();
+
+        if (filtroUsuario?.FiltroPlano != null)
+        {
+            query = from a in query
+                    where a.Plano == filtroUsuario.FiltroPlano
+                    select a;
+        }
+        return query.ToList();
     }
 
     public void Remover(int id)

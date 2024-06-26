@@ -28,7 +28,15 @@ public class AtorRepositorioMock : IAtorRepositorio
 
     public List<Ator> ObterTodos(FiltroAtor? filtro)
     {
-        return tabelasSingleton;
+        IQueryable<Ator> query = tabelasSingleton.AsQueryable();
+
+        if (filtro?.FiltroIdFilme != null)
+        {
+            query = from a in query
+                    where a.IdFilme == filtro.FiltroIdFilme
+                    select a;
+        }
+        return query.ToList();
     }
     
     public void Inserir(Ator ator)

@@ -6,6 +6,7 @@ using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validacoes;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -27,10 +28,10 @@ public class TesteUsuarioServico : TesteBase
     {
         List<Usuario> usuarios = new()
         {
-            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345"},
-            new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345"},
-            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345"},
-            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345"},
+            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345", Plano = PlanoEnum.Free},
+            new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345", Plano = PlanoEnum.Free},
+            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345", Plano = PlanoEnum.Premium},
+            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345", Plano = PlanoEnum.Nerd},
         };
 
         foreach(var usuario in usuarios)
@@ -38,6 +39,14 @@ public class TesteUsuarioServico : TesteBase
             _servicos.CriarUsuario(usuario);
         }
         return usuarios;
+    }
+
+    private void RemoverUsuarios(List<Usuario> usuarios)
+    {
+        foreach(var usuario in usuarios)
+        {
+            _servicos.Remover(usuario.IdUsuario);
+        }
     }
 
     [Fact]
@@ -60,6 +69,7 @@ public class TesteUsuarioServico : TesteBase
     {
         const int idUsuarioEsperado = 3;
 
+        RemoverUsuarios(_servicos.ObterTodos(null));
         _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29" });
         _servicos.Inserir(new() { Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo" });
         _servicos.Inserir(new() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" });
@@ -455,6 +465,7 @@ public class TesteUsuarioServico : TesteBase
         const int quantidadePosRemocao = 3;
         const int indiceIdParaRemocao = 3;
 
+        RemoverUsuarios(_servicos.ObterTodos(null));
         var usuarios = ObterUsuarios();
         var idParaRemocao = usuarios[indiceIdParaRemocao].IdUsuario;
         _servicos.Remover(idParaRemocao);
@@ -476,5 +487,26 @@ public class TesteUsuarioServico : TesteBase
 
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Theory]
+    [InlineData(PlanoEnum.Nerd, 1)]
+    [InlineData(PlanoEnum.Free, 2)]
+    [InlineData(PlanoEnum.Premium, 1)]
+    public void ao_obterTodos_com_filtro_de_Plano_retorna_quantidade_de_usuarios_correspondente(PlanoEnum plano, int quantidade)
+    {
+        var quantidadeEsperada = quantidade;
+        var planoEsperado = plano;
+        RemoverUsuarios(_servicos.ObterTodos(null));
+        ObterUsuarios();
+
+        FiltroUsuario filtro = new()
+        {
+            FiltroPlano = planoEsperado
+        };
+
+        var usuariosObtidos = _servicos.ObterTodos(filtro);
+
+        Assert.Equal(quantidadeEsperada, usuariosObtidos.Count());
     }
 }
