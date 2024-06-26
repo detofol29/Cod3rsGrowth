@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Cod3rsGrowth.Infra.Migracoes;
 
-[Migration(20240624002000)]
-public class Migracao20240624002000_CriaTabelaMinhaLista : Migration
+[Migration(20240627002000)]
+public class Migracao20240627002000_CriaTabelaMinhaLista : Migration
 {
     public override void Up()
     {

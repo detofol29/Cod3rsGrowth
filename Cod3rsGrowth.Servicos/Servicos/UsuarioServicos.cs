@@ -34,7 +34,7 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public void AdicionarFilmeNaMinhaLista(Filme filme, Usuario usuario)
     {
-        usuario.MinhaLista.Add(filme);
+        usuario.FilmesDoUsuario.Add(filme);
     }
 
     public void Logar(string nick, string senha)

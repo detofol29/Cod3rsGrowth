@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Cod3rsGrowth.Infra.Migracoes;
 
-public class Migracao20240624002100_AdicionaChaveEstrangeira : Migration
+[Migration(20240627002100)]
+public class Migracao20240627002100_AdicionaChaveEstrangeira : Migration
 {
     public override void Up()
     {

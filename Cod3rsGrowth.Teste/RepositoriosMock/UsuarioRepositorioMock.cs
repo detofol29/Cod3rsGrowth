@@ -64,7 +64,7 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         {
             var alterarUsuario = ObterPorId(usuario.IdUsuario);
             alterarUsuario.Nome = usuario.Nome;
-            alterarUsuario.MinhaLista = usuario.MinhaLista;
+            alterarUsuario.FilmesDoUsuario = usuario.FilmesDoUsuario;
             alterarUsuario.Plano = usuario.Plano;
             alterarUsuario.Senha = usuario.Senha;
             alterarUsuario.NickName = usuario.NickName;

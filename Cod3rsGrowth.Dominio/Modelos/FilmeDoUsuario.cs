@@ -4,8 +4,8 @@ using TableAttribute = LinqToDB.Mapping.TableAttribute;
 
 namespace Cod3rsGrowth.Dominio.Modelos;
 
-[Table ("MinhaLista")]
-public class MinhaLista
+[Table ("FilmesDoUsuario")]
+public class FilmeDoUsuario
 {
     [PrimaryKey, Identity]
     public int Id { get; set; }

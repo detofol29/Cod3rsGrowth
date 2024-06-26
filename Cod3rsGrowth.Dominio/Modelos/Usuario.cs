@@ -9,7 +9,7 @@ public class Usuario
     [PrimaryKey, Identity]
     public int IdUsuario { get; set; }
     [Association(ThisKey = "IdUsuario", OtherKey = "IdUsuario")]
-    public List<Filme>? MinhaLista { get; set; }
+    public List<Filme>? FilmesDoUsuario { get; set; }
     [Column("Plano")]
     public PlanoEnum Plano { get; set; }
     [Column("Senha"), NotNull]

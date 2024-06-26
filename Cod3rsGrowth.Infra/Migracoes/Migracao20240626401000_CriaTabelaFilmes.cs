@@ -4,8 +4,8 @@ using System.Reflection;
 
 namespace Cod3rsGrowth.Infra.Migracoes;
 
-[Migration(20240621401000)]
-public class Migracao20240621401000_CriaTabelaFilmes : Migration
+[Migration(20240626401000)]
+public class Migracao20240626401000_CriaTabelaFilmes : Migration
 {
     public override void Up()
     {
