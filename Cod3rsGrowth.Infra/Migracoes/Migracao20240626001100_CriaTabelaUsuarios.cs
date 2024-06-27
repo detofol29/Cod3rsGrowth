@@ -11,9 +11,9 @@ public class Migracao20240626001100_CriaTabelaUsuarios : Migration
             .WithColumn("IdUsuario").AsInt32().NotNullable().PrimaryKey().Identity()
             .WithColumn("Nome").AsString().NotNullable()
             .WithColumn("Plano").AsString()
-	        .WithColumn("MinhaLista").AsString()
-	        .WithColumn("Senha").AsString()
-	        .WithColumn("NickName").AsString();
+            .WithColumn("MinhaLista").AsString()
+            .WithColumn("Senha").AsString()
+            .WithColumn("NickName").AsString();
     }
 
     public override void Down()
