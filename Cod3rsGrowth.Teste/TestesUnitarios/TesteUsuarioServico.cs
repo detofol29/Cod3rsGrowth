@@ -6,6 +6,7 @@ using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validacoes;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -15,7 +16,7 @@ public class TesteUsuarioServico : TesteBase
     public TesteUsuarioServico()
     {
         _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Serviço não encontrado!");
-        _servicos.ObterTodos().Clear();
+        _servicos.ObterTodos(null).Clear();
     }
 
     private Usuario ObterUsuarioEsperado()
@@ -27,10 +28,10 @@ public class TesteUsuarioServico : TesteBase
     {
         List<Usuario> usuarios = new()
         {
-            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345"},
-            new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345"},
-            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345"},
-            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345"},
+            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345", Plano = PlanoEnum.Free},
+            new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345", Plano = PlanoEnum.Free},
+            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345", Plano = PlanoEnum.Premium},
+            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345", Plano = PlanoEnum.Nerd},
         };
 
         foreach(var usuario in usuarios)
@@ -38,6 +39,14 @@ public class TesteUsuarioServico : TesteBase
             _servicos.CriarUsuario(usuario);
         }
         return usuarios;
+    }
+
+    private void RemoverUsuarios(List<Usuario> usuarios)
+    {
+        foreach(var usuario in usuarios)
+        {
+            _servicos.Remover(usuario.IdUsuario);
+        }
     }
 
     [Fact]
@@ -49,7 +58,7 @@ public class TesteUsuarioServico : TesteBase
         _servicos.Inserir(new() { Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau" });
         var listaEsperada = TabelasSingleton.ObterInstanciaUsuarios;
 
-        var lista = _servicos.ObterTodos();
+        var lista = _servicos.ObterTodos(null);
 
         Assert.NotEmpty(lista);
         Assert.Equal(listaEsperada.Count(), lista.Count());
@@ -60,6 +69,7 @@ public class TesteUsuarioServico : TesteBase
     {
         const int idUsuarioEsperado = 3;
 
+        RemoverUsuarios(_servicos.ObterTodos(null));
         _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29" });
         _servicos.Inserir(new() { Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo" });
         _servicos.Inserir(new() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" });
@@ -258,16 +268,17 @@ public class TesteUsuarioServico : TesteBase
             Senha = "Abc12345"
         };
 
+        _servicos.CriarUsuario(usuarioBase); 
+        var idBase = usuarioBase.IdUsuario;
         Usuario usuarioEditado = new()
         {
             Nome = "Criss Byuither Silva",
             NickName = "Robertinho",
-            Senha = "Abc12345"
+            Senha = "Abc12345",
+            IdUsuario = idBase
         };
-        _servicos.CriarUsuario(usuarioBase);
-        var idBase = usuarioBase.IdUsuario;
 
-        _servicos.Editar(idBase, usuarioEditado);
+        _servicos.Editar(usuarioEditado);
         var usuarioEncontrado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(usuarioEditado.Nome, usuarioEncontrado.Nome);
@@ -295,7 +306,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -320,7 +331,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -344,7 +355,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemDeErro, ex.Message);
     }
 
@@ -369,7 +380,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -394,7 +405,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -419,7 +430,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -444,7 +455,7 @@ public class TesteUsuarioServico : TesteBase
 
         _servicos.CriarUsuario(usuarioBase);
         var idBase = usuarioBase.IdUsuario;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, usuarioEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(usuarioEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -454,10 +465,11 @@ public class TesteUsuarioServico : TesteBase
         const int quantidadePosRemocao = 3;
         const int indiceIdParaRemocao = 3;
 
+        RemoverUsuarios(_servicos.ObterTodos(null));
         var usuarios = ObterUsuarios();
         var idParaRemocao = usuarios[indiceIdParaRemocao].IdUsuario;
         _servicos.Remover(idParaRemocao);
-        var listaDeUsuariosPosRemocao = _servicos.ObterTodos();
+        var listaDeUsuariosPosRemocao = _servicos.ObterTodos(null);
 
         Assert.Equal(quantidadePosRemocao, listaDeUsuariosPosRemocao.Count());
     }
@@ -475,5 +487,26 @@ public class TesteUsuarioServico : TesteBase
 
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Theory]
+    [InlineData(PlanoEnum.Nerd, 1)]
+    [InlineData(PlanoEnum.Free, 2)]
+    [InlineData(PlanoEnum.Premium, 1)]
+    public void ao_obterTodos_com_filtro_de_Plano_retorna_quantidade_de_usuarios_correspondente(PlanoEnum plano, int quantidade)
+    {
+        var quantidadeEsperada = quantidade;
+        var planoEsperado = plano;
+        RemoverUsuarios(_servicos.ObterTodos(null));
+        ObterUsuarios();
+
+        FiltroUsuario filtro = new()
+        {
+            FiltroPlano = planoEsperado
+        };
+
+        var usuariosObtidos = _servicos.ObterTodos(filtro);
+
+        Assert.Equal(quantidadeEsperada, usuariosObtidos.Count());
     }
 }

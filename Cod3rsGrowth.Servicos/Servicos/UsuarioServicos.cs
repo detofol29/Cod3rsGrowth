@@ -3,6 +3,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Repositorios;
 using FluentValidation;
 using FluentValidation.Results;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
@@ -16,9 +17,9 @@ public class UsuarioServicos : IUsuarioRepositorio
         _validator = validator;
     }
     
-    public List<Usuario> ObterTodos()
+    public List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario)
     {
-        return _usuarioRepositorio.ObterTodos();
+        return _usuarioRepositorio.ObterTodos(filtroUsuario);
     }
 
     public Usuario ObterPorId(int id)
@@ -33,7 +34,7 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public void AdicionarFilmeNaMinhaLista(Filme filme, Usuario usuario)
     {
-        usuario.MinhaLista.Add(filme);
+        usuario.FilmesDoUsuario.Add(filme);
     }
 
     public void Logar(string nick, string senha)
@@ -68,12 +69,12 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
     }
 
-    public void Editar(int id, Usuario usuario)
+    public void Editar(Usuario usuario)
     {
         var validacao = _validator.Validate(usuario);
         if (validacao.IsValid)
         {
-            _usuarioRepositorio.Editar(id, usuario);
+            _usuarioRepositorio.Editar(usuario);
         }
         else
         {
@@ -87,7 +88,7 @@ public class UsuarioServicos : IUsuarioRepositorio
         const int indiceVazio = 0;
 
         List<int> ListaIds = new List<int>();
-        foreach (var usuario in _usuarioRepositorio.ObterTodos())
+        foreach (var usuario in _usuarioRepositorio.ObterTodos(null))
         {
             ListaIds.Add(usuario.IdUsuario);
         }

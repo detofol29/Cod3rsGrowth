@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
@@ -13,15 +14,17 @@ public class FilmeServicos : IFilmeRepositorio
 {
     private readonly IValidator<Filme> _validator;
     private readonly IFilmeRepositorio _filmeRepositorio;
-    public FilmeServicos(IFilmeRepositorio filmeRepositorio, IValidator<Filme> validator)
+    private readonly IAtorRepositorio _atorRepositorio;
+    public FilmeServicos(IFilmeRepositorio filmeRepositorio, IValidator<Filme> validator, IAtorRepositorio atorRepositorio)
     {
         _filmeRepositorio = filmeRepositorio;
+        _atorRepositorio = atorRepositorio;
         _validator = validator;
     }
 
-    public List<Filme> ObterTodos()
+    public List<Filme> ObterTodos(FiltroFilme? filtroFilme)
     {
-        return _filmeRepositorio.ObterTodos();
+        return _filmeRepositorio.ObterTodos(filtroFilme);
     }
 
     public Filme ObterPorId(int id)
@@ -41,7 +44,8 @@ public class FilmeServicos : IFilmeRepositorio
 
     public List<Ator> ObterAtoresDoFilme(Filme filme)
     {
-        return filme.Atores;
+        FiltroAtor filtro = new() { FiltroIdFilme = filme.Id };
+        return _atorRepositorio.ObterTodos(filtro);
     }
 
     public static bool VerificarDisponibilidadeDoFilme(Usuario usuario, Filme filme)
@@ -73,29 +77,30 @@ public class FilmeServicos : IFilmeRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
-        } 
+        }
     }
 
-    public void Editar(int id, Filme filme)
+    public void Editar(Filme filme)
     {
         var validacao = _validator.Validate(filme);
         if (validacao.IsValid)
         {
-            _filmeRepositorio.Editar(id, filme);
+            _filmeRepositorio.Editar(filme);
         }
         else
         {
             throw new Exception(validacao.Errors.FirstOrDefault().ToString());
         }
     }
-    
+
     private int GerarId()
     {
         const int idInicial = 1;
         const int indiceVazio = 0;
 
         List<int> ListaIds = new List<int>();
-        foreach (var filme in _filmeRepositorio.ObterTodos())
+        var listaFilmes = _filmeRepositorio.ObterTodos(null);
+        foreach (var filme in listaFilmes)
         {
             ListaIds.Add(filme.Id);
         }

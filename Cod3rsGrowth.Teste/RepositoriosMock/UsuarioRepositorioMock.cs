@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Teste.ClassesSingleton;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Xunit.Sdk;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -31,9 +32,17 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         tabelasSingleton.Add(usuario);
     }
 
-    public List<Usuario> ObterTodos()
+    public List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario)
     {
-        return tabelasSingleton;
+        IQueryable<Usuario> query = tabelasSingleton.AsQueryable();
+
+        if (filtroUsuario?.FiltroPlano != null)
+        {
+            query = from a in query
+                    where a.Plano == filtroUsuario.FiltroPlano
+                    select a;
+        }
+        return query.ToList();
     }
 
     public void Remover(int id)
@@ -49,13 +58,13 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         }
     }
 
-    public void Editar(int id, Usuario usuario)
+    public void Editar(Usuario usuario)
     {
         try
         {
-            var alterarUsuario = ObterPorId(id);
+            var alterarUsuario = ObterPorId(usuario.IdUsuario);
             alterarUsuario.Nome = usuario.Nome;
-            alterarUsuario.MinhaLista = usuario.MinhaLista;
+            alterarUsuario.FilmesDoUsuario = usuario.FilmesDoUsuario;
             alterarUsuario.Plano = usuario.Plano;
             alterarUsuario.Senha = usuario.Senha;
             alterarUsuario.NickName = usuario.NickName;
