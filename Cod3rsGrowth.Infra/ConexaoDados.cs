@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 using LinqToDB;
 using LinqToDB.Data;
-using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra;
 
@@ -16,4 +11,5 @@ public class ConexaoDados : DataConnection
     public ITable<Filme> TabelaFilme => this.GetTable<Filme>();
     public ITable<Ator> TabelaAtor => this.GetTable<Ator>();
     public ITable<Usuario> TabelaUsuario => this.GetTable<Usuario>();
+    public ITable<FilmeDoUsuario> TabelaFilmeDoUsuario => this.GetTable<FilmeDoUsuario>();
 }
