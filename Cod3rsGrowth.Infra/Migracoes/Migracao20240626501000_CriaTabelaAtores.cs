@@ -11,7 +11,7 @@ public class Migracao20240626501000_CriaTabelaAtores : Migration
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
             .WithColumn("Nome").AsString().NotNullable()
             .WithColumn("IdFilme").AsInt32()
-	        .WithColumn("Premios").AsString();
+            .WithColumn("Premios").AsString();
     }
 
     public override void Down()
