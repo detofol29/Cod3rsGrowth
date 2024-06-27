@@ -45,6 +45,7 @@ class Program
             services.AddScoped<IValidator<Filme>, FilmeValidacao>();
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
+            services.AddScoped<Form1>();
         });
     }
 
