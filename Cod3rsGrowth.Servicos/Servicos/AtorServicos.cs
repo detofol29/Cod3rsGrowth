@@ -18,7 +18,7 @@ public class AtorServicos : IAtorRepositorio
     }
     public List<string> ObterPremiosDoAtor(Ator ator)
     {
-        return ator.Premios;
+        return ator.Premios ?? throw new Exception("Lista de [Prêmios] vazia");
     }
 
     public List<Ator> ObterTodos(FiltroAtor? filtroAtor)
@@ -56,7 +56,7 @@ public class AtorServicos : IAtorRepositorio
         }
     }
 
-    public void Editar(int id, Ator ator)
+    public void Editar(Ator ator)
     {
         var validacao = _validator.Validate(ator);
         if (validacao.IsValid)

@@ -6,6 +6,7 @@ using Cod3rsGrowth.Servicos.Servicos;
 using System.Reflection.Metadata.Ecma335;
 using Cod3rsGrowth.Servicos.Validacoes;
 using FluentValidation.Results;
+using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
@@ -27,10 +28,10 @@ public class TesteAtorServico : TesteBase
     {
         List<Ator> atores = new()
         {
-            new Ator{Nome = "Gabriel"},
-            new Ator{Nome = "Rubens"},
-            new Ator{Nome = "Marcos"},
-            new Ator{Nome = "André"}
+            new Ator{Nome = "Gabriel", IdFilme = 3},
+            new Ator{Nome = "Rubens", IdFilme = 3},
+            new Ator{Nome = "Marcos", IdFilme = 7},
+            new Ator{Nome = "André", IdFilme = 9}
         };
 
         foreach(var ator in atores)
@@ -41,11 +42,19 @@ public class TesteAtorServico : TesteBase
         return atores;
     } 
 
+    private void RemoverAtores(List<Ator> atores)
+    {
+        foreach(var ator in atores)
+        {
+            _servicos.Remover(ator.Id);
+        }
+    }
+
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_trinta_e_oito_atores()
     {
         const int valorEsperado = 38;
-
+        RemoverAtores(_servicos.ObterTodos(null));
         _servicos.CriarAtor(new() { Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.CriarAtor(new() { Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.CriarAtor(new() { Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
@@ -95,7 +104,7 @@ public class TesteAtorServico : TesteBase
     public void ao_ObterPorId_retorna_ator_com_id_igual_ao_esperado()
     {
         const int idAtorEsperado = 3;
-
+        RemoverAtores(_servicos.ObterTodos(null));
         _servicos.CriarAtor(new() { Nome = "Samuel L. Jackson", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.CriarAtor(new() { Nome = "Ewan McGregor", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
         _servicos.CriarAtor(new() { Nome = "Natalie Portman", IdFilme = 3, Premios = new List<string> { "SAG Awards", "Black Reel Awards" } });
@@ -164,14 +173,15 @@ public class TesteAtorServico : TesteBase
             Nome = "Criss Byuither"
         };
 
-        Ator atorEditado = new()
-        {
-            Nome = "Criss Byuither Silva"
-        };
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
+        Ator atorEditado = new()
+        {
+            Nome = "Criss Byuither Silva",
+            Id = idBase
+        };
 
-        _servicos.Editar(idBase, atorEditado);
+        _servicos.Editar(atorEditado);
         var atorEncontrado = _servicos.ObterPorId(idBase);
 
         Assert.Equal(atorEditado.Nome, atorEncontrado.Nome);
@@ -195,7 +205,7 @@ public class TesteAtorServico : TesteBase
 
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(atorEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -216,7 +226,7 @@ public class TesteAtorServico : TesteBase
 
         _servicos.CriarAtor(atorBase);
         var idBase = atorBase.Id;
-        var ex = Assert.Throws<Exception>(() => _servicos.Editar(idBase, atorEditado));
+        var ex = Assert.Throws<Exception>(() => _servicos.Editar(atorEditado));
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -225,6 +235,7 @@ public class TesteAtorServico : TesteBase
     {
         const int quantidadePosRemocao = 3;
         const int indiceIdParaRemocao = 3;
+        RemoverAtores(_servicos.ObterTodos(null));
 
         var atores = ObterAtores();
         var idParaRemocao = atores[indiceIdParaRemocao].Id;
@@ -247,5 +258,25 @@ public class TesteAtorServico : TesteBase
 
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
+    }
+
+    [Theory]
+    [InlineData(3, 2)]
+    [InlineData(7, 1)]
+    [InlineData(9, 1)]
+    public void ao_ObterTodos_com_filtro_de_IdFilme_retorna_atores_esperados(int idFilme, int quantidade)
+    {
+        var quantidadeEsperada = quantidade;
+        var idFilmeEsperado = idFilme;
+        RemoverAtores(_servicos.ObterTodos(null));
+        ObterAtores();
+        FiltroAtor filtro = new()
+        {
+            FiltroIdFilme = idFilmeEsperado
+        };
+
+        var atorObtido = _servicos.ObterTodos(filtro);
+
+        Assert.Equal(quantidadeEsperada, atorObtido.Count());
     }
 }

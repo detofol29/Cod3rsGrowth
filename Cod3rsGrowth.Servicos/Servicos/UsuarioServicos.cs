@@ -34,7 +34,7 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public void AdicionarFilmeNaMinhaLista(Filme filme, Usuario usuario)
     {
-        usuario.MinhaLista.Add(filme);
+        usuario.FilmesDoUsuario.Add(filme);
     }
 
     public void Logar(string nick, string senha)
@@ -69,7 +69,7 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
     }
 
-    public void Editar(int id, Usuario usuario)
+    public void Editar(Usuario usuario)
     {
         var validacao = _validator.Validate(usuario);
         if (validacao.IsValid)
