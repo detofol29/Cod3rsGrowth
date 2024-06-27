@@ -13,16 +13,39 @@ namespace Cod3rsGrowth.Forms;
 class Program
 {
     [STAThread]
+
     static void Main()
     {
         ApplicationConfiguration.Initialize();
         Application.Run(new Form1());
+
+        var host = CreateHostBuilder().Build();
+        ServiceProvider = host.Services;
+
+        Application.Run(ServiceProvider.GetRequiredService<Form1>());
 
         using (var serviceProvider = CreateServices())
         using (var scope = serviceProvider.CreateScope())
         {
             UpdateDatabase(scope.ServiceProvider);
         }
+    }
+    public static IServiceProvider ServiceProvider { get; private set; }
+
+    static IHostBuilder CreateHostBuilder()
+    {
+        return Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
+        {
+            services.AddScoped<IFilmeRepositorio, FilmeRepositorio>();
+            services.AddScoped<IAtorRepositorio, AtorRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<UsuarioServicos>();
+            services.AddScoped<FilmeServicos>();
+            services.AddScoped<AtorServicos>();
+            services.AddScoped<IValidator<Filme>, FilmeValidacao>();
+            services.AddScoped<IValidator<Ator>, AtorValidacao>();
+            services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
+        });
     }
 
     private static ServiceProvider CreateServices()
