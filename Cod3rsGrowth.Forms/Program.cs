@@ -17,12 +17,12 @@ class Program
     static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+        Application.Run(new FormListaFilme());
 
         var host = CreateHostBuilder().Build();
         ServiceProvider = host.Services;
 
-        Application.Run(ServiceProvider.GetRequiredService<Form1>());
+        Application.Run(ServiceProvider.GetRequiredService<FormListaFilme>());
 
         using (var serviceProvider = CreateServices())
         using (var scope = serviceProvider.CreateScope())
@@ -45,7 +45,7 @@ class Program
             services.AddScoped<IValidator<Filme>, FilmeValidacao>();
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
-            services.AddScoped<Form1>();
+            services.AddScoped<FormListaFilme>();
         });
     }
 
