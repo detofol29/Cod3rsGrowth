@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GenericObjectDataSource DisplayName="FilmeRepositorio" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+  <TypeInfo>Cod3rsGrowth.Infra.Repositorios.FilmeRepositorio, Cod3rsGrowth.Infra, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+</GenericObjectDataSource>
