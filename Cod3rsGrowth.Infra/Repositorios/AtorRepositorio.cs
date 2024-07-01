@@ -39,7 +39,7 @@ public class AtorRepositorio : IAtorRepositorio
     {
         var ator = ObterPorId(id);
         atorContexto.Delete(ator);
-     }
+    }
 
     public void Editar(Ator ator)
     {
