@@ -14,10 +14,6 @@
         }
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
@@ -47,7 +43,7 @@
             dataGridView1.DataSource = filmeBindingSource1;
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(707, 379);
+            dataGridView1.Size = new Size(917, 379);
             dataGridView1.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -122,10 +118,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(731, 419);
+            ClientSize = new Size(941, 419);
             Controls.Add(dataGridView1);
             Name = "FormListaFilme";
-            Text = "Form1";
+            Text = "Lista de Filmes";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).EndInit();

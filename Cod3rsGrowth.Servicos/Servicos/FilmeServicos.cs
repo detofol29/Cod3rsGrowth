@@ -1,12 +1,9 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
-using FluentValidation.Results;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
-using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 

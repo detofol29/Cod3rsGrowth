@@ -13,7 +13,6 @@ namespace Cod3rsGrowth.Forms;
 class Program
 {
     [STAThread]
-
     static void Main()
     {
         ApplicationConfiguration.Initialize();
