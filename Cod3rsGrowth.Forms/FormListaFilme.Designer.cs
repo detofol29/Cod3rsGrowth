@@ -30,6 +30,8 @@
             classificacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             filmeBindingSource1 = new BindingSource(components);
             filmeBindingSource = new BindingSource(components);
+            button1 = new Button();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).BeginInit();
@@ -41,9 +43,9 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tituloDataGridViewTextBoxColumn, dataDeLancamentoDataGridViewTextBoxColumn, generoDataGridViewTextBoxColumn, emCartazDataGridViewCheckBoxColumn, notaDataGridViewTextBoxColumn, duracaoDataGridViewTextBoxColumn, disponivelNoPlanoDataGridViewCheckBoxColumn, diretorDataGridViewTextBoxColumn, classificacaoDataGridViewTextBoxColumn });
             dataGridView1.DataSource = filmeBindingSource1;
-            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Location = new Point(12, 95);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(917, 379);
+            dataGridView1.Size = new Size(917, 296);
             dataGridView1.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -114,11 +116,32 @@
             // 
             filmeBindingSource.DataSource = typeof(Dominio.Modelos.Filme);
             // 
+            // button1
+            // 
+            button1.Location = new Point(778, 22);
+            button1.Name = "button1";
+            button1.Size = new Size(110, 30);
+            button1.TabIndex = 1;
+            button1.Text = "filtrar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(549, 29);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(174, 23);
+            comboBox1.TabIndex = 2;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged_1;
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(941, 419);
+            Controls.Add(comboBox1);
+            Controls.Add(button1);
             Controls.Add(dataGridView1);
             Name = "FormListaFilme";
             Text = "Lista de Filmes";
@@ -143,5 +166,7 @@
         private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private BindingSource filmeBindingSource1;
         private BindingSource filmeBindingSource;
+        private Button button1;
+        private ComboBox comboBox1;
     }
 }
