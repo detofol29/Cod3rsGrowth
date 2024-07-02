@@ -32,6 +32,8 @@
             filmeBindingSource = new BindingSource(components);
             button1 = new Button();
             comboBox1 = new ComboBox();
+            label1 = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).BeginInit();
@@ -118,7 +120,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(778, 22);
+            button1.Location = new Point(819, 24);
             button1.Name = "button1";
             button1.Size = new Size(110, 30);
             button1.TabIndex = 1;
@@ -129,17 +131,43 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(549, 29);
+            comboBox1.Location = new Point(630, 29);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(174, 23);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged_1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Monocraft", 29.9999962F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(59, 0);
+            label1.Margin = new Padding(50);
+            label1.MinimumSize = new Size(230, 0);
+            label1.Name = "label1";
+            label1.Padding = new Padding(10);
+            label1.Size = new Size(463, 73);
+            label1.TabIndex = 3;
+            label1.Text = "Lista de Filmes";
+            label1.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Verdana", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(686, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(59, 16);
+            label2.TabIndex = 4;
+            label2.Text = "Gênero";
             // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(941, 419);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(comboBox1);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
@@ -149,6 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -168,5 +197,7 @@
         private BindingSource filmeBindingSource;
         private Button button1;
         private ComboBox comboBox1;
+        private Label label1;
+        private Label label2;
     }
 }

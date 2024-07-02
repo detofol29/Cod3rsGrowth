@@ -55,7 +55,7 @@ public class FilmeRepositorio : IFilmeRepositorio
                         where a.Nota == filtroFilme.FiltroNotaMinima
                         select a;
             }
-            return query.ToList();
+            return query.ToList<Filme>();
         }
     }
 

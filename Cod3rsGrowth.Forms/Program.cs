@@ -1,22 +1,25 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Migracoes;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validacoes;
 using FluentMigrator.Runner;
 using FluentValidation;
+using LinqToDB.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 namespace Cod3rsGrowth.Forms;
 
 class Program
 {
+    public static IServiceProvider ServiceProvider { get; private set; }
     [STAThread]
     static void Main()
     {
+        DataConnection.DefaultSettings = new ConfiguracaoConexao();
         ApplicationConfiguration.Initialize();
-        Application.Run(new FormListaFilme());
 
         var host = CreateHostBuilder().Build();
         ServiceProvider = host.Services;
@@ -28,8 +31,8 @@ class Program
         {
             UpdateDatabase(scope.ServiceProvider);
         }
+        Application.Run(new FormListaFilme(ServiceProvider));
     }
-    public static IServiceProvider ServiceProvider { get; private set; }
 
     static IHostBuilder CreateHostBuilder()
     {
