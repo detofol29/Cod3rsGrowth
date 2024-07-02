@@ -17,7 +17,7 @@ public class ConfiguracaoConexao : ILinqToDBSettings
             yield return
                 new ConfiguracaoDaStringDeConexao
                 {
-                    Name = "StreamingFilmesBD",
+                    Name = "StreamingFilmesBDL",
                     ProviderName = ProviderName.SqlServer,
                     ConnectionString = "Data Source=DESKTOP-G0T9JPL\\SQLEXPRESS;Initial Catalog=Cod3rsGrowth;User ID=sa;Password=sap@123;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
                 };

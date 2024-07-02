@@ -34,6 +34,7 @@
             comboBox1 = new ComboBox();
             label1 = new Label();
             label2 = new Label();
+            domainUpDown1 = new DomainUpDown();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).BeginInit();
@@ -141,7 +142,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Monocraft", 29.9999962F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(59, 0);
+            label1.Location = new Point(0, 9);
             label1.Margin = new Padding(50);
             label1.MinimumSize = new Size(230, 0);
             label1.Name = "label1";
@@ -161,11 +162,20 @@
             label2.TabIndex = 4;
             label2.Text = "Gênero";
             // 
+            // domainUpDown1
+            // 
+            domainUpDown1.Location = new Point(463, 29);
+            domainUpDown1.Name = "domainUpDown1";
+            domainUpDown1.Size = new Size(161, 23);
+            domainUpDown1.TabIndex = 5;
+            domainUpDown1.Text = "domainUpDown1";
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(941, 419);
+            Controls.Add(domainUpDown1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(comboBox1);
@@ -199,5 +209,6 @@
         private ComboBox comboBox1;
         private Label label1;
         private Label label2;
+        private DomainUpDown domainUpDown1;
     }
 }

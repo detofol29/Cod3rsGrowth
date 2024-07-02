@@ -7,7 +7,13 @@ namespace Cod3rsGrowth.Infra.Repositorios;
 
 public class UsuarioRepositorio : IUsuarioRepositorio
 {
-    ConexaoDados usuarioContexto = new();
+    private readonly ConexaoDados usuarioContexto;
+    public UsuarioRepositorio(ConexaoDados _usuarioContexto)
+    {
+
+        usuarioContexto = _usuarioContexto;
+
+    }
     public Usuario ObterPorId(int id)
     {
         return usuarioContexto.GetTable<Usuario>().FirstOrDefault(p => p.IdUsuario == id) ?? throw new Exception("Usuário não encontrado");
@@ -15,9 +21,9 @@ public class UsuarioRepositorio : IUsuarioRepositorio
 
     public List<Usuario> ObterTodos(FiltroUsuario? filtroUsuario)
     {
-        using (var UsuarioContexto = new ConexaoDados())
-        {
-            IQueryable<Usuario> query = from a in UsuarioContexto.TabelaUsuario select a;
+        
+        
+            IQueryable<Usuario> query = from a in usuarioContexto.TabelaUsuario select a;
 
             if (filtroUsuario?.FiltroPlano != null)
             {
@@ -26,7 +32,7 @@ public class UsuarioRepositorio : IUsuarioRepositorio
                         select a;
             }
             return query.ToList();
-        }
+        
     }
 
     public void Inserir(Usuario usuario)

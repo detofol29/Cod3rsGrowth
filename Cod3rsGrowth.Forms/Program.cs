@@ -7,31 +7,32 @@ using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validacoes;
 using FluentMigrator.Runner;
 using FluentValidation;
+using LinqToDB;
+using LinqToDB.AspNet;
+using LinqToDB.AspNet.Logging;
 using LinqToDB.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Configuration;
 namespace Cod3rsGrowth.Forms;
 
 class Program
 {
-    public static IServiceProvider ServiceProvider { get; private set; }
+    private static string _stringDeConexao = "StreamingFilmesBD";
     [STAThread]
     static void Main()
     {
-        DataConnection.DefaultSettings = new ConfiguracaoConexao();
-        ApplicationConfiguration.Initialize();
-
-        var host = CreateHostBuilder().Build();
-        ServiceProvider = host.Services;
-
-        Application.Run(ServiceProvider.GetRequiredService<FormListaFilme>());
-
         using (var serviceProvider = CreateServices())
         using (var scope = serviceProvider.CreateScope())
         {
             UpdateDatabase(scope.ServiceProvider);
         }
-        Application.Run(new FormListaFilme(ServiceProvider));
+
+        var host = CreateHostBuilder().Build();
+        var ServiceProvider = host.Services;
+        ApplicationConfiguration.Initialize();
+
+        Application.Run(new FormListaFilme(ServiceProvider.GetRequiredService<FilmeServicos>()));
     }
 
     static IHostBuilder CreateHostBuilder()
@@ -48,16 +49,19 @@ class Program
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
             services.AddScoped<FormListaFilme>();
+            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
         });
     }
 
     private static ServiceProvider CreateServices()
     {
+        string stringDeConexao = ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString;
         return new ServiceCollection()
+            .AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString).UseDefaultLogging(provider))
             .AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
                 .AddSqlServer()
-                .WithGlobalConnectionString("Data Source=DESKTOP-G0T9JPL\\SQLEXPRESS;Initial Catalog=Cod3rsGrowth;User ID=sa;Password=sap@123;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False")
+                .WithGlobalConnectionString(stringDeConexao)
                 .ScanIn(typeof(Migracao20240626001100_CriaTabelaUsuarios).Assembly).For.Migrations()
                 .ScanIn(typeof(Migracao20240626401000_CriaTabelaFilmes).Assembly).For.Migrations()
                 .ScanIn(typeof(Migracao20240626501000_CriaTabelaAtores).Assembly).For.Migrations()

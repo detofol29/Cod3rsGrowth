@@ -1,5 +1,6 @@
 using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +12,10 @@ namespace Cod3rsGrowth.Forms
     public partial class FormListaFilme : Form
     {
         FilmeServicos service;
-        public FormListaFilme(IServiceProvider _service)
+        public FormListaFilme(FilmeServicos _service)
         {
-            service = _service.GetService<FilmeServicos>() ?? throw new Exception("Servico nao encontrado!");
+            service = _service;
             InitializeComponent();
-            //IniciarListaDeFimes();
             dataGridView1.DataSource = service.ObterTodos(null);
             comboBox1.Items.Add("Todos");
             comboBox1.Items.Add(GeneroEnum.Terror);
@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Forms
         public void IniciarListaDeFimes()
         {
             var lista = service.ObterTodos(null);
-            foreach(var filme in lista)
+            foreach (var filme in lista)
             {
                 listaDeFilmes.Add(filme);
             }
@@ -40,11 +40,10 @@ namespace Cod3rsGrowth.Forms
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedItem.ToString() == "Todos")
+            if (comboBox1.SelectedItem.ToString() == "Todos")
             {
                 dataGridView1.DataSource = service.ObterTodos(null);
             }
