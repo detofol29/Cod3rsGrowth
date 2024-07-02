@@ -33,6 +33,7 @@ class Program
         ApplicationConfiguration.Initialize();
 
         Application.Run(new FormListaFilme(ServiceProvider.GetRequiredService<FilmeServicos>()));
+        Application.Run(new FormFiltro());
     }
 
     static IHostBuilder CreateHostBuilder()
@@ -49,6 +50,7 @@ class Program
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
             services.AddScoped<FormListaFilme>();
+            services.AddScoped<FormFiltro>();
             services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
         });
     }
