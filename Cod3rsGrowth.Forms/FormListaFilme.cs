@@ -61,7 +61,13 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void MostraFiltro_Click(object sender, EventArgs e)
+        public DataGridView GetDataGridView()
+        {
+            return dataGridView1;
+        }
+    
+
+    private void MostraFiltro_Click(object sender, EventArgs e)
         {
 
         }
