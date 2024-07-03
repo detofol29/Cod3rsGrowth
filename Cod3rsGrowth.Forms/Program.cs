@@ -32,8 +32,8 @@ class Program
         var ServiceProvider = host.Services;
         ApplicationConfiguration.Initialize();
 
-        Application.Run(new FormListaFilme(ServiceProvider.GetRequiredService<FilmeServicos>()));
-        Application.Run(new FormFiltro());
+        Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>()));
+        //Application.Run(new FormListaFilme(ServiceProvider.GetRequiredService<FilmeServicos>()));
     }
 
     static IHostBuilder CreateHostBuilder()
@@ -50,7 +50,7 @@ class Program
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
             services.AddScoped<FormListaFilme>();
-            services.AddScoped<FormFiltro>();
+            services.AddScoped<FormAutenticacao>();
             services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
         });
     }

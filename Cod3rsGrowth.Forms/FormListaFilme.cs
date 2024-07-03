@@ -4,36 +4,52 @@ using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Forms
 {
     public partial class FormListaFilme : Form
     {
         public FilmeServicos service;
-        private FormListaFilme form;
-        public FormListaFilme(FilmeServicos _service)
+        private Usuario usuario;
+        FiltroFilme filtro = new();
+        public FormListaFilme(FilmeServicos _service, Usuario _usuario)
         {
             service = _service;
+            usuario = _usuario;
             InitializeComponent();
             dataGridView1.DataSource = service.ObterTodos(null);
-            comboBox1.Items.Add("Todos");
-            comboBox1.Items.Add(GeneroEnum.Terror);
-            comboBox1.Items.Add(GeneroEnum.Romance);
-            comboBox1.Items.Add(GeneroEnum.Acao);
-            comboBox1.Items.Add(GeneroEnum.Ficcao);
-            comboBox1.Items.Add(GeneroEnum.Aventura);
-            comboBox1.Items.Add(GeneroEnum.Comedia);
-            comboBox1.Items.Add(GeneroEnum.Drama);
-            comboBox1.Items.Add(GeneroEnum.Fantasia);
-            form = new(_service);
+            GeneroComboBox.Items.Add("Todos");
+            GeneroComboBox.Items.Add(GeneroEnum.Terror);
+            GeneroComboBox.Items.Add(GeneroEnum.Romance);
+            GeneroComboBox.Items.Add(GeneroEnum.Acao);
+            GeneroComboBox.Items.Add(GeneroEnum.Ficcao);
+            GeneroComboBox.Items.Add(GeneroEnum.Aventura);
+            GeneroComboBox.Items.Add(GeneroEnum.Comedia);
+            GeneroComboBox.Items.Add(GeneroEnum.Drama);
+            GeneroComboBox.Items.Add(GeneroEnum.Fantasia);
+            GeneroComboBox.SelectedItem = "Todos";
+
+            toolStripComboBox1.Items.Add("Nenhum");
+            toolStripComboBox1.Items.Add("Livre");
+            toolStripComboBox1.Items.Add("10+");
+            toolStripComboBox1.Items.Add("12+");
+            toolStripComboBox1.Items.Add("14+");
+            toolStripComboBox1.Items.Add("16+");
+            toolStripComboBox1.Items.Add("18+");
+            toolStripComboBox1.SelectedItem = "Nenhum";
+
+            toolStripComboBox2.Items.Add("Nenhum");
+            toolStripComboBox2.Items.Add("Sim");
+            toolStripComboBox2.Items.Add("Não");
+            toolStripComboBox2.SelectedItem = "Nenhum";
         }
 
-
-
         List<Filme>? listaDeFilmes;
-       
+
         public void IniciarListaDeFimes()
         {
             var lista = service.ObterTodos(null);
@@ -43,43 +59,80 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-        }
         private void button1_Click(object sender, EventArgs e)
         {
-            new FormFiltro(form).ShowDialog();
-            if (comboBox1.SelectedItem.ToString() == "Todos")
+            if (GeneroComboBox.SelectedItem.ToString() != "Todos")
             {
-                dataGridView1.DataSource = service.ObterTodos(null);
+                GeneroEnum genero = (GeneroEnum)GeneroComboBox.SelectedItem;
+                filtro.FiltroGenero = genero;
             }
-            else
+
+            if (toolStripComboBox1.SelectedItem != null)
             {
-                GeneroEnum genero = (GeneroEnum)comboBox1.SelectedItem;
-                FiltroFilme filtro = new() { FiltroGenero = genero };
-                var listaFiltrada = service.ObterTodos(filtro);
-                dataGridView1.DataSource = listaFiltrada;
+                switch (toolStripComboBox1.SelectedItem.ToString())
+                {
+                    case "Livre":
+                        filtro.FiltroClassificacao = ClassificacaoIndicativa.livre;
+                        break;
+                    case "10+":
+                        filtro.FiltroClassificacao = ClassificacaoIndicativa.dez;
+                        break;
+                    case "12+":
+                        filtro.FiltroClassificacao = ClassificacaoIndicativa.doze;
+                        break;
+                    case "14+":
+                        filtro.FiltroClassificacao = ClassificacaoIndicativa.quatorze;
+                        break;
+                    case "16+":
+                        filtro.FiltroClassificacao = ClassificacaoIndicativa.dezesseis;
+                        break;
+                    case "18+":
+                        filtro.FiltroClassificacao = ClassificacaoIndicativa.dezoito;
+                        break;
+                    case "Nenhum":
+                        filtro.FiltroClassificacao = null;
+                        break;
+                }
             }
+
+            if (toolStripComboBox2.SelectedItem != null)
+            {
+                switch (toolStripComboBox2.SelectedItem.ToString())
+                {
+                    case "Nenhum":
+                        filtro.FiltroDisponivelNoPlano = null;
+                        break;
+                    case "Sim":
+                        filtro.FiltroDisponivelNoPlano = true;
+                        break;
+                    case "Não":
+                        filtro.FiltroDisponivelNoPlano = false;
+                        break;
+                }
+            }
+
+            if (toolStripTextBox1.Text.IsNullOrEmpty() != true)
+            {
+                try
+                {
+                    var notaMinima = int.Parse(toolStripTextBox1.Text);
+                    filtro.FiltroNotaMinima = notaMinima;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Digite um valor numérico!");
+                }
+            }
+            dataGridView1.DataSource = service.ObterTodos(filtro);
         }
 
-        public DataGridView GetDataGridView()
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            return dataGridView1;
-        }
-
-        private void MostraFiltro_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            new FormFiltro(form).ShowDialog();
+            GeneroComboBox.SelectedItem = "Todos";
+            toolStripComboBox1.SelectedItem = "Nenhum";
+            toolStripComboBox2.SelectedItem = "Nenhum";
+            toolStripTextBox1.Clear();
+            dataGridView1.DataSource = service.ObterTodos(null);
         }
     }
 }
