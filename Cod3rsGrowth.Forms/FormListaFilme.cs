@@ -11,8 +11,8 @@ namespace Cod3rsGrowth.Forms
 {
     public partial class FormListaFilme : Form
     {
-        protected FilmeServicos service;
-        
+        public FilmeServicos service;
+        private FormListaFilme form;
         public FormListaFilme(FilmeServicos _service)
         {
             service = _service;
@@ -27,6 +27,7 @@ namespace Cod3rsGrowth.Forms
             comboBox1.Items.Add(GeneroEnum.Comedia);
             comboBox1.Items.Add(GeneroEnum.Drama);
             comboBox1.Items.Add(GeneroEnum.Fantasia);
+            form = new(_service);
         }
 
 
@@ -47,7 +48,7 @@ namespace Cod3rsGrowth.Forms
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            new FormFiltro().ShowDialog();
+            new FormFiltro(form).ShowDialog();
             if (comboBox1.SelectedItem.ToString() == "Todos")
             {
                 dataGridView1.DataSource = service.ObterTodos(null);
@@ -65,9 +66,8 @@ namespace Cod3rsGrowth.Forms
         {
             return dataGridView1;
         }
-    
 
-    private void MostraFiltro_Click(object sender, EventArgs e)
+        private void MostraFiltro_Click(object sender, EventArgs e)
         {
 
         }
@@ -79,7 +79,7 @@ namespace Cod3rsGrowth.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new FormFiltro().ShowDialog();
+            new FormFiltro(form).ShowDialog();
         }
     }
 }
