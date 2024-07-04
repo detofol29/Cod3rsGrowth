@@ -53,9 +53,9 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(115, 73);
             label2.Name = "label2";
-            label2.Size = new Size(64, 21);
+            label2.Size = new Size(67, 21);
             label2.TabIndex = 1;
-            label2.Text = "Usuário";
+            label2.Text = "Usuário:";
             // 
             // textBox1
             // 
@@ -70,14 +70,15 @@
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label3.Location = new Point(115, 143);
             label3.Name = "label3";
-            label3.Size = new Size(53, 21);
+            label3.Size = new Size(56, 21);
             label3.TabIndex = 3;
-            label3.Text = "Senha";
+            label3.Text = "Senha:";
             // 
             // textBox2
             // 
             textBox2.Location = new Point(37, 167);
             textBox2.Name = "textBox2";
+            textBox2.PasswordChar = '*';
             textBox2.Size = new Size(227, 23);
             textBox2.TabIndex = 4;
             // 

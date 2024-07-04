@@ -1,14 +1,20 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -25,31 +31,13 @@ namespace Cod3rsGrowth.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Autenticar();
+            Hide();
+            //Metodo de autenticar que deve retornar um usuario para usar de parametro
+            new FormListaFilme(filmeService, new Usuario()).Show();
         }
-
-        private void Autenticar()
+        public Usuario Autenticar(string nickName, string senha, FilmeRepositorio _servico)
         {
-            var usuarioDigitado = textBox1.Text;
-            var senhaDigitada = textBox2.Text;
-            try 
-            {
-                var usuarioSelecionado = service.ObterTodos(null).FirstOrDefault(u => u.NickName == usuarioDigitado) ?? throw new Exception("Usuário não encontrado!");
-
-                if (senhaDigitada == usuarioSelecionado.Senha)
-                {
-                    Hide();
-                    new FormListaFilme(filmeService, usuarioSelecionado).Show();
-                }
-                else
-                {
-                    MessageBox.Show("Senha Incorreta!");
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
     }
 }

@@ -124,6 +124,10 @@ namespace Cod3rsGrowth.Forms
                 }
             }
             dataGridView1.DataSource = service.ObterTodos(filtro);
+            label2.Text = "Gênero: " + GeneroComboBox.SelectedItem.ToString();
+            label3.Text = "Classificação: " + toolStripComboBox1.SelectedItem.ToString();
+            label4.Text = "Disponível: " + toolStripComboBox2.SelectedItem.ToString();
+            label5.Text = "Nota Mínima: " + toolStripTextBox1.Text;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -133,6 +137,11 @@ namespace Cod3rsGrowth.Forms
             toolStripComboBox2.SelectedItem = "Nenhum";
             toolStripTextBox1.Clear();
             dataGridView1.DataSource = service.ObterTodos(null);
+            label2.Text = "Gênero: Todos";
+            label3.Text = "Classificação: Todas";
+            label4.Text = "Disponível: Todos";
+            label5.Text = "Nota Mínima: Nenhuma";
         }
+
     }
 }

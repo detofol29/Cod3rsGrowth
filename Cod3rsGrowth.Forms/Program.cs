@@ -11,9 +11,13 @@ using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
 using LinqToDB.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
+using System.Text;
 namespace Cod3rsGrowth.Forms;
 
 class Program
@@ -34,6 +38,7 @@ class Program
 
         Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>()));
         //Application.Run(new FormListaFilme(ServiceProvider.GetRequiredService<FilmeServicos>()));
+
     }
 
     static IHostBuilder CreateHostBuilder()
@@ -52,7 +57,40 @@ class Program
             services.AddScoped<FormListaFilme>();
             services.AddScoped<FormAutenticacao>();
             services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
+            //------------Servico de autenticação---------
+            var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            services.AddCors();
+            services.AddControllers();
         });
+    }
+
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+        app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
+        app.UseAuthentication();
+
+        app.UseMvc();
     }
 
     private static ServiceProvider CreateServices()
