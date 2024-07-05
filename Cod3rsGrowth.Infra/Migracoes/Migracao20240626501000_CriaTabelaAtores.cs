@@ -2,7 +2,7 @@
 
 namespace Cod3rsGrowth.Infra.Migracoes;
 
-[Migration(20240626501000)]
+//[Migration(20240626501000)]
 public class Migracao20240626501000_CriaTabelaAtores : Migration
 {
     public override void Up()

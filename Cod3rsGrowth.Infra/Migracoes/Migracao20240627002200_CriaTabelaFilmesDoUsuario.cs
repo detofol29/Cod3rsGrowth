@@ -2,7 +2,7 @@
 
 namespace Cod3rsGrowth.Infra.Migracoes;
 
-[Migration(20240627002200)]
+//[Migration(20240627002200)]
 public class Migracao20240627002200_CriaTabelaFilmesDoUsuario : Migration
 {
     public override void Up()

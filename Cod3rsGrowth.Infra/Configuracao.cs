@@ -8,5 +8,5 @@ namespace Cod3rsGrowth.Infra;
 
 public class Configuracao
 {
-    public static string Secret = "fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdf";
+    public static string Secret = "fedt3j03jdkf5l39fnnfvco3";
 }

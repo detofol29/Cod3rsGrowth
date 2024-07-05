@@ -31,13 +31,13 @@ namespace Cod3rsGrowth.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Hide();
+            //Hide();
             //Metodo de autenticar que deve retornar um usuario para usar de parametro
-            new FormListaFilme(filmeService, new Usuario()).Show();
-        }
+            //new FormListaFilme(filmeService, new Usuario()).Show();
+        }    
         public Usuario Autenticar(string nickName, string senha, FilmeRepositorio _servico)
         {
-            
+            return new Usuario();
         }
     }
 }

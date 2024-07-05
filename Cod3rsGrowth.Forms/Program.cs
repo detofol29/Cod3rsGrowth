@@ -34,6 +34,7 @@ class Program
 
         var host = CreateHostBuilder().Build();
         var ServiceProvider = host.Services;
+        
         ApplicationConfiguration.Initialize();
 
         Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>()));
@@ -102,11 +103,7 @@ class Program
             .ConfigureRunner(rb => rb
                 .AddSqlServer()
                 .WithGlobalConnectionString(stringDeConexao)
-                .ScanIn(typeof(Migracao20240626001100_CriaTabelaUsuarios).Assembly).For.Migrations()
-                .ScanIn(typeof(Migracao20240626401000_CriaTabelaFilmes).Assembly).For.Migrations()
-                .ScanIn(typeof(Migracao20240626501000_CriaTabelaAtores).Assembly).For.Migrations()
-                .ScanIn(typeof(Migracao20240627002100_AdicionaChaveEstrangeira).Assembly).For.Migrations()
-                .ScanIn(typeof(Migracao20240627002200_CriaTabelaFilmesDoUsuario).Assembly).For.Migrations())
+                .ScanIn(typeof(Migracao20240705001230_CriaTabelaUsuarios_Filmes_Atores).Assembly).For.Migrations())
             .AddLogging(lb => lb.AddFluentMigratorConsole())
             .BuildServiceProvider(false);
     }
@@ -114,6 +111,6 @@ class Program
     private static void UpdateDatabase(IServiceProvider serviceProvider)
     {
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-        runner.MigrateUp(20240627002200);
+        runner.MigrateUp(20240705001230);
     }
 }
