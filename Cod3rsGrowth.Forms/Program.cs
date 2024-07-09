@@ -5,6 +5,7 @@ using Cod3rsGrowth.Infra.Migracoes;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validacoes;
+using Cod3rsGrowth.web.Controllers;
 using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
@@ -13,6 +14,7 @@ using LinqToDB.AspNet.Logging;
 using LinqToDB.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -37,9 +39,8 @@ class Program
         
         ApplicationConfiguration.Initialize();
 
-        Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>()));
-        //Application.Run(new FormListaFilme(ServiceProvider.GetRequiredService<FilmeServicos>()));
-
+        Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>(),
+          ServiceProvider.GetRequiredService<UsuarioRepositorio>()));
     }
 
     static IHostBuilder CreateHostBuilder()
@@ -52,13 +53,19 @@ class Program
             services.AddScoped<UsuarioServicos>();
             services.AddScoped<FilmeServicos>();
             services.AddScoped<AtorServicos>();
+            services.AddScoped<UsuarioRepositorio>();
+            services.AddScoped<LoginControlador>();
             services.AddScoped<IValidator<Filme>, FilmeValidacao>();
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
             services.AddScoped<FormListaFilme>();
             services.AddScoped<FormAutenticacao>();
             services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
+
             //------------Servico de autenticação---------
+
+            services.AddCors();
+            services.AddControllers();
             var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
             services.AddAuthentication(x =>
             {
@@ -77,27 +84,37 @@ class Program
                     ValidateAudience = false
                 };
             });
-            services.AddCors();
-            services.AddControllers();
+            
         });
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseRouting();
         app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
 
         app.UseAuthentication();
-
+        app.UseAuthorization();
         app.UseMvc();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 
     private static ServiceProvider CreateServices()
     {
         string stringDeConexao = ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString;
-        return new ServiceCollection()
+        var colecao =  new ServiceCollection()
             .AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString).UseDefaultLogging(provider))
             .AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
@@ -106,6 +123,7 @@ class Program
                 .ScanIn(typeof(Migracao20240705001230_CriaTabelaUsuarios_Filmes_Atores).Assembly).For.Migrations())
             .AddLogging(lb => lb.AddFluentMigratorConsole())
             .BuildServiceProvider(false);
+        return colecao;
     }
 
     private static void UpdateDatabase(IServiceProvider serviceProvider)

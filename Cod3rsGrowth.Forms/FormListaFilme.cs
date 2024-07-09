@@ -16,10 +16,10 @@ namespace Cod3rsGrowth.Forms
         public FilmeServicos service;
         private Usuario usuario;
         FiltroFilme filtro = new();
-        public FormListaFilme(FilmeServicos _service, Usuario _usuario)
+        public FormListaFilme(FilmeServicos _service)
         {
             service = _service;
-            usuario = _usuario;
+            //usuario = _usuario;
             InitializeComponent();
             dataGridView1.DataSource = service.ObterTodos(null);
             GeneroComboBox.Items.Add("Todos");

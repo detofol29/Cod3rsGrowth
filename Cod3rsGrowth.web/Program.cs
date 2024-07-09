@@ -1,11 +1,30 @@
-var builder = WebApplication.CreateBuilder(args);
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Infra.Migracoes;
+using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Servicos.Validacoes;
+using Cod3rsGrowth.web.Controllers;
+using FluentMigrator.Runner;
+using FluentValidation;
+using LinqToDB.AspNet;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
+var builder = WebApplication.CreateBuilder(args);
+var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+ModuloInjetorInfra.AdquirirServicos(builder.Services);
+
+
 
 var app = builder.Build();
 
@@ -18,7 +37,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

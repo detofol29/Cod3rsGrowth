@@ -15,29 +15,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.Forms
 {
     public partial class FormAutenticacao : Form
     {
         private UsuarioServicos service;
+        private UsuarioRepositorio repositorio;
         private FilmeServicos filmeService;
-        public FormAutenticacao(UsuarioServicos _service, FilmeServicos _filmeService)
+        private Usuario usuario;
+        public FormAutenticacao(UsuarioServicos _service, FilmeServicos _filmeService, UsuarioRepositorio _repositorio)
         {
             InitializeComponent();
             service = _service;
             filmeService = _filmeService;
+            repositorio = _repositorio;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Hide();
-            //Metodo de autenticar que deve retornar um usuario para usar de parametro
-            //new FormListaFilme(filmeService, new Usuario()).Show();
+            var nickname = textBox1.Text;
+            var senha = textBox2.Text;
+            Hide();
+            new FormListaFilme(filmeService).Show();
         }    
-        public Usuario Autenticar(string nickName, string senha, FilmeRepositorio _servico)
-        {
-            return new Usuario();
-        }
     }
 }
