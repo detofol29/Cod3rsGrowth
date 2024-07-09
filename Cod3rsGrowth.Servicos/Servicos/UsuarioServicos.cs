@@ -98,4 +98,15 @@ public class UsuarioServicos : IUsuarioRepositorio
         var idFinal = ListaIds[indiceUltimo] + idInicial;
         return idFinal;
     }
+
+    public Usuario AutenticarUsuario(Usuario usuario)
+    {
+        var usuarioExistente = ObterTodos(null).FirstOrDefault(u => u.NickName == usuario.NickName) ?? throw new Exception("Usuario não encontrado!");
+        var comparacaoSenha = HashServico.Comparar(usuarioExistente.Senha, usuario.Senha);
+        if (comparacaoSenha == true)
+        {
+            return usuarioExistente;
+        }
+        else return null;
+    }
 }

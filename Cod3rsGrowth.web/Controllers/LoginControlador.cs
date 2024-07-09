@@ -43,7 +43,7 @@ public class LoginControlador : ControllerBase
 
         return new
         {
-            user = usuario,
+            user = usuario, 
             token = token
         };
     }
