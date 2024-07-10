@@ -16,10 +16,10 @@ namespace Cod3rsGrowth.Forms
         public FilmeServicos service;
         private Usuario usuario;
         FiltroFilme filtro = new();
-        public FormListaFilme(FilmeServicos _service)
+        public FormListaFilme(FilmeServicos _service, Usuario _usuario)
         {
             service = _service;
-            //usuario = _usuario;
+            usuario = _usuario;
             InitializeComponent();
             dataGridView1.DataSource = service.ObterTodos(null);
             GeneroComboBox.Items.Add("Todos");
@@ -46,6 +46,8 @@ namespace Cod3rsGrowth.Forms
             toolStripComboBox2.Items.Add("Sim");
             toolStripComboBox2.Items.Add("Não");
             toolStripComboBox2.SelectedItem = "Nenhum";
+
+            label6.Text = "Usuario: " + usuario.Nome;
         }
 
         List<Filme>? listaDeFilmes;

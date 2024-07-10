@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Microsoft.AspNetCore.Mvc;
+using Cod3rsGrowth.web.Controllers;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -37,8 +38,20 @@ namespace Cod3rsGrowth.Forms
         {
             var nickname = textBox1.Text;
             var senha = textBox2.Text;
-            Hide();
-            new FormListaFilme(filmeService).Show();
+
+            var usuarioInserido = new Usuario()
+            {
+                NickName = nickname,
+                Senha = senha
+            };
+
+            var usuarioRetorno = service.AutenticarUsuario(usuarioInserido);
+            if(usuarioRetorno == null) { MessageBox.Show("Usuario ou senha Inválidos!"); }
+            else
+            {
+                Hide();
+                new FormListaFilme(filmeService, usuarioRetorno).Show();
+            }
         }    
     }
 }

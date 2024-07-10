@@ -4,14 +4,19 @@ using Cod3rsGrowth.Infra.Repositorios;
 using FluentValidation;
 using FluentValidation.Results;
 using Cod3rsGrowth.Dominio.Filtros;
+using Cod3rsGrowth.web.Controllers;
+using Cod3rsGrowth.Infra.Servicos;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Identity.Client;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class UsuarioServicos : IUsuarioRepositorio
 {
-    private readonly IUsuarioRepositorio _usuarioRepositorio;
+    private readonly UsuarioRepositorio _usuarioRepositorio;
     private readonly IValidator<Usuario> _validator;
-    public UsuarioServicos(IUsuarioRepositorio usuarioRepositorio, IValidator<Usuario> validator)
+    public UsuarioServicos(UsuarioRepositorio usuarioRepositorio, IValidator<Usuario> validator)
     {
         _usuarioRepositorio = usuarioRepositorio;
         _validator = validator;
@@ -60,6 +65,8 @@ public class UsuarioServicos : IUsuarioRepositorio
         {
             usuario.IdUsuario = GerarId();
             _validator.ValidateAndThrow(usuario);
+            var senhaEncriptada = HashServico.GerarSenhaEncriptada(usuario.Senha);
+            usuario.Senha = senhaEncriptada;
             Inserir(usuario);
             return new ValidationResult();
         }
@@ -101,10 +108,25 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public Usuario AutenticarUsuario(Usuario usuario)
     {
+
+
         var usuarioExistente = ObterTodos(null).FirstOrDefault(u => u.NickName == usuario.NickName) ?? throw new Exception("Usuario não encontrado!");
+        //verificar se existe Token Ativo
+
         var comparacaoSenha = HashServico.Comparar(usuarioExistente.Senha, usuario.Senha);
-        if (comparacaoSenha == true)
+        if (comparacaoSenha is true)
         {
+            //Gerar Token
+            var token = TokenServico.GerarToken(usuarioExistente);
+
+            //Armazenar token no txt
+            var filePath = TokenServico.retorna();
+            var file = File.AppendText(filePath);
+            file.WriteLine(token);
+            file.Close();
+
+            usuarioExistente.Hash = token;
+
             return usuarioExistente;
         }
         else return null;

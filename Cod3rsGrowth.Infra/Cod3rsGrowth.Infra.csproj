@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tokens\" />
+  </ItemGroup>
+
 </Project>

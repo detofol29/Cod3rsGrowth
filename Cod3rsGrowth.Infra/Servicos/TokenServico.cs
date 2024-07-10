@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Cod3rsGrowth.Infra.Servicos;
 
@@ -30,5 +31,9 @@ public static class TokenServico
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
+
+    public static string retorna()
+    {
+        return @"C:\Users\Usuario\Desktop\Cod3rsGrowth\Cod3rsGrowth\Cod3rsGrowth.Infra\Servicos\tokens.txt";
+    }
 }
-// Possivel alterar o fomato do token

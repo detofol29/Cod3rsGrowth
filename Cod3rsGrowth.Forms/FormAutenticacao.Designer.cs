@@ -35,6 +35,8 @@
             textBox2 = new TextBox();
             button1 = new Button();
             button2 = new Button();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -103,12 +105,23 @@
             button2.Text = "Cadastrar";
             button2.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.LoginImagem;
+            pictureBox1.Location = new Point(97, 13);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(109, 33);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
+            // 
             // FormAutenticacao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlText;
             ClientSize = new Size(304, 325);
+            Controls.Add(pictureBox1);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(textBox2);
@@ -120,6 +133,7 @@
             MaximumSize = new Size(320, 364);
             Name = "FormAutenticacao";
             Text = "Login";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -133,5 +147,6 @@
         private TextBox textBox2;
         private Button button1;
         private Button button2;
+        private PictureBox pictureBox1;
     }
 }

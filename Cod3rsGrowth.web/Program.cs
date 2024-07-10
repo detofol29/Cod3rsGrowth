@@ -3,8 +3,6 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Migracoes;
 using Cod3rsGrowth.Infra.Repositorios;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Servicos.Validacoes;
 using Cod3rsGrowth.web.Controllers;
 using FluentMigrator.Runner;
 using FluentValidation;
