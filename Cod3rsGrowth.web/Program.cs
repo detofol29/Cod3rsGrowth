@@ -21,10 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 ModuloInjetorInfra.AdquirirServicos(builder.Services);
-
-
 
 var app = builder.Build();
 
@@ -37,11 +34,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.MapControllers();
 

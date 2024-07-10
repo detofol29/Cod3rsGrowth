@@ -129,6 +129,6 @@ class Program
     private static void UpdateDatabase(IServiceProvider serviceProvider)
     {
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-        runner.MigrateUp(20240705001230);
+        //runner.MigrateUp(20240705001230);
     }
 }

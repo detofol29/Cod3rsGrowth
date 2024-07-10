@@ -1,4 +1,5 @@
 ﻿using LinqToDB.Mapping;
+using System.Drawing;
 namespace Cod3rsGrowth.Dominio.Modelos;
 
 [Table("Usuarios")]
@@ -16,4 +17,5 @@ public class Usuario
     public string Senha {  get; set; }
     [Column("NickName"), NotNull]
     public string NickName { get; set; }
+    public string Hash { get; set; }
 }

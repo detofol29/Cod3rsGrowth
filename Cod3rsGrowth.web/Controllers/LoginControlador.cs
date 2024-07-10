@@ -23,7 +23,7 @@ public class LoginControlador : ControllerBase
     }
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<dynamic>> Autenticador([FromBody] Usuario modelo)
+    public IActionResult Autenticador([FromBody] Usuario modelo)
     {
         // Recupera o usuário
         var usuario = repositorio.ObterTodos(null).FirstOrDefault(u => u.NickName == modelo.NickName);
@@ -38,13 +38,9 @@ public class LoginControlador : ControllerBase
         // Oculta a senha
         usuario.Senha = "";
 
-        // Retorna os dados
-        //return new OkObjectResult(usuario);
+        usuario.Hash = token;
 
-        return new
-        {
-            user = usuario, 
-            token = token
-        };
+        // Retorna os dados
+        return new OkObjectResult(usuario);
     }
 }
