@@ -38,9 +38,8 @@ class Program
         var ServiceProvider = host.Services;
         
         ApplicationConfiguration.Initialize();
-
-        Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>(),
-          ServiceProvider.GetRequiredService<UsuarioRepositorio>()));
+        Application.Run(new FormCadastro(ServiceProvider.GetRequiredService<UsuarioServicos>()));
+        //Application.Run(new FormAutenticacao(ServiceProvider.GetRequiredService<UsuarioServicos>(), ServiceProvider.GetRequiredService<FilmeServicos>(), ServiceProvider.GetRequiredService<UsuarioRepositorio>()));
     }
 
     static IHostBuilder CreateHostBuilder()

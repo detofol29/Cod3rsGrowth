@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Microsoft.AspNetCore.Mvc;
 using Cod3rsGrowth.web.Controllers;
+using Cod3rsGrowth.Infra.Servicos;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -26,6 +27,7 @@ namespace Cod3rsGrowth.Forms
         private UsuarioRepositorio repositorio;
         private FilmeServicos filmeService;
         private Usuario usuario;
+        private Thread threadFormsUsuario;
         public FormAutenticacao(UsuarioServicos _service, FilmeServicos _filmeService, UsuarioRepositorio _repositorio)
         {
             InitializeComponent();
@@ -49,9 +51,17 @@ namespace Cod3rsGrowth.Forms
             if(usuarioRetorno == null) { MessageBox.Show("Usuario ou senha Inválidos!"); }
             else
             {
-                Hide();
-                new FormListaFilme(filmeService, usuarioRetorno).Show();
+                usuario = usuarioRetorno;
+                this.Close();
+                threadFormsUsuario = new Thread(AbrirNovaJanela);
+                threadFormsUsuario.SetApartmentState(ApartmentState.STA);
+                threadFormsUsuario.Start();
             }
-        }    
+        }
+
+        private void AbrirNovaJanela(object obj)
+        {
+            Application.Run(new FormListaFilme(filmeService, usuario));
+        }
     }
 }

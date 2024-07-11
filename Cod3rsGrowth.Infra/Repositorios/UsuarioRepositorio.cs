@@ -31,6 +31,13 @@ public class UsuarioRepositorio : IUsuarioRepositorio
                         where a.Plano == filtroUsuario.FiltroPlano
                         select a;
             }
+
+            if (filtroUsuario?.FiltroNome != null)
+            {
+                query = from a in query
+                        where a.NickName == filtroUsuario.FiltroNome
+                        select a;
+            }
             return query.ToList();
         
     }

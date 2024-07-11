@@ -131,6 +131,7 @@
             Controls.Add(label1);
             ForeColor = SystemColors.ButtonFace;
             MaximumSize = new Size(320, 364);
+            MinimumSize = new Size(320, 364);
             Name = "FormAutenticacao";
             Text = "Login";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

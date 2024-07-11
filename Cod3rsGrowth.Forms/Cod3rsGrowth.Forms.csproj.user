@@ -4,6 +4,9 @@
     <Compile Update="FormAutenticacao.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormCadastro.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormListaFilme.cs">
       <SubType>Form</SubType>
     </Compile>

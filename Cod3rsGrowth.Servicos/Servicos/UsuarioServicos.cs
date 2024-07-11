@@ -9,6 +9,13 @@ using Cod3rsGrowth.Infra.Servicos;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Identity.Client;
+using System.IdentityModel.Tokens.Jwt;
+using System.Drawing;
+using Microsoft.IdentityModel.Tokens;
+using Cod3rsGrowth.Servicos.Validacoes;
+using System.ComponentModel.DataAnnotations;
+using ValidationResult = FluentValidation.Results.ValidationResult;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
@@ -108,20 +115,27 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public Usuario AutenticarUsuario(Usuario usuario)
     {
+        var caminhoDoArquivo = TokenServico.retorna();
 
-
+        //Obtem o usuario existente
         var usuarioExistente = ObterTodos(null).FirstOrDefault(u => u.NickName == usuario.NickName) ?? throw new Exception("Usuario não encontrado!");
-        //verificar se existe Token Ativo
 
         var comparacaoSenha = HashServico.Comparar(usuarioExistente.Senha, usuario.Senha);
         if (comparacaoSenha is true)
         {
+            //verificar se existe Token Ativo
+            var lines = File.ReadAllLines(caminhoDoArquivo);
+            foreach (var line in lines)
+            {
+                var validacao = TokenServico.VerificarValidadeToken(line, usuarioExistente);
+                if (validacao == true) { return usuarioExistente; }
+            }
+            
             //Gerar Token
             var token = TokenServico.GerarToken(usuarioExistente);
 
             //Armazenar token no txt
-            var filePath = TokenServico.retorna();
-            var file = File.AppendText(filePath);
+            var file = File.AppendText(caminhoDoArquivo);
             file.WriteLine(token);
             file.Close();
 
@@ -131,4 +145,5 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
         else return null;
     }
+
 }
