@@ -57,8 +57,28 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
     }
 
-    public void LicenciarFilmePorUsuario(Usuario usuario)
+    public Filme LicenciarFilmePorUsuario(Usuario usuario, Filme filme)
     {
+        if(usuario.Plano == PlanoEnum.Premium)
+        {
+            filme.DisponivelNoPlano = true;
+            return filme;
+        }
+        else if (usuario.Plano == PlanoEnum.Kids && filme.Classificacao == ClassificacaoIndicativa.livre)
+        {
+            filme.DisponivelNoPlano = true;
+            return filme;
+        }
+        else if(usuario.Plano == PlanoEnum.Nerd && (filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia))
+        {
+            filme.DisponivelNoPlano = true;
+            return filme;
+        }
+        else
+        {
+            filme.DisponivelNoPlano = false;
+            return filme;
+        }
     }
 
     public void Remover(int id)
@@ -70,6 +90,13 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
         try
         {
+            var usuarioVerificar = ObterTodos(new FiltroUsuario() { FiltroNome = usuario.NickName })?.FirstOrDefault();
+
+            if (usuarioVerificar is not null)
+            {
+                throw new Exception("Esse NickName já está em uso!");
+            }
+
             usuario.IdUsuario = GerarId();
             _validator.ValidateAndThrow(usuario);
             var senhaEncriptada = HashServico.GerarSenhaEncriptada(usuario.Senha);

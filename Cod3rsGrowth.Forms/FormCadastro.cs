@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cod3rsGrowth.Dominio.Filtros;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -24,7 +25,35 @@ namespace Cod3rsGrowth.Forms
 
         private void botaoCadastrar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var nome = campoNome.Text ?? throw new Exception("O campo nome não pode estar vazio!");
+                var nick = campoNickName.Text ?? throw new Exception("O campo NickName não pode estar vazio!");
+                var senha = campoSenha.Text ?? throw new Exception("O campo senha não pode estar vazio!");
+                var confirmaSenha = campoConfirmaSenha.Text ?? throw new Exception("O campo de confirmar senha não pode estar vazio!");
+                var plano = caixaSelecionarPlano.SelectedItem;
 
+                if(senha != confirmaSenha)
+                {
+                    throw new Exception("As senhas não são iguais sua mula");
+                }
+
+                var usuarioCadastrar = new Usuario() { Nome = nome, NickName = nick, Senha = senha, Plano = (PlanoEnum)plano };
+
+                var resultado = service.CriarUsuario(usuarioCadastrar);
+                if (resultado.IsValid)
+                {
+                    MessageBox.Show("Usuário criado com sucesso!");
+                }
+                else
+                {
+                    MessageBox.Show(resultado.ToString());
+                }
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void FormCadastro_Load(object sender, EventArgs e)
