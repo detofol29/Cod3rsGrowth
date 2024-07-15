@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAutenticacao));
             label1 = new Label();
-            label2 = new Label();
-            textBox1 = new TextBox();
-            label3 = new Label();
-            textBox2 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            labelUsuario = new Label();
+            campoUsuario = new TextBox();
+            labelSenha = new Label();
+            CampoSenha = new TextBox();
+            botaoEntrar = new Button();
+            botaoCadastrar = new Button();
             pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -49,62 +50,62 @@
             label1.TabIndex = 0;
             label1.Text = "LOGIN";
             // 
-            // label2
+            // labelUsuario
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(115, 73);
-            label2.Name = "label2";
-            label2.Size = new Size(67, 21);
-            label2.TabIndex = 1;
-            label2.Text = "Usuário:";
+            labelUsuario.AutoSize = true;
+            labelUsuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            labelUsuario.Location = new Point(115, 73);
+            labelUsuario.Name = "labelUsuario";
+            labelUsuario.Size = new Size(67, 21);
+            labelUsuario.TabIndex = 1;
+            labelUsuario.Text = "Usuário:";
             // 
-            // textBox1
+            // campoUsuario
             // 
-            textBox1.Location = new Point(37, 97);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(227, 23);
-            textBox1.TabIndex = 2;
+            campoUsuario.Location = new Point(37, 97);
+            campoUsuario.Name = "campoUsuario";
+            campoUsuario.Size = new Size(227, 23);
+            campoUsuario.TabIndex = 2;
             // 
-            // label3
+            // labelSenha
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(115, 143);
-            label3.Name = "label3";
-            label3.Size = new Size(56, 21);
-            label3.TabIndex = 3;
-            label3.Text = "Senha:";
+            labelSenha.AutoSize = true;
+            labelSenha.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            labelSenha.Location = new Point(115, 143);
+            labelSenha.Name = "labelSenha";
+            labelSenha.Size = new Size(56, 21);
+            labelSenha.TabIndex = 3;
+            labelSenha.Text = "Senha:";
             // 
-            // textBox2
+            // CampoSenha
             // 
-            textBox2.Location = new Point(37, 167);
-            textBox2.Name = "textBox2";
-            textBox2.PasswordChar = '*';
-            textBox2.Size = new Size(227, 23);
-            textBox2.TabIndex = 4;
+            CampoSenha.Location = new Point(37, 167);
+            CampoSenha.Name = "CampoSenha";
+            CampoSenha.PasswordChar = '*';
+            CampoSenha.Size = new Size(227, 23);
+            CampoSenha.TabIndex = 4;
             // 
-            // button1
+            // botaoEntrar
             // 
-            button1.ForeColor = SystemColors.Desktop;
-            button1.Location = new Point(84, 212);
-            button1.Name = "button1";
-            button1.Size = new Size(119, 31);
-            button1.TabIndex = 5;
-            button1.Text = "Entrar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            botaoEntrar.ForeColor = SystemColors.Desktop;
+            botaoEntrar.Location = new Point(84, 212);
+            botaoEntrar.Name = "botaoEntrar";
+            botaoEntrar.Size = new Size(119, 31);
+            botaoEntrar.TabIndex = 5;
+            botaoEntrar.Text = "Entrar";
+            botaoEntrar.UseVisualStyleBackColor = true;
+            botaoEntrar.Click += AoClicarBotaoEntrar;
             // 
-            // button2
+            // botaoCadastrar
             // 
-            button2.ForeColor = SystemColors.ActiveCaptionText;
-            button2.Location = new Point(84, 249);
-            button2.Name = "button2";
-            button2.Size = new Size(119, 29);
-            button2.TabIndex = 6;
-            button2.Text = "Cadastrar";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            botaoCadastrar.ForeColor = SystemColors.ActiveCaptionText;
+            botaoCadastrar.Location = new Point(84, 249);
+            botaoCadastrar.Name = "botaoCadastrar";
+            botaoCadastrar.Size = new Size(119, 29);
+            botaoCadastrar.TabIndex = 6;
+            botaoCadastrar.Text = "Cadastrar";
+            botaoCadastrar.UseVisualStyleBackColor = true;
+            botaoCadastrar.Click += AoClicarBotaoCadastrar;
             // 
             // pictureBox1
             // 
@@ -123,14 +124,15 @@
             BackColor = SystemColors.ControlText;
             ClientSize = new Size(304, 325);
             Controls.Add(pictureBox1);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox2);
-            Controls.Add(label3);
-            Controls.Add(textBox1);
-            Controls.Add(label2);
+            Controls.Add(botaoCadastrar);
+            Controls.Add(botaoEntrar);
+            Controls.Add(CampoSenha);
+            Controls.Add(labelSenha);
+            Controls.Add(campoUsuario);
+            Controls.Add(labelUsuario);
             Controls.Add(label1);
             ForeColor = SystemColors.ButtonFace;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(320, 364);
             MinimumSize = new Size(320, 364);
             Name = "FormAutenticacao";
@@ -143,12 +145,12 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private TextBox textBox1;
-        private Label label3;
-        private TextBox textBox2;
-        private Button button1;
-        private Button button2;
+        private Label labelUsuario;
+        private TextBox campoUsuario;
+        private Label labelSenha;
+        private TextBox CampoSenha;
+        private Button botaoEntrar;
+        private Button botaoCadastrar;
         private PictureBox pictureBox1;
     }
 }

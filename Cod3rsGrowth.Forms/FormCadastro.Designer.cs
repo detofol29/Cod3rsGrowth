@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCadastro));
             pictureBox1 = new PictureBox();
             campoNome = new TextBox();
             label2 = new Label();
@@ -117,9 +118,9 @@
             botaoVerificarNickName.Name = "botaoVerificarNickName";
             botaoVerificarNickName.Size = new Size(24, 21);
             botaoVerificarNickName.TabIndex = 9;
-            botaoVerificarNickName.Text = "X";
+            botaoVerificarNickName.Text = "?";
             botaoVerificarNickName.UseVisualStyleBackColor = true;
-            botaoVerificarNickName.Click += botaoVerificarNickName_Click;
+            botaoVerificarNickName.Click += AoClicarBotaoVerificarNickName;
             // 
             // botaoVerificarSenha
             // 
@@ -127,8 +128,9 @@
             botaoVerificarSenha.Name = "botaoVerificarSenha";
             botaoVerificarSenha.Size = new Size(24, 21);
             botaoVerificarSenha.TabIndex = 10;
-            botaoVerificarSenha.Text = "X";
+            botaoVerificarSenha.Text = "?";
             botaoVerificarSenha.UseVisualStyleBackColor = true;
+            botaoVerificarSenha.Click += AoClicarBotaoVerificarSenha;
             // 
             // campoConfirmaSenha
             // 
@@ -177,7 +179,7 @@
             botaoCadastrar.TabIndex = 15;
             botaoCadastrar.Text = "Cadastrar";
             botaoCadastrar.UseVisualStyleBackColor = true;
-            botaoCadastrar.Click += botaoCadastrar_Click;
+            botaoCadastrar.Click += AoClicarBotaoCadastrar;
             // 
             // botaoInfoPlano
             // 
@@ -187,6 +189,7 @@
             botaoInfoPlano.TabIndex = 16;
             botaoInfoPlano.Text = "?";
             botaoInfoPlano.UseVisualStyleBackColor = true;
+            botaoInfoPlano.Click += AoClicarBotaoInfoPlano;
             // 
             // FormCadastro
             // 
@@ -209,8 +212,9 @@
             Controls.Add(campoNome);
             Controls.Add(label2);
             Controls.Add(pictureBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormCadastro";
-            Text = "FormCadastro";
+            Text = "Cadastro";
             Load += FormCadastro_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

@@ -2,6 +2,8 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using LinqToDB;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 
@@ -10,9 +12,7 @@ public class UsuarioRepositorio : IUsuarioRepositorio
     private readonly ConexaoDados usuarioContexto;
     public UsuarioRepositorio(ConexaoDados _usuarioContexto)
     {
-
         usuarioContexto = _usuarioContexto;
-
     }
     public Usuario ObterPorId(int id)
     {
@@ -56,5 +56,10 @@ public class UsuarioRepositorio : IUsuarioRepositorio
     public void Editar(Usuario usuario)
     {
         usuarioContexto.Update(usuario);
+    }
+
+    public ValidationResult CriarUsuario(Usuario usuario)
+    {
+        throw new ArgumentException();
     }
 }

@@ -1,29 +1,19 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Repositorios;
-using FluentValidation;
-using FluentValidation.Results;
-using Cod3rsGrowth.Dominio.Filtros;
-using Cod3rsGrowth.web.Controllers;
 using Cod3rsGrowth.Infra.Servicos;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using static System.Net.Mime.MediaTypeNames;
-using Microsoft.Identity.Client;
-using System.IdentityModel.Tokens.Jwt;
-using System.Drawing;
-using Microsoft.IdentityModel.Tokens;
-using Cod3rsGrowth.Servicos.Validacoes;
-using System.ComponentModel.DataAnnotations;
-using ValidationResult = FluentValidation.Results.ValidationResult;
+using FluentValidation;
 using ValidationException = FluentValidation.ValidationException;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
 public class UsuarioServicos : IUsuarioRepositorio
 {
-    private readonly UsuarioRepositorio _usuarioRepositorio;
+    private readonly IUsuarioRepositorio _usuarioRepositorio;
     private readonly IValidator<Usuario> _validator;
-    public UsuarioServicos(UsuarioRepositorio usuarioRepositorio, IValidator<Usuario> validator)
+    public UsuarioServicos(IUsuarioRepositorio usuarioRepositorio, IValidator<Usuario> validator)
     {
         _usuarioRepositorio = usuarioRepositorio;
         _validator = validator;
@@ -128,7 +118,7 @@ public class UsuarioServicos : IUsuarioRepositorio
         const int idInicial = 1;
         const int indiceVazio = 0;
 
-        List<int> ListaIds = new List<int>();
+        List<int> ListaIds = new();
         foreach (var usuario in _usuarioRepositorio.ObterTodos(null))
         {
             ListaIds.Add(usuario.IdUsuario);
@@ -172,5 +162,4 @@ public class UsuarioServicos : IUsuarioRepositorio
         }
         else return null;
     }
-
 }

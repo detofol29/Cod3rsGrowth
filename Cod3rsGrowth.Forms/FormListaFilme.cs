@@ -18,6 +18,7 @@ public partial class FormListaFilme : Form
     private Usuario usuario;
     private UsuarioServicos servicoUsuario;
     FiltroFilme filtro = new();
+    List<Filme> listaDeFilmes = new();
     public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario)
     {
         service = _service;
@@ -51,10 +52,8 @@ public partial class FormListaFilme : Form
         toolStripComboBox2.Items.Add("Não");
         toolStripComboBox2.SelectedItem = "Nenhum";
 
-        label6.Text = "Usuario: " + usuario.Nome;
+        labelUsuario.Text = "Usuário: " + usuario.Nome;
     }
-
-    List<Filme> listaDeFilmes = new();
 
     public void IniciarListaDeFimes()
     {
@@ -65,11 +64,24 @@ public partial class FormListaFilme : Form
         }
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void AoClicarBotaoLimparFiltros(object sender, EventArgs e)
     {
-        bool disponivel = false;
-        bool todos = false;
-        
+        GeneroComboBox.SelectedItem = "Todos";
+        toolStripComboBox1.SelectedItem = "Nenhum";
+        toolStripComboBox2.SelectedItem = "Nenhum";
+        toolStripTextBox1.Clear();
+        dataGridView1.DataSource = listaDeFilmes;
+        labelFiltroGenero.Text = "Gênero: Todos";
+        labelFiltroClassificacao.Text = "Classificação: Todas";
+        labelFiltroDisponivel.Text = "Disponível: Todos";
+        labelFiltroNota.Text = "Nota Mínima: Nenhuma";
+    }
+
+    private void AoClicarBotaoFiltrar(object sender, EventArgs e)
+    {
+        List<Filme> filmesLicenciados = new();
+        bool filtroDisponivel = false;
+        bool filtroDisponivelTodos = false;
 
         if (GeneroComboBox.SelectedItem.ToString() != "Todos")
         {
@@ -110,13 +122,13 @@ public partial class FormListaFilme : Form
             switch (toolStripComboBox2.SelectedItem.ToString())
             {
                 case "Nenhum":
-                    todos = true;
+                    filtroDisponivelTodos = true;
                     break;
                 case "Sim":
-                    disponivel = true;
+                    filtroDisponivel = true;
                     break;
                 case "Não":
-                     disponivel = false;
+                    filtroDisponivel = false;
                     break;
             }
         }
@@ -133,37 +145,24 @@ public partial class FormListaFilme : Form
                 MessageBox.Show("Digite um valor numérico!");
             }
         }
-        List<Filme> filmesLicenciados = new();
+
         foreach (var filme in service.ObterTodos(filtro))
         {
             filmesLicenciados.Add(servicoUsuario.LicenciarFilmePorUsuario(usuario, filme));
-
-            if (todos == false)
-            {
-                dataGridView1.DataSource = filmesLicenciados.Where(f => f.DisponivelNoPlano == disponivel).Select(f => f).ToList();
-            }
-            else
-            {
-                dataGridView1.DataSource = filmesLicenciados;
-            }
-
-            label2.Text = "Gênero: " + GeneroComboBox.SelectedItem.ToString();
-            label3.Text = "Classificação: " + toolStripComboBox1.SelectedItem.ToString();
-            label4.Text = "Disponível: " + toolStripComboBox2.SelectedItem.ToString();
-            label5.Text = "Nota Mínima: " + toolStripTextBox1.Text;
         }
-    }
 
-    private void toolStripButton1_Click(object sender, EventArgs e)
-    {
-        GeneroComboBox.SelectedItem = "Todos";
-        toolStripComboBox1.SelectedItem = "Nenhum";
-        toolStripComboBox2.SelectedItem = "Nenhum";
-        toolStripTextBox1.Clear();
-        dataGridView1.DataSource = listaDeFilmes;
-        label2.Text = "Gênero: Todos";
-        label3.Text = "Classificação: Todas";
-        label4.Text = "Disponível: Todos";
-        label5.Text = "Nota Mínima: Nenhuma";
+        if (filtroDisponivelTodos == false)
+        {
+            dataGridView1.DataSource = filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList();
+        }
+        else
+        {
+            dataGridView1.DataSource = filmesLicenciados;
+        }
+
+        labelFiltroGenero.Text = "Gênero: " + GeneroComboBox.SelectedItem.ToString();
+        labelFiltroClassificacao.Text = "Classificação: " + toolStripComboBox1.SelectedItem.ToString();
+        labelFiltroDisponivel.Text = "Disponível: " + toolStripComboBox2.SelectedItem.ToString();
+        labelFiltroNota.Text = "Nota Mínima: " + toolStripTextBox1.Text;
     }
 }

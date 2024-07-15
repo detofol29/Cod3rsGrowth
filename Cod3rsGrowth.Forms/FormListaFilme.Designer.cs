@@ -31,9 +31,9 @@
             classificacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             filmeBindingSource1 = new BindingSource(components);
             filmeBindingSource = new BindingSource(components);
-            button1 = new Button();
             toolStrip1 = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
+            botaoLimparFiltros = new ToolStripButton();
+            botaoFiltrar = new ToolStripButton();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             toolStripMenuItem1 = new ToolStripMenuItem();
             GeneroComboBox = new ToolStripComboBox();
@@ -44,13 +44,14 @@
             notaToolStripMenuItem = new ToolStripMenuItem();
             toolStripTextBox1 = new ToolStripTextBox();
             toolStripSeparator1 = new ToolStripSeparator();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
+            labelUsuario = new ToolStripLabel();
+            labelFiltroGenero = new Label();
+            labelFiltroClassificacao = new Label();
+            labelFiltroDisponivel = new Label();
+            labelFiltroNota = new Label();
             imageList1 = new ImageList(components);
             pictureBox2 = new PictureBox();
+            labelFiltros = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).BeginInit();
@@ -60,7 +61,7 @@
             // 
             // dataGridView1
             // 
-            dataGridView1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.Anchor = AnchorStyles.Top;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaptionText;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -70,8 +71,9 @@
             dataGridView1.GridColor = SystemColors.InactiveCaptionText;
             dataGridView1.Location = new Point(12, 95);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(917, 296);
+            dataGridView1.Size = new Size(1061, 296);
             dataGridView1.TabIndex = 0;
+            //dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -141,50 +143,58 @@
             // 
             filmeBindingSource.DataSource = typeof(Dominio.Modelos.Filme);
             // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(855, 28);
-            button1.Name = "button1";
-            button1.Size = new Size(86, 23);
-            button1.TabIndex = 1;
-            button1.Text = "filtrar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // toolStrip1
             // 
             toolStrip1.AllowMerge = false;
             toolStrip1.BackColor = Color.Black;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripDropDownButton1 });
+            toolStrip1.BackgroundImageLayout = ImageLayout.None;
+            toolStrip1.CanOverflow = false;
+            toolStrip1.Font = new Font("Yu Gothic UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            toolStrip1.GripMargin = new Padding(0);
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, labelUsuario });
+            toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.System;
-            toolStrip1.Size = new Size(941, 25);
+            toolStrip1.Size = new Size(1085, 25);
             toolStrip1.TabIndex = 5;
             toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // botaoLimparFiltros
             // 
-            toolStripButton1.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton1.BackColor = SystemColors.ActiveBorder;
-            toolStripButton1.BackgroundImageLayout = ImageLayout.Center;
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.MergeAction = MergeAction.MatchOnly;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(83, 22);
-            toolStripButton1.Text = "Limpar Filtros";
-            toolStripButton1.Click += toolStripButton1_Click;
+            botaoLimparFiltros.Alignment = ToolStripItemAlignment.Right;
+            botaoLimparFiltros.BackColor = Color.Red;
+            botaoLimparFiltros.BackgroundImageLayout = ImageLayout.Center;
+            botaoLimparFiltros.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoLimparFiltros.Image = (Image)resources.GetObject("botaoLimparFiltros.Image");
+            botaoLimparFiltros.ImageTransparentColor = Color.Magenta;
+            botaoLimparFiltros.MergeAction = MergeAction.MatchOnly;
+            botaoLimparFiltros.Name = "botaoLimparFiltros";
+            botaoLimparFiltros.Size = new Size(83, 22);
+            botaoLimparFiltros.Text = "Limpar Filtros";
+            botaoLimparFiltros.TextAlign = ContentAlignment.MiddleRight;
+            botaoLimparFiltros.Click += AoClicarBotaoLimparFiltros;
+            // 
+            // botaoFiltrar
+            // 
+            botaoFiltrar.Alignment = ToolStripItemAlignment.Right;
+            botaoFiltrar.BackColor = Color.Red;
+            botaoFiltrar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoFiltrar.ForeColor = SystemColors.ActiveCaptionText;
+            botaoFiltrar.ImageTransparentColor = Color.Magenta;
+            botaoFiltrar.Name = "botaoFiltrar";
+            botaoFiltrar.Size = new Size(41, 22);
+            botaoFiltrar.Text = "Filtrar";
+            botaoFiltrar.Click += AoClicarBotaoFiltrar;
             // 
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.Alignment = ToolStripItemAlignment.Right;
+            toolStripDropDownButton1.BackColor = Color.Black;
             toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
             toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, classificaçãoToolStripMenuItem, disponívelToolStripMenuItem, notaToolStripMenuItem, toolStripSeparator1 });
-            toolStripDropDownButton1.ForeColor = SystemColors.ButtonHighlight;
-            toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
+            toolStripDropDownButton1.ForeColor = SystemColors.ButtonFace;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             toolStripDropDownButton1.Size = new Size(52, 22);
@@ -194,8 +204,8 @@
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { GeneroComboBox });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(142, 22);
-            toolStripMenuItem1.Text = "Genero";
+            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Text = "Gênero";
             // 
             // GeneroComboBox
             // 
@@ -206,7 +216,7 @@
             // 
             classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox1 });
             classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
-            classificaçãoToolStripMenuItem.Size = new Size(142, 22);
+            classificaçãoToolStripMenuItem.Size = new Size(180, 22);
             classificaçãoToolStripMenuItem.Text = "Classificação";
             // 
             // toolStripComboBox1
@@ -218,7 +228,7 @@
             // 
             disponívelToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox2 });
             disponívelToolStripMenuItem.Name = "disponívelToolStripMenuItem";
-            disponívelToolStripMenuItem.Size = new Size(142, 22);
+            disponívelToolStripMenuItem.Size = new Size(180, 22);
             disponívelToolStripMenuItem.Text = "Disponível";
             // 
             // toolStripComboBox2
@@ -230,7 +240,7 @@
             // 
             notaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1 });
             notaToolStripMenuItem.Name = "notaToolStripMenuItem";
-            notaToolStripMenuItem.Size = new Size(142, 22);
+            notaToolStripMenuItem.Size = new Size(180, 22);
             notaToolStripMenuItem.Text = "Nota";
             // 
             // toolStripTextBox1
@@ -241,62 +251,59 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(139, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
-            // label2
+            // labelUsuario
             // 
-            label2.Anchor = AnchorStyles.Bottom;
-            label2.AutoSize = true;
-            label2.BackColor = Color.Black;
-            label2.ForeColor = SystemColors.ButtonFace;
-            label2.Location = new Point(12, 395);
-            label2.Name = "label2";
-            label2.Size = new Size(88, 15);
-            label2.TabIndex = 6;
-            label2.Text = "Gênero :  Todos";
+            labelUsuario.ForeColor = SystemColors.ButtonFace;
+            labelUsuario.Name = "labelUsuario";
+            labelUsuario.Size = new Size(53, 22);
+            labelUsuario.Text = "Usuário: ";
             // 
-            // label3
+            // labelFiltroGenero
             // 
-            label3.Anchor = AnchorStyles.Bottom;
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.ButtonFace;
-            label3.Location = new Point(128, 395);
-            label3.Name = "label3";
-            label3.Size = new Size(117, 15);
-            label3.TabIndex = 7;
-            label3.Text = "Classificação :  Todas";
+            labelFiltroGenero.Anchor = AnchorStyles.Bottom;
+            labelFiltroGenero.AutoSize = true;
+            labelFiltroGenero.BackColor = Color.Black;
+            labelFiltroGenero.ForeColor = SystemColors.ButtonFace;
+            labelFiltroGenero.Location = new Point(349, 399);
+            labelFiltroGenero.Name = "labelFiltroGenero";
+            labelFiltroGenero.Size = new Size(88, 15);
+            labelFiltroGenero.TabIndex = 6;
+            labelFiltroGenero.Text = "Gênero :  Todos";
             // 
-            // label4
+            // labelFiltroClassificacao
             // 
-            label4.Anchor = AnchorStyles.Bottom;
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(297, 395);
-            label4.Name = "label4";
-            label4.Size = new Size(102, 15);
-            label4.TabIndex = 8;
-            label4.Text = "Disponível : Todos";
+            labelFiltroClassificacao.Anchor = AnchorStyles.Bottom;
+            labelFiltroClassificacao.AutoSize = true;
+            labelFiltroClassificacao.ForeColor = SystemColors.ButtonFace;
+            labelFiltroClassificacao.Location = new Point(452, 399);
+            labelFiltroClassificacao.Name = "labelFiltroClassificacao";
+            labelFiltroClassificacao.Size = new Size(117, 15);
+            labelFiltroClassificacao.TabIndex = 7;
+            labelFiltroClassificacao.Text = "Classificação :  Todas";
             // 
-            // label5
+            // labelFiltroDisponivel
             // 
-            label5.Anchor = AnchorStyles.Bottom;
-            label5.AutoSize = true;
-            label5.ForeColor = SystemColors.ButtonFace;
-            label5.Location = new Point(459, 395);
-            label5.Name = "label5";
-            label5.Size = new Size(139, 15);
-            label5.TabIndex = 9;
-            label5.Text = "Nota Mínima:  Nenhuma";
+            labelFiltroDisponivel.Anchor = AnchorStyles.Bottom;
+            labelFiltroDisponivel.AutoSize = true;
+            labelFiltroDisponivel.ForeColor = SystemColors.ButtonFace;
+            labelFiltroDisponivel.Location = new Point(585, 399);
+            labelFiltroDisponivel.Name = "labelFiltroDisponivel";
+            labelFiltroDisponivel.Size = new Size(102, 15);
+            labelFiltroDisponivel.TabIndex = 8;
+            labelFiltroDisponivel.Text = "Disponível : Todos";
             // 
-            // label6
+            // labelFiltroNota
             // 
-            label6.AutoSize = true;
-            label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(12, 36);
-            label6.Name = "label6";
-            label6.Size = new Size(53, 15);
-            label6.TabIndex = 10;
-            label6.Text = "Usuário: ";
+            labelFiltroNota.Anchor = AnchorStyles.Bottom;
+            labelFiltroNota.AutoSize = true;
+            labelFiltroNota.ForeColor = SystemColors.ButtonFace;
+            labelFiltroNota.Location = new Point(703, 399);
+            labelFiltroNota.Name = "labelFiltroNota";
+            labelFiltroNota.Size = new Size(139, 15);
+            labelFiltroNota.TabIndex = 9;
+            labelFiltroNota.Text = "Nota Mínima:  Nenhuma";
             // 
             // imageList1
             // 
@@ -310,29 +317,41 @@
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox2.BackgroundImageLayout = ImageLayout.Center;
             pictureBox2.Image = Properties.Resources.imagem_listaDeFilmes;
-            pictureBox2.Location = new Point(251, 5);
+            pictureBox2.Location = new Point(338, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(432, 84);
-            pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox2.Size = new Size(434, 86);
+            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBox2.TabIndex = 12;
             pictureBox2.TabStop = false;
+            // 
+            // labelFiltros
+            // 
+            labelFiltros.AutoSize = true;
+            labelFiltros.ForeColor = SystemColors.ButtonHighlight;
+            labelFiltros.Location = new Point(282, 399);
+            labelFiltros.Name = "labelFiltros";
+            labelFiltros.Size = new Size(52, 15);
+            labelFiltros.TabIndex = 13;
+            labelFiltros.Text = "FILTROS:";
             // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(941, 423);
+            ClientSize = new Size(1085, 423);
+            Controls.Add(labelFiltros);
             Controls.Add(pictureBox2);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(button1);
+            Controls.Add(labelFiltroNota);
+            Controls.Add(labelFiltroDisponivel);
+            Controls.Add(labelFiltroClassificacao);
+            Controls.Add(labelFiltroGenero);
             Controls.Add(dataGridView1);
             Controls.Add(toolStrip1);
             ForeColor = SystemColors.ActiveCaptionText;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximumSize = new Size(1101, 462);
+            MinimumSize = new Size(1101, 462);
             Name = "FormListaFilme";
             Text = "Lista de Filmes";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -360,7 +379,6 @@
         private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private BindingSource filmeBindingSource1;
         private BindingSource filmeBindingSource;
-        private Button button1;
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem toolStripMenuItem1;
@@ -371,14 +389,16 @@
         private ToolStripComboBox toolStripComboBox2;
         private ToolStripMenuItem notaToolStripMenuItem;
         private ToolStripTextBox toolStripTextBox1;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton botaoLimparFiltros;
         private ToolStripSeparator toolStripSeparator1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
+        private Label labelFiltroGenero;
+        private Label labelFiltroClassificacao;
+        private Label labelFiltroDisponivel;
+        private Label labelFiltroNota;
         private ImageList imageList1;
         private PictureBox pictureBox2;
+        private ToolStripLabel labelUsuario;
+        private ToolStripButton botaoFiltrar;
+        private Label labelFiltros;
     }
 }

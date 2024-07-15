@@ -7,15 +7,16 @@ using Cod3rsGrowth.Servicos.Validacoes;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
 using Cod3rsGrowth.Dominio.Filtros;
+using Cod3rsGrowth.Teste.RepositoriosMock;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
 public class TesteUsuarioServico : TesteBase
 {
-    private readonly UsuarioServicos _servicos;
+    private readonly UsuarioRepositorioMock _servicos;
     public TesteUsuarioServico()
     {
-        _servicos = serviceProvider.GetService<UsuarioServicos>() ?? throw new Exception("Serviço não encontrado!");
+        _servicos = serviceProvider.GetService<UsuarioRepositorioMock>() ?? throw new Exception("Serviço não encontrado!");
         _servicos.ObterTodos(null).Clear();
     }
 
@@ -28,10 +29,10 @@ public class TesteUsuarioServico : TesteBase
     {
         List<Usuario> usuarios = new()
         {
-            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosP", Senha = "Abc12345", Plano = PlanoEnum.Free},
+            new Usuario() {Nome = "Marcos Paulo", NickName = "MarcosPaulo", Senha = "Abc12345", Plano = PlanoEnum.Free},
             new Usuario() {Nome = "Rubens", NickName = "Rubinho09", Senha = "Abc12345", Plano = PlanoEnum.Free},
-            new Usuario() {Nome = "André", NickName = "AndreGamePlays", Senha = "Abc12345", Plano = PlanoEnum.Premium},
-            new Usuario() {Nome = "Gabriel", NickName = "Detofol29", Senha = "Abc12345", Plano = PlanoEnum.Nerd},
+            new Usuario() {Nome = "André", NickName = "AndreGamePlayss", Senha = "Abc12345", Plano = PlanoEnum.Premium},
+            new Usuario() {Nome = "Gabriel", NickName = "Detofol299", Senha = "Abc12345", Plano = PlanoEnum.Nerd},
         };
 
         foreach(var usuario in usuarios)
@@ -52,7 +53,7 @@ public class TesteUsuarioServico : TesteBase
     [Fact]
     public void ao_ObterTodos_retorna_lista_com_quatro_usuarios()
     {
-        _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol29" });
+        _servicos.Inserir(new() { Nome = "Gabriel Detofol", IdUsuario = 1, Plano = PlanoEnum.Premium, Senha = "123", NickName = "Detofol7" });
         _servicos.Inserir(new() { Nome = "Marcos Paulo", IdUsuario = 2, Plano = PlanoEnum.Nerd, Senha = "123", NickName = "SilvaMarcosPaulo" });
         _servicos.Inserir(new() { Nome = "Rubens", IdUsuario = 3, Plano = PlanoEnum.Kids, Senha = "123", NickName = "DarthRubens" });
         _servicos.Inserir(new() { Nome = "André", IdUsuario = 4, Plano = PlanoEnum.Free, Senha = "123", NickName = "AndrezinDoGrau" });

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Infra;
 using System.Security.Cryptography;
-using Cod3rsGrowth.Infra;
-using System.Drawing;
-using System.Net.Mail;
+using System.Text;
 
 namespace Cod3rsGrowth.Servicos.Servicos
 {
@@ -22,7 +16,6 @@ namespace Cod3rsGrowth.Servicos.Servicos
             {
                 senhaHash.Append(hashBytes[i].ToString("x2"));
             }
-
             return senhaHash.ToString();
         }
 
