@@ -17,25 +17,29 @@ public partial class FormListaFilme : Form
     public FilmeServicos service;
     private Usuario usuario;
     private UsuarioServicos servicoUsuario;
+    private Thread threadFormsAutenticacao;
+    private UsuarioRepositorio repositorio;
     FiltroFilme filtro = new();
     List<Filme> listaDeFilmes = new();
-    public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario)
+    public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario, UsuarioRepositorio _repositorio)
     {
         service = _service;
         usuario = _usuario;
         servicoUsuario = _servicoUsuario;
+        repositorio = _repositorio;
+        
         InitializeComponent();
         IniciarListaDeFimes();
         dataGridView1.DataSource = listaDeFilmes;
         GeneroComboBox.Items.Add("Todos");
-        GeneroComboBox.Items.Add(GeneroEnum.Terror);
-        GeneroComboBox.Items.Add(GeneroEnum.Romance);
-        GeneroComboBox.Items.Add(GeneroEnum.Acao);
-        GeneroComboBox.Items.Add(GeneroEnum.Ficcao);
-        GeneroComboBox.Items.Add(GeneroEnum.Aventura);
-        GeneroComboBox.Items.Add(GeneroEnum.Comedia);
-        GeneroComboBox.Items.Add(GeneroEnum.Drama);
-        GeneroComboBox.Items.Add(GeneroEnum.Fantasia);
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Terror));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Romance));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Acao));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Ficcao));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Aventura));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Comedia));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Drama));
+        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Fantasia));
         GeneroComboBox.SelectedItem = "Todos";
 
         toolStripComboBox1.Items.Add("Nenhum");
@@ -50,7 +54,8 @@ public partial class FormListaFilme : Form
         toolStripComboBox2.Items.Add("Nenhum");
         toolStripComboBox2.Items.Add("Sim");
         toolStripComboBox2.Items.Add("Não");
-        toolStripComboBox2.SelectedItem = "Nenhum";
+        toolStripComboBox2.SelectedItem = "Sim";
+        AoClicarBotaoFiltrar(null, null);
 
         labelUsuario.Text = "Usuário: " + usuario.Nome;
     }
@@ -77,7 +82,7 @@ public partial class FormListaFilme : Form
         labelFiltroNota.Text = "Nota Mínima: Nenhuma";
     }
 
-    private void AoClicarBotaoFiltrar(object sender, EventArgs e)
+    private void AoClicarBotaoFiltrar(object? sender, EventArgs? e)
     {
         List<Filme> filmesLicenciados = new();
         bool filtroDisponivel = false;
@@ -85,7 +90,7 @@ public partial class FormListaFilme : Form
 
         if (GeneroComboBox.SelectedItem.ToString() != "Todos")
         {
-            GeneroEnum genero = (GeneroEnum)GeneroComboBox.SelectedItem;
+            GeneroEnum genero = ExtensaoDosEnuns.ObterGeneroEnum(GeneroComboBox.SelectedItem.ToString());
             filtro.FiltroGenero = genero;
         }
 
@@ -164,5 +169,18 @@ public partial class FormListaFilme : Form
         labelFiltroClassificacao.Text = "Classificação: " + toolStripComboBox1.SelectedItem.ToString();
         labelFiltroDisponivel.Text = "Disponível: " + toolStripComboBox2.SelectedItem.ToString();
         labelFiltroNota.Text = "Nota Mínima: " + toolStripTextBox1.Text;
+    }
+
+    private void AoClicarBotaoSair(object sender, EventArgs e)
+    {
+        this.Close();
+        threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
+        threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
+        threadFormsAutenticacao.Start();
+    }
+
+    private void AbrirJanelaLogin(object obj)
+    {
+        Application.Run(new FormAutenticacao(servicoUsuario, service, repositorio));
     }
 }

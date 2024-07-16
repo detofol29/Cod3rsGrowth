@@ -44,6 +44,7 @@
             notaToolStripMenuItem = new ToolStripMenuItem();
             toolStripTextBox1 = new ToolStripTextBox();
             toolStripSeparator1 = new ToolStripSeparator();
+            botaoSair = new ToolStripButton();
             labelUsuario = new ToolStripLabel();
             labelFiltroGenero = new Label();
             labelFiltroClassificacao = new Label();
@@ -71,69 +72,84 @@
             dataGridView1.GridColor = SystemColors.InactiveCaptionText;
             dataGridView1.Location = new Point(12, 95);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(1061, 296);
             dataGridView1.TabIndex = 0;
-            //dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Width = 40;
             // 
             // tituloDataGridViewTextBoxColumn
             // 
             tituloDataGridViewTextBoxColumn.DataPropertyName = "Titulo";
-            tituloDataGridViewTextBoxColumn.HeaderText = "Titulo";
+            tituloDataGridViewTextBoxColumn.HeaderText = "Título";
             tituloDataGridViewTextBoxColumn.Name = "tituloDataGridViewTextBoxColumn";
+            tituloDataGridViewTextBoxColumn.ReadOnly = true;
+            tituloDataGridViewTextBoxColumn.Width = 130;
             // 
             // dataDeLancamentoDataGridViewTextBoxColumn
             // 
             dataDeLancamentoDataGridViewTextBoxColumn.DataPropertyName = "DataDeLancamento";
-            dataDeLancamentoDataGridViewTextBoxColumn.HeaderText = "DataDeLancamento";
+            dataDeLancamentoDataGridViewTextBoxColumn.HeaderText = "Data De Lançamento";
             dataDeLancamentoDataGridViewTextBoxColumn.Name = "dataDeLancamentoDataGridViewTextBoxColumn";
+            dataDeLancamentoDataGridViewTextBoxColumn.ReadOnly = true;
+            dataDeLancamentoDataGridViewTextBoxColumn.Width = 140;
             // 
             // generoDataGridViewTextBoxColumn
             // 
             generoDataGridViewTextBoxColumn.DataPropertyName = "Genero";
-            generoDataGridViewTextBoxColumn.HeaderText = "Genero";
+            generoDataGridViewTextBoxColumn.HeaderText = "Gênero";
             generoDataGridViewTextBoxColumn.Name = "generoDataGridViewTextBoxColumn";
+            generoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // emCartazDataGridViewCheckBoxColumn
             // 
             emCartazDataGridViewCheckBoxColumn.DataPropertyName = "EmCartaz";
-            emCartazDataGridViewCheckBoxColumn.HeaderText = "EmCartaz";
+            emCartazDataGridViewCheckBoxColumn.HeaderText = "Em Cartaz";
             emCartazDataGridViewCheckBoxColumn.Name = "emCartazDataGridViewCheckBoxColumn";
+            emCartazDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // notaDataGridViewTextBoxColumn
             // 
             notaDataGridViewTextBoxColumn.DataPropertyName = "Nota";
             notaDataGridViewTextBoxColumn.HeaderText = "Nota";
             notaDataGridViewTextBoxColumn.Name = "notaDataGridViewTextBoxColumn";
+            notaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // duracaoDataGridViewTextBoxColumn
             // 
             duracaoDataGridViewTextBoxColumn.DataPropertyName = "Duracao";
-            duracaoDataGridViewTextBoxColumn.HeaderText = "Duracao";
+            duracaoDataGridViewTextBoxColumn.HeaderText = "Duração";
             duracaoDataGridViewTextBoxColumn.Name = "duracaoDataGridViewTextBoxColumn";
+            duracaoDataGridViewTextBoxColumn.ReadOnly = true;
+            duracaoDataGridViewTextBoxColumn.Width = 60;
             // 
             // disponivelNoPlanoDataGridViewCheckBoxColumn
             // 
             disponivelNoPlanoDataGridViewCheckBoxColumn.DataPropertyName = "DisponivelNoPlano";
-            disponivelNoPlanoDataGridViewCheckBoxColumn.HeaderText = "DisponivelNoPlano";
+            disponivelNoPlanoDataGridViewCheckBoxColumn.HeaderText = "Disponível No Plano";
             disponivelNoPlanoDataGridViewCheckBoxColumn.Name = "disponivelNoPlanoDataGridViewCheckBoxColumn";
+            disponivelNoPlanoDataGridViewCheckBoxColumn.ReadOnly = true;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.Width = 130;
             // 
             // diretorDataGridViewTextBoxColumn
             // 
             diretorDataGridViewTextBoxColumn.DataPropertyName = "Diretor";
             diretorDataGridViewTextBoxColumn.HeaderText = "Diretor";
             diretorDataGridViewTextBoxColumn.Name = "diretorDataGridViewTextBoxColumn";
+            diretorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // classificacaoDataGridViewTextBoxColumn
             // 
             classificacaoDataGridViewTextBoxColumn.DataPropertyName = "Classificacao";
-            classificacaoDataGridViewTextBoxColumn.HeaderText = "Classificacao";
+            classificacaoDataGridViewTextBoxColumn.HeaderText = "Classificação";
             classificacaoDataGridViewTextBoxColumn.Name = "classificacaoDataGridViewTextBoxColumn";
+            classificacaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // filmeBindingSource1
             // 
@@ -152,7 +168,7 @@
             toolStrip1.Font = new Font("Yu Gothic UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
             toolStrip1.GripMargin = new Padding(0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, labelUsuario });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, botaoSair, labelUsuario });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
@@ -204,7 +220,7 @@
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { GeneroComboBox });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(142, 22);
             toolStripMenuItem1.Text = "Gênero";
             // 
             // GeneroComboBox
@@ -216,7 +232,7 @@
             // 
             classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox1 });
             classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
-            classificaçãoToolStripMenuItem.Size = new Size(180, 22);
+            classificaçãoToolStripMenuItem.Size = new Size(142, 22);
             classificaçãoToolStripMenuItem.Text = "Classificação";
             // 
             // toolStripComboBox1
@@ -228,7 +244,7 @@
             // 
             disponívelToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox2 });
             disponívelToolStripMenuItem.Name = "disponívelToolStripMenuItem";
-            disponívelToolStripMenuItem.Size = new Size(180, 22);
+            disponívelToolStripMenuItem.Size = new Size(142, 22);
             disponívelToolStripMenuItem.Text = "Disponível";
             // 
             // toolStripComboBox2
@@ -240,7 +256,7 @@
             // 
             notaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1 });
             notaToolStripMenuItem.Name = "notaToolStripMenuItem";
-            notaToolStripMenuItem.Size = new Size(180, 22);
+            notaToolStripMenuItem.Size = new Size(142, 22);
             notaToolStripMenuItem.Text = "Nota";
             // 
             // toolStripTextBox1
@@ -251,7 +267,18 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(139, 6);
+            // 
+            // botaoSair
+            // 
+            botaoSair.BackColor = Color.Red;
+            botaoSair.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoSair.Image = (Image)resources.GetObject("botaoSair.Image");
+            botaoSair.ImageTransparentColor = Color.Magenta;
+            botaoSair.Name = "botaoSair";
+            botaoSair.Size = new Size(31, 22);
+            botaoSair.Text = "Sair";
+            botaoSair.Click += AoClicarBotaoSair;
             // 
             // labelUsuario
             // 
@@ -367,16 +394,6 @@
         #endregion
 
         public DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn tituloDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeLancamentoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn generoDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn emCartazDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn notaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn duracaoDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn disponivelNoPlanoDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private BindingSource filmeBindingSource1;
         private BindingSource filmeBindingSource;
         private ToolStrip toolStrip1;
@@ -400,5 +417,16 @@
         private ToolStripLabel labelUsuario;
         private ToolStripButton botaoFiltrar;
         private Label labelFiltros;
+        private ToolStripButton botaoSair;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn tituloDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataDeLancamentoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn generoDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn emCartazDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn notaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn duracaoDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn disponivelNoPlanoDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
     }
 }

@@ -1,17 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Claims;
-using static System.Net.Mime.MediaTypeNames;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.IdentityModel.Tokens.Jwt;
-using System.IO;
-using System.Reflection.Metadata.Ecma335;
+using System.Text;
 
 namespace Cod3rsGrowth.Infra.Servicos;
 

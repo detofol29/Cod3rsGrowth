@@ -111,5 +111,13 @@ namespace Cod3rsGrowth.Forms
                 "\nO campo 'senha' deve conter pelo menos uma letra minuscula!\n" +
                 "\nO campo 'senha' deve conter pelo menos um número!\n");
         }
+
+        private void AoClicarBotaoLogar(object sender, EventArgs e)
+        {
+            this.Close();
+            threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
+            threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
+            threadFormsAutenticacao.Start();
+        }
     }
 }

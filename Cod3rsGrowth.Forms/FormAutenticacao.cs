@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Forms
 
         private void AbrirJanelaListaFilmes(object obj)
         {
-            Application.Run(new FormListaFilme(filmeService, usuario, service));
+            Application.Run(new FormListaFilme(filmeService, usuario, service, repositorio));
         }
 
         private void AbrirJanelaCadastro(object obj)

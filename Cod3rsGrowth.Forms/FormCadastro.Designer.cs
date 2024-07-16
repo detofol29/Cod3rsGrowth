@@ -44,6 +44,7 @@
             label5 = new Label();
             botaoCadastrar = new Button();
             botaoInfoPlano = new Button();
+            botaoLogar = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -191,12 +192,24 @@
             botaoInfoPlano.UseVisualStyleBackColor = true;
             botaoInfoPlano.Click += AoClicarBotaoInfoPlano;
             // 
+            // botaoLogar
+            // 
+            botaoLogar.ForeColor = SystemColors.ActiveCaptionText;
+            botaoLogar.Location = new Point(89, 386);
+            botaoLogar.Name = "botaoLogar";
+            botaoLogar.Size = new Size(119, 29);
+            botaoLogar.TabIndex = 17;
+            botaoLogar.Text = "Logar";
+            botaoLogar.UseVisualStyleBackColor = true;
+            botaoLogar.Click += AoClicarBotaoLogar;
+            // 
             // FormCadastro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(304, 400);
+            ClientSize = new Size(304, 433);
+            Controls.Add(botaoLogar);
             Controls.Add(botaoInfoPlano);
             Controls.Add(botaoCadastrar);
             Controls.Add(label5);
@@ -238,5 +251,6 @@
         private Label label5;
         private Button botaoCadastrar;
         private Button botaoInfoPlano;
+        private Button botaoLogar;
     }
 }

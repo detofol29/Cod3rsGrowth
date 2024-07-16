@@ -9,6 +9,7 @@ using FluentValidation;
 using Cod3rsGrowth.Servicos.Validacoes;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
+using Cod3rsGrowth.Infra.Repositorios;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -69,12 +70,21 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
     {
         try
         {
-            var alterarUsuario = ObterPorId(usuario.IdUsuario);
-            alterarUsuario.Nome = usuario.Nome;
-            alterarUsuario.FilmesDoUsuario = usuario.FilmesDoUsuario;
-            alterarUsuario.Plano = usuario.Plano;
-            alterarUsuario.Senha = usuario.Senha;
-            alterarUsuario.NickName = usuario.NickName;
+            var validacao = _validator.Validate(usuario);
+            if (validacao.IsValid)
+            {
+                var alterarUsuario = ObterPorId(usuario.IdUsuario);
+                alterarUsuario.Nome = usuario.Nome;
+                alterarUsuario.FilmesDoUsuario = usuario.FilmesDoUsuario;
+                alterarUsuario.Plano = usuario.Plano;
+                alterarUsuario.Senha = usuario.Senha;
+                alterarUsuario.NickName = usuario.NickName;
+            }
+            else
+            {
+                throw new Exception(validacao.Errors.First().ErrorMessage);
+            }
+            
         }
         catch(Exception ex)
         {
@@ -86,16 +96,8 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
     {
         try
         {
-            var usuarioVerificar = ObterTodos(new FiltroUsuario() { FiltroNome = usuario.NickName })?.FirstOrDefault();
-
-            if (usuarioVerificar is not null)
-            {
-                throw new Exception("Esse NickName já está em uso!");
-            }
-
             _validator.ValidateAndThrow(usuario);
-            //var senhaEncriptada = HashServico.GerarSenhaEncriptada(usuario.Senha);
-            //usuario.Senha = senhaEncriptada;
+            usuario.IdUsuario = GerarId();
             Inserir(usuario);
             return new ValidationResult();
         }
@@ -103,5 +105,22 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         {
             return new ValidationResult(ex.Errors);
         }
+    }
+
+    private int GerarId()
+    {
+        const int idInicial = 1;
+        const int indiceVazio = 0;
+
+        List<int> ListaIds = new();
+        foreach (var usuario in ObterTodos(null))
+        {
+            ListaIds.Add(usuario.IdUsuario);
+        }
+        if (ListaIds.Count() == indiceVazio) { return idInicial; }
+        ListaIds.Sort();
+        var indiceUltimo = ListaIds.Count() - idInicial;
+        var idFinal = ListaIds[indiceUltimo] + idInicial;
+        return idFinal;
     }
 }
