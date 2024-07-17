@@ -1,5 +1,6 @@
 using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Forms.MockFilme;
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
@@ -21,6 +22,7 @@ public partial class FormListaFilme : Form
     private UsuarioRepositorio repositorio;
     FiltroFilme filtro = new();
     List<Filme> listaDeFilmes = new();
+    List<FilmeData> listaDeFilmesData = new();
     public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario, UsuarioRepositorio _repositorio)
     {
         service = _service;
@@ -30,7 +32,9 @@ public partial class FormListaFilme : Form
         
         InitializeComponent();
         IniciarListaDeFimes();
-        dataGridView1.DataSource = listaDeFilmes;
+        //dataGridView1.DataSource = listaDeFilmes;
+        dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(listaDeFilmes);
+
         GeneroComboBox.Items.Add("Todos");
         GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Terror));
         GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Romance));
@@ -75,7 +79,8 @@ public partial class FormListaFilme : Form
         toolStripComboBox1.SelectedItem = "Nenhum";
         toolStripComboBox2.SelectedItem = "Nenhum";
         toolStripTextBox1.Clear();
-        dataGridView1.DataSource = listaDeFilmes;
+        //dataGridView1.DataSource = listaDeFilmes;
+        dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(listaDeFilmes);
         labelFiltroGenero.Text = "Gênero: Todos";
         labelFiltroClassificacao.Text = "Classificação: Todas";
         labelFiltroDisponivel.Text = "Disponível: Todos";
@@ -92,6 +97,10 @@ public partial class FormListaFilme : Form
         {
             GeneroEnum genero = ExtensaoDosEnuns.ObterGeneroEnum(GeneroComboBox.SelectedItem.ToString());
             filtro.FiltroGenero = genero;
+        }
+        else
+        {
+            filtro.FiltroGenero = null;
         }
 
         if (toolStripComboBox1.SelectedItem != null)
@@ -150,6 +159,10 @@ public partial class FormListaFilme : Form
                 MessageBox.Show("Digite um valor numérico!");
             }
         }
+        else
+        {
+            filtro.FiltroNotaMinima = null;
+        }
 
         foreach (var filme in service.ObterTodos(filtro))
         {
@@ -158,11 +171,13 @@ public partial class FormListaFilme : Form
 
         if (filtroDisponivelTodos == false)
         {
-            dataGridView1.DataSource = filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList();
+            //dataGridView1.DataSource = filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList();
+            dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList());
         }
         else
         {
-            dataGridView1.DataSource = filmesLicenciados;
+            //dataGridView1.DataSource = filmesLicenciados;
+            dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(filmesLicenciados);
         }
 
         labelFiltroGenero.Text = "Gênero: " + GeneroComboBox.SelectedItem.ToString();
@@ -173,6 +188,7 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoSair(object sender, EventArgs e)
     {
+        //MessageBox.Show("Deseja realmente sair?");
         this.Close();
         threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
         threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
