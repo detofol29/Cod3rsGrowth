@@ -11,10 +11,7 @@ using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
-using LinqToDB.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -59,9 +56,6 @@ class Program
             services.AddScoped<FormListaFilme>();
             services.AddScoped<FormAutenticacao>();
             services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
-
-            //------------Servico de autenticação---------
-
             services.AddCors();
             services.AddControllers();
             var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
@@ -103,6 +97,6 @@ class Program
     private static void UpdateDatabase(IServiceProvider serviceProvider)
     {
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-        //runner.MigrateUp(20240705001230);
+        runner.MigrateUp();
     }
 }

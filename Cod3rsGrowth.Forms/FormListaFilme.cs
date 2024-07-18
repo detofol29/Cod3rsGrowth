@@ -1,15 +1,9 @@
 using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Forms.MockFilme;
-using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth_Domínio.Extensoes;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel;
-using System.IO;
-using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -22,18 +16,16 @@ public partial class FormListaFilme : Form
     private UsuarioRepositorio repositorio;
     FiltroFilme filtro = new();
     List<Filme> listaDeFilmes = new();
-    List<FilmeData> listaDeFilmesData = new();
     public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario, UsuarioRepositorio _repositorio)
     {
         service = _service;
         usuario = _usuario;
         servicoUsuario = _servicoUsuario;
         repositorio = _repositorio;
-        
+
         InitializeComponent();
         IniciarListaDeFimes();
-        //dataGridView1.DataSource = listaDeFilmes;
-        dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(listaDeFilmes);
+        dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
 
         GeneroComboBox.Items.Add("Todos");
         GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Terror));
@@ -79,12 +71,11 @@ public partial class FormListaFilme : Form
         toolStripComboBox1.SelectedItem = "Nenhum";
         toolStripComboBox2.SelectedItem = "Nenhum";
         toolStripTextBox1.Clear();
-        //dataGridView1.DataSource = listaDeFilmes;
-        dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(listaDeFilmes);
         labelFiltroGenero.Text = "Gênero: Todos";
         labelFiltroClassificacao.Text = "Classificação: Todas";
         labelFiltroDisponivel.Text = "Disponível: Todos";
         labelFiltroNota.Text = "Nota Mínima: Nenhuma";
+        dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
     }
 
     private void AoClicarBotaoFiltrar(object? sender, EventArgs? e)
@@ -171,13 +162,11 @@ public partial class FormListaFilme : Form
 
         if (filtroDisponivelTodos == false)
         {
-            //dataGridView1.DataSource = filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList();
-            dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList());
+            dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList());
         }
         else
         {
-            //dataGridView1.DataSource = filmesLicenciados;
-            dataGridView1.DataSource = ServicoFilmeMock.ConverteFilmeParaData(filmesLicenciados);
+            dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados);
         }
 
         labelFiltroGenero.Text = "Gênero: " + GeneroComboBox.SelectedItem.ToString();
@@ -188,15 +177,23 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoSair(object sender, EventArgs e)
     {
-        //MessageBox.Show("Deseja realmente sair?");
-        this.Close();
-        threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
-        threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
-        threadFormsAutenticacao.Start();
+        DialogResult resultado = MessageBox.Show("Deseja Realmente sair?","Sair", MessageBoxButtons.YesNo);
+
+        if(resultado == DialogResult.Yes)
+        {
+            this.Close();
+            threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
+            threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
+            threadFormsAutenticacao.Start();
+        }
     }
 
     private void AbrirJanelaLogin(object obj)
     {
         Application.Run(new FormAutenticacao(servicoUsuario, service, repositorio));
+    }
+
+    private void FormListaFilme_Load(object sender, EventArgs e)
+    {
     }
 }

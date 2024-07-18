@@ -20,7 +20,6 @@ namespace Cod3rsGrowth.Forms
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormListaFilme));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
@@ -28,7 +27,18 @@ namespace Cod3rsGrowth.Forms
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormListaFilme));
             dataGridView1 = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            tituloDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataDeLancamentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            generoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            emCartazDataGridViewCheckBoxColumn = new DataGridViewTextBoxColumn();
+            notaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            duracaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            disponivelNoPlanoDataGridViewCheckBoxColumn = new DataGridViewTextBoxColumn();
+            diretorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            classificacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             filmeMockBindingSource = new BindingSource(components);
             filmeBindingSource1 = new BindingSource(components);
             filmeBindingSource = new BindingSource(components);
@@ -46,6 +56,7 @@ namespace Cod3rsGrowth.Forms
             toolStripTextBox1 = new ToolStripTextBox();
             toolStripSeparator1 = new ToolStripSeparator();
             botaoSair = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
             labelUsuario = new ToolStripLabel();
             labelFiltroGenero = new Label();
             labelFiltroClassificacao = new Label();
@@ -54,16 +65,6 @@ namespace Cod3rsGrowth.Forms
             imageList1 = new ImageList(components);
             pictureBox2 = new PictureBox();
             labelFiltros = new Label();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            tituloDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataDeLancamentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            generoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            emCartazDataGridViewCheckBoxColumn = new DataGridViewTextBoxColumn();
-            notaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            duracaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            disponivelNoPlanoDataGridViewCheckBoxColumn = new DataGridViewTextBoxColumn();
-            diretorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            classificacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
@@ -90,220 +91,6 @@ namespace Cod3rsGrowth.Forms
             dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(1061, 296);
             dataGridView1.TabIndex = 0;
-            // 
-            // filmeMockBindingSource
-            // 
-            filmeMockBindingSource.DataSource = typeof(FilmeData);
-            // 
-            // filmeBindingSource1
-            // 
-            filmeBindingSource1.DataSource = typeof(Dominio.Modelos.Filme);
-            // 
-            // filmeBindingSource
-            // 
-            filmeBindingSource.DataSource = typeof(Dominio.Modelos.Filme);
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.AllowMerge = false;
-            toolStrip1.BackColor = Color.Black;
-            toolStrip1.BackgroundImageLayout = ImageLayout.None;
-            toolStrip1.CanOverflow = false;
-            toolStrip1.Font = new Font("Yu Gothic UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            toolStrip1.GripMargin = new Padding(0);
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, botaoSair, labelUsuario });
-            toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.RenderMode = ToolStripRenderMode.System;
-            toolStrip1.Size = new Size(1085, 25);
-            toolStrip1.TabIndex = 5;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // botaoLimparFiltros
-            // 
-            botaoLimparFiltros.Alignment = ToolStripItemAlignment.Right;
-            botaoLimparFiltros.BackColor = Color.Red;
-            botaoLimparFiltros.BackgroundImageLayout = ImageLayout.Center;
-            botaoLimparFiltros.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            botaoLimparFiltros.Image = (Image)resources.GetObject("botaoLimparFiltros.Image");
-            botaoLimparFiltros.ImageTransparentColor = Color.Magenta;
-            botaoLimparFiltros.MergeAction = MergeAction.MatchOnly;
-            botaoLimparFiltros.Name = "botaoLimparFiltros";
-            botaoLimparFiltros.Size = new Size(83, 22);
-            botaoLimparFiltros.Text = "Limpar Filtros";
-            botaoLimparFiltros.TextAlign = ContentAlignment.MiddleRight;
-            botaoLimparFiltros.Click += AoClicarBotaoLimparFiltros;
-            // 
-            // botaoFiltrar
-            // 
-            botaoFiltrar.Alignment = ToolStripItemAlignment.Right;
-            botaoFiltrar.BackColor = Color.Red;
-            botaoFiltrar.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            botaoFiltrar.ForeColor = SystemColors.ActiveCaptionText;
-            botaoFiltrar.ImageTransparentColor = Color.Magenta;
-            botaoFiltrar.Name = "botaoFiltrar";
-            botaoFiltrar.Size = new Size(41, 22);
-            botaoFiltrar.Text = "Filtrar";
-            botaoFiltrar.Click += AoClicarBotaoFiltrar;
-            // 
-            // toolStripDropDownButton1
-            // 
-            toolStripDropDownButton1.Alignment = ToolStripItemAlignment.Right;
-            toolStripDropDownButton1.BackColor = Color.Black;
-            toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, classificaçãoToolStripMenuItem, disponívelToolStripMenuItem, notaToolStripMenuItem, toolStripSeparator1 });
-            toolStripDropDownButton1.ForeColor = SystemColors.ButtonFace;
-            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
-            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            toolStripDropDownButton1.Size = new Size(52, 22);
-            toolStripDropDownButton1.Text = "Filtros";
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { GeneroComboBox });
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(142, 22);
-            toolStripMenuItem1.Text = "Gênero";
-            // 
-            // GeneroComboBox
-            // 
-            GeneroComboBox.Name = "GeneroComboBox";
-            GeneroComboBox.Size = new Size(121, 23);
-            // 
-            // classificaçãoToolStripMenuItem
-            // 
-            classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox1 });
-            classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
-            classificaçãoToolStripMenuItem.Size = new Size(142, 22);
-            classificaçãoToolStripMenuItem.Text = "Classificação";
-            // 
-            // toolStripComboBox1
-            // 
-            toolStripComboBox1.Name = "toolStripComboBox1";
-            toolStripComboBox1.Size = new Size(121, 23);
-            // 
-            // disponívelToolStripMenuItem
-            // 
-            disponívelToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox2 });
-            disponívelToolStripMenuItem.Name = "disponívelToolStripMenuItem";
-            disponívelToolStripMenuItem.Size = new Size(142, 22);
-            disponívelToolStripMenuItem.Text = "Disponível";
-            // 
-            // toolStripComboBox2
-            // 
-            toolStripComboBox2.Name = "toolStripComboBox2";
-            toolStripComboBox2.Size = new Size(121, 23);
-            // 
-            // notaToolStripMenuItem
-            // 
-            notaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1 });
-            notaToolStripMenuItem.Name = "notaToolStripMenuItem";
-            notaToolStripMenuItem.Size = new Size(142, 22);
-            notaToolStripMenuItem.Text = "Nota";
-            // 
-            // toolStripTextBox1
-            // 
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.Size = new Size(100, 23);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(139, 6);
-            // 
-            // botaoSair
-            // 
-            botaoSair.BackColor = Color.Red;
-            botaoSair.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            botaoSair.Image = (Image)resources.GetObject("botaoSair.Image");
-            botaoSair.ImageTransparentColor = Color.Magenta;
-            botaoSair.Name = "botaoSair";
-            botaoSair.Size = new Size(31, 22);
-            botaoSair.Text = "Sair";
-            botaoSair.Click += AoClicarBotaoSair;
-            // 
-            // labelUsuario
-            // 
-            labelUsuario.ForeColor = SystemColors.ButtonFace;
-            labelUsuario.Name = "labelUsuario";
-            labelUsuario.Size = new Size(53, 22);
-            labelUsuario.Text = "Usuário: ";
-            // 
-            // labelFiltroGenero
-            // 
-            labelFiltroGenero.Anchor = AnchorStyles.Bottom;
-            labelFiltroGenero.AutoSize = true;
-            labelFiltroGenero.BackColor = Color.Black;
-            labelFiltroGenero.ForeColor = SystemColors.ButtonFace;
-            labelFiltroGenero.Location = new Point(349, 399);
-            labelFiltroGenero.Name = "labelFiltroGenero";
-            labelFiltroGenero.Size = new Size(88, 15);
-            labelFiltroGenero.TabIndex = 6;
-            labelFiltroGenero.Text = "Gênero :  Todos";
-            // 
-            // labelFiltroClassificacao
-            // 
-            labelFiltroClassificacao.Anchor = AnchorStyles.Bottom;
-            labelFiltroClassificacao.AutoSize = true;
-            labelFiltroClassificacao.ForeColor = SystemColors.ButtonFace;
-            labelFiltroClassificacao.Location = new Point(452, 399);
-            labelFiltroClassificacao.Name = "labelFiltroClassificacao";
-            labelFiltroClassificacao.Size = new Size(117, 15);
-            labelFiltroClassificacao.TabIndex = 7;
-            labelFiltroClassificacao.Text = "Classificação :  Todas";
-            // 
-            // labelFiltroDisponivel
-            // 
-            labelFiltroDisponivel.Anchor = AnchorStyles.Bottom;
-            labelFiltroDisponivel.AutoSize = true;
-            labelFiltroDisponivel.ForeColor = SystemColors.ButtonFace;
-            labelFiltroDisponivel.Location = new Point(585, 399);
-            labelFiltroDisponivel.Name = "labelFiltroDisponivel";
-            labelFiltroDisponivel.Size = new Size(102, 15);
-            labelFiltroDisponivel.TabIndex = 8;
-            labelFiltroDisponivel.Text = "Disponível : Todos";
-            // 
-            // labelFiltroNota
-            // 
-            labelFiltroNota.Anchor = AnchorStyles.Bottom;
-            labelFiltroNota.AutoSize = true;
-            labelFiltroNota.ForeColor = SystemColors.ButtonFace;
-            labelFiltroNota.Location = new Point(703, 399);
-            labelFiltroNota.Name = "labelFiltroNota";
-            labelFiltroNota.Size = new Size(139, 15);
-            labelFiltroNota.TabIndex = 9;
-            labelFiltroNota.Text = "Nota Mínima:  Nenhuma";
-            // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "icons8-filme-50.png");
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pictureBox2.BackgroundImageLayout = ImageLayout.Center;
-            pictureBox2.Image = Properties.Resources.imagem_listaDeFilmes;
-            pictureBox2.Location = new Point(338, 3);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(434, 86);
-            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox2.TabIndex = 12;
-            pictureBox2.TabStop = false;
-            // 
-            // labelFiltros
-            // 
-            labelFiltros.AutoSize = true;
-            labelFiltros.ForeColor = SystemColors.ButtonHighlight;
-            labelFiltros.Location = new Point(282, 399);
-            labelFiltros.Name = "labelFiltros";
-            labelFiltros.Size = new Size(52, 15);
-            labelFiltros.TabIndex = 13;
-            labelFiltros.Text = "FILTROS:";
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -409,6 +196,225 @@ namespace Cod3rsGrowth.Forms
             classificacaoDataGridViewTextBoxColumn.Name = "classificacaoDataGridViewTextBoxColumn";
             classificacaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // filmeMockBindingSource
+            // 
+            filmeMockBindingSource.DataSource = typeof(FilmeData);
+            // 
+            // filmeBindingSource1
+            // 
+            filmeBindingSource1.DataSource = typeof(Dominio.Modelos.Filme);
+            // 
+            // filmeBindingSource
+            // 
+            filmeBindingSource.DataSource = typeof(Dominio.Modelos.Filme);
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.AllowMerge = false;
+            toolStrip1.BackColor = Color.Black;
+            toolStrip1.BackgroundImageLayout = ImageLayout.None;
+            toolStrip1.CanOverflow = false;
+            toolStrip1.Font = new Font("Yu Gothic UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            toolStrip1.GripMargin = new Padding(0);
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, botaoSair, toolStripSeparator2, labelUsuario });
+            toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
+            toolStrip1.Size = new Size(1085, 25);
+            toolStrip1.TabIndex = 5;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // botaoLimparFiltros
+            // 
+            botaoLimparFiltros.Alignment = ToolStripItemAlignment.Right;
+            botaoLimparFiltros.BackColor = Color.Red;
+            botaoLimparFiltros.BackgroundImageLayout = ImageLayout.Center;
+            botaoLimparFiltros.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoLimparFiltros.Image = (Image)resources.GetObject("botaoLimparFiltros.Image");
+            botaoLimparFiltros.ImageTransparentColor = Color.Magenta;
+            botaoLimparFiltros.MergeAction = MergeAction.MatchOnly;
+            botaoLimparFiltros.Name = "botaoLimparFiltros";
+            botaoLimparFiltros.Size = new Size(83, 22);
+            botaoLimparFiltros.Text = "Limpar Filtros";
+            botaoLimparFiltros.TextAlign = ContentAlignment.MiddleRight;
+            botaoLimparFiltros.Click += AoClicarBotaoLimparFiltros;
+            // 
+            // botaoFiltrar
+            // 
+            botaoFiltrar.Alignment = ToolStripItemAlignment.Right;
+            botaoFiltrar.BackColor = Color.Red;
+            botaoFiltrar.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoFiltrar.ForeColor = SystemColors.ActiveCaptionText;
+            botaoFiltrar.ImageTransparentColor = Color.Magenta;
+            botaoFiltrar.Name = "botaoFiltrar";
+            botaoFiltrar.Size = new Size(41, 22);
+            botaoFiltrar.Text = "Filtrar";
+            botaoFiltrar.Click += AoClicarBotaoFiltrar;
+            // 
+            // toolStripDropDownButton1
+            // 
+            toolStripDropDownButton1.Alignment = ToolStripItemAlignment.Right;
+            toolStripDropDownButton1.BackColor = Color.Black;
+            toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, classificaçãoToolStripMenuItem, disponívelToolStripMenuItem, notaToolStripMenuItem, toolStripSeparator1 });
+            toolStripDropDownButton1.ForeColor = SystemColors.ButtonFace;
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(52, 22);
+            toolStripDropDownButton1.Text = "Filtros";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { GeneroComboBox });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Text = "Gênero";
+            // 
+            // GeneroComboBox
+            // 
+            GeneroComboBox.Name = "GeneroComboBox";
+            GeneroComboBox.Size = new Size(121, 23);
+            // 
+            // classificaçãoToolStripMenuItem
+            // 
+            classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox1 });
+            classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
+            classificaçãoToolStripMenuItem.Size = new Size(180, 22);
+            classificaçãoToolStripMenuItem.Text = "Classificação";
+            // 
+            // toolStripComboBox1
+            // 
+            toolStripComboBox1.Name = "toolStripComboBox1";
+            toolStripComboBox1.Size = new Size(121, 23);
+            // 
+            // disponívelToolStripMenuItem
+            // 
+            disponívelToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox2 });
+            disponívelToolStripMenuItem.Name = "disponívelToolStripMenuItem";
+            disponívelToolStripMenuItem.Size = new Size(180, 22);
+            disponívelToolStripMenuItem.Text = "Disponível";
+            // 
+            // toolStripComboBox2
+            // 
+            toolStripComboBox2.Name = "toolStripComboBox2";
+            toolStripComboBox2.Size = new Size(121, 23);
+            // 
+            // notaToolStripMenuItem
+            // 
+            notaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1 });
+            notaToolStripMenuItem.Name = "notaToolStripMenuItem";
+            notaToolStripMenuItem.Size = new Size(180, 22);
+            notaToolStripMenuItem.Text = "Nota";
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            toolStripTextBox1.Size = new Size(100, 23);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(177, 6);
+            // 
+            // botaoSair
+            // 
+            botaoSair.BackColor = Color.Red;
+            botaoSair.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoSair.Image = (Image)resources.GetObject("botaoSair.Image");
+            botaoSair.ImageTransparentColor = Color.Magenta;
+            botaoSair.Name = "botaoSair";
+            botaoSair.Size = new Size(31, 22);
+            botaoSair.Text = "Sair";
+            botaoSair.Click += AoClicarBotaoSair;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 25);
+            // 
+            // labelUsuario
+            // 
+            labelUsuario.ForeColor = SystemColors.ButtonFace;
+            labelUsuario.Name = "labelUsuario";
+            labelUsuario.Size = new Size(53, 22);
+            labelUsuario.Text = "Usuário: ";
+            // 
+            // labelFiltroGenero
+            // 
+            labelFiltroGenero.Anchor = AnchorStyles.Bottom;
+            labelFiltroGenero.AutoSize = true;
+            labelFiltroGenero.BackColor = Color.Black;
+            labelFiltroGenero.ForeColor = SystemColors.ButtonFace;
+            labelFiltroGenero.Location = new Point(349, 399);
+            labelFiltroGenero.Name = "labelFiltroGenero";
+            labelFiltroGenero.Size = new Size(88, 15);
+            labelFiltroGenero.TabIndex = 6;
+            labelFiltroGenero.Text = "Gênero :  Todos";
+            // 
+            // labelFiltroClassificacao
+            // 
+            labelFiltroClassificacao.Anchor = AnchorStyles.Bottom;
+            labelFiltroClassificacao.AutoSize = true;
+            labelFiltroClassificacao.ForeColor = SystemColors.ButtonFace;
+            labelFiltroClassificacao.Location = new Point(452, 399);
+            labelFiltroClassificacao.Name = "labelFiltroClassificacao";
+            labelFiltroClassificacao.Size = new Size(117, 15);
+            labelFiltroClassificacao.TabIndex = 7;
+            labelFiltroClassificacao.Text = "Classificação :  Todas";
+            // 
+            // labelFiltroDisponivel
+            // 
+            labelFiltroDisponivel.Anchor = AnchorStyles.Bottom;
+            labelFiltroDisponivel.AutoSize = true;
+            labelFiltroDisponivel.ForeColor = SystemColors.ButtonFace;
+            labelFiltroDisponivel.Location = new Point(585, 399);
+            labelFiltroDisponivel.Name = "labelFiltroDisponivel";
+            labelFiltroDisponivel.Size = new Size(102, 15);
+            labelFiltroDisponivel.TabIndex = 8;
+            labelFiltroDisponivel.Text = "Disponível : Todos";
+            // 
+            // labelFiltroNota
+            // 
+            labelFiltroNota.Anchor = AnchorStyles.Bottom;
+            labelFiltroNota.AutoSize = true;
+            labelFiltroNota.ForeColor = SystemColors.ButtonFace;
+            labelFiltroNota.Location = new Point(703, 399);
+            labelFiltroNota.Name = "labelFiltroNota";
+            labelFiltroNota.Size = new Size(139, 15);
+            labelFiltroNota.TabIndex = 9;
+            labelFiltroNota.Text = "Nota Mínima:  Nenhuma";
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "icons8-filme-50.png");
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox2.BackgroundImageLayout = ImageLayout.Center;
+            pictureBox2.Image = Properties.Resources.imagem_listaDeFilmes;
+            pictureBox2.Location = new Point(338, 3);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(434, 86);
+            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox2.TabIndex = 12;
+            pictureBox2.TabStop = false;
+            // 
+            // labelFiltros
+            // 
+            labelFiltros.AutoSize = true;
+            labelFiltros.ForeColor = SystemColors.ButtonHighlight;
+            labelFiltros.Location = new Point(282, 399);
+            labelFiltros.Name = "labelFiltros";
+            labelFiltros.Size = new Size(52, 15);
+            labelFiltros.TabIndex = 13;
+            labelFiltros.Text = "FILTROS:";
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -429,6 +435,7 @@ namespace Cod3rsGrowth.Forms
             MinimumSize = new Size(1101, 462);
             Name = "FormListaFilme";
             Text = "Lista de Filmes";
+            Load += FormListaFilme_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).EndInit();
@@ -478,5 +485,6 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn disponivelNoPlanoDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

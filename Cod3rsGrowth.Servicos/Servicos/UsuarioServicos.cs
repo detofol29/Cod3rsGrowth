@@ -134,13 +134,11 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
         var caminhoDoArquivo = TokenServico.retorna();
 
-        //Obtem o usuario existente
         var usuarioExistente = ObterTodos(null).FirstOrDefault(u => u.NickName == usuario.NickName) ?? throw new Exception("Usuario não encontrado!");
 
         var comparacaoSenha = HashServico.Comparar(usuarioExistente.Senha, usuario.Senha);
         if (comparacaoSenha is true)
         {
-            //verificar se existe Token Ativo
             var lines = File.ReadAllLines(caminhoDoArquivo);
             foreach (var line in lines)
             {
@@ -148,10 +146,8 @@ public class UsuarioServicos : IUsuarioRepositorio
                 if (validacao == true) { return usuarioExistente; }
             }
             
-            //Gerar Token
             var token = TokenServico.GerarToken(usuarioExistente);
 
-            //Armazenar token no txt
             var file = File.AppendText(caminhoDoArquivo);
             file.WriteLine(token);
             file.Close();

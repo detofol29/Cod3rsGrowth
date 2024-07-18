@@ -1,10 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth_Domínio.Extensoes;
-using FluentMigrator.Runner.VersionTableInfo;
-using LinqToDB.Mapping;
-using System.ComponentModel.DataAnnotations.Schema;
-using ColumnAttribute = LinqToDB.Mapping.ColumnAttribute;
-using TableAttribute = LinqToDB.Mapping.TableAttribute;
 
 namespace Cod3rsGrowth.Forms;
 
