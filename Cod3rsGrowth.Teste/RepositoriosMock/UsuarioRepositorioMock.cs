@@ -1,15 +1,11 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Teste.ClassesSingleton;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
-using Xunit.Sdk;
-using Cod3rsGrowth.Dominio.Filtros;
-using Cod3rsGrowth.Servicos.Servicos;
-using System.ComponentModel.DataAnnotations;
-using FluentValidation;
+using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Validacoes;
+using Cod3rsGrowth.Teste.ClassesSingleton;
+using FluentValidation;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
-using Cod3rsGrowth.Infra.Repositorios;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 

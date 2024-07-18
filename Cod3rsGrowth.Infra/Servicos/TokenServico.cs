@@ -10,7 +10,7 @@ public static class TokenServico
 {
     public static string GerarToken(Usuario usuario)
     {
-        var tokenHandler = new JwtSecurityTokenHandler(); //Utilizada para gerar um token baseado em algumas informações
+        var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -18,7 +18,7 @@ public static class TokenServico
             Subject = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Name, usuario.NickName),
-                new Claim(ClaimTypes.Role, usuario.Plano.ToString()) // Definindo o Role como o plano do usuario
+                new Claim(ClaimTypes.Role, usuario.Plano.ToString()) 
             }),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha256Signature)
@@ -26,9 +26,10 @@ public static class TokenServico
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
+    
     public static string retorna()
     {
+        ///PROBLEMA!!!
         return @"C:\Users\Usuario\Desktop\Cod3rsGrowth\Cod3rsGrowth\Cod3rsGrowth.Infra\Servicos\tokens.txt";
     }
 

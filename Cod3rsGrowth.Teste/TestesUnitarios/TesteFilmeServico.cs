@@ -1,12 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Servicos.Validacoes;
 using FluentValidation.Results;
-using System;
-using Cod3rsGrowth.Dominio.Filtros;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 
