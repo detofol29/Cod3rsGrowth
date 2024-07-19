@@ -9,6 +9,8 @@ using FluentValidation;
 using Cod3rsGrowth.Servicos.Validacoes;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
+using Microsoft.AspNetCore.Mvc.Core.Infrastructure;
+using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -75,6 +77,7 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
             alterarUsuario.Plano = usuario.Plano;
             alterarUsuario.Senha = usuario.Senha;
             alterarUsuario.NickName = usuario.NickName;
+            var validacao = _validator.Validate(alterarUsuario);
         }
         catch(Exception ex)
         {
@@ -86,12 +89,12 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
     {
         try
         {
-            var usuarioVerificar = ObterTodos(new FiltroUsuario() { FiltroNome = usuario.NickName })?.FirstOrDefault();
+            //var usuarioVerificar = ObterTodos(new FiltroUsuario() { FiltroNome = usuario.NickName })?.FirstOrDefault();
 
-            if (usuarioVerificar is not null)
-            {
-                throw new Exception("Esse NickName já está em uso!");
-            }
+            //if (usuarioVerificar is not null)
+            //{
+            //    throw new Exception("Esse NickName já está em uso!");
+            //}
 
             _validator.ValidateAndThrow(usuario);
             //var senhaEncriptada = HashServico.GerarSenhaEncriptada(usuario.Senha);

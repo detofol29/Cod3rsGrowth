@@ -265,7 +265,7 @@ public class TesteUsuarioServico : TesteBase
         Usuario usuarioBase = new()
         {
             Nome = "Criss Byuither",
-            NickName = "Robertinho",
+            NickName = "Robertinhoo",
             Senha = "Abc12345"
         };
 
@@ -274,7 +274,7 @@ public class TesteUsuarioServico : TesteBase
         Usuario usuarioEditado = new()
         {
             Nome = "Criss Byuither Silva",
-            NickName = "Robertinho",
+            NickName = "Robertinhoo",
             Senha = "Abc12345",
             IdUsuario = idBase
         };
@@ -294,14 +294,14 @@ public class TesteUsuarioServico : TesteBase
         Usuario usuarioBase = new()
         {
             Nome = "Criss Byuither",
-            NickName = "Robertinho",
+            NickName = "Robertinhooo",
             Senha = "Abc12345"
         };
 
         Usuario usuarioEditado = new()
         {
             Nome = "",
-            NickName = "Robertinho",
+            NickName = "Robertinhooo",
             Senha = "Abc12345"
         };
 
