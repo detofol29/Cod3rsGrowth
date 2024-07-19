@@ -1,4 +1,6 @@
-﻿namespace Cod3rsGrowth.Forms
+﻿using Cod3rsGrowth_Domínio.Extensoes;
+
+namespace Cod3rsGrowth.Forms
 {
     partial class FormListaFilme
     {
@@ -17,18 +19,27 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormListaFilme));
             dataGridView1 = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tituloDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataDeLancamentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             generoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            emCartazDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            emCartazDataGridViewCheckBoxColumn = new DataGridViewTextBoxColumn();
             notaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             duracaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            disponivelNoPlanoDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            disponivelNoPlanoDataGridViewCheckBoxColumn = new DataGridViewTextBoxColumn();
             diretorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             classificacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            filmeMockBindingSource = new BindingSource(components);
             filmeBindingSource1 = new BindingSource(components);
             filmeBindingSource = new BindingSource(components);
             toolStrip1 = new ToolStrip();
@@ -44,6 +55,8 @@
             notaToolStripMenuItem = new ToolStripMenuItem();
             toolStripTextBox1 = new ToolStripTextBox();
             toolStripSeparator1 = new ToolStripSeparator();
+            botaoSair = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
             labelUsuario = new ToolStripLabel();
             labelFiltroGenero = new Label();
             labelFiltroClassificacao = new Label();
@@ -53,6 +66,7 @@
             pictureBox2 = new PictureBox();
             labelFiltros = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).BeginInit();
             toolStrip1.SuspendLayout();
@@ -61,79 +75,130 @@
             // 
             // dataGridView1
             // 
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.Anchor = AnchorStyles.Top;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaptionText;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, tituloDataGridViewTextBoxColumn, dataDeLancamentoDataGridViewTextBoxColumn, generoDataGridViewTextBoxColumn, emCartazDataGridViewCheckBoxColumn, notaDataGridViewTextBoxColumn, duracaoDataGridViewTextBoxColumn, disponivelNoPlanoDataGridViewCheckBoxColumn, diretorDataGridViewTextBoxColumn, classificacaoDataGridViewTextBoxColumn });
             dataGridView1.Cursor = Cursors.Hand;
-            dataGridView1.DataSource = filmeBindingSource1;
+            dataGridView1.DataSource = filmeMockBindingSource;
             dataGridView1.GridColor = SystemColors.InactiveCaptionText;
             dataGridView1.Location = new Point(12, 95);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(1061, 296);
             dataGridView1.TabIndex = 0;
-            //dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.Frozen = true;
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Width = 40;
             // 
             // tituloDataGridViewTextBoxColumn
             // 
             tituloDataGridViewTextBoxColumn.DataPropertyName = "Titulo";
-            tituloDataGridViewTextBoxColumn.HeaderText = "Titulo";
+            tituloDataGridViewTextBoxColumn.Frozen = true;
+            tituloDataGridViewTextBoxColumn.HeaderText = "Título";
             tituloDataGridViewTextBoxColumn.Name = "tituloDataGridViewTextBoxColumn";
+            tituloDataGridViewTextBoxColumn.ReadOnly = true;
+            tituloDataGridViewTextBoxColumn.Width = 200;
             // 
             // dataDeLancamentoDataGridViewTextBoxColumn
             // 
             dataDeLancamentoDataGridViewTextBoxColumn.DataPropertyName = "DataDeLancamento";
-            dataDeLancamentoDataGridViewTextBoxColumn.HeaderText = "DataDeLancamento";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataDeLancamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataDeLancamentoDataGridViewTextBoxColumn.Frozen = true;
+            dataDeLancamentoDataGridViewTextBoxColumn.HeaderText = "Data De Lançamento";
             dataDeLancamentoDataGridViewTextBoxColumn.Name = "dataDeLancamentoDataGridViewTextBoxColumn";
+            dataDeLancamentoDataGridViewTextBoxColumn.ReadOnly = true;
+            dataDeLancamentoDataGridViewTextBoxColumn.Width = 140;
             // 
             // generoDataGridViewTextBoxColumn
             // 
             generoDataGridViewTextBoxColumn.DataPropertyName = "Genero";
-            generoDataGridViewTextBoxColumn.HeaderText = "Genero";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            generoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            generoDataGridViewTextBoxColumn.Frozen = true;
+            generoDataGridViewTextBoxColumn.HeaderText = "Gênero";
             generoDataGridViewTextBoxColumn.Name = "generoDataGridViewTextBoxColumn";
+            generoDataGridViewTextBoxColumn.ReadOnly = true;
+            generoDataGridViewTextBoxColumn.Width = 80;
             // 
             // emCartazDataGridViewCheckBoxColumn
             // 
             emCartazDataGridViewCheckBoxColumn.DataPropertyName = "EmCartaz";
-            emCartazDataGridViewCheckBoxColumn.HeaderText = "EmCartaz";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            emCartazDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            emCartazDataGridViewCheckBoxColumn.Frozen = true;
+            emCartazDataGridViewCheckBoxColumn.HeaderText = "Em Cartaz";
             emCartazDataGridViewCheckBoxColumn.Name = "emCartazDataGridViewCheckBoxColumn";
+            emCartazDataGridViewCheckBoxColumn.ReadOnly = true;
+            emCartazDataGridViewCheckBoxColumn.Resizable = DataGridViewTriState.True;
+            emCartazDataGridViewCheckBoxColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // notaDataGridViewTextBoxColumn
             // 
             notaDataGridViewTextBoxColumn.DataPropertyName = "Nota";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = "0";
+            notaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            notaDataGridViewTextBoxColumn.Frozen = true;
             notaDataGridViewTextBoxColumn.HeaderText = "Nota";
             notaDataGridViewTextBoxColumn.Name = "notaDataGridViewTextBoxColumn";
+            notaDataGridViewTextBoxColumn.ReadOnly = true;
+            notaDataGridViewTextBoxColumn.Width = 50;
             // 
             // duracaoDataGridViewTextBoxColumn
             // 
             duracaoDataGridViewTextBoxColumn.DataPropertyName = "Duracao";
-            duracaoDataGridViewTextBoxColumn.HeaderText = "Duracao";
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            duracaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            duracaoDataGridViewTextBoxColumn.Frozen = true;
+            duracaoDataGridViewTextBoxColumn.HeaderText = "Duração";
             duracaoDataGridViewTextBoxColumn.Name = "duracaoDataGridViewTextBoxColumn";
+            duracaoDataGridViewTextBoxColumn.ReadOnly = true;
+            duracaoDataGridViewTextBoxColumn.Width = 60;
             // 
             // disponivelNoPlanoDataGridViewCheckBoxColumn
             // 
             disponivelNoPlanoDataGridViewCheckBoxColumn.DataPropertyName = "DisponivelNoPlano";
-            disponivelNoPlanoDataGridViewCheckBoxColumn.HeaderText = "DisponivelNoPlano";
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.HeaderText = "Disponível No Plano";
             disponivelNoPlanoDataGridViewCheckBoxColumn.Name = "disponivelNoPlanoDataGridViewCheckBoxColumn";
+            disponivelNoPlanoDataGridViewCheckBoxColumn.ReadOnly = true;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.Resizable = DataGridViewTriState.True;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.Width = 130;
             // 
             // diretorDataGridViewTextBoxColumn
             // 
             diretorDataGridViewTextBoxColumn.DataPropertyName = "Diretor";
             diretorDataGridViewTextBoxColumn.HeaderText = "Diretor";
             diretorDataGridViewTextBoxColumn.Name = "diretorDataGridViewTextBoxColumn";
+            diretorDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // classificacaoDataGridViewTextBoxColumn
             // 
             classificacaoDataGridViewTextBoxColumn.DataPropertyName = "Classificacao";
-            classificacaoDataGridViewTextBoxColumn.HeaderText = "Classificacao";
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            classificacaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            classificacaoDataGridViewTextBoxColumn.HeaderText = "Classificação";
             classificacaoDataGridViewTextBoxColumn.Name = "classificacaoDataGridViewTextBoxColumn";
+            classificacaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // filmeMockBindingSource
+            // 
+            filmeMockBindingSource.DataSource = typeof(FilmeData);
             // 
             // filmeBindingSource1
             // 
@@ -152,7 +217,7 @@
             toolStrip1.Font = new Font("Yu Gothic UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
             toolStrip1.GripMargin = new Padding(0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, labelUsuario });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { botaoLimparFiltros, botaoFiltrar, toolStripDropDownButton1, botaoSair, toolStripSeparator2, labelUsuario });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
@@ -252,6 +317,22 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(177, 6);
+            // 
+            // botaoSair
+            // 
+            botaoSair.BackColor = Color.Red;
+            botaoSair.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            botaoSair.Image = (Image)resources.GetObject("botaoSair.Image");
+            botaoSair.ImageTransparentColor = Color.Magenta;
+            botaoSair.Name = "botaoSair";
+            botaoSair.Size = new Size(31, 22);
+            botaoSair.Text = "Sair";
+            botaoSair.Click += AoClicarBotaoSair;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 25);
             // 
             // labelUsuario
             // 
@@ -354,7 +435,9 @@
             MinimumSize = new Size(1101, 462);
             Name = "FormListaFilme";
             Text = "Lista de Filmes";
+            Load += FormListaFilme_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource).EndInit();
             toolStrip1.ResumeLayout(false);
@@ -367,18 +450,9 @@
         #endregion
 
         public DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn tituloDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeLancamentoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn generoDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn emCartazDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn notaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn duracaoDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn disponivelNoPlanoDataGridViewCheckBoxColumn;
-        private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private BindingSource filmeBindingSource1;
         private BindingSource filmeBindingSource;
+        private BindingSource filmeMockBindingSource;
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem toolStripMenuItem1;
@@ -400,5 +474,17 @@
         private ToolStripLabel labelUsuario;
         private ToolStripButton botaoFiltrar;
         private Label labelFiltros;
+        private ToolStripButton botaoSair;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn tituloDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataDeLancamentoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn generoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn emCartazDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn notaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn duracaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn disponivelNoPlanoDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

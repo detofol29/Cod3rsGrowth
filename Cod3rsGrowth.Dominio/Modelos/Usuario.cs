@@ -1,5 +1,4 @@
 ﻿using LinqToDB.Mapping;
-using System.Drawing;
 namespace Cod3rsGrowth.Dominio.Modelos;
 
 [Table("Usuarios")]
@@ -9,7 +8,6 @@ public class Usuario
     public string Nome { get; set; }
     [PrimaryKey, Identity]
     public int IdUsuario { get; set; }
-    //[Association(ThisKey = "IdUsuario", OtherKey = "IdUsuario")]
     public List<Filme>? FilmesDoUsuario { get; set; }
     [Column("Plano")]
     public PlanoEnum Plano { get; set; }

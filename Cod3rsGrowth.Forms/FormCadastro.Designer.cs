@@ -36,7 +36,6 @@
             label1 = new Label();
             campoSenha = new TextBox();
             label3 = new Label();
-            botaoVerificarNickName = new Button();
             botaoVerificarSenha = new Button();
             campoConfirmaSenha = new TextBox();
             label4 = new Label();
@@ -44,6 +43,9 @@
             label5 = new Label();
             botaoCadastrar = new Button();
             botaoInfoPlano = new Button();
+            botaoLogar = new Button();
+            helpProvider1 = new HelpProvider();
+            labelDisponivel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -81,6 +83,7 @@
             campoNickName.Name = "campoNickName";
             campoNickName.Size = new Size(227, 23);
             campoNickName.TabIndex = 6;
+            campoNickName.LostFocus += AoPerderFocoDoNickName;
             // 
             // label1
             // 
@@ -111,16 +114,6 @@
             label3.Size = new Size(56, 21);
             label3.TabIndex = 7;
             label3.Text = "Senha:";
-            // 
-            // botaoVerificarNickName
-            // 
-            botaoVerificarNickName.Location = new Point(269, 135);
-            botaoVerificarNickName.Name = "botaoVerificarNickName";
-            botaoVerificarNickName.Size = new Size(24, 21);
-            botaoVerificarNickName.TabIndex = 9;
-            botaoVerificarNickName.Text = "?";
-            botaoVerificarNickName.UseVisualStyleBackColor = true;
-            botaoVerificarNickName.Click += AoClicarBotaoVerificarNickName;
             // 
             // botaoVerificarSenha
             // 
@@ -191,12 +184,35 @@
             botaoInfoPlano.UseVisualStyleBackColor = true;
             botaoInfoPlano.Click += AoClicarBotaoInfoPlano;
             // 
+            // botaoLogar
+            // 
+            botaoLogar.ForeColor = SystemColors.ActiveCaptionText;
+            botaoLogar.Location = new Point(89, 377);
+            botaoLogar.Name = "botaoLogar";
+            botaoLogar.Size = new Size(119, 29);
+            botaoLogar.TabIndex = 17;
+            botaoLogar.Text = "Logar";
+            botaoLogar.UseVisualStyleBackColor = true;
+            botaoLogar.Click += AoClicarBotaoLogar;
+            // 
+            // labelDisponivel
+            // 
+            labelDisponivel.AutoSize = true;
+            labelDisponivel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labelDisponivel.ForeColor = Color.Red;
+            labelDisponivel.Location = new Point(192, 117);
+            labelDisponivel.Name = "labelDisponivel";
+            labelDisponivel.Size = new Size(0, 15);
+            labelDisponivel.TabIndex = 18;
+            // 
             // FormCadastro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(304, 400);
+            ClientSize = new Size(304, 425);
+            Controls.Add(labelDisponivel);
+            Controls.Add(botaoLogar);
             Controls.Add(botaoInfoPlano);
             Controls.Add(botaoCadastrar);
             Controls.Add(label5);
@@ -204,7 +220,6 @@
             Controls.Add(campoConfirmaSenha);
             Controls.Add(label4);
             Controls.Add(botaoVerificarSenha);
-            Controls.Add(botaoVerificarNickName);
             Controls.Add(campoSenha);
             Controls.Add(label3);
             Controls.Add(campoNickName);
@@ -213,7 +228,10 @@
             Controls.Add(label2);
             Controls.Add(pictureBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximumSize = new Size(320, 464);
+            MinimumSize = new Size(320, 464);
             Name = "FormCadastro";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro";
             Load += FormCadastro_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -230,7 +248,6 @@
         private Label label1;
         private TextBox campoSenha;
         private Label label3;
-        private Button botaoVerificarNickName;
         private Button botaoVerificarSenha;
         private TextBox campoConfirmaSenha;
         private Label label4;
@@ -238,5 +255,8 @@
         private Label label5;
         private Button botaoCadastrar;
         private Button botaoInfoPlano;
+        private Button botaoLogar;
+        private HelpProvider helpProvider1;
+        private Label labelDisponivel;
     }
 }

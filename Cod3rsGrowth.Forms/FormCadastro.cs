@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Forms
 
                 if (senha != confirmaSenha)
                 {
-                    throw new Exception("As senhas não são iguais sua mula");
+                    throw new Exception("As senhas não são iguais!");
                 }
 
                 var usuarioCadastrar = new Usuario() { Nome = nome, NickName = nick, Senha = senha, Plano = (PlanoEnum)plano };
@@ -67,25 +67,24 @@ namespace Cod3rsGrowth.Forms
             caixaSelecionarPlano.SelectedItem = PlanoEnum.Free;
         }
 
-        private void AoClicarBotaoVerificarNickName(object sender, EventArgs e)
+        private string AoClicarBotaoVerificarNickName()
         {
             var nickNameDigitado = campoNickName.Text;
             var usuario = service.ObterTodos(new FiltroUsuario() { FiltroNome = nickNameDigitado })?.FirstOrDefault();
 
             if (usuario is not null)
             {
-                MessageBox.Show("Esse NickName já está em uso!");
-                return;
+                return "Esse NickName já está em uso!";
             }
             else
             {
                 if (campoNickName.Text.IsNullOrEmpty())
                 {
-                    MessageBox.Show("NickName vazio!");
+                    return "NickName vazio!";
                 }
                 else
                 {
-                    MessageBox.Show("NickName disponível!");
+                    return "NickName disponível!";
                 }
             }
         }
@@ -110,6 +109,34 @@ namespace Cod3rsGrowth.Forms
                 "\nO campo 'senha' deve conter pelo menos uma letra maiúscula!\n" +
                 "\nO campo 'senha' deve conter pelo menos uma letra minuscula!\n" +
                 "\nO campo 'senha' deve conter pelo menos um número!\n");
+        }
+
+        private void AoClicarBotaoLogar(object sender, EventArgs e)
+        {
+            this.Close();
+            threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
+            threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
+            threadFormsAutenticacao.Start();
+        }
+
+        public void AoPerderFocoDoNickName(object sender, EventArgs e)
+        {
+            var resultado = AoClicarBotaoVerificarNickName();
+            if(resultado == "Esse NickName já está em uso!")
+            {
+                campoNickName.ForeColor = Color.Red;
+                labelDisponivel.Text = "Indisponível*";
+            }
+            else if(resultado == "NickName vazio!")
+            {
+                campoNickName.ForeColor = Color.Red;
+                labelDisponivel.Text = "Campo obrigatório*";
+            }
+            else
+            {
+                campoNickName.ForeColor = Color.Black;
+                labelDisponivel.Text = null;
+            }
         }
     }
 }

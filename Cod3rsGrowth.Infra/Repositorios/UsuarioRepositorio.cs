@@ -3,7 +3,6 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using LinqToDB;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 

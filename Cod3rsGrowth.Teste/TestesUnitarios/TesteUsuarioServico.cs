@@ -1,13 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Teste.ClassesSingleton;
-using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Servicos.Validacoes;
-using System.Globalization;
-using System.Reflection.Metadata.Ecma335;
-using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Teste.RepositoriosMock;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Teste.TestesUnitarios;
 

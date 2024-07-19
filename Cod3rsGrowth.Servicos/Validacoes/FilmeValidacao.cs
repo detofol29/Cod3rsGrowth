@@ -1,6 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
-using System;
 
 namespace Cod3rsGrowth.Servicos.Validacoes;
 
