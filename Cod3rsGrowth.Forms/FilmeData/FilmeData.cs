@@ -1,5 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth_Domínio.Extensoes;
+using Cod3rsGrowth.Dominio.Extensoes;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -15,20 +15,4 @@ public class FilmeData
     public string DisponivelNoPlano { get; set; }
     public string Diretor { get; set; }
     public string Classificacao { get; set; }
-
-    public FilmeData(Filme filme)
-    {
-        Id = filme.Id;
-        Titulo = filme.Titulo;
-        DataDeLancamento = filme.DataDeLancamento;
-        Nota = filme.Nota;
-        Duracao = filme.Duracao;
-        Diretor = filme.Diretor;
-        
-        DisponivelNoPlano = filme.DisponivelNoPlano ? "Disponível" : "Não Disponível";
-        EmCartaz = filme.EmCartaz ? "Sim" : "Não";
-        
-        Genero = ExtensaoDosEnuns.ObterDescricao(filme.Genero);
-        Classificacao = ExtensaoDosEnuns.ObterDescricao(filme.Classificacao);
-    }
 }

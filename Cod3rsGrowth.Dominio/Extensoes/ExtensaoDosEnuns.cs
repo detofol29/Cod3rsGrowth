@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using System.ComponentModel;
 
-namespace Cod3rsGrowth_Domínio.Extensoes
+namespace Cod3rsGrowth.Dominio.Extensoes
 {
     public static class ExtensaoDosEnuns
     {

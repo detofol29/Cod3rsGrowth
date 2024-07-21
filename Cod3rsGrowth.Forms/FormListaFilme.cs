@@ -2,7 +2,7 @@ using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth_Domínio.Extensoes;
+using Cod3rsGrowth.Dominio.Extensoes;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Forms;
