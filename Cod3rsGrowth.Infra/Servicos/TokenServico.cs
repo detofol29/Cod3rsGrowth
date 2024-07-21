@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -29,8 +30,11 @@ public static class TokenServico
     
     public static string retorna()
     {
-        ///PROBLEMA!!!
-        return @"C:\Users\Usuario\Desktop\Cod3rsGrowth\Cod3rsGrowth\Cod3rsGrowth.Infra\Servicos\tokens.txt";
+        string caminhoBase = AppDomain.CurrentDomain.BaseDirectory;
+        string diretorioProjeto = Path.GetFullPath(Path.Combine(caminhoBase, @"..\..\..\..\"));
+        string caminhoArquivo = Path.Combine(diretorioProjeto, @"Cod3rsGrowth.Infra\Servicos\tokens.txt");
+
+        return caminhoArquivo;
     }
 
     public static bool VerificarValidadeToken(string token, Usuario usuario)

@@ -5,6 +5,7 @@ using Cod3rsGrowth.Infra.Repositorios;
 using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
+using LinqToDB.Configuration;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,16 +13,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
-        private static string _chaveDeConexao = "StreamingFilmesBD";
+        private static string _chaveDeConexao = ConfigurationManager.ConnectionStrings["StreamingFilmesBD"].ConnectionString;
         public static void AdquirirServicos(IServiceCollection services)
         {
             var chave = Encoding.ASCII.GetBytes(Configuracao.Secret);
@@ -29,7 +32,7 @@ namespace Cod3rsGrowth.Infra
             services.AddScoped<IAtorRepositorio, AtorRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<UsuarioRepositorio>();
-            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer("Data Source=DESKTOP-G0T9JPL\\SQLEXPRESS;Initial Catalog=Cod3rsGrowth2;User ID=sa;Password=sap@123;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False").UseDefaultLogging(provider));
+            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(_chaveDeConexao).UseDefaultLogging(provider));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

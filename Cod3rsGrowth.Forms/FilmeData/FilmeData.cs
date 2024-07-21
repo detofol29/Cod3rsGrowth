@@ -24,19 +24,10 @@ public class FilmeData
         Nota = filme.Nota;
         Duracao = filme.Duracao;
         Diretor = filme.Diretor;
-        if(filme.DisponivelNoPlano == true)
-        {
-            DisponivelNoPlano = "Disponível";
-        }
-        else { DisponivelNoPlano = "Não Disponível"; }
-        if(filme.EmCartaz == true)
-        {
-            EmCartaz = "Sim";
-        }
-        else
-        {
-            EmCartaz = "Não";
-        }
+        
+        DisponivelNoPlano = filme.DisponivelNoPlano ? "Disponível" : "Não Disponível";
+        EmCartaz = filme.EmCartaz ? "Sim" : "Não";
+        
         Genero = ExtensaoDosEnuns.ObterDescricao(filme.Genero);
         Classificacao = ExtensaoDosEnuns.ObterDescricao(filme.Classificacao);
     }
