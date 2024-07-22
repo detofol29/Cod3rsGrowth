@@ -47,9 +47,9 @@ namespace Cod3rsGrowth.Forms
             botaoFiltrar = new ToolStripButton();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             toolStripMenuItem1 = new ToolStripMenuItem();
-            GeneroComboBox = new ToolStripComboBox();
+            generoComboBox = new ToolStripComboBox();
             classificaçãoToolStripMenuItem = new ToolStripMenuItem();
-            toolStripComboBox1 = new ToolStripComboBox();
+            classificacaoComboBox = new ToolStripComboBox();
             disponívelToolStripMenuItem = new ToolStripMenuItem();
             toolStripComboBox2 = new ToolStripComboBox();
             notaToolStripMenuItem = new ToolStripMenuItem();
@@ -267,27 +267,27 @@ namespace Cod3rsGrowth.Forms
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { GeneroComboBox });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { generoComboBox });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(180, 22);
             toolStripMenuItem1.Text = "Gênero";
             // 
             // GeneroComboBox
             // 
-            GeneroComboBox.Name = "GeneroComboBox";
-            GeneroComboBox.Size = new Size(121, 23);
+            generoComboBox.Name = "GeneroComboBox";
+            generoComboBox.Size = new Size(121, 23);
             // 
             // classificaçãoToolStripMenuItem
             // 
-            classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox1 });
+            classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { classificacaoComboBox });
             classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
             classificaçãoToolStripMenuItem.Size = new Size(180, 22);
             classificaçãoToolStripMenuItem.Text = "Classificação";
             // 
             // toolStripComboBox1
             // 
-            toolStripComboBox1.Name = "toolStripComboBox1";
-            toolStripComboBox1.Size = new Size(121, 23);
+            classificacaoComboBox.Name = "toolStripComboBox1";
+            classificacaoComboBox.Size = new Size(121, 23);
             // 
             // disponívelToolStripMenuItem
             // 
@@ -455,9 +455,9 @@ namespace Cod3rsGrowth.Forms
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripComboBox GeneroComboBox;
+        private ToolStripComboBox generoComboBox;
         private ToolStripMenuItem classificaçãoToolStripMenuItem;
-        private ToolStripComboBox toolStripComboBox1;
+        private ToolStripComboBox classificacaoComboBox;
         private ToolStripMenuItem disponívelToolStripMenuItem;
         private ToolStripComboBox toolStripComboBox2;
         private ToolStripMenuItem notaToolStripMenuItem;

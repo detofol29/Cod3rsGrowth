@@ -17,6 +17,8 @@ public partial class FormListaFilme : Form
     private UsuarioRepositorio repositorio;
     FiltroFilme filtro = new();
     List<Filme> listaDeFilmes = new();
+    bool filtroDisponivel = false;
+    bool filtroDisponivelTodos = false;
     public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario, UsuarioRepositorio _repositorio)
     {
         service = _service;
@@ -30,19 +32,19 @@ public partial class FormListaFilme : Form
 
         foreach (var genero in Enum.GetValues(typeof(GeneroEnum)))
         {
-            GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)genero));
+            generoComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)genero));
         }
-        GeneroComboBox.Items.Add("Todos");
-        GeneroComboBox.SelectedItem = "Todos";
+        generoComboBox.Items.Add("Todos");
+        generoComboBox.SelectedItem = "Todos";
 
         foreach (var classificacao in Enum.GetValues(typeof(ClassificacaoIndicativa)))
         {
-            toolStripComboBox1.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)classificacao));
+            classificacaoComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)classificacao));
         }
-        toolStripComboBox1.Items.Add("Nenhum");
-        toolStripComboBox1.SelectedItem = "Nenhum";
+        classificacaoComboBox.Items.Add("Todos");
+        classificacaoComboBox.SelectedItem = "Todos";
 
-        toolStripComboBox2.Items.Add("Nenhum");
+        toolStripComboBox2.Items.Add("Todos");
         toolStripComboBox2.Items.Add("Sim");
         toolStripComboBox2.Items.Add("Não");
         toolStripComboBox2.SelectedItem = "Sim";
@@ -62,9 +64,9 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoLimparFiltros(object sender, EventArgs e)
     {
-        GeneroComboBox.SelectedItem = "Todos";
-        toolStripComboBox1.SelectedItem = "Nenhum";
-        toolStripComboBox2.SelectedItem = "Nenhum";
+        generoComboBox.SelectedItem = "Todos";
+        classificacaoComboBox.SelectedItem = "Todos";
+        toolStripComboBox2.SelectedItem = "Todos";
         toolStripTextBox1.Clear();
         labelFiltroGenero.Text = "Gênero: Todos";
         labelFiltroClassificacao.Text = "Classificação: Todas";
@@ -76,65 +78,11 @@ public partial class FormListaFilme : Form
     private void AoClicarBotaoFiltrar(object? sender, EventArgs? e)
     {
         List<Filme> filmesLicenciados = new();
-        bool filtroDisponivel = false;
-        bool filtroDisponivelTodos = false;
 
-        if (GeneroComboBox.SelectedItem.ToString() != "Todos")
-        {
-            var enumeradores = new TodosEnumeradores();
-            var generos = enumeradores.ObterTodos<GeneroEnum>();
-            var genero = generos.Where(g => g.Descricao == GeneroComboBox.SelectedItem.ToString()).FirstOrDefault();
-            filtro.FiltroGenero = ExtensaoDosEnuns.ConverterParaGeneroEnum(genero);
-        }
-        else
-        {
-            filtro.FiltroGenero = null;
-        }
-
-        if (toolStripComboBox1.SelectedItem != "Nenhum")
-        {
-            var enumeradores = new TodosEnumeradores();
-            var classificacoes = enumeradores.ObterTodos<ClassificacaoIndicativa>();
-            var classificacao = classificacoes.Where(g => g.Descricao == toolStripComboBox1.SelectedItem.ToString()).FirstOrDefault();
-            filtro.FiltroClassificacao = ExtensaoDosEnuns.ConverterParaClassificacaoEnum(classificacao);
-        }
-        else
-        {
-            filtro.FiltroClassificacao = null;
-        }
-
-        if (toolStripComboBox2.SelectedItem != null)
-        {
-            switch (toolStripComboBox2.SelectedItem.ToString())
-            {
-                case "Nenhum":
-                    filtroDisponivelTodos = true;
-                    break;
-                case "Sim":
-                    filtroDisponivel = true;
-                    break;
-                case "Não":
-                    filtroDisponivel = false;
-                    break;
-            }
-        }
-
-        if (toolStripTextBox1.Text.IsNullOrEmpty() != true)
-        {
-            try
-            {
-                var notaMinima = int.Parse(toolStripTextBox1.Text);
-                filtro.FiltroNotaMinima = notaMinima;
-            }
-            catch
-            {
-                MessageBox.Show("Digite um valor numérico!");
-            }
-        }
-        else
-        {
-            filtro.FiltroNotaMinima = null;
-        }
+        AdicionarFiltroGenero();
+        AdicionarFiltroClassificacao();
+        AdicionarFiltroNotaMinima();
+        AdicionarFiltroDisponivel();
 
         foreach (var filme in service.ObterTodos(filtro))
         {
@@ -149,11 +97,85 @@ public partial class FormListaFilme : Form
         {
             dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados);
         }
+        atualizarBarraDeFiltros();
+    }
 
-        labelFiltroGenero.Text = "Gênero: " + GeneroComboBox.SelectedItem.ToString();
-        labelFiltroClassificacao.Text = "Classificação: " + toolStripComboBox1.SelectedItem.ToString();
+    private void AdicionarFiltroNotaMinima()
+    {
+        if (toolStripTextBox1.Text.IsNullOrEmpty() != true)
+        {
+            try
+            {
+                var nota = int.Parse(toolStripTextBox1.Text);
+                filtro.FiltroNotaMinima = nota;
+            }
+            catch
+            {
+                MessageBox.Show("Digite um valor numérico!");
+            }
+        }
+        else
+        {
+            filtro.FiltroNotaMinima = null;
+        }
+    }
+
+    private void AdicionarFiltroClassificacao()
+    {
+        if (classificacaoComboBox.SelectedItem != "Todos")
+        {
+            var enumeradores = new TodosEnumeradores();
+            var classificacoes = enumeradores.ObterTodos<ClassificacaoIndicativa>();
+            var classificacao = classificacoes.Where(g => g.Descricao == classificacaoComboBox.SelectedItem.ToString()).FirstOrDefault();
+            filtro.FiltroClassificacao = ExtensaoDosEnuns.ConverterParaClassificacaoEnum(classificacao);
+        }
+        else
+        {
+            filtro.FiltroClassificacao = null;
+        }
+    }
+
+    private void AdicionarFiltroGenero()
+    {
+        if (generoComboBox.SelectedItem != "Todos")
+        {
+            var enumeradores = new TodosEnumeradores();
+            var generos = enumeradores.ObterTodos<GeneroEnum>();
+            var genero = generos.Where(g => g.Descricao == generoComboBox.SelectedItem.ToString()).FirstOrDefault();
+            filtro.FiltroGenero =  ExtensaoDosEnuns.ConverterParaGeneroEnum(genero);
+        }
+        else
+        {
+            filtro.FiltroGenero = null;
+        }
+    }
+
+    private void atualizarBarraDeFiltros()
+    {
+        labelFiltroGenero.Text = "Gênero: " + generoComboBox.SelectedItem.ToString();
+        labelFiltroClassificacao.Text = "Classificação: " + classificacaoComboBox.SelectedItem.ToString();
         labelFiltroDisponivel.Text = "Disponível: " + toolStripComboBox2.SelectedItem.ToString();
         labelFiltroNota.Text = "Nota Mínima: " + toolStripTextBox1.Text;
+    }
+
+    private void AdicionarFiltroDisponivel()
+    {
+        if (toolStripComboBox2.SelectedItem == "Todos")
+        {
+            filtroDisponivelTodos = true;
+        }
+        else
+        {
+            switch (toolStripComboBox2.SelectedItem)
+            {
+                case "Sim":
+                    filtroDisponivel = true;
+                    break;
+                case "Não":
+                    filtroDisponivel = false;
+                    break;
+            }
+        }
     }
 
     private void AoClicarBotaoSair(object sender, EventArgs e)
