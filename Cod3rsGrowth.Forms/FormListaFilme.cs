@@ -4,6 +4,7 @@ using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Extensoes;
 using Microsoft.IdentityModel.Tokens;
+using Cod3rsGrowth.Domuinio.Enumeradores;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -27,24 +28,18 @@ public partial class FormListaFilme : Form
         IniciarListaDeFimes();
         dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
 
+        foreach (var genero in Enum.GetValues(typeof(GeneroEnum)))
+        {
+            GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)genero));
+        }
         GeneroComboBox.Items.Add("Todos");
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Terror));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Romance));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Acao));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Ficcao));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Aventura));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Comedia));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Drama));
-        GeneroComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao(GeneroEnum.Fantasia));
         GeneroComboBox.SelectedItem = "Todos";
 
+        foreach (var classificacao in Enum.GetValues(typeof(ClassificacaoIndicativa)))
+        {
+            toolStripComboBox1.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)classificacao));
+        }
         toolStripComboBox1.Items.Add("Nenhum");
-        toolStripComboBox1.Items.Add("Livre");
-        toolStripComboBox1.Items.Add("10+");
-        toolStripComboBox1.Items.Add("12+");
-        toolStripComboBox1.Items.Add("14+");
-        toolStripComboBox1.Items.Add("16+");
-        toolStripComboBox1.Items.Add("18+");
         toolStripComboBox1.SelectedItem = "Nenhum";
 
         toolStripComboBox2.Items.Add("Nenhum");
@@ -52,7 +47,7 @@ public partial class FormListaFilme : Form
         toolStripComboBox2.Items.Add("Não");
         toolStripComboBox2.SelectedItem = "Sim";
         AoClicarBotaoFiltrar(null, null);
-
+        
         labelUsuario.Text = "Usuário: " + usuario.Nome;
     }
 
@@ -86,40 +81,26 @@ public partial class FormListaFilme : Form
 
         if (GeneroComboBox.SelectedItem.ToString() != "Todos")
         {
-            GeneroEnum genero = ExtensaoDosEnuns.ObterGeneroEnum(GeneroComboBox.SelectedItem.ToString());
-            filtro.FiltroGenero = genero;
+            var enumeradores = new TodosEnumeradores();
+            var generos = enumeradores.ObterTodos<GeneroEnum>();
+            var genero = generos.Where(g => g.Descricao == GeneroComboBox.SelectedItem.ToString()).FirstOrDefault();
+            filtro.FiltroGenero = ExtensaoDosEnuns.ConverterParaGeneroEnum(genero);
         }
         else
         {
             filtro.FiltroGenero = null;
         }
 
-        if (toolStripComboBox1.SelectedItem != null)
+        if (toolStripComboBox1.SelectedItem != "Nenhum")
         {
-            switch (toolStripComboBox1.SelectedItem.ToString())
-            {
-                case "Livre":
-                    filtro.FiltroClassificacao = ClassificacaoIndicativa.livre;
-                    break;
-                case "10+":
-                    filtro.FiltroClassificacao = ClassificacaoIndicativa.dez;
-                    break;
-                case "12+":
-                    filtro.FiltroClassificacao = ClassificacaoIndicativa.doze;
-                    break;
-                case "14+":
-                    filtro.FiltroClassificacao = ClassificacaoIndicativa.quatorze;
-                    break;
-                case "16+":
-                    filtro.FiltroClassificacao = ClassificacaoIndicativa.dezesseis;
-                    break;
-                case "18+":
-                    filtro.FiltroClassificacao = ClassificacaoIndicativa.dezoito;
-                    break;
-                case "Nenhum":
-                    filtro.FiltroClassificacao = null;
-                    break;
-            }
+            var enumeradores = new TodosEnumeradores();
+            var classificacoes = enumeradores.ObterTodos<ClassificacaoIndicativa>();
+            var classificacao = classificacoes.Where(g => g.Descricao == toolStripComboBox1.SelectedItem.ToString()).FirstOrDefault();
+            filtro.FiltroClassificacao = ExtensaoDosEnuns.ConverterParaClassificacaoEnum(classificacao);
+        }
+        else
+        {
+            filtro.FiltroClassificacao = null;
         }
 
         if (toolStripComboBox2.SelectedItem != null)
@@ -191,9 +172,5 @@ public partial class FormListaFilme : Form
     private void AbrirJanelaLogin(object obj)
     {
         Application.Run(new FormAutenticacao(servicoUsuario, service, repositorio));
-    }
-
-    private void FormListaFilme_Load(object sender, EventArgs e)
-    {
     }
 }

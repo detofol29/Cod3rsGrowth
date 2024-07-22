@@ -34,7 +34,10 @@ namespace Cod3rsGrowth.Forms
                 };
 
                 var usuarioRetorno = service.AutenticarUsuario(usuarioInserido);
-                if (usuarioRetorno is null) { MessageBox.Show("Usuário ou senha Inválidos!"); }
+                if (usuarioRetorno is null)
+                {
+                    MessageBox.Show("Usuário ou senha Inválidos!");
+                }
                 else
                 {
                     usuario = usuarioRetorno;

@@ -2,7 +2,9 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
+using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -24,9 +26,9 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var nome = campoNome.Text ?? throw new Exception("O campo nome não pode estar vazio!");
-                var nick = campoNickName.Text ?? throw new Exception("O campo NickName não pode estar vazio!");
-                var senha = campoSenha.Text ?? throw new Exception("O campo senha não pode estar vazio!");
+                var nome = campoNome.Text; //?? throw new Exception("O campo nome não pode estar vazio!");
+                var nick = campoNickName.Text; ///?? throw new Exception("O campo NickName não pode estar vazio!");
+                var senha = campoSenha.Text; //?? throw new Exception("O campo senha não pode estar vazio!");
                 var confirmaSenha = campoConfirmaSenha.Text ?? throw new Exception("O campo de confirmar senha não pode estar vazio!");
                 var plano = caixaSelecionarPlano.SelectedItem;
 
@@ -48,7 +50,7 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show(resultado.ToString());
+                    throw new Exception(resultado.Errors.First().ErrorMessage);
                 }
 
             }
@@ -56,9 +58,10 @@ namespace Cod3rsGrowth.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
-        private void FormCadastro_Load(object sender, EventArgs e)
+        private void AoCarregarFormCadastro(object sender, EventArgs e)
         {
             caixaSelecionarPlano.Items.Add(PlanoEnum.Premium);
             caixaSelecionarPlano.Items.Add(PlanoEnum.Nerd);
@@ -70,23 +73,7 @@ namespace Cod3rsGrowth.Forms
         private string AoClicarBotaoVerificarNickName()
         {
             var nickNameDigitado = campoNickName.Text;
-            var usuario = service.ObterTodos(new FiltroUsuario() { FiltroNome = nickNameDigitado })?.FirstOrDefault();
-
-            if (usuario is not null)
-            {
-                return "Esse NickName já está em uso!";
-            }
-            else
-            {
-                if (campoNickName.Text.IsNullOrEmpty())
-                {
-                    return "NickName vazio!";
-                }
-                else
-                {
-                    return "NickName disponível!";
-                }
-            }
+            return service.ValidarNickName(nickNameDigitado);
         }
 
         private void AbrirJanelaLogin(object obj)
@@ -122,20 +109,22 @@ namespace Cod3rsGrowth.Forms
         public void AoPerderFocoDoNickName(object sender, EventArgs e)
         {
             var resultado = AoClicarBotaoVerificarNickName();
-            if(resultado == "Esse NickName já está em uso!")
+            switch (resultado)
             {
-                campoNickName.ForeColor = Color.Red;
-                labelDisponivel.Text = "Indisponível*";
-            }
-            else if(resultado == "NickName vazio!")
-            {
-                campoNickName.ForeColor = Color.Red;
-                labelDisponivel.Text = "Campo obrigatório*";
-            }
-            else
-            {
-                campoNickName.ForeColor = Color.Black;
-                labelDisponivel.Text = null;
+                case "Esse NickName já está em uso!":
+                    campoNickName.ForeColor = Color.Red;
+                    labelDisponivel.Text = "Indisponível*";
+                    break;
+
+                case "O campo 'NickName' não pode estar vazio!":
+                    campoNickName.ForeColor = Color.Red;
+                    labelDisponivel.Text = "Campo obrigatório*";
+                    break;
+
+                default:
+                    campoNickName.ForeColor = Color.Black;
+                    labelDisponivel.Text = null;
+                    break;
             }
         }
     }

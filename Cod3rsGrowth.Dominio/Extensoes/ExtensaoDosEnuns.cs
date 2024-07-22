@@ -1,5 +1,8 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Enumeradores;
+using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Domuinio.Enumeradores;
 using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Dominio.Extensoes
 {
@@ -15,32 +18,20 @@ namespace Cod3rsGrowth.Dominio.Extensoes
 
         public static string ObterDescricao(this Enum valorEnum)
         {
-            return valorEnum.ObterAtributoDoTipo<DescriptionAttribute>().Description;
+           return valorEnum.ObterAtributoDoTipo<DescriptionAttribute>().Description;
         }
 
+        
         public static GeneroEnum ObterGeneroEnum(string descricao)
         {
-            switch (descricao)
+            foreach (var genero in Enum.GetValues(typeof(GeneroEnum)))
             {
-                case "Terror":
-                    return GeneroEnum.Terror;
-                case "Ficção":
-                    return GeneroEnum.Ficcao;
-                case "Ação":
-                    return GeneroEnum.Acao;
-                case "Romance":
-                    return GeneroEnum.Romance;
-                case "Drama":
-                    return GeneroEnum.Drama;
-                case "Aventura":
-                    return GeneroEnum.Aventura;
-                case "Comédia":
-                    return GeneroEnum.Comedia;
-                case "Fantasia":
-                    return GeneroEnum.Fantasia;
-                default:
-                    return GeneroEnum.Acao;
+                if (ExtensaoDosEnuns.ObterDescricao((Enum)genero) == descricao)
+                {
+                    return (GeneroEnum)genero;
+                };
             }
+            throw new Exception("Genero nao encontrado!");
         }
 
         public static ClassificacaoIndicativa ObterClassificacaoEnum(string descricao)
@@ -62,6 +53,32 @@ namespace Cod3rsGrowth.Dominio.Extensoes
                 default:
                     return ClassificacaoIndicativa.livre;
             }
+        }
+
+        public static GeneroEnum ConverterParaGeneroEnum(BaseParaEnumerador<GeneroEnum> baseEnum)
+        {
+            var generos = Enum.GetValues(typeof(GeneroEnum));
+            foreach (var genero in generos)
+            {
+                if(ExtensaoDosEnuns.ObterDescricao((Enum)genero) == baseEnum.Descricao)
+                {
+                    return (GeneroEnum)(Enum)genero;
+                }
+            }
+            throw new Exception("Genero nao encontrado"); 
+        }
+
+        public static ClassificacaoIndicativa ConverterParaClassificacaoEnum(BaseParaEnumerador<ClassificacaoIndicativa> baseEnum)
+        {
+            var classificacoes = Enum.GetValues(typeof(ClassificacaoIndicativa));
+            foreach (var classificacao in classificacoes)
+            {
+                if (ExtensaoDosEnuns.ObterDescricao((Enum)classificacao) == baseEnum.Descricao)
+                {
+                    return (ClassificacaoIndicativa)(Enum)classificacao;
+                }
+            }
+            throw new Exception("Classificacao nao encontrada");
         }
     }
 }

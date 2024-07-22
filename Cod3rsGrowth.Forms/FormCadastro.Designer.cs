@@ -226,7 +226,7 @@
             Name = "FormCadastro";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro";
-            Load += FormCadastro_Load;
+            Load += AoCarregarFormCadastro;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

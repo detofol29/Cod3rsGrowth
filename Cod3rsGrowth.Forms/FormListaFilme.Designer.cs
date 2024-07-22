@@ -435,7 +435,6 @@ namespace Cod3rsGrowth.Forms
             MinimumSize = new Size(1101, 462);
             Name = "FormListaFilme";
             Text = "Lista de Filmes";
-            Load += FormListaFilme_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).EndInit();

@@ -19,7 +19,7 @@ public class UsuarioValidacao : AbstractValidator<Usuario>
         RuleFor(n => n.NickName)
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
-            .WithMessage("O campo 'nome de usuário' não pode estar vazio!")
+            .WithMessage("O campo 'NickName' não pode estar vazio!")
             .Must(nome => nome is string)
             .WithMessage("O campo 'Nome' deve ser uma cadeia de caracteres válidas!");
 

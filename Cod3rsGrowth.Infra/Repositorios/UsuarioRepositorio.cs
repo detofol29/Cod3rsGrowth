@@ -56,9 +56,4 @@ public class UsuarioRepositorio : IUsuarioRepositorio
     {
         usuarioContexto.Update(usuario);
     }
-
-    public ValidationResult CriarUsuario(Usuario usuario)
-    {
-        throw new ArgumentException();
-    }
 }

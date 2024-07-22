@@ -3,7 +3,12 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Servicos;
 using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Tokens;
+using System.Reflection.Metadata.Ecma335;
 using ValidationException = FluentValidation.ValidationException;
+using ValidationFailure = FluentValidation.Results.ValidationFailure;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
@@ -48,26 +53,39 @@ public class UsuarioServicos : IUsuarioRepositorio
 
     public Filme LicenciarFilmePorUsuario(Usuario usuario, Filme filme)
     {
-        if(usuario.Plano == PlanoEnum.Premium)
+        switch (usuario.Plano)
         {
-            filme.DisponivelNoPlano = true;
-            return filme;
+            case PlanoEnum.Premium:
+                filme.DisponivelNoPlano = true;
+                break;
+
+            case PlanoEnum.Kids:
+                if (filme.Classificacao == ClassificacaoIndicativa.livre)
+                {
+                    filme.DisponivelNoPlano = true;
+                }
+                else
+                {
+                    filme.DisponivelNoPlano = false;
+                }
+                break;
+
+            case PlanoEnum.Nerd:
+                if (filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia)
+                {
+                    filme.DisponivelNoPlano = true;
+                }
+                else
+                {
+                    filme.DisponivelNoPlano = false;
+                }
+                break;
+
+            default:
+                filme.DisponivelNoPlano = false;
+                break;
         }
-        else if (usuario.Plano == PlanoEnum.Kids && filme.Classificacao == ClassificacaoIndicativa.livre)
-        {
-            filme.DisponivelNoPlano = true;
-            return filme;
-        }
-        else if(usuario.Plano == PlanoEnum.Nerd && (filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia))
-        {
-            filme.DisponivelNoPlano = true;
-            return filme;
-        }
-        else
-        {
-            filme.DisponivelNoPlano = false;
-            return filme;
-        }
+        return filme;
     }
 
     public void Remover(int id)
@@ -83,7 +101,7 @@ public class UsuarioServicos : IUsuarioRepositorio
 
             if (usuarioVerificar is not null)
             {
-                throw new Exception("Esse NickName já está em uso!");
+                throw new Exception("Esse NickName ja esta em uso!");
             }
 
             usuario.IdUsuario = GerarId();
@@ -96,6 +114,14 @@ public class UsuarioServicos : IUsuarioRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
+        }
+        catch (Exception ex)
+        {
+            var failures = new List<ValidationFailure>
+            {
+                new ValidationFailure("Exception", ex.Message)
+            };
+            return new ValidationResult(failures);
         }
     }
 
@@ -156,5 +182,32 @@ public class UsuarioServicos : IUsuarioRepositorio
             return usuarioExistente;
         }
         else return null;
+    }
+
+    public string ValidarNickName(string nick)
+    {
+        try
+        {
+            var usuario = new Usuario()
+            {
+                Nome = "Usuario Teste",
+                NickName = nick,
+                Senha = "Abc12345",
+                Plano = PlanoEnum.Free
+            };
+            var usuarioBuscar = ObterTodos(new FiltroUsuario() { FiltroNome = nick })?.FirstOrDefault();
+
+            if (usuarioBuscar is not null)
+            {
+                return "Esse NickName já está em uso!";
+            }
+
+            _validator.ValidateAndThrow(usuario);
+            return "Nickname valido!";
+        }
+        catch (ValidationException ex)
+        {
+            return ex.Errors.FirstOrDefault().ErrorMessage;
+        }
     }
 }
