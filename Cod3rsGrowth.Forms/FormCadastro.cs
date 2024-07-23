@@ -26,13 +26,13 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var nome = campoNome.Text; //?? throw new Exception("O campo nome não pode estar vazio!");
-                var nick = campoNickName.Text; ///?? throw new Exception("O campo NickName não pode estar vazio!");
-                var senha = campoSenha.Text; //?? throw new Exception("O campo senha não pode estar vazio!");
-                var confirmaSenha = campoConfirmaSenha.Text ?? throw new Exception("O campo de confirmar senha não pode estar vazio!");
+                var nome = campoNome.Text; 
+                var nick = campoNickName.Text; 
+                var senha = campoSenha.Text; 
+                var confirmaSenha = campoConfirmaSenha.Text;
                 var plano = caixaSelecionarPlano.SelectedItem;
 
-                if (senha != confirmaSenha)
+                if(senha != confirmaSenha)
                 {
                     throw new Exception("As senhas não são iguais!");
                 }
@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Forms
                 var usuarioCadastrar = new Usuario() { Nome = nome, NickName = nick, Senha = senha, Plano = (PlanoEnum)plano };
                 var resultado = service.CriarUsuario(usuarioCadastrar);
 
-                if (resultado.IsValid)
+                if(resultado.IsValid)
                 {
                     MessageBox.Show("Usuário criado com sucesso!");
                     this.Close();
@@ -52,13 +52,11 @@ namespace Cod3rsGrowth.Forms
                 {
                     throw new Exception(resultado.Errors.First().ErrorMessage);
                 }
-
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void AoCarregarFormCadastro(object sender, EventArgs e)

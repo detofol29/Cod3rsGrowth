@@ -117,7 +117,7 @@ public class TesteUsuarioServico : TesteBase
     public void ao_criar_usuario_sem_nickname_retorna_mensagem_de_erro()
     {
         const int id = 3;
-        const string mensagemEsperada = "O campo 'nome de usuário' não pode estar vazio!";
+        const string mensagemEsperada = "O campo 'NickName' não pode estar vazio!";
 
         Usuario usuario = new()
         {
@@ -334,7 +334,7 @@ public class TesteUsuarioServico : TesteBase
     [Fact]
     public void ao_editar_usuario_com_nickname_vazio_retorna_mensagem_de_erro()
     {
-        const string mensagemDeErro = "O campo 'nome de usuário' não pode estar vazio!";
+        const string mensagemDeErro = "O campo 'NickName' não pode estar vazio!";
         Usuario usuarioBase = new()
         {
             Nome = "Criss Byuither",

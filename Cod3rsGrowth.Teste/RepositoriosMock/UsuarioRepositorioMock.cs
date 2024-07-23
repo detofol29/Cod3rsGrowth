@@ -6,8 +6,6 @@ using Cod3rsGrowth.Teste.ClassesSingleton;
 using FluentValidation;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
-using Microsoft.AspNetCore.Mvc.Core.Infrastructure;
-using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Teste.RepositoriosMock;
 
@@ -27,7 +25,7 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
         {
             return tabelasSingleton.FirstOrDefault(a => a.IdUsuario == id) ?? throw new Exception("Usuario nao encontrado");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -58,7 +56,7 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
             var usuario = ObterPorId(id);
             tabelasSingleton.Remove(usuario);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -68,15 +66,6 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
     {
         try
         {
-<<<<<<< HEAD
-            var alterarUsuario = ObterPorId(usuario.IdUsuario);
-            alterarUsuario.Nome = usuario.Nome;
-            alterarUsuario.FilmesDoUsuario = usuario.FilmesDoUsuario;
-            alterarUsuario.Plano = usuario.Plano;
-            alterarUsuario.Senha = usuario.Senha;
-            alterarUsuario.NickName = usuario.NickName;
-            var validacao = _validator.Validate(alterarUsuario);
-=======
             var validacao = _validator.Validate(usuario);
             if (validacao.IsValid)
             {
@@ -91,10 +80,9 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
             {
                 throw new Exception(validacao.Errors.First().ErrorMessage);
             }
-            
->>>>>>> 6a69124b200c43d5fbe45e971739e8f9dffe4d5e
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -104,16 +92,6 @@ public class UsuarioRepositorioMock : IUsuarioRepositorio
     {
         try
         {
-<<<<<<< HEAD
-            //var usuarioVerificar = ObterTodos(new FiltroUsuario() { FiltroNome = usuario.NickName })?.FirstOrDefault();
-
-            //if (usuarioVerificar is not null)
-            //{
-            //    throw new Exception("Esse NickName já está em uso!");
-            //}
-
-=======
->>>>>>> 6a69124b200c43d5fbe45e971739e8f9dffe4d5e
             _validator.ValidateAndThrow(usuario);
             usuario.IdUsuario = GerarId();
             Inserir(usuario);

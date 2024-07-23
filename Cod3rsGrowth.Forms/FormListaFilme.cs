@@ -97,7 +97,7 @@ public partial class FormListaFilme : Form
         {
             dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados);
         }
-        atualizarBarraDeFiltros();
+        AtualizarBarraDeFiltros();
     }
 
     private void AdicionarFiltroNotaMinima()
@@ -150,7 +150,7 @@ public partial class FormListaFilme : Form
         }
     }
 
-    private void atualizarBarraDeFiltros()
+    private void AtualizarBarraDeFiltros()
     {
         labelFiltroGenero.Text = "Gênero: " + generoComboBox.SelectedItem.ToString();
         labelFiltroClassificacao.Text = "Classificação: " + classificacaoComboBox.SelectedItem.ToString();
