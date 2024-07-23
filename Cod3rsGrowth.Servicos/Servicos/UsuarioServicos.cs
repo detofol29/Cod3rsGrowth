@@ -43,14 +43,6 @@ public class UsuarioServicos : IUsuarioRepositorio
         usuario.FilmesDoUsuario.Add(filme);
     }
 
-    public void Logar(string nick, string senha)
-    {
-    }
-
-    public void Deslogar(Usuario usuario)
-    {
-    }
-
     public Filme LicenciarFilmePorUsuario(Usuario usuario, Filme filme)
     {
         switch (usuario.Plano)
@@ -59,26 +51,12 @@ public class UsuarioServicos : IUsuarioRepositorio
                 filme.DisponivelNoPlano = true;
                 break;
 
-            case PlanoEnum.Kids:
-                if (filme.Classificacao == ClassificacaoIndicativa.livre)
-                {
+            case PlanoEnum.Kids when filme.Classificacao == ClassificacaoIndicativa.livre:
                     filme.DisponivelNoPlano = true;
-                }
-                else
-                {
-                    filme.DisponivelNoPlano = false;
-                }
                 break;
 
-            case PlanoEnum.Nerd:
-                if (filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia)
-                {
+            case PlanoEnum.Nerd when filme.Genero == GeneroEnum.Ficcao || filme.Genero == GeneroEnum.Fantasia:
                     filme.DisponivelNoPlano = true;
-                }
-                else
-                {
-                    filme.DisponivelNoPlano = false;
-                }
                 break;
 
             default:

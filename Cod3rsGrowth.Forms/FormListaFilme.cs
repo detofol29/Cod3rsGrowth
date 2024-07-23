@@ -17,8 +17,8 @@ public partial class FormListaFilme : Form
     private UsuarioRepositorio repositorio;
     FiltroFilme filtro = new();
     List<Filme> listaDeFilmes = new();
-    bool filtroDisponivel = false;
-    bool filtroDisponivelTodos = false;
+    bool filtroDisponivel;
+    bool filtroDisponivelTodos;
     public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario, UsuarioRepositorio _repositorio)
     {
         service = _service;
@@ -44,12 +44,13 @@ public partial class FormListaFilme : Form
         classificacaoComboBox.Items.Add("Todos");
         classificacaoComboBox.SelectedItem = "Todos";
 
-        toolStripComboBox2.Items.Add("Todos");
-        toolStripComboBox2.Items.Add("Sim");
-        toolStripComboBox2.Items.Add("Não");
-        toolStripComboBox2.SelectedItem = "Sim";
+        foreach (var disponivel in Enum.GetValues(typeof(EnumDisponivel)))
+        {
+            DisponivelComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)disponivel));
+        }
+        DisponivelComboBox.SelectedItem = ExtensaoDosEnuns.ObterDescricao(EnumDisponivel.Sim);
+
         AoClicarBotaoFiltrar(null, null);
-        
         labelUsuario.Text = "Usuário: " + usuario.Nome;
     }
 
@@ -66,18 +67,19 @@ public partial class FormListaFilme : Form
     {
         generoComboBox.SelectedItem = "Todos";
         classificacaoComboBox.SelectedItem = "Todos";
-        toolStripComboBox2.SelectedItem = "Todos";
+        DisponivelComboBox.SelectedItem = "Todos";
         toolStripTextBox1.Clear();
         labelFiltroGenero.Text = "Gênero: Todos";
         labelFiltroClassificacao.Text = "Classificação: Todas";
         labelFiltroDisponivel.Text = "Disponível: Todos";
         labelFiltroNota.Text = "Nota Mínima: Nenhuma";
+        filtroDisponivelTodos = true;
         dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
     }
 
     private void AoClicarBotaoFiltrar(object? sender, EventArgs? e)
     {
-        List<Filme> filmesLicenciados = new();
+        var filmesLicenciados = new List<Filme>();
 
         AdicionarFiltroGenero();
         AdicionarFiltroClassificacao();
@@ -89,35 +91,23 @@ public partial class FormListaFilme : Form
             filmesLicenciados.Add(servicoUsuario.LicenciarFilmePorUsuario(usuario, filme));
         }
 
-        if (filtroDisponivelTodos == false)
-        {
-            dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados.Where(f => f.DisponivelNoPlano == filtroDisponivel).Select(f => f).ToList());
-        }
-        else
-        {
-            dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados);
-        }
+        dataGridView1.DataSource = filtroDisponivelTodos
+            ? ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados)
+            : ServicoFilmeData.ConverteFilmeParaData(filmesLicenciados
+                    .Where(f => f.DisponivelNoPlano == filtroDisponivel)
+                    .Select(f => f)
+                    .ToList());
+
         AtualizarBarraDeFiltros();
     }
 
     private void AdicionarFiltroNotaMinima()
     {
-        if (toolStripTextBox1.Text.IsNullOrEmpty() != true)
-        {
-            try
-            {
-                var nota = int.Parse(toolStripTextBox1.Text);
-                filtro.FiltroNotaMinima = nota;
-            }
-            catch
-            {
-                MessageBox.Show("Digite um valor numérico!");
-            }
-        }
-        else
-        {
-            filtro.FiltroNotaMinima = null;
-        }
+        var valorFiltro = toolStripTextBox1.Text.IsNullOrEmpty()
+            ? default
+            : int.Parse(toolStripTextBox1.Text);
+
+        filtro.FiltroNotaMinima = valorFiltro;
     }
 
     private void AdicionarFiltroClassificacao()
@@ -142,7 +132,7 @@ public partial class FormListaFilme : Form
             var enumeradores = new TodosEnumeradores();
             var generos = enumeradores.ObterTodos<GeneroEnum>();
             var genero = generos.Where(g => g.Descricao == generoComboBox.SelectedItem.ToString()).FirstOrDefault();
-            filtro.FiltroGenero =  ExtensaoDosEnuns.ConverterParaGeneroEnum(genero);
+            filtro.FiltroGenero = ExtensaoDosEnuns.ConverterParaGeneroEnum(genero);
         }
         else
         {
@@ -154,25 +144,27 @@ public partial class FormListaFilme : Form
     {
         labelFiltroGenero.Text = "Gênero: " + generoComboBox.SelectedItem.ToString();
         labelFiltroClassificacao.Text = "Classificação: " + classificacaoComboBox.SelectedItem.ToString();
-        labelFiltroDisponivel.Text = "Disponível: " + toolStripComboBox2.SelectedItem.ToString();
-        labelFiltroNota.Text = "Nota Mínima: " + toolStripTextBox1.Text;
+        labelFiltroDisponivel.Text = "Disponível: " + DisponivelComboBox.SelectedItem.ToString();
+        labelFiltroNota.Text = toolStripTextBox1.Text.IsNullOrEmpty() ? "Nota Mínima: Nenhuma" : "Nota Mínima: " + toolStripTextBox1.Text;
     }
 
     private void AdicionarFiltroDisponivel()
     {
-        if (toolStripComboBox2.SelectedItem == "Todos")
+        if (DisponivelComboBox.SelectedItem.ToString() == "Todos")
         {
             filtroDisponivelTodos = true;
         }
         else
         {
-            switch (toolStripComboBox2.SelectedItem)
+            switch (DisponivelComboBox.SelectedItem)
             {
                 case "Sim":
                     filtroDisponivel = true;
+                    filtroDisponivelTodos = false;
                     break;
                 case "Não":
                     filtroDisponivel = false;
+                    filtroDisponivelTodos = false;
                     break;
             }
         }
@@ -180,9 +172,9 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoSair(object sender, EventArgs e)
     {
-        DialogResult resultado = MessageBox.Show("Deseja Realmente sair?","Sair", MessageBoxButtons.YesNo);
+        DialogResult resultado = MessageBox.Show("Deseja Realmente sair?", "Sair", MessageBoxButtons.YesNo);
 
-        if(resultado == DialogResult.Yes)
+        if (resultado == DialogResult.Yes)
         {
             this.Close();
             threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
@@ -194,5 +186,13 @@ public partial class FormListaFilme : Form
     private void AbrirJanelaLogin(object obj)
     {
         Application.Run(new FormAutenticacao(servicoUsuario, service, repositorio));
+    }
+
+    private void validarEntradaDeValoresNumericos(object sender, KeyPressEventArgs e)
+    {
+        if(!(char.IsNumber(e.KeyChar)) && !(char.IsControl(e.KeyChar)))
+        {
+            e.Handled = true;
+        }
     }
 }
