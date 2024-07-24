@@ -19,14 +19,14 @@ namespace Cod3rsGrowth.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormListaFilme));
             dataGridView1 = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -76,9 +76,9 @@ namespace Cod3rsGrowth.Forms
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.Anchor = AnchorStyles.Top;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaptionText;
@@ -114,8 +114,8 @@ namespace Cod3rsGrowth.Forms
             // dataDeLancamentoDataGridViewTextBoxColumn
             // 
             dataDeLancamentoDataGridViewTextBoxColumn.DataPropertyName = "DataDeLancamento";
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataDeLancamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataDeLancamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             dataDeLancamentoDataGridViewTextBoxColumn.Frozen = true;
             dataDeLancamentoDataGridViewTextBoxColumn.HeaderText = "Data De Lançamento";
             dataDeLancamentoDataGridViewTextBoxColumn.Name = "dataDeLancamentoDataGridViewTextBoxColumn";
@@ -125,8 +125,8 @@ namespace Cod3rsGrowth.Forms
             // generoDataGridViewTextBoxColumn
             // 
             generoDataGridViewTextBoxColumn.DataPropertyName = "Genero";
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            generoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            generoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             generoDataGridViewTextBoxColumn.Frozen = true;
             generoDataGridViewTextBoxColumn.HeaderText = "Gênero";
             generoDataGridViewTextBoxColumn.Name = "generoDataGridViewTextBoxColumn";
@@ -136,8 +136,8 @@ namespace Cod3rsGrowth.Forms
             // emCartazDataGridViewCheckBoxColumn
             // 
             emCartazDataGridViewCheckBoxColumn.DataPropertyName = "EmCartaz";
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            emCartazDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            emCartazDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             emCartazDataGridViewCheckBoxColumn.Frozen = true;
             emCartazDataGridViewCheckBoxColumn.HeaderText = "Em Cartaz";
             emCartazDataGridViewCheckBoxColumn.Name = "emCartazDataGridViewCheckBoxColumn";
@@ -148,10 +148,10 @@ namespace Cod3rsGrowth.Forms
             // notaDataGridViewTextBoxColumn
             // 
             notaDataGridViewTextBoxColumn.DataPropertyName = "Nota";
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.Format = "N0";
-            dataGridViewCellStyle13.NullValue = "0";
-            notaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = "0";
+            notaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
             notaDataGridViewTextBoxColumn.Frozen = true;
             notaDataGridViewTextBoxColumn.HeaderText = "Nota";
             notaDataGridViewTextBoxColumn.Name = "notaDataGridViewTextBoxColumn";
@@ -161,8 +161,8 @@ namespace Cod3rsGrowth.Forms
             // duracaoDataGridViewTextBoxColumn
             // 
             duracaoDataGridViewTextBoxColumn.DataPropertyName = "Duracao";
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            duracaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            duracaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
             duracaoDataGridViewTextBoxColumn.Frozen = true;
             duracaoDataGridViewTextBoxColumn.HeaderText = "Duração";
             duracaoDataGridViewTextBoxColumn.Name = "duracaoDataGridViewTextBoxColumn";
@@ -172,8 +172,8 @@ namespace Cod3rsGrowth.Forms
             // disponivelNoPlanoDataGridViewCheckBoxColumn
             // 
             disponivelNoPlanoDataGridViewCheckBoxColumn.DataPropertyName = "DisponivelNoPlano";
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            disponivelNoPlanoDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             disponivelNoPlanoDataGridViewCheckBoxColumn.HeaderText = "Disponível No Plano";
             disponivelNoPlanoDataGridViewCheckBoxColumn.Name = "disponivelNoPlanoDataGridViewCheckBoxColumn";
             disponivelNoPlanoDataGridViewCheckBoxColumn.ReadOnly = true;
@@ -191,8 +191,8 @@ namespace Cod3rsGrowth.Forms
             // classificacaoDataGridViewTextBoxColumn
             // 
             classificacaoDataGridViewTextBoxColumn.DataPropertyName = "Classificacao";
-            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            classificacaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            classificacaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             classificacaoDataGridViewTextBoxColumn.HeaderText = "Classificação";
             classificacaoDataGridViewTextBoxColumn.Name = "classificacaoDataGridViewTextBoxColumn";
             classificacaoDataGridViewTextBoxColumn.ReadOnly = true;
@@ -421,7 +421,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // button1
             // 
-            button1.BackColor = Color.Red;
+            button1.BackColor = Color.WhiteSmoke;
             button1.BackgroundImageLayout = ImageLayout.Zoom;
             button1.Cursor = Cursors.Hand;
             button1.Location = new Point(12, 66);
