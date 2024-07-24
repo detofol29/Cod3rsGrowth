@@ -32,13 +32,13 @@
             botaoVerificarSenha = new Button();
             campoConfirmaSenha = new TextBox();
             label4 = new Label();
-            caixaSelecionarPlano = new ComboBox();
             label5 = new Label();
             botaoCadastrar = new Button();
-            botaoInfoPlano = new Button();
             botaoLogar = new Button();
             helpProvider1 = new HelpProvider();
             labelDisponivel = new Label();
+            botaoInfoPlano = new Button();
+            caixaSelecionarPlano = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -137,14 +137,6 @@
             label4.TabIndex = 11;
             label4.Text = "Confirmar Senha:";
             // 
-            // caixaSelecionarPlano
-            // 
-            caixaSelecionarPlano.FormattingEnabled = true;
-            caixaSelecionarPlano.Location = new Point(36, 299);
-            caixaSelecionarPlano.Name = "caixaSelecionarPlano";
-            caixaSelecionarPlano.Size = new Size(227, 23);
-            caixaSelecionarPlano.TabIndex = 13;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -167,16 +159,6 @@
             botaoCadastrar.UseVisualStyleBackColor = true;
             botaoCadastrar.Click += AoClicarBotaoCadastrar;
             // 
-            // botaoInfoPlano
-            // 
-            botaoInfoPlano.Location = new Point(268, 301);
-            botaoInfoPlano.Name = "botaoInfoPlano";
-            botaoInfoPlano.Size = new Size(24, 21);
-            botaoInfoPlano.TabIndex = 16;
-            botaoInfoPlano.Text = "?";
-            botaoInfoPlano.UseVisualStyleBackColor = true;
-            botaoInfoPlano.Click += AoClicarBotaoInfoPlano;
-            // 
             // botaoLogar
             // 
             botaoLogar.ForeColor = SystemColors.ActiveCaptionText;
@@ -197,6 +179,24 @@
             labelDisponivel.Name = "labelDisponivel";
             labelDisponivel.Size = new Size(0, 15);
             labelDisponivel.TabIndex = 18;
+            // 
+            // botaoInfoPlano
+            // 
+            botaoInfoPlano.Location = new Point(268, 301);
+            botaoInfoPlano.Name = "botaoInfoPlano";
+            botaoInfoPlano.Size = new Size(24, 21);
+            botaoInfoPlano.TabIndex = 16;
+            botaoInfoPlano.Text = "?";
+            botaoInfoPlano.UseVisualStyleBackColor = true;
+            botaoInfoPlano.Click += AoClicarBotaoInfoPlano;
+            // 
+            // caixaSelecionarPlano
+            // 
+            caixaSelecionarPlano.FormattingEnabled = true;
+            caixaSelecionarPlano.Location = new Point(36, 299);
+            caixaSelecionarPlano.Name = "caixaSelecionarPlano";
+            caixaSelecionarPlano.Size = new Size(227, 23);
+            caixaSelecionarPlano.TabIndex = 13;
             // 
             // FormCadastro
             // 
@@ -244,12 +244,12 @@
         private Button botaoVerificarSenha;
         private TextBox campoConfirmaSenha;
         private Label label4;
-        private ComboBox caixaSelecionarPlano;
         private Label label5;
         private Button botaoCadastrar;
-        private Button botaoInfoPlano;
         private Button botaoLogar;
         private HelpProvider helpProvider1;
         private Label labelDisponivel;
+        private Button botaoInfoPlano;
+        private ComboBox caixaSelecionarPlano;
     }
 }

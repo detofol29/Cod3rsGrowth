@@ -65,6 +65,7 @@ namespace Cod3rsGrowth.Forms
             imageList1 = new ImageList(components);
             pictureBox2 = new PictureBox();
             labelFiltros = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
@@ -269,7 +270,7 @@ namespace Cod3rsGrowth.Forms
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { generoComboBox });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(142, 22);
             toolStripMenuItem1.Text = "Gênero";
             // 
             // generoComboBox
@@ -281,7 +282,7 @@ namespace Cod3rsGrowth.Forms
             // 
             classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { classificacaoComboBox });
             classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
-            classificaçãoToolStripMenuItem.Size = new Size(180, 22);
+            classificaçãoToolStripMenuItem.Size = new Size(142, 22);
             classificaçãoToolStripMenuItem.Text = "Classificação";
             // 
             // classificacaoComboBox
@@ -293,7 +294,7 @@ namespace Cod3rsGrowth.Forms
             // 
             disponívelToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DisponivelComboBox });
             disponívelToolStripMenuItem.Name = "disponívelToolStripMenuItem";
-            disponívelToolStripMenuItem.Size = new Size(180, 22);
+            disponívelToolStripMenuItem.Size = new Size(142, 22);
             disponívelToolStripMenuItem.Text = "Disponível";
             // 
             // DisponivelComboBox
@@ -305,7 +306,7 @@ namespace Cod3rsGrowth.Forms
             // 
             notaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1 });
             notaToolStripMenuItem.Name = "notaToolStripMenuItem";
-            notaToolStripMenuItem.Size = new Size(180, 22);
+            notaToolStripMenuItem.Size = new Size(142, 22);
             notaToolStripMenuItem.Text = "Nota";
             // 
             // toolStripTextBox1
@@ -319,7 +320,7 @@ namespace Cod3rsGrowth.Forms
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(139, 6);
             // 
             // botaoSair
             // 
@@ -418,12 +419,27 @@ namespace Cod3rsGrowth.Forms
             labelFiltros.TabIndex = 13;
             labelFiltros.Text = "FILTROS:";
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.BackgroundImageLayout = ImageLayout.Zoom;
+            button1.Cursor = Cursors.Hand;
+            button1.Location = new Point(12, 66);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(83, 23);
+            button1.TabIndex = 14;
+            button1.Text = "Adicionar";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += AoClicarBotaoCadastrarFilme;
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(1085, 423);
+            Controls.Add(button1);
             Controls.Add(labelFiltros);
             Controls.Add(pictureBox2);
             Controls.Add(labelFiltroNota);
@@ -488,5 +504,6 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private ToolStripSeparator toolStripSeparator2;
+        private Button button1;
     }
 }
