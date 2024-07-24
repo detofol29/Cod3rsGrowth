@@ -1,15 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
+using Cod3rsGrowth.Infra;
+using System.Text;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+ModuloInjetorInfra.AdquirirServicos(builder.Services);
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -18,6 +20,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

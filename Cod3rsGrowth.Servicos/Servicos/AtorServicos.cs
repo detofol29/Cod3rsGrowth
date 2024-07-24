@@ -1,9 +1,8 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Infra.Repositorios;
+using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
 using FluentValidation.Results;
-using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 

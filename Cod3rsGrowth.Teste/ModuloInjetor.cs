@@ -18,6 +18,7 @@ public static class ModuloInjetor
         services.AddScoped<UsuarioServicos>();
         services.AddScoped<FilmeServicos>();
         services.AddScoped<AtorServicos>();
+        services.AddScoped<UsuarioRepositorioMock>();
         services.AddScoped<IValidator<Filme>, FilmeValidacao>();
         services.AddScoped<IValidator<Ator>, AtorValidacao>();
         services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();

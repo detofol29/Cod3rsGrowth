@@ -5,4 +5,5 @@ namespace Cod3rsGrowth.Dominio.Filtros;
 public class FiltroUsuario
 {
     public PlanoEnum? FiltroPlano { get; set; }
+    public string? FiltroNome { get; set; }
 }
