@@ -142,7 +142,7 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAlteraVisibilidadeDeSenhaConfirmar(object sender, EventArgs e)
         {
-            campoConfirmaSenha.PasswordChar = campoSenha.PasswordChar == '*' ? default : '*';
+            campoConfirmaSenha.PasswordChar = campoConfirmaSenha.PasswordChar == '*' ? default : '*';
         }
     }
 }

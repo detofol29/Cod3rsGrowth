@@ -14,10 +14,8 @@ public class UsuarioValidacao : AbstractValidator<Usuario>
             .WithMessage("O campo 'Nome' não pode estar vazio!")
             .Must(nome => nome is string)
             .WithMessage("O campo 'Nome' deve ser uma cadeia de caracteres válidas!")
-            .Matches("^[^0-9]*$")
-            .WithMessage("O campo 'Nome' não deve conter números!")
             .Matches(@"^[a-zA-ZÀ-ÿ\s]*$")
-            .WithMessage("O campo 'Nome' não deve conter caracteres especiais!");
+            .WithMessage("O campo 'Nome' não deve conter apenas letras!");
 
         RuleFor(n => n.NickName)
             .Cascade(CascadeMode.Stop)

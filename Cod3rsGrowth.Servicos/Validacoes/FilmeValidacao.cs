@@ -21,10 +21,8 @@ public class FilmeValidacao : AbstractValidator<Filme>
             .WithMessage("O campo 'Diretor' não pode estar vazio!")
             .Must(nome => nome is string)
             .WithMessage("O campo 'Diretor' deve ser uma cadeia de caracteres válidas!")
-            .Matches("^[^0-9]*$")
-            .WithMessage("O campo 'Diretor' não deve conter números!")
             .Matches(@"^[a-zA-ZÀ-ÿ\s]*$")
-            .WithMessage("O campo 'Diretor' não deve conter caracteres especiais!"); ;
+            .WithMessage("O campo 'Diretor' deve conter apenas letras!");
 
         RuleFor(d => d.Duracao)
             .NotEmpty()
