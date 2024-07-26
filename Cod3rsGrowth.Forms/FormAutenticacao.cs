@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Forms
                     threadFormsUsuario.Start();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -69,6 +69,11 @@ namespace Cod3rsGrowth.Forms
             threadFormsCadastro = new Thread(AbrirJanelaCadastro);
             threadFormsCadastro.SetApartmentState(ApartmentState.STA);
             threadFormsCadastro.Start();
+        }
+
+        private void AoClicarAlteraVisibilidadeDaSenha(object sender, EventArgs e)
+        {
+            CampoSenha.PasswordChar = CampoSenha.PasswordChar == '*' ? default : '*';
         }
     }
 }

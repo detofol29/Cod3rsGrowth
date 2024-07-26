@@ -9,18 +9,31 @@ public class FilmeValidacao : AbstractValidator<Filme>
     {
         RuleFor(p => p.Titulo)
             .NotEmpty()
-            .WithMessage("O campo 'Titulo' não pode estar vazio!");
+            .WithMessage("O campo 'Título' não pode estar vazio!");
 
         RuleFor(d => d.DataDeLancamento)
             .LessThan(DateTime.Now)
             .WithMessage("O campo 'data de lançamento' não pode ser superior a data atual");
 
         RuleFor(d => d.Diretor)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
-            .WithMessage("O campo 'Diretor' não pode estar vazio!");
+            .WithMessage("O campo 'Diretor' não pode estar vazio!")
+            .Must(nome => nome is string)
+            .WithMessage("O campo 'Diretor' deve ser uma cadeia de caracteres válidas!")
+            .Matches("^[^0-9]*$")
+            .WithMessage("O campo 'Diretor' não deve conter números!")
+            .Matches(@"^[a-zA-ZÀ-ÿ\s]*$")
+            .WithMessage("O campo 'Diretor' não deve conter caracteres especiais!"); ;
 
         RuleFor(d => d.Duracao)
             .NotEmpty()
-            .WithMessage("O campo 'Duracao' não pode estar vazio!");
-    }
+            .WithMessage("O campo 'Duração' não pode estar vazio!");
+
+        RuleFor(d => d.Nota)
+            .NotNull()
+            .WithMessage("O campo 'Nota' não pode estar vazio!")
+            .InclusiveBetween(0, 10)
+            .WithMessage("O campo 'Nota' deve conter valores entre 0 e 10!");
+    }  
 }

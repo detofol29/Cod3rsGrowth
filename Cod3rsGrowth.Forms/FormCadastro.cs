@@ -26,13 +26,13 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var nome = campoNome.Text; 
-                var nick = campoNickName.Text; 
-                var senha = campoSenha.Text; 
+                var nome = campoNome.Text;
+                var nick = campoNickName.Text;
+                var senha = campoSenha.Text;
                 var confirmaSenha = campoConfirmaSenha.Text;
                 var plano = caixaSelecionarPlano.SelectedItem;
 
-                if(senha != confirmaSenha)
+                if (senha != confirmaSenha)
                 {
                     throw new Exception("As senhas não são iguais!");
                 }
@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Forms
                 var usuarioCadastrar = new Usuario() { Nome = nome, NickName = nick, Senha = senha, Plano = (PlanoEnum)plano };
                 var resultado = service.CriarUsuario(usuarioCadastrar);
 
-                if(resultado.IsValid)
+                if (resultado.IsValid)
                 {
                     MessageBox.Show("Usuário criado com sucesso!");
                     this.Close();
@@ -50,10 +50,19 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    throw new Exception(resultado.Errors.First().ErrorMessage);
+                    var listaDeErros = "\n";
+                    foreach (var excecao in resultado.Errors)
+                    {
+                        listaDeErros = listaDeErros + excecao + "\n ";
+                    }
+                    if (campoConfirmaSenha.Text.IsNullOrEmpty())
+                    {
+                        listaDeErros = listaDeErros + "O campo 'Confirmar Senha' não pode estar vazio!";
+                    }
+                    throw new Exception(listaDeErros);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -124,6 +133,16 @@ namespace Cod3rsGrowth.Forms
                     labelDisponivel.Text = null;
                     break;
             }
+        }
+
+        private void AoClicarAlteraVisibilidadeDaSenha(object sender, EventArgs e)
+        {
+            campoSenha.PasswordChar = campoSenha.PasswordChar == '*' ? default : '*';
+        }
+
+        private void AoClicarAlteraVisibilidadeDeSenhaConfirmar(object sender, EventArgs e)
+        {
+            campoConfirmaSenha.PasswordChar = campoSenha.PasswordChar == '*' ? default : '*';
         }
     }
 }

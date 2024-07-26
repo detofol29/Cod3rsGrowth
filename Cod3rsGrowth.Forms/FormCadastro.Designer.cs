@@ -39,6 +39,8 @@
             labelDisponivel = new Label();
             botaoInfoPlano = new Button();
             caixaSelecionarPlano = new ComboBox();
+            botaoSenha = new Button();
+            botaoConfirmarSenha = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -110,9 +112,9 @@
             // 
             // botaoVerificarSenha
             // 
-            botaoVerificarSenha.Location = new Point(268, 188);
+            botaoVerificarSenha.Location = new Point(89, 164);
             botaoVerificarSenha.Name = "botaoVerificarSenha";
-            botaoVerificarSenha.Size = new Size(24, 21);
+            botaoVerificarSenha.Size = new Size(12, 21);
             botaoVerificarSenha.TabIndex = 10;
             botaoVerificarSenha.Text = "?";
             botaoVerificarSenha.UseVisualStyleBackColor = true;
@@ -198,12 +200,34 @@
             caixaSelecionarPlano.Size = new Size(227, 23);
             caixaSelecionarPlano.TabIndex = 13;
             // 
+            // botaoSenha
+            // 
+            botaoSenha.Location = new Point(269, 188);
+            botaoSenha.Name = "botaoSenha";
+            botaoSenha.Size = new Size(23, 23);
+            botaoSenha.TabIndex = 19;
+            botaoSenha.Text = "👀";
+            botaoSenha.UseVisualStyleBackColor = true;
+            botaoSenha.Click += AoClicarAlteraVisibilidadeDaSenha;
+            // 
+            // botaoConfirmarSenha
+            // 
+            botaoConfirmarSenha.Location = new Point(269, 242);
+            botaoConfirmarSenha.Name = "botaoConfirmarSenha";
+            botaoConfirmarSenha.Size = new Size(23, 23);
+            botaoConfirmarSenha.TabIndex = 20;
+            botaoConfirmarSenha.Text = "👀";
+            botaoConfirmarSenha.UseVisualStyleBackColor = true;
+            botaoConfirmarSenha.Click += AoClicarAlteraVisibilidadeDeSenhaConfirmar;
+            // 
             // FormCadastro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(304, 425);
+            Controls.Add(botaoConfirmarSenha);
+            Controls.Add(botaoSenha);
             Controls.Add(labelDisponivel);
             Controls.Add(botaoLogar);
             Controls.Add(botaoInfoPlano);
@@ -251,5 +275,7 @@
         private Label labelDisponivel;
         private Button botaoInfoPlano;
         private ComboBox caixaSelecionarPlano;
+        private Button botaoSenha;
+        private Button botaoConfirmarSenha;
     }
 }

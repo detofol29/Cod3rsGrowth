@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
+using System.Linq;
 
 namespace Cod3rsGrowth.Servicos.Validacoes;
 
@@ -14,7 +15,9 @@ public class UsuarioValidacao : AbstractValidator<Usuario>
             .Must(nome => nome is string)
             .WithMessage("O campo 'Nome' deve ser uma cadeia de caracteres válidas!")
             .Matches("^[^0-9]*$")
-            .WithMessage("O campo 'Nome' não deve conter números!");
+            .WithMessage("O campo 'Nome' não deve conter números!")
+            .Matches(@"^[a-zA-ZÀ-ÿ\s]*$")
+            .WithMessage("O campo 'Nome' não deve conter caracteres especiais!");
 
         RuleFor(n => n.NickName)
             .Cascade(CascadeMode.Stop)

@@ -171,9 +171,11 @@
             // 
             // CampoNota
             // 
+            CampoNota.ImeMode = ImeMode.NoControl;
             CampoNota.Location = new Point(53, 371);
             CampoNota.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             CampoNota.Name = "CampoNota";
+            CampoNota.ReadOnly = true;
             CampoNota.Size = new Size(227, 23);
             CampoNota.TabIndex = 37;
             // 
@@ -181,9 +183,12 @@
             // 
             campoDuracao.Location = new Point(53, 432);
             campoDuracao.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            campoDuracao.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             campoDuracao.Name = "campoDuracao";
+            campoDuracao.ReadOnly = true;
             campoDuracao.Size = new Size(227, 23);
             campoDuracao.TabIndex = 39;
+            campoDuracao.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // labelDuracao
             // 
@@ -210,6 +215,7 @@
             // 
             campoDataDeLancamento.Format = DateTimePickerFormat.Short;
             campoDataDeLancamento.Location = new Point(53, 313);
+            campoDataDeLancamento.MinDate = new DateTime(1890, 1, 1, 0, 0, 0, 0);
             campoDataDeLancamento.Name = "campoDataDeLancamento";
             campoDataDeLancamento.Size = new Size(227, 23);
             campoDataDeLancamento.TabIndex = 41;
@@ -242,7 +248,7 @@
             MaximumSize = new Size(355, 605);
             MinimumSize = new Size(355, 605);
             Name = "FormCadastroFilme";
-            Text = "FormCadastroFilme";
+            Text = "Cadastro de Filme";
             Load += AoCarregarFormCadastroFilme;
             ((System.ComponentModel.ISupportInitialize)CampoNota).EndInit();
             ((System.ComponentModel.ISupportInitialize)campoDuracao).EndInit();

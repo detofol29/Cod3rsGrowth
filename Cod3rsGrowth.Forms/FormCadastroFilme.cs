@@ -49,8 +49,8 @@ public partial class FormCadastroFilme : Form
             var classificacaoEnum = ExtensaoDosEnuns.ConverterParaClassificacaoEnum(classificacao!);
             var generoEnum = ExtensaoDosEnuns.ConverterParaGeneroEnum(genero!);
             var dataDeLancamento = campoDataDeLancamento.Value;
-            var nota = int.Parse(CampoNota.Value.ToString());
-            var duracao = int.Parse(campoDuracao.Value.ToString());
+            var nota = CampoNota.Value;
+            var duracao = campoDuracao.Value;
 
             var filmeCadastrar = new Filme()
             {
@@ -60,7 +60,7 @@ public partial class FormCadastroFilme : Form
                 Genero = generoEnum,
                 DataDeLancamento = dataDeLancamento,
                 Nota = nota,
-                Duracao = duracao,
+                Duracao = (int)duracao,
                 EmCartaz = false
             };
 
@@ -72,7 +72,12 @@ public partial class FormCadastroFilme : Form
             }
             else
             {
-                throw new Exception(resultado.Errors.First().ErrorMessage);
+                var listaDeErros = "\n";
+                foreach (var excecao in resultado.Errors)
+                {
+                    listaDeErros = listaDeErros + excecao + "\n ";
+                }
+                throw new Exception(listaDeErros);
             }
         }
         catch (Exception ex)
@@ -83,6 +88,11 @@ public partial class FormCadastroFilme : Form
 
     private void AoClicarBotaoCancelar(object sender, EventArgs e)
     {
-        Close();
+        DialogResult resultado = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo);
+
+        if (resultado == DialogResult.Yes)
+        {
+            Close();
+        }
     }
 }
