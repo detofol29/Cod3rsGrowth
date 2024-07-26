@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -24,6 +25,11 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
+                var validador = ValidarEntradaLogin();
+                if (!validador.IsNullOrEmpty())
+                {
+                    throw new Exception(validador);
+                }
                 var nickname = campoUsuario.Text;
                 var senha = CampoSenha.Text;
 
@@ -36,7 +42,7 @@ namespace Cod3rsGrowth.Forms
                 var usuarioRetorno = service.AutenticarUsuario(usuarioInserido);
                 if (usuarioRetorno is null)
                 {
-                    MessageBox.Show("Usuário ou senha Inválidos!");
+                    MessageBox.Show("Senha Inválida!");
                 }
                 else
                 {
@@ -47,7 +53,7 @@ namespace Cod3rsGrowth.Forms
                     threadFormsUsuario.Start();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -69,6 +75,27 @@ namespace Cod3rsGrowth.Forms
             threadFormsCadastro = new Thread(AbrirJanelaCadastro);
             threadFormsCadastro.SetApartmentState(ApartmentState.STA);
             threadFormsCadastro.Start();
+        }
+
+        private void AoClicarAlteraVisibilidadeDaSenha(object sender, EventArgs e)
+        {
+            CampoSenha.PasswordChar = CampoSenha.PasswordChar == '*' ? default : '*';
+        }
+
+        private string ValidarEntradaLogin()
+        {
+            var mensagemDeErro = "";
+            if (campoUsuario.Text.IsNullOrEmpty())
+            {
+                mensagemDeErro += "\nO campo 'Usuário' não pode estar vazio!";
+            }
+
+            if (CampoSenha.Text.IsNullOrEmpty())
+            {
+                mensagemDeErro += "\nO campo 'Senha' não pode estar vazio!";
+            }
+
+            return mensagemDeErro;
         }
     }
 }

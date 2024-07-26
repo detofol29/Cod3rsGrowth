@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
+using FluentValidation.Results;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
@@ -66,6 +67,16 @@ public class FilmeServicos : IFilmeRepositorio
     {
         try
         {
+            var filmeVerificar = ObterTodos(null)
+                .Where(f => f.Titulo == filme.Titulo)
+                .Select(f => f)
+                .FirstOrDefault();
+
+            if (filmeVerificar is not null)
+            {
+                throw new Exception("Esse Filme ja existe!");
+            }
+
             filme.Id = GerarId();
             _validator.ValidateAndThrow(filme);
             Inserir(filme);
@@ -74,6 +85,14 @@ public class FilmeServicos : IFilmeRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
+        }
+        catch (Exception ex)
+        {
+            var failures = new List<ValidationFailure>
+            {
+                new ValidationFailure("Exception", ex.Message)
+            };
+            return new ValidationResult(failures);
         }
     }
 

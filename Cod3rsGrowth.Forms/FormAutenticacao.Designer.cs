@@ -37,6 +37,7 @@
             botaoEntrar = new Button();
             botaoCadastrar = new Button();
             pictureBox1 = new PictureBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -117,12 +118,25 @@
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            button1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            button1.ForeColor = SystemColors.ActiveCaptionText;
+            button1.Location = new Point(270, 167);
+            button1.Name = "button1";
+            button1.Size = new Size(25, 21);
+            button1.TabIndex = 8;
+            button1.Text = "👀";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += AoClicarAlteraVisibilidadeDaSenha;
+            // 
             // FormAutenticacao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlText;
             ClientSize = new Size(304, 325);
+            Controls.Add(button1);
             Controls.Add(pictureBox1);
             Controls.Add(botaoCadastrar);
             Controls.Add(botaoEntrar);
@@ -152,5 +166,6 @@
         private Button botaoEntrar;
         private Button botaoCadastrar;
         private PictureBox pictureBox1;
+        private Button button1;
     }
 }

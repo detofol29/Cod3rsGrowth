@@ -19,14 +19,14 @@ namespace Cod3rsGrowth.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormListaFilme));
             dataGridView1 = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -65,6 +65,7 @@ namespace Cod3rsGrowth.Forms
             imageList1 = new ImageList(components);
             pictureBox2 = new PictureBox();
             labelFiltros = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
@@ -75,9 +76,9 @@ namespace Cod3rsGrowth.Forms
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.Anchor = AnchorStyles.Top;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaptionText;
@@ -113,8 +114,8 @@ namespace Cod3rsGrowth.Forms
             // dataDeLancamentoDataGridViewTextBoxColumn
             // 
             dataDeLancamentoDataGridViewTextBoxColumn.DataPropertyName = "DataDeLancamento";
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataDeLancamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataDeLancamentoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             dataDeLancamentoDataGridViewTextBoxColumn.Frozen = true;
             dataDeLancamentoDataGridViewTextBoxColumn.HeaderText = "Data De Lançamento";
             dataDeLancamentoDataGridViewTextBoxColumn.Name = "dataDeLancamentoDataGridViewTextBoxColumn";
@@ -124,8 +125,8 @@ namespace Cod3rsGrowth.Forms
             // generoDataGridViewTextBoxColumn
             // 
             generoDataGridViewTextBoxColumn.DataPropertyName = "Genero";
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            generoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            generoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             generoDataGridViewTextBoxColumn.Frozen = true;
             generoDataGridViewTextBoxColumn.HeaderText = "Gênero";
             generoDataGridViewTextBoxColumn.Name = "generoDataGridViewTextBoxColumn";
@@ -135,8 +136,8 @@ namespace Cod3rsGrowth.Forms
             // emCartazDataGridViewCheckBoxColumn
             // 
             emCartazDataGridViewCheckBoxColumn.DataPropertyName = "EmCartaz";
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            emCartazDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            emCartazDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             emCartazDataGridViewCheckBoxColumn.Frozen = true;
             emCartazDataGridViewCheckBoxColumn.HeaderText = "Em Cartaz";
             emCartazDataGridViewCheckBoxColumn.Name = "emCartazDataGridViewCheckBoxColumn";
@@ -147,10 +148,10 @@ namespace Cod3rsGrowth.Forms
             // notaDataGridViewTextBoxColumn
             // 
             notaDataGridViewTextBoxColumn.DataPropertyName = "Nota";
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.Format = "N0";
-            dataGridViewCellStyle13.NullValue = "0";
-            notaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = "0";
+            notaDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
             notaDataGridViewTextBoxColumn.Frozen = true;
             notaDataGridViewTextBoxColumn.HeaderText = "Nota";
             notaDataGridViewTextBoxColumn.Name = "notaDataGridViewTextBoxColumn";
@@ -160,8 +161,8 @@ namespace Cod3rsGrowth.Forms
             // duracaoDataGridViewTextBoxColumn
             // 
             duracaoDataGridViewTextBoxColumn.DataPropertyName = "Duracao";
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            duracaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            duracaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
             duracaoDataGridViewTextBoxColumn.Frozen = true;
             duracaoDataGridViewTextBoxColumn.HeaderText = "Duração";
             duracaoDataGridViewTextBoxColumn.Name = "duracaoDataGridViewTextBoxColumn";
@@ -171,8 +172,8 @@ namespace Cod3rsGrowth.Forms
             // disponivelNoPlanoDataGridViewCheckBoxColumn
             // 
             disponivelNoPlanoDataGridViewCheckBoxColumn.DataPropertyName = "DisponivelNoPlano";
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            disponivelNoPlanoDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            disponivelNoPlanoDataGridViewCheckBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             disponivelNoPlanoDataGridViewCheckBoxColumn.HeaderText = "Disponível No Plano";
             disponivelNoPlanoDataGridViewCheckBoxColumn.Name = "disponivelNoPlanoDataGridViewCheckBoxColumn";
             disponivelNoPlanoDataGridViewCheckBoxColumn.ReadOnly = true;
@@ -190,8 +191,8 @@ namespace Cod3rsGrowth.Forms
             // classificacaoDataGridViewTextBoxColumn
             // 
             classificacaoDataGridViewTextBoxColumn.DataPropertyName = "Classificacao";
-            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            classificacaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            classificacaoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             classificacaoDataGridViewTextBoxColumn.HeaderText = "Classificação";
             classificacaoDataGridViewTextBoxColumn.Name = "classificacaoDataGridViewTextBoxColumn";
             classificacaoDataGridViewTextBoxColumn.ReadOnly = true;
@@ -269,7 +270,7 @@ namespace Cod3rsGrowth.Forms
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { generoComboBox });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(142, 22);
             toolStripMenuItem1.Text = "Gênero";
             // 
             // generoComboBox
@@ -281,7 +282,7 @@ namespace Cod3rsGrowth.Forms
             // 
             classificaçãoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { classificacaoComboBox });
             classificaçãoToolStripMenuItem.Name = "classificaçãoToolStripMenuItem";
-            classificaçãoToolStripMenuItem.Size = new Size(180, 22);
+            classificaçãoToolStripMenuItem.Size = new Size(142, 22);
             classificaçãoToolStripMenuItem.Text = "Classificação";
             // 
             // classificacaoComboBox
@@ -293,7 +294,7 @@ namespace Cod3rsGrowth.Forms
             // 
             disponívelToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DisponivelComboBox });
             disponívelToolStripMenuItem.Name = "disponívelToolStripMenuItem";
-            disponívelToolStripMenuItem.Size = new Size(180, 22);
+            disponívelToolStripMenuItem.Size = new Size(142, 22);
             disponívelToolStripMenuItem.Text = "Disponível";
             // 
             // DisponivelComboBox
@@ -305,7 +306,7 @@ namespace Cod3rsGrowth.Forms
             // 
             notaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1 });
             notaToolStripMenuItem.Name = "notaToolStripMenuItem";
-            notaToolStripMenuItem.Size = new Size(180, 22);
+            notaToolStripMenuItem.Size = new Size(142, 22);
             notaToolStripMenuItem.Text = "Nota";
             // 
             // toolStripTextBox1
@@ -319,7 +320,7 @@ namespace Cod3rsGrowth.Forms
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(139, 6);
             // 
             // botaoSair
             // 
@@ -418,12 +419,27 @@ namespace Cod3rsGrowth.Forms
             labelFiltros.TabIndex = 13;
             labelFiltros.Text = "FILTROS:";
             // 
+            // button1
+            // 
+            button1.BackColor = Color.WhiteSmoke;
+            button1.BackgroundImageLayout = ImageLayout.Zoom;
+            button1.Cursor = Cursors.Hand;
+            button1.Location = new Point(12, 66);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(83, 23);
+            button1.TabIndex = 14;
+            button1.Text = "Adicionar";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += AoClicarBotaoCadastrarFilme;
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(1085, 423);
+            Controls.Add(button1);
             Controls.Add(labelFiltros);
             Controls.Add(pictureBox2);
             Controls.Add(labelFiltroNota);
@@ -488,5 +504,6 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn diretorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private ToolStripSeparator toolStripSeparator2;
+        private Button button1;
     }
 }

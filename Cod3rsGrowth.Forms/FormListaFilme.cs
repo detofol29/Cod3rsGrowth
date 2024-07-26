@@ -5,6 +5,7 @@ using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Extensoes;
 using Microsoft.IdentityModel.Tokens;
 using Cod3rsGrowth.Domuinio.Enumeradores;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -190,9 +191,17 @@ public partial class FormListaFilme : Form
 
     private void validarEntradaDeValoresNumericos(object sender, KeyPressEventArgs e)
     {
-        if(!(char.IsNumber(e.KeyChar)) && !(char.IsControl(e.KeyChar)))
+        if (!(char.IsNumber(e.KeyChar)) && !(char.IsControl(e.KeyChar)))
         {
             e.Handled = true;
         }
+    }
+
+    private void AoClicarBotaoCadastrarFilme(object sender, EventArgs e)
+    {
+        var cadastroFilme = new FormCadastroFilme(service);
+        cadastroFilme.ShowDialog();
+        IniciarListaDeFimes();
+        dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
     }
 }
