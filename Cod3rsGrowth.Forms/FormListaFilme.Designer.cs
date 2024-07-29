@@ -66,6 +66,7 @@ namespace Cod3rsGrowth.Forms
             pictureBox2 = new PictureBox();
             labelFiltros = new Label();
             button1 = new Button();
+            botaoRemover = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
@@ -433,12 +434,27 @@ namespace Cod3rsGrowth.Forms
             button1.UseVisualStyleBackColor = false;
             button1.Click += AoClicarBotaoCadastrarFilme;
             // 
+            // botaoRemover
+            // 
+            botaoRemover.BackColor = Color.WhiteSmoke;
+            botaoRemover.BackgroundImageLayout = ImageLayout.Zoom;
+            botaoRemover.Cursor = Cursors.Hand;
+            botaoRemover.Location = new Point(104, 66);
+            botaoRemover.Margin = new Padding(0);
+            botaoRemover.Name = "botaoRemover";
+            botaoRemover.Size = new Size(83, 23);
+            botaoRemover.TabIndex = 15;
+            botaoRemover.Text = "Remover";
+            botaoRemover.UseVisualStyleBackColor = false;
+            botaoRemover.Click += AoClicarBotaoRemover;
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(1085, 423);
+            Controls.Add(botaoRemover);
             Controls.Add(button1);
             Controls.Add(labelFiltros);
             Controls.Add(pictureBox2);
@@ -505,5 +521,6 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn classificacaoDataGridViewTextBoxColumn;
         private ToolStripSeparator toolStripSeparator2;
         private Button button1;
+        private Button botaoRemover;
     }
 }

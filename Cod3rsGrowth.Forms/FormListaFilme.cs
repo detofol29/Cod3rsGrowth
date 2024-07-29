@@ -6,6 +6,8 @@ using Cod3rsGrowth.Dominio.Extensoes;
 using Microsoft.IdentityModel.Tokens;
 using Cod3rsGrowth.Domuinio.Enumeradores;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -58,6 +60,7 @@ public partial class FormListaFilme : Form
     public void IniciarListaDeFimes()
     {
         var lista = service.ObterTodos(null);
+        listaDeFilmes.Clear();
         foreach (var filme in lista)
         {
             listaDeFilmes.Add(servicoUsuario.LicenciarFilmePorUsuario(usuario, filme));
@@ -203,5 +206,40 @@ public partial class FormListaFilme : Form
         cadastroFilme.ShowDialog();
         IniciarListaDeFimes();
         dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
+    }
+
+    private void AoClicarBotaoRemover(object sender, EventArgs e)
+    {
+        var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
+        if(quantidadeDeLinhasSelecionadas == default)
+        {
+            MessageBox.Show("Selecione pelo menos uma linha para ser removida!");
+        }
+        else
+        {
+            var listaFilmesRemover = dataGridView1.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(linha => (FilmeData)linha.DataBoundItem)
+                .ToList();
+
+            var filmesRemover = new StringBuilder();
+            foreach (var filme in listaFilmesRemover)
+            {
+                filmesRemover.AppendLine(filme.Titulo);
+            }
+
+            DialogResult resultado = MessageBox.Show($"Deseja Realmente remover o(os) filme(s) a seguir da lista de filmes?\n\n {filmesRemover}", "Remover", MessageBoxButtons.YesNo);
+
+            if(resultado == DialogResult.Yes)
+            {
+                foreach (var filme in listaFilmesRemover)
+                {
+                    service.Remover(filme.Id);
+                }
+                MessageBox.Show("Filmes Removidos com sucesso!");
+                IniciarListaDeFimes();
+                dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
+            }
+        }  
     }
 }
