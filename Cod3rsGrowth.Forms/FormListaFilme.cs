@@ -208,21 +208,22 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoRemover(object sender, EventArgs e)
     {
+        string? filmesRemover = null;
         var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
-        if(quantidadeDeLinhasSelecionadas == 0)
+        if(quantidadeDeLinhasSelecionadas == default)
         {
             MessageBox.Show("Selecione pelo menos uma linha para ser removida!");
         }
         else
         {
-            string filmesRemover = null;
             var listaFilmesRemover = new List<FilmeData>();
-            for (int i = 0; i < quantidadeDeLinhasSelecionadas; i++)
+            for (int i = default; i < quantidadeDeLinhasSelecionadas; i++)
             {
                 var filme = (FilmeData)dataGridView1.SelectedRows[i].DataBoundItem;
                 listaFilmesRemover.Add(filme);
                 filmesRemover += filme.Titulo + "\n";
             }
+
             DialogResult resultado = MessageBox.Show($"Deseja Realmente remover o(os) filme(s) a seguir da lista de filmes?\n\n {filmesRemover}", "Remover", MessageBoxButtons.YesNo);
 
             if(resultado == DialogResult.Yes)
@@ -232,6 +233,8 @@ public partial class FormListaFilme : Form
                     service.Remover(filme.Id);
                 }
                 MessageBox.Show("Filmes Removidos com sucesso!");
+                IniciarListaDeFimes();
+                dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
             }
         }  
     }

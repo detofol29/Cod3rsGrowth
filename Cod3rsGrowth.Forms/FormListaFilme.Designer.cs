@@ -439,7 +439,7 @@ namespace Cod3rsGrowth.Forms
             botaoRemover.BackColor = Color.WhiteSmoke;
             botaoRemover.BackgroundImageLayout = ImageLayout.Zoom;
             botaoRemover.Cursor = Cursors.Hand;
-            botaoRemover.Location = new Point(112, 66);
+            botaoRemover.Location = new Point(104, 66);
             botaoRemover.Margin = new Padding(0);
             botaoRemover.Name = "botaoRemover";
             botaoRemover.Size = new Size(83, 23);
