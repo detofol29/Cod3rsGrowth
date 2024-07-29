@@ -59,6 +59,7 @@ public partial class FormListaFilme : Form
     public void IniciarListaDeFimes()
     {
         var lista = service.ObterTodos(null);
+        listaDeFilmes.Clear();
         foreach (var filme in lista)
         {
             listaDeFilmes.Add(servicoUsuario.LicenciarFilmePorUsuario(usuario, filme));
