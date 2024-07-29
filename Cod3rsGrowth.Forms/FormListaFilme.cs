@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Cod3rsGrowth.Domuinio.Enumeradores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -209,7 +210,6 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoRemover(object sender, EventArgs e)
     {
-        string? filmesRemover = null;
         var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
         if(quantidadeDeLinhasSelecionadas == default)
         {
@@ -217,12 +217,15 @@ public partial class FormListaFilme : Form
         }
         else
         {
-            var listaFilmesRemover = new List<FilmeData>();
-            for (int i = default; i < quantidadeDeLinhasSelecionadas; i++)
+            var listaFilmesRemover = dataGridView1.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(linha => (FilmeData)linha.DataBoundItem)
+                .ToList();
+
+            var filmesRemover = new StringBuilder();
+            foreach (var filme in listaFilmesRemover)
             {
-                var filme = (FilmeData)dataGridView1.SelectedRows[i].DataBoundItem;
-                listaFilmesRemover.Add(filme);
-                filmesRemover += filme.Titulo + "\n";
+                filmesRemover.AppendLine(filme.Titulo);
             }
 
             DialogResult resultado = MessageBox.Show($"Deseja Realmente remover o(os) filme(s) a seguir da lista de filmes?\n\n {filmesRemover}", "Remover", MessageBoxButtons.YesNo);
