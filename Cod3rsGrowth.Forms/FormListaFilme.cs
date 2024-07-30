@@ -8,6 +8,7 @@ using Cod3rsGrowth.Domuinio.Enumeradores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
+using System.Linq;
 
 namespace Cod3rsGrowth.Forms;
 
@@ -116,7 +117,7 @@ public partial class FormListaFilme : Form
 
     private void AdicionarFiltroClassificacao()
     {
-        if (classificacaoComboBox.SelectedItem != "Todos")
+        if (classificacaoComboBox.SelectedItem != "Todos") 
         {
             var enumeradores = new TodosEnumeradores();
             var classificacoes = enumeradores.ObterTodos<ClassificacaoIndicativa>();
@@ -202,7 +203,7 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoCadastrarFilme(object sender, EventArgs e)
     {
-        var cadastroFilme = new FormCadastroFilme(service);
+        var cadastroFilme = new FormCadastroFilme(service, null);
         cadastroFilme.ShowDialog();
         IniciarListaDeFimes();
         dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
@@ -211,7 +212,7 @@ public partial class FormListaFilme : Form
     private void AoClicarBotaoRemover(object sender, EventArgs e)
     {
         var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
-        if(quantidadeDeLinhasSelecionadas == default)
+        if (quantidadeDeLinhasSelecionadas == default)
         {
             MessageBox.Show("Selecione pelo menos uma linha para ser removida!");
         }
@@ -230,7 +231,7 @@ public partial class FormListaFilme : Form
 
             DialogResult resultado = MessageBox.Show($"Deseja Realmente remover o(os) filme(s) a seguir da lista de filmes?\n\n {filmesRemover}", "Remover", MessageBoxButtons.YesNo);
 
-            if(resultado == DialogResult.Yes)
+            if (resultado == DialogResult.Yes)
             {
                 foreach (var filme in listaFilmesRemover)
                 {
@@ -240,6 +241,34 @@ public partial class FormListaFilme : Form
                 IniciarListaDeFimes();
                 dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
             }
-        }  
+        }
+    }
+
+    private void aoClicarBotaoEditar(object sender, EventArgs e)
+    {
+        var numeroDeLinhasNecessario = 1;
+        var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
+
+        if (quantidadeDeLinhasSelecionadas != numeroDeLinhasNecessario)
+        {
+            var mensagem = quantidadeDeLinhasSelecionadas > numeroDeLinhasNecessario
+                ? "Selecione apenas uma linha para ser editada!"
+                : "Selecione uma linha para ser editada!";
+
+            MessageBox.Show(mensagem);
+        }
+        else
+        {
+            var filmeSelecionado = dataGridView1.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(linha => (FilmeData)linha.DataBoundItem)
+                .FirstOrDefault();
+
+            var editarFilme = new FormCadastroFilme(service, filmeSelecionado);
+            editarFilme.ShowDialog();
+
+            IniciarListaDeFimes();
+            dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
+        }
     }
 }

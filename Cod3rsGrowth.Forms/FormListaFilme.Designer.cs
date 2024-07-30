@@ -67,6 +67,7 @@ namespace Cod3rsGrowth.Forms
             labelFiltros = new Label();
             button1 = new Button();
             botaoRemover = new Button();
+            botaoEditar = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeMockBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filmeBindingSource1).BeginInit();
@@ -448,12 +449,27 @@ namespace Cod3rsGrowth.Forms
             botaoRemover.UseVisualStyleBackColor = false;
             botaoRemover.Click += AoClicarBotaoRemover;
             // 
+            // botaoEditar
+            // 
+            botaoEditar.BackColor = Color.WhiteSmoke;
+            botaoEditar.BackgroundImageLayout = ImageLayout.Zoom;
+            botaoEditar.Cursor = Cursors.Hand;
+            botaoEditar.Location = new Point(200, 66);
+            botaoEditar.Margin = new Padding(0);
+            botaoEditar.Name = "botaoEditar";
+            botaoEditar.Size = new Size(83, 23);
+            botaoEditar.TabIndex = 16;
+            botaoEditar.Text = "Editar";
+            botaoEditar.UseVisualStyleBackColor = false;
+            botaoEditar.Click += aoClicarBotaoEditar;
+            // 
             // FormListaFilme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(1085, 423);
+            Controls.Add(botaoEditar);
             Controls.Add(botaoRemover);
             Controls.Add(button1);
             Controls.Add(labelFiltros);
@@ -522,5 +538,6 @@ namespace Cod3rsGrowth.Forms
         private ToolStripSeparator toolStripSeparator2;
         private Button button1;
         private Button botaoRemover;
+        private Button botaoEditar;
     }
 }

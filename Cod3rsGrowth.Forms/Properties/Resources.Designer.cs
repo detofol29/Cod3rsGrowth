@@ -73,6 +73,26 @@ namespace Cod3rsGrowth.Forms.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cadastroFilme {
+            get {
+                object obj = ResourceManager.GetObject("cadastroFilme", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editarImagem {
+            get {
+                object obj = ResourceManager.GetObject("editarImagem", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_filme_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-filme-50", resourceCulture);
@@ -86,6 +106,16 @@ namespace Cod3rsGrowth.Forms.Properties {
         internal static System.Drawing.Bitmap imagem_listaDeFilmes {
             get {
                 object obj = ResourceManager.GetObject("imagem_listaDeFilmes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap imagemEditarBranco {
+            get {
+                object obj = ResourceManager.GetObject("imagemEditarBranco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
