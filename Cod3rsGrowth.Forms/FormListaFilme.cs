@@ -246,10 +246,16 @@ public partial class FormListaFilme : Form
 
     private void aoClicarBotaoEditar(object sender, EventArgs e)
     {
+        var numeroDeLinhasNecessario = 1;
         var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
-        if (quantidadeDeLinhasSelecionadas != 1)
+
+        if (quantidadeDeLinhasSelecionadas != numeroDeLinhasNecessario)
         {
-            MessageBox.Show("Selecione uma linha para ser editada!");
+            var mensagem = quantidadeDeLinhasSelecionadas > numeroDeLinhasNecessario
+                ? "Selecione apenas uma linha para ser editada!"
+                : "Selecione uma linha para ser editada!";
+
+            MessageBox.Show(mensagem);
         }
         else
         {
