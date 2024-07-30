@@ -3,6 +3,8 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
 using FluentValidation.Results;
+using System.Text;
+using System.Threading.Tasks.Dataflow;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
@@ -105,7 +107,12 @@ public class FilmeServicos : IFilmeRepositorio
         }
         else
         {
-            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
+            var erros = new StringBuilder();
+            foreach (var erro in validacao.Errors)
+            {
+                erros.AppendLine(erro.ErrorMessage);
+            }
+            throw new Exception(erros.ToString());
         }
     }
 

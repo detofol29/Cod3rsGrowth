@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Extensoes;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -36,6 +37,35 @@ namespace Cod3rsGrowth.Forms
             };
 
             return filmeData;
+        }
+
+        public static Filme ConverterParaFilme(FilmeData data)
+        {
+            var genero = Enum.GetValues(typeof(GeneroEnum))
+                .Cast<Enum>()
+                .Where(genero => ExtensaoDosEnuns.ObterDescricao(genero) == data.Genero)
+                .Select(g => g)
+                .First();
+
+            var classificacao = Enum.GetValues(typeof(ClassificacaoIndicativa))
+                .Cast<Enum>()
+                .Where(classificacao => ExtensaoDosEnuns.ObterDescricao(classificacao) == data.Classificacao)
+                .Select(c => c)
+                .First();
+
+            var filme = new Filme()
+            {
+                Id = data.Id,
+                Titulo = data.Titulo,
+                Diretor = data.Diretor,
+                Nota = data.Nota,
+                Duracao = data.Duracao,
+                Genero = (GeneroEnum)genero,
+                Classificacao = (ClassificacaoIndicativa)classificacao,
+                DataDeLancamento = data.DataDeLancamento
+            };
+
+            return filme;
         }
     }
 }
