@@ -74,7 +74,8 @@ public partial class FormCadastroFilme : Form
                 var filme = ServicoFilmeData.ConverterParaFilme(filmeEditado);
                 service.Editar(filme);
 
-                MessageBox.Show("Filme editado com sucesso!");
+                var mensagemDeExito = "Filme editado com sucesso!";
+                MessageBox.Show(mensagemDeExito);
                 Close();
             }
             else
@@ -115,7 +116,8 @@ public partial class FormCadastroFilme : Form
 
                 if (resultado.IsValid)
                 {
-                    MessageBox.Show("Filme cadastrado com sucesso!");
+                    var mensagemDeExito = "Filme cadastrado com sucesso!";
+                    MessageBox.Show(mensagemDeExito);
                     Close();
                 }
                 else
@@ -138,9 +140,11 @@ public partial class FormCadastroFilme : Form
 
     private void AoClicarBotaoCancelar(object sender, EventArgs e)
     {
-        DialogResult resultado = filmeBase is null
-            ? MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo) 
-            : MessageBox.Show("Deseja cancelar a edição?", "Cancelar", MessageBoxButtons.YesNo);
+        var mensagemDeConfirmacao = filmeBase is null
+            ? "Deseja cancelar o cadastro?"
+            : "Deseja cancelar a edição?";
+
+        DialogResult resultado = MessageBox.Show(mensagemDeConfirmacao, "Cancelar", MessageBoxButtons.YesNo);
 
         if (resultado == DialogResult.Yes)
         {

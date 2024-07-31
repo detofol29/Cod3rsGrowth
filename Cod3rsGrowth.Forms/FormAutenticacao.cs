@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -13,6 +14,7 @@ namespace Cod3rsGrowth.Forms
         private Usuario usuario;
         private Thread threadFormsUsuario;
         private Thread threadFormsCadastro;
+        private const char caracterSenha = '*';
         public FormAutenticacao(UsuarioServicos _service, FilmeServicos _filmeService, UsuarioRepositorio _repositorio)
         {
             InitializeComponent();
@@ -42,7 +44,8 @@ namespace Cod3rsGrowth.Forms
                 var usuarioRetorno = service.AutenticarUsuario(usuarioInserido);
                 if (usuarioRetorno is null)
                 {
-                    MessageBox.Show("Senha Inválida!");
+                    var mensagemSenhaInvalida = "Senha Inválida!";
+                    MessageBox.Show(mensagemSenhaInvalida);
                 }
                 else
                 {
@@ -79,23 +82,25 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAlteraVisibilidadeDaSenha(object sender, EventArgs e)
         {
-            CampoSenha.PasswordChar = CampoSenha.PasswordChar == '*' ? default : '*';
+            CampoSenha.PasswordChar = CampoSenha.PasswordChar == caracterSenha 
+                ? default 
+                : caracterSenha;
         }
 
         private string ValidarEntradaLogin()
         {
-            var mensagemDeErro = "";
+            var mensagemDeErro = new StringBuilder();
             if (campoUsuario.Text.IsNullOrEmpty())
             {
-                mensagemDeErro += "\nO campo 'Usuário' não pode estar vazio!";
+                mensagemDeErro.AppendLine("O campo 'Usuário' não pode estar vazio!");
             }
 
             if (CampoSenha.Text.IsNullOrEmpty())
             {
-                mensagemDeErro += "\nO campo 'Senha' não pode estar vazio!";
+                mensagemDeErro.AppendLine("O campo 'Senha' não pode estar vazio!");
             }
 
-            return mensagemDeErro;
+            return mensagemDeErro.ToString();
         }
     }
 }

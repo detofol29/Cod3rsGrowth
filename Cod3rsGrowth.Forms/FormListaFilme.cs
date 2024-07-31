@@ -1,28 +1,33 @@
+using Cod3rsGrowth.Dominio.Extensoes;
 using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Domuinio.Enumeradores;
 using Cod3rsGrowth.Infra.Repositorios;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Dominio.Extensoes;
 using Microsoft.IdentityModel.Tokens;
-using Cod3rsGrowth.Domuinio.Enumeradores;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
-using System.Linq;
 
 namespace Cod3rsGrowth.Forms;
 
 public partial class FormListaFilme : Form
 {
-    public FilmeServicos service;
     private Usuario usuario;
+    private FilmeServicos service;
     private UsuarioServicos servicoUsuario;
-    private Thread threadFormsAutenticacao;
     private UsuarioRepositorio repositorio;
+    private Thread threadFormsAutenticacao;
+    private const string todosElementos = "Todos";
+    private const string nenhumElemento = "Nenhum";
+    private const string filtroGenero = "Gênero: ";
+    private const string filtroClassificacao = "Classificação: ";
+    private const string filtroDisponivelLabel = "Disponível: ";
+    private const string filtroNota = "Nota Mínima: ";
+    private const string disponivel = "Sim";
+    private const string indisponivel = "Não";
+    private bool filtroDisponivel;
+    private bool filtroDisponivelTodos;
     FiltroFilme filtro = new();
     List<Filme> listaDeFilmes = new();
-    bool filtroDisponivel;
-    bool filtroDisponivelTodos;
     public FormListaFilme(FilmeServicos _service, Usuario _usuario, UsuarioServicos _servicoUsuario, UsuarioRepositorio _repositorio)
     {
         service = _service;
@@ -38,15 +43,15 @@ public partial class FormListaFilme : Form
         {
             generoComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)genero));
         }
-        generoComboBox.Items.Add("Todos");
-        generoComboBox.SelectedItem = "Todos";
+        generoComboBox.Items.Add(todosElementos);
+        generoComboBox.SelectedItem = todosElementos;
 
         foreach (var classificacao in Enum.GetValues(typeof(ClassificacaoIndicativa)))
         {
             classificacaoComboBox.Items.Add(ExtensaoDosEnuns.ObterDescricao((Enum)classificacao));
         }
-        classificacaoComboBox.Items.Add("Todos");
-        classificacaoComboBox.SelectedItem = "Todos";
+        classificacaoComboBox.Items.Add(todosElementos);
+        classificacaoComboBox.SelectedItem = todosElementos;
 
         foreach (var disponivel in Enum.GetValues(typeof(EnumDisponivel)))
         {
@@ -55,7 +60,7 @@ public partial class FormListaFilme : Form
         DisponivelComboBox.SelectedItem = ExtensaoDosEnuns.ObterDescricao(EnumDisponivel.Sim);
 
         AoClicarBotaoFiltrar(null, null);
-        labelUsuario.Text = "Usuário: " + usuario.Nome;
+        labelUsuario.Text += usuario.Nome;
     }
 
     public void IniciarListaDeFimes()
@@ -70,15 +75,17 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoLimparFiltros(object sender, EventArgs e)
     {
-        generoComboBox.SelectedItem = "Todos";
-        classificacaoComboBox.SelectedItem = "Todos";
-        DisponivelComboBox.SelectedItem = "Todos";
-        toolStripTextBox1.Clear();
-        labelFiltroGenero.Text = "Gênero: Todos";
-        labelFiltroClassificacao.Text = "Classificação: Todas";
-        labelFiltroDisponivel.Text = "Disponível: Todos";
-        labelFiltroNota.Text = "Nota Mínima: Nenhuma";
+        generoComboBox.SelectedItem = todosElementos;
+        classificacaoComboBox.SelectedItem = todosElementos;
+        DisponivelComboBox.SelectedItem = todosElementos;
         filtroDisponivelTodos = true;
+        toolStripTextBox1.Clear();
+
+        labelFiltroGenero.Text = filtroGenero + todosElementos;
+        labelFiltroClassificacao.Text = filtroClassificacao + todosElementos;
+        labelFiltroDisponivel.Text = filtroDisponivelLabel + todosElementos;
+        labelFiltroNota.Text = filtroNota + nenhumElemento;
+
         dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
     }
 
@@ -117,12 +124,15 @@ public partial class FormListaFilme : Form
 
     private void AdicionarFiltroClassificacao()
     {
-        if (classificacaoComboBox.SelectedItem != "Todos") 
+        if (classificacaoComboBox.SelectedItem != todosElementos) 
         {
             var enumeradores = new TodosEnumeradores();
             var classificacoes = enumeradores.ObterTodos<ClassificacaoIndicativa>();
-            var classificacao = classificacoes.Where(g => g.Descricao == classificacaoComboBox.SelectedItem.ToString()).FirstOrDefault();
-            filtro.FiltroClassificacao = ExtensaoDosEnuns.ConverterParaClassificacaoEnum(classificacao);
+            var classificacao = classificacoes
+                .Where(g => g.Descricao == classificacaoComboBox.SelectedItem.ToString())
+                .FirstOrDefault();
+
+            filtro.FiltroClassificacao = ExtensaoDosEnuns.ConverterParaClassificacaoEnum(classificacao!);
         }
         else
         {
@@ -132,12 +142,15 @@ public partial class FormListaFilme : Form
 
     private void AdicionarFiltroGenero()
     {
-        if (generoComboBox.SelectedItem != "Todos")
+        if (generoComboBox.SelectedItem != todosElementos)
         {
             var enumeradores = new TodosEnumeradores();
             var generos = enumeradores.ObterTodos<GeneroEnum>();
-            var genero = generos.Where(g => g.Descricao == generoComboBox.SelectedItem.ToString()).FirstOrDefault();
-            filtro.FiltroGenero = ExtensaoDosEnuns.ConverterParaGeneroEnum(genero);
+            var genero = generos
+                .Where(g => g.Descricao == generoComboBox.SelectedItem.ToString())
+                .FirstOrDefault();
+
+            filtro.FiltroGenero = ExtensaoDosEnuns.ConverterParaGeneroEnum(genero!);
         }
         else
         {
@@ -147,15 +160,17 @@ public partial class FormListaFilme : Form
 
     private void AtualizarBarraDeFiltros()
     {
-        labelFiltroGenero.Text = "Gênero: " + generoComboBox.SelectedItem.ToString();
-        labelFiltroClassificacao.Text = "Classificação: " + classificacaoComboBox.SelectedItem.ToString();
-        labelFiltroDisponivel.Text = "Disponível: " + DisponivelComboBox.SelectedItem.ToString();
-        labelFiltroNota.Text = toolStripTextBox1.Text.IsNullOrEmpty() ? "Nota Mínima: Nenhuma" : "Nota Mínima: " + toolStripTextBox1.Text;
+        labelFiltroGenero.Text = filtroGenero + generoComboBox.SelectedItem.ToString();
+        labelFiltroClassificacao.Text = filtroClassificacao + classificacaoComboBox.SelectedItem.ToString();
+        labelFiltroDisponivel.Text = filtroDisponivelLabel + DisponivelComboBox.SelectedItem.ToString();
+        labelFiltroNota.Text = toolStripTextBox1.Text.IsNullOrEmpty() 
+            ? filtroNota + nenhumElemento 
+            : filtroNota + toolStripTextBox1.Text;
     }
 
     private void AdicionarFiltroDisponivel()
     {
-        if (DisponivelComboBox.SelectedItem.ToString() == "Todos")
+        if (DisponivelComboBox.SelectedItem.ToString() == todosElementos)
         {
             filtroDisponivelTodos = true;
         }
@@ -163,11 +178,11 @@ public partial class FormListaFilme : Form
         {
             switch (DisponivelComboBox.SelectedItem)
             {
-                case "Sim":
+                case disponivel:
                     filtroDisponivel = true;
                     filtroDisponivelTodos = false;
                     break;
-                case "Não":
+                case indisponivel:
                     filtroDisponivel = false;
                     filtroDisponivelTodos = false;
                     break;
@@ -177,7 +192,8 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoSair(object sender, EventArgs e)
     {
-        DialogResult resultado = MessageBox.Show("Deseja Realmente sair?", "Sair", MessageBoxButtons.YesNo);
+        var mensagemDeConfirmacao = "Deseja Realmente sair?";
+        DialogResult resultado = MessageBox.Show(mensagemDeConfirmacao, "Sair", MessageBoxButtons.YesNo);
 
         if (resultado == DialogResult.Yes)
         {
@@ -211,10 +227,13 @@ public partial class FormListaFilme : Form
 
     private void AoClicarBotaoRemover(object sender, EventArgs e)
     {
+        
         var quantidadeDeLinhasSelecionadas = dataGridView1.SelectedRows.Count;
+        var mensagemDeErro = "Selecione pelo menos uma linha para ser removida!";
+
         if (quantidadeDeLinhasSelecionadas == default)
         {
-            MessageBox.Show("Selecione pelo menos uma linha para ser removida!");
+            MessageBox.Show(mensagemDeErro);
         }
         else
         {
@@ -229,7 +248,10 @@ public partial class FormListaFilme : Form
                 filmesRemover.AppendLine(filme.Titulo);
             }
 
-            DialogResult resultado = MessageBox.Show($"Deseja Realmente remover o(os) filme(s) a seguir da lista de filmes?\n\n {filmesRemover}", "Remover", MessageBoxButtons.YesNo);
+            var mensagemDeConfirmacao = $"Deseja Realmente remover o(os) filme(s) a seguir da lista de filmes?\n\n {filmesRemover}";
+            var mensagemDeFilmesRemovidos = "Filmes Removidos com sucesso!";
+
+            DialogResult resultado = MessageBox.Show(mensagemDeConfirmacao , "Remover", MessageBoxButtons.YesNo);
 
             if (resultado == DialogResult.Yes)
             {
@@ -237,7 +259,8 @@ public partial class FormListaFilme : Form
                 {
                     service.Remover(filme.Id);
                 }
-                MessageBox.Show("Filmes Removidos com sucesso!");
+                
+                MessageBox.Show(mensagemDeFilmesRemovidos);
                 IniciarListaDeFimes();
                 dataGridView1.DataSource = ServicoFilmeData.ConverteFilmeParaData(listaDeFilmes);
             }
@@ -251,11 +274,11 @@ public partial class FormListaFilme : Form
 
         if (quantidadeDeLinhasSelecionadas != numeroDeLinhasNecessario)
         {
-            var mensagem = quantidadeDeLinhasSelecionadas > numeroDeLinhasNecessario
+            var mensagemDeErro = quantidadeDeLinhasSelecionadas > numeroDeLinhasNecessario
                 ? "Selecione apenas uma linha para ser editada!"
                 : "Selecione uma linha para ser editada!";
 
-            MessageBox.Show(mensagem);
+            MessageBox.Show(mensagemDeErro);
         }
         else
         {

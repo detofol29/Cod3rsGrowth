@@ -357,7 +357,7 @@ namespace Cod3rsGrowth.Forms
             labelFiltroGenero.Name = "labelFiltroGenero";
             labelFiltroGenero.Size = new Size(88, 15);
             labelFiltroGenero.TabIndex = 6;
-            labelFiltroGenero.Text = "Gênero :  Todos";
+            labelFiltroGenero.Text = "Gênero : ";
             // 
             // labelFiltroClassificacao
             // 
