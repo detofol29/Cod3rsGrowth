@@ -1,7 +1,5 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Dominio.Extensoes;
-using System.IO;
-using System.Windows.Forms;
+﻿using Cod3rsGrowth.Dominio.Extensoes;
+using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -29,8 +27,13 @@ namespace Cod3rsGrowth.Forms
                 Duracao = filme.Duracao,
                 Diretor = filme.Diretor,
 
-                DisponivelNoPlano = filme.DisponivelNoPlano ? "Disponível" : "Não Disponível",
-                EmCartaz = filme.EmCartaz ? "Sim" : "Não",
+                DisponivelNoPlano = filme.DisponivelNoPlano 
+                ? "Disponível" 
+                : "Não Disponível",
+
+                EmCartaz = filme.EmCartaz 
+                ? "Sim" 
+                : "Não",
 
                 Genero = ExtensaoDosEnuns.ObterDescricao(filme.Genero),
                 Classificacao = ExtensaoDosEnuns.ObterDescricao(filme.Classificacao)

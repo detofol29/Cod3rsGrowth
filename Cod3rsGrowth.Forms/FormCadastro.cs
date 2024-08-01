@@ -5,6 +5,7 @@ using Cod3rsGrowth.Servicos.Servicos;
 using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -14,6 +15,21 @@ namespace Cod3rsGrowth.Forms
         private FilmeServicos filmeService;
         private UsuarioRepositorio repositorio;
         private Thread threadFormsAutenticacao;
+
+        private const char caracterSenha = '*';
+
+        private const string informacaoPlanos = "******************** PLANOS DA PLATAFORMA ********************\n" +
+                "\n --> PLANO FREE: Neste plano só estarão disponíveis os filmes selecionados semanalmente pela equipe da plataforma.\n" +
+                "\n --> PLANO KIDS: Neste plano está disponível todos os filmes contendo a classificação indicativa 'Livre'.\n" +
+                "\n --> PLANO NERD: Neste plano está disponível todos os filmes de gênero Ficção e Fantasia.\n" +
+                "\n --> PLANO PREMIUM: Neste plano estão disponíveis todos os filmes da plataforma!";
+
+        private const string informacaoSenha = "O campo 'senha' deve ter no mínimo 6 digitos!\n" +
+                "\nO campo 'senha' deve conter pelo menos uma letra maiúscula!\n" +
+                "\nO campo 'senha' deve conter pelo menos uma letra minuscula!\n" +
+                "\nO campo 'senha' deve conter pelo menos um número!\n";
+
+
         public FormCadastro(UsuarioServicos _servicos, FilmeServicos _filmeServicos, UsuarioRepositorio _repositorio)
         {
             filmeService = _filmeServicos;
@@ -34,15 +50,23 @@ namespace Cod3rsGrowth.Forms
 
                 if (senha != confirmaSenha)
                 {
-                    throw new Exception("As senhas não são iguais!");
+                    var mensagemCampoConfirmarSenhaInvalido = "As senhas não são iguais!";
+                    throw new Exception(mensagemCampoConfirmarSenhaInvalido);
                 }
 
-                var usuarioCadastrar = new Usuario() { Nome = nome, NickName = nick, Senha = senha, Plano = (PlanoEnum)plano };
+                var usuarioCadastrar = new Usuario() 
+                {
+                    Nome = nome,
+                    NickName = nick,
+                    Senha = senha,
+                    Plano = (PlanoEnum)plano
+                };
                 var resultado = service.CriarUsuario(usuarioCadastrar);
 
                 if (resultado.IsValid)
                 {
-                    MessageBox.Show("Usuário criado com sucesso!");
+                    var mensagemDeExito = "Usuário criado com sucesso!";
+                    MessageBox.Show(mensagemDeExito);
                     this.Close();
                     threadFormsAutenticacao = new Thread(AbrirJanelaLogin);
                     threadFormsAutenticacao.SetApartmentState(ApartmentState.STA);
@@ -50,16 +74,19 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    var listaDeErros = "\n";
+                    var listaDeErros = new StringBuilder();
                     foreach (var excecao in resultado.Errors)
                     {
-                        listaDeErros = listaDeErros + excecao + "\n ";
+                        listaDeErros.AppendLine(excecao.ErrorMessage);
                     }
+                    
                     if (campoConfirmaSenha.Text.IsNullOrEmpty())
                     {
-                        listaDeErros = listaDeErros + "O campo 'Confirmar Senha' não pode estar vazio!";
+                        var mensagemCampoConfirmarSenhaVazio = "O campo 'Confirmar Senha' não pode estar vazio!";
+                        listaDeErros.AppendLine(mensagemCampoConfirmarSenhaVazio);
                     }
-                    throw new Exception(listaDeErros);
+
+                    throw new Exception(listaDeErros.ToString());
                 }
             }
             catch (Exception ex)
@@ -90,19 +117,12 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarBotaoInfoPlano(object sender, EventArgs e)
         {
-            MessageBox.Show("******************** PLANOS DA PLATAFORMA ********************\n" +
-                "\n --> PLANO FREE: Neste plano só estarão disponíveis os filmes selecionados semanalmente pela equipe da plataforma.\n" +
-                "\n --> PLANO KIDS: Neste plano está disponível todos os filmes contendo a classificação indicativa 'Livre'.\n" +
-                "\n --> PLANO NERD: Neste plano está disponível todos os filmes de gênero Ficção e Fantasia.\n" +
-                "\n --> PLANO PREMIUM: Neste plano estão disponíveis todos os filmes da plataforma!");
+            MessageBox.Show(informacaoPlanos);
         }
 
         private void AoClicarBotaoVerificarSenha(object sender, EventArgs e)
         {
-            MessageBox.Show("O campo 'senha' deve ter no mínimo 6 digitos!\n" +
-                "\nO campo 'senha' deve conter pelo menos uma letra maiúscula!\n" +
-                "\nO campo 'senha' deve conter pelo menos uma letra minuscula!\n" +
-                "\nO campo 'senha' deve conter pelo menos um número!\n");
+            MessageBox.Show(informacaoSenha);
         }
 
         private void AoClicarBotaoLogar(object sender, EventArgs e)
@@ -115,17 +135,20 @@ namespace Cod3rsGrowth.Forms
 
         public void AoPerderFocoDoNickName(object sender, EventArgs e)
         {
+            var mensagemIndisponivel = "Indisponível*";
+            var mensagemCampoObrigatorio = "Campo obrigatório*";
+
             var resultado = AoClicarBotaoVerificarNickName();
             switch (resultado)
             {
-                case "Esse NickName já está em uso!":
+                case "Indisponível*":
                     campoNickName.ForeColor = Color.Red;
-                    labelDisponivel.Text = "Indisponível*";
+                    labelDisponivel.Text = mensagemIndisponivel;
                     break;
 
                 case "O campo 'NickName' não pode estar vazio!":
                     campoNickName.ForeColor = Color.Red;
-                    labelDisponivel.Text = "Campo obrigatório*";
+                    labelDisponivel.Text = mensagemCampoObrigatorio;
                     break;
 
                 default:
@@ -137,12 +160,16 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAlteraVisibilidadeDaSenha(object sender, EventArgs e)
         {
-            campoSenha.PasswordChar = campoSenha.PasswordChar == '*' ? default : '*';
+            campoSenha.PasswordChar = campoSenha.PasswordChar == caracterSenha 
+                ? default 
+                : caracterSenha;
         }
 
         private void AoClicarAlteraVisibilidadeDeSenhaConfirmar(object sender, EventArgs e)
         {
-            campoConfirmaSenha.PasswordChar = campoConfirmaSenha.PasswordChar == '*' ? default : '*';
+            campoConfirmaSenha.PasswordChar = campoConfirmaSenha.PasswordChar == caracterSenha
+                ? default 
+                : caracterSenha;
         }
     }
 }

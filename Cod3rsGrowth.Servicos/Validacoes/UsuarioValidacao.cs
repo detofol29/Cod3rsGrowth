@@ -15,7 +15,7 @@ public class UsuarioValidacao : AbstractValidator<Usuario>
             .Must(nome => nome is string)
             .WithMessage("O campo 'Nome' deve ser uma cadeia de caracteres válidas!")
             .Matches(@"^[a-zA-ZÀ-ÿ\s]*$")
-            .WithMessage("O campo 'Nome' não deve conter apenas letras!");
+            .WithMessage("O campo 'Nome' deve conter apenas letras!");
 
         RuleFor(n => n.NickName)
             .Cascade(CascadeMode.Stop)

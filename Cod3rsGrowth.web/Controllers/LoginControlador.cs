@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.Repositorios;
-using Cod3rsGrowth.Infra.Servicos;
+using Cod3rsGrowth.Servicos.ServicosToken;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.web.Controllers;

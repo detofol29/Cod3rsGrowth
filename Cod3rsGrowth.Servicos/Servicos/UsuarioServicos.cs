@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Infra.Servicos;
+using Cod3rsGrowth.Servicos.ServicosToken;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Identity.Client;
@@ -75,11 +75,16 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
         try
         {
-            var usuarioVerificar = ObterTodos(new FiltroUsuario() { FiltroNome = usuario.NickName })?.FirstOrDefault();
+            var usuarioVerificar = ObterTodos(new FiltroUsuario() 
+            {
+                FiltroNome = usuario.NickName 
+            })?
+            .FirstOrDefault();
 
             if (usuarioVerificar is not null)
             {
-                throw new Exception("Esse NickName ja esta em uso!");
+                var mensagemNickNameEmUso = "Esse NickName já está em uso!";
+                throw new Exception(mensagemNickNameEmUso);
             }
 
             usuario.IdUsuario = GerarId();
@@ -126,18 +131,26 @@ public class UsuarioServicos : IUsuarioRepositorio
         {
             ListaIds.Add(usuario.IdUsuario);
         }
-        if (ListaIds.Count() == indiceVazio) { return idInicial; }
+
+        if (ListaIds.Count() == indiceVazio) 
+        { 
+            return idInicial;
+        }
+
         ListaIds.Sort();
         var indiceUltimo = ListaIds.Count() - idInicial;
         var idFinal = ListaIds[indiceUltimo] + idInicial;
         return idFinal;
     }
 
-    public Usuario AutenticarUsuario(Usuario usuario)
+    public Usuario? AutenticarUsuario(Usuario usuario)
     {
         var caminhoDoArquivo = TokenServico.retorna();
+        var mensagemUsuarioNaoEncontrado = "Usuario não encontrado!";
 
-        var usuarioExistente = ObterTodos(null).FirstOrDefault(u => u.NickName == usuario.NickName) ?? throw new Exception("Usuario não encontrado!");
+        var usuarioExistente = ObterTodos(null)
+            .FirstOrDefault(u => u.NickName == usuario.NickName) 
+            ?? throw new Exception(mensagemUsuarioNaoEncontrado);
 
         var comparacaoSenha = HashServico.Comparar(usuarioExistente.Senha, usuario.Senha);
         if (comparacaoSenha is true)
@@ -146,7 +159,10 @@ public class UsuarioServicos : IUsuarioRepositorio
             foreach (var line in lines)
             {
                 var validacao = TokenServico.VerificarValidadeToken(line, usuarioExistente);
-                if (validacao == true) { return usuarioExistente; }
+                if (validacao) 
+                { 
+                    return usuarioExistente;
+                }
             }
             
             var token = TokenServico.GerarToken(usuarioExistente);
@@ -166,6 +182,9 @@ public class UsuarioServicos : IUsuarioRepositorio
     {
         try
         {
+            var mensagemNickEmUso = "Indisponível*";
+            var mensagemNickValido = "Nickname valido!";
+
             var usuario = new Usuario()
             {
                 Nome = "Usuario Teste",
@@ -173,15 +192,20 @@ public class UsuarioServicos : IUsuarioRepositorio
                 Senha = "Abc12345",
                 Plano = PlanoEnum.Free
             };
-            var usuarioBuscar = ObterTodos(new FiltroUsuario() { FiltroNome = nick })?.FirstOrDefault();
+
+            var usuarioBuscar = ObterTodos(new FiltroUsuario()
+            { 
+                FiltroNome = nick
+            })?
+            .FirstOrDefault();
 
             if (usuarioBuscar is not null)
             {
-                return "Esse NickName já está em uso!";
+                return mensagemNickEmUso;
             }
 
             _validator.ValidateAndThrow(usuario);
-            return "Nickname valido!";
+            return mensagemNickValido;
         }
         catch (ValidationException ex)
         {

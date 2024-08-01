@@ -86,28 +86,22 @@ public class TesteFilmeServico : TesteBase
     }
 
     [Fact]
-    public void ao_ObterPorId_retorna_filme_com_id_igual_ao_esperado()
+     public void ao_ObterPorId_retorna_filme_com_id_igual_ao_esperado()
     {
-        const int idFilmeEsperado = 3;
 
-        _servicos.CriarFilme(new Filme { Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
-        _servicos.CriarFilme(new Filme { Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze });
-        _servicos.CriarFilme(new Filme { Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre });
-        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: A Sociedade do Anel", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: As Duas Torres", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme { Titulo = "O Senhor dos Anéis: O Retorno do Rei", Genero = GeneroEnum.Fantasia, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme { Titulo = "Matrix", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.dezesseis });
-        _servicos.CriarFilme(new Filme { Titulo = "Gladiador", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezesseis });
-        _servicos.CriarFilme(new Filme { Titulo = "O Poderoso Chefão", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.dezoito });
-        _servicos.CriarFilme(new Filme { Titulo = "Forrest Gump", Genero = GeneroEnum.Drama, Classificacao = ClassificacaoIndicativa.quatorze });
-        _servicos.CriarFilme(new Filme { Titulo = "Pulp Fiction", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.dezoito });
-        _servicos.CriarFilme(new Filme { Titulo = "O Cavaleiro das Trevas", Genero = GeneroEnum.Acao, Classificacao = ClassificacaoIndicativa.quatorze });
-        var filmeEsperado = ObterFilmeEsperado();
+        var filmeGenerico1 = new Filme() { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
+        var filmeGenerico2 = new Filme() { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze };
+        var filmeASerObtido = new Filme() { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
+
+        _servicos.Inserir(filmeGenerico1);
+        _servicos.Inserir(filmeGenerico2);
+        _servicos.Inserir(filmeASerObtido);
+
+        var idFilmeEsperado = filmeASerObtido.Id;
 
         var filmeEncontrado = _servicos.ObterPorId(idFilmeEsperado);
 
-        Assert.NotNull(filmeEncontrado);
-        Assert.Equivalent(filmeEsperado, filmeEncontrado);
+        Assert.Equivalent(filmeASerObtido, filmeEncontrado);
     }
 
     [Fact]
@@ -126,13 +120,13 @@ public class TesteFilmeServico : TesteBase
     [Fact]
     public void ao_criar_filme_com_titulo_vazio_retorna_mensagem_de_erro()
     {
-        const string resultadoEsperado = "O campo 'Titulo' não pode estar vazio!";
+        const string resultadoEsperado = "O campo 'Título' não pode estar vazio!";
         Filme filme = new()
         {
             Titulo = "",
         };
 
-        ValidationResult resultado = _servicos.CriarFilme(filme);
+        var resultado = _servicos.CriarFilme(filme);
         var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Titulo")?.ErrorMessage;
 
         Assert.Equal(resultadoEsperado, mensagemErro);
@@ -159,24 +153,31 @@ public class TesteFilmeServico : TesteBase
     [Fact]
     public void ao_editar_filme_retorna_o_filme_editado_com_o_mesmo_id_do_filme_substituido()
     {
+        var idBase = 1;
         Filme filmeBase = new Filme()
         {
-            Titulo = "A revolta de Zuck"
+            Titulo = "A revolta de Zuck",
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            Id = idBase,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
 
 
-        _servicos.CriarFilme(filmeBase);
-        var idBase = filmeBase.Id;
+        _servicos.Inserir(filmeBase);
         Filme filmeEditado = new Filme()
         {
             Titulo = "A vingança de Zuck",
-            Id = idBase
+            Id = idBase,
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
 
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
 
-        Assert.Equivalent(filmeBase, filmeRecuperado);
+        Assert.Equivalent(filmeEditado, filmeRecuperado);
         Assert.Equal(idBase, filmeRecuperado.Id);
     }
 
@@ -185,16 +186,22 @@ public class TesteFilmeServico : TesteBase
     {
         Filme filmeBase = new Filme()
         {
-            Titulo = "A revolta de Zuck"
+            Titulo = "A revolta de Zuck",
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
 
 
-        _servicos.CriarFilme(filmeBase);
+        _servicos.Inserir(filmeBase);
         var idBase = filmeBase.Id;
         Filme filmeEditado = new Filme()
         {
             Titulo = "A vingança de Zuck",
-            Id = idBase
+            Id = idBase,
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
@@ -210,7 +217,10 @@ public class TesteFilmeServico : TesteBase
         Filme filmeBase = new Filme()
         {
             Titulo = "A revolta de Zuck",
-            Nota = notaInicial
+            Nota = notaInicial,
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
 
 
@@ -220,7 +230,10 @@ public class TesteFilmeServico : TesteBase
         {
             Titulo = "A revolta de Zuck",
             Nota = notaFinal,
-            Id = idBase
+            Id = idBase,
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
@@ -233,16 +246,22 @@ public class TesteFilmeServico : TesteBase
     [Fact]
     public void ao_editar_filme_passando_filme_sem_titulo_retorna_mensagem_de_erro()
     {
-        const string mensagemEsperada = "O campo 'Titulo' não pode estar vazio!";
+        const string mensagemEsperada = "O campo 'Título' não pode estar vazio!\r\n";
 
         Filme filmeBase = new()
         {
-            Titulo = "A revolta de Zuck"
+            Titulo = "A revolta de Zuck",
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
 
         Filme filmeEditado = new()
         {
-            Titulo = ""
+            Titulo = "",
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
+            DataDeLancamento = new DateTime(2020, 02, 22, 00, 00, 00)
         };
 
         _servicos.CriarFilme(filmeBase);
@@ -255,19 +274,23 @@ public class TesteFilmeServico : TesteBase
     public void ao_editar_filme_passando_filme_com_data_de_lancamento_superior_a_atual_retorna_mensagem_de_erro()
     {
         const int acrescimo = 1;
-        const string mensagemEsperada = "O campo 'data de lançamento' não pode ser superior a data atual";
+        const string mensagemEsperada = "O campo 'data de lançamento' não pode ser superior a data atual\r\n";
         var dataOriginal = new DateTime(2020, 02, 22, 00, 00, 00);
         var dataFutura = DateTime.Now.AddDays(acrescimo);
 
         Filme filmeBase = new()
         {
             Titulo = "A revolta de Zuck",
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
             DataDeLancamento = dataOriginal
         };
 
         Filme filmeEditado = new()
         {
             Titulo = "A revolta de Zuck",
+            Diretor = "O Testador do futuro",
+            Duracao = 120,
             DataDeLancamento = dataFutura
         };
 

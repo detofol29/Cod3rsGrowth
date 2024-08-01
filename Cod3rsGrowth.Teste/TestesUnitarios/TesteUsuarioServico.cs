@@ -238,7 +238,7 @@ public class TesteUsuarioServico : TesteBase
     public void ao_criar_usuario_com_nome_contendo_numero_retorna_mensagem_de_erro()
     {
         const int id = 3;
-        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
+        const string mensagemEsperada = "O campo 'Nome' deve conter apenas letras!";
         const string nomeComNumero = "Roberto7";
 
         Usuario usuario = new()
@@ -309,7 +309,7 @@ public class TesteUsuarioServico : TesteBase
     [Fact]
     public void ao_editar_usuario_com_nome_contendo_numeros_retorna_mensagem_de_erro()
     {
-        const string mensagemEsperada = "O campo 'Nome' não deve conter números!";
+        const string mensagemEsperada = "O campo 'Nome' deve conter apenas letras!";
 
         Usuario usuarioBase = new()
         {
