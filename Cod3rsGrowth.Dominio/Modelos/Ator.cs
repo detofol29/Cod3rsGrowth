@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace Cod3rsGrowth.Dominio.Modelos;
-using LinqToDB.Mapping;
+﻿using LinqToDB.Mapping;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace Cod3rsGrowth.Dominio.Modelos;
 
 [Table("Atores")]
 public class Ator

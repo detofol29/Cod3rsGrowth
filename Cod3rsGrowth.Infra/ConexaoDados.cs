@@ -6,10 +6,10 @@ namespace Cod3rsGrowth.Infra;
 
 public class ConexaoDados : DataConnection
 {
-    public ConexaoDados() : base("StreamingFilmesBD") { }
+    public ConexaoDados(DataOptions<ConexaoDados> options) : base(options.Options) { }
 
     public ITable<Filme> TabelaFilme => this.GetTable<Filme>();
     public ITable<Ator> TabelaAtor => this.GetTable<Ator>();
     public ITable<Usuario> TabelaUsuario => this.GetTable<Usuario>();
-    public ITable<FilmeDoUsuario> TabelaFilmeDoUsuario => this.GetTable<FilmeDoUsuario>();
+    public ITable<FilmeDoUsuario> FilmesDoUsuario => this.GetTable<FilmeDoUsuario>();
 }

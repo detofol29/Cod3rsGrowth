@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GenericObjectDataSource DisplayName="Filme" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+  <TypeInfo>Cod3rsGrowth.Dominio.Modelos.Filme, Cod3rsGrowth.Dominio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+</GenericObjectDataSource>
