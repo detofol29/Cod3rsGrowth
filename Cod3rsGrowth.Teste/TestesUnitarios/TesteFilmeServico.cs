@@ -89,19 +89,19 @@ public class TesteFilmeServico : TesteBase
      public void ao_ObterPorId_retorna_filme_com_id_igual_ao_esperado()
     {
 
-        var filme1 = new Filme() { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
-        var filme2 = new Filme() { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze };
-        var filme3 = new Filme() { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
+        var filmeGenerico1 = new Filme() { Id = 1, Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
+        var filmeGenerico2 = new Filme() { Id = 2, Titulo = "Titanic", Genero = GeneroEnum.Romance, Classificacao = ClassificacaoIndicativa.doze };
+        var filmeASerObtido = new Filme() { Id = 3, Titulo = "Star Wars", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre };
 
-        _servicos.Inserir(filme1);
-        _servicos.Inserir(filme2);
-        _servicos.Inserir(filme3);
+        _servicos.Inserir(filmeGenerico1);
+        _servicos.Inserir(filmeGenerico2);
+        _servicos.Inserir(filmeASerObtido);
 
-        var idFilmeEsperado = filme3.Id;
+        var idFilmeEsperado = filmeASerObtido.Id;
 
         var filmeEncontrado = _servicos.ObterPorId(idFilmeEsperado);
 
-        Assert.Equivalent(filme3, filmeEncontrado);
+        Assert.Equivalent(filmeASerObtido, filmeEncontrado);
     }
 
     [Fact]
