@@ -8,7 +8,6 @@ public class Usuario
     public string Nome { get; set; }
     [PrimaryKey, Identity]
     public int IdUsuario { get; set; }
-    [Association(ThisKey = "IdUsuario", OtherKey = "IdUsuario")]
     public List<Filme>? FilmesDoUsuario { get; set; }
     [Column("Plano")]
     public PlanoEnum Plano { get; set; }
@@ -16,4 +15,5 @@ public class Usuario
     public string Senha {  get; set; }
     [Column("NickName"), NotNull]
     public string NickName { get; set; }
+    public string Hash { get; set; }
 }

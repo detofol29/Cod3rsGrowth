@@ -1,12 +1,12 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
 using FluentValidation.Results;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
+using System.Text;
+using System.Threading.Tasks.Dataflow;
 using ValidationException = FluentValidation.ValidationException;
 using ValidationResult = FluentValidation.Results.ValidationResult;
-using Cod3rsGrowth.Dominio.Filtros;
 
 namespace Cod3rsGrowth.Servicos.Servicos;
 
@@ -69,6 +69,16 @@ public class FilmeServicos : IFilmeRepositorio
     {
         try
         {
+            var filmeVerificar = ObterTodos(null)
+                .Where(f => f.Titulo == filme.Titulo)
+                .Select(f => f)
+                .FirstOrDefault();
+
+            if (filmeVerificar is not null)
+            {
+                throw new Exception("Esse Filme ja existe!");
+            }
+
             filme.Id = GerarId();
             _validator.ValidateAndThrow(filme);
             Inserir(filme);
@@ -77,6 +87,14 @@ public class FilmeServicos : IFilmeRepositorio
         catch (ValidationException ex)
         {
             return new ValidationResult(ex.Errors);
+        }
+        catch (Exception ex)
+        {
+            var failures = new List<ValidationFailure>
+            {
+                new ValidationFailure("Exception", ex.Message)
+            };
+            return new ValidationResult(failures);
         }
     }
 
@@ -89,7 +107,12 @@ public class FilmeServicos : IFilmeRepositorio
         }
         else
         {
-            throw new Exception(validacao.Errors.FirstOrDefault().ToString());
+            var erros = new StringBuilder();
+            foreach (var erro in validacao.Errors)
+            {
+                erros.AppendLine(erro.ErrorMessage);
+            }
+            throw new Exception(erros.ToString());
         }
     }
 

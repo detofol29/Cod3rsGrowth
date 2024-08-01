@@ -1,6 +1,4 @@
-﻿using FluentMigrator.Runner.VersionTableInfo;
-using LinqToDB.Mapping;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using LinqToDB.Mapping;
 using ColumnAttribute = LinqToDB.Mapping.ColumnAttribute;
 using TableAttribute = LinqToDB.Mapping.TableAttribute;
 

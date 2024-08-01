@@ -2,13 +2,17 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using LinqToDB;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Cod3rsGrowth.Infra.Repositorios;
 
 public class AtorRepositorio : IAtorRepositorio
 {
-    ConexaoDados atorContexto = new();
+    private readonly ConexaoDados atorContexto;
+    public AtorRepositorio(ConexaoDados _conexao)
+    {
+        atorContexto = _conexao;
+    }
+    
     public Ator ObterPorId(int id)
     {
         return atorContexto.GetTable<Ator>().FirstOrDefault(p => p.Id == id) ?? throw new Exception("Ator não encontrado");
@@ -16,18 +20,15 @@ public class AtorRepositorio : IAtorRepositorio
 
     public List<Ator> ObterTodos(FiltroAtor? filtroAtor)
     {
-        using (var AtorContexto = new ConexaoDados())
-        {
-            IQueryable<Ator> query = from a in AtorContexto.TabelaAtor select a;
+        IQueryable<Ator> query = from a in atorContexto.TabelaAtor select a;
 
-            if (filtroAtor?.FiltroIdFilme != null)
-            {
-                query = from a in query
-                        where a.IdFilme == filtroAtor.FiltroIdFilme
-                        select a;
-            }
-            return query.ToList();
+        if (filtroAtor?.FiltroIdFilme != null)
+        {
+            query = from a in query
+                    where a.IdFilme == filtroAtor.FiltroIdFilme
+                    select a;
         }
+        return query.ToList();
     }
 
     public void Inserir(Ator ator)
@@ -39,7 +40,7 @@ public class AtorRepositorio : IAtorRepositorio
     {
         var ator = ObterPorId(id);
         atorContexto.Delete(ator);
-     }
+    }
 
     public void Editar(Ator ator)
     {
