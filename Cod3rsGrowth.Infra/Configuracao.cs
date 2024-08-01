@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Servicos;
 
 namespace Cod3rsGrowth.Infra;
 
 public class Configuracao
 {
-    public static string Secret = "fedt3j03jdkf5l39fnnfvco3jdisom58ndk9shekjd8djdm";
+    public static string Secret = ConfiguracaoServico.Secret;
 }

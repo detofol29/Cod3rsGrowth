@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Infra.Servicos;
+using Cod3rsGrowth.Servicos.ServicosToken;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Identity.Client;
@@ -83,7 +83,8 @@ public class UsuarioServicos : IUsuarioRepositorio
 
             if (usuarioVerificar is not null)
             {
-                throw new Exception("Esse NickName ja esta em uso!");
+                var mensagemNickNameEmUso = "Esse NickName já está em uso!";
+                throw new Exception(mensagemNickNameEmUso);
             }
 
             usuario.IdUsuario = GerarId();
@@ -145,10 +146,11 @@ public class UsuarioServicos : IUsuarioRepositorio
     public Usuario? AutenticarUsuario(Usuario usuario)
     {
         var caminhoDoArquivo = TokenServico.retorna();
+        var mensagemUsuarioNaoEncontrado = "Usuario não encontrado!";
 
         var usuarioExistente = ObterTodos(null)
             .FirstOrDefault(u => u.NickName == usuario.NickName) 
-            ?? throw new Exception("Usuario não encontrado!");
+            ?? throw new Exception(mensagemUsuarioNaoEncontrado);
 
         var comparacaoSenha = HashServico.Comparar(usuarioExistente.Senha, usuario.Senha);
         if (comparacaoSenha is true)
@@ -190,7 +192,12 @@ public class UsuarioServicos : IUsuarioRepositorio
                 Senha = "Abc12345",
                 Plano = PlanoEnum.Free
             };
-            var usuarioBuscar = ObterTodos(new FiltroUsuario(){ FiltroNome = nick })?.FirstOrDefault();
+
+            var usuarioBuscar = ObterTodos(new FiltroUsuario()
+            { 
+                FiltroNome = nick
+            })?
+            .FirstOrDefault();
 
             if (usuarioBuscar is not null)
             {

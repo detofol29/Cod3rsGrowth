@@ -5,14 +5,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Cod3rsGrowth.Infra.Servicos;
+namespace Cod3rsGrowth.Servicos.ServicosToken;
 
 public static class TokenServico
 {
     public static string GerarToken(Usuario usuario)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
+        var key = Encoding.ASCII.GetBytes(ConfiguracaoServico.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Expires = DateTime.UtcNow.AddHours(2),
@@ -32,14 +32,14 @@ public static class TokenServico
     {
         string caminhoBase = AppDomain.CurrentDomain.BaseDirectory;
         string diretorioProjeto = Path.GetFullPath(Path.Combine(caminhoBase, @"..\..\..\..\"));
-        string caminhoArquivo = Path.Combine(diretorioProjeto, @"Cod3rsGrowth.Infra\Servicos\tokens.txt");
+        string caminhoArquivo = Path.Combine(diretorioProjeto, @"Cod3rsGrowth.Servicos\ServicosToken\tokens.txt");
 
         return caminhoArquivo;
     }
 
     public static bool VerificarValidadeToken(string token, Usuario usuario)
     {
-        var chave = Encoding.ASCII.GetBytes(Configuracao.Secret);
+        var chave = Encoding.ASCII.GetBytes(ConfiguracaoServico.Secret);
         var handler = new JwtSecurityTokenHandler();
         var tokenS = handler.ReadToken(token) as JwtSecurityToken;
         var validacoes = new TokenValidationParameters

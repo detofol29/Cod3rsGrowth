@@ -1,5 +1,4 @@
-﻿using Cod3rsGrowth.Infra;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Cod3rsGrowth.Servicos.Servicos
@@ -8,7 +7,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
     {
         public static string GerarSenhaEncriptada(string senhaBasica)
         {
-            HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(Configuracao.Secret));
+            HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(ConfiguracaoServico.Secret));
             var hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(senhaBasica));
 
             var senhaHash = new StringBuilder();
