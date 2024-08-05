@@ -19,12 +19,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Servicos.Validacoes;
 
 namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
-        private static string _chaveDeConexao = ConfigurationManager.ConnectionStrings["StreamingFilmesBD"].ConnectionString;
+        private static string _stringDeConexao = "StreamingFilmesBD";
+
+        private static string _chaveDeConexao = ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString;
         public static void AdquirirServicos(IServiceCollection services)
         {
             var chave = Encoding.ASCII.GetBytes(Configuracao.Secret);
@@ -32,7 +36,8 @@ namespace Cod3rsGrowth.Infra
             services.AddScoped<IAtorRepositorio, AtorRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<UsuarioRepositorio>();
-            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(_chaveDeConexao).UseDefaultLogging(provider));
+            services.AddScoped<FilmeValidacao>();
+            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
