@@ -19,20 +19,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Servicos.Validacoes;
 
 namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
-        private static string _chaveDeConexao = ConfigurationManager.ConnectionStrings["StreamingFilmesBD"].ConnectionString;
+        private static string _stringDeConexao = "StreamingFilmesBD";
+
+        private static string _chaveDeConexao = ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString;
         public static void AdquirirServicos(IServiceCollection services)
         {
             var chave = Encoding.ASCII.GetBytes(Configuracao.Secret);
             services.AddScoped<IFilmeRepositorio, FilmeRepositorio>();
             services.AddScoped<IAtorRepositorio, AtorRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<UsuarioServicos>();
+            services.AddScoped<FilmeServicos>();
+            services.AddScoped<AtorServicos>();
             services.AddScoped<UsuarioRepositorio>();
-            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(_chaveDeConexao).UseDefaultLogging(provider));
+            services.AddScoped<IValidator<Filme>, FilmeValidacao>();
+            services.AddScoped<IValidator<Ator>, AtorValidacao>();
+            services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
+            services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

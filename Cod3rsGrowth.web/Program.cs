@@ -1,8 +1,6 @@
 using Cod3rsGrowth.Infra;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var key = Encoding.ASCII.GetBytes(Configuracao.Secret);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
