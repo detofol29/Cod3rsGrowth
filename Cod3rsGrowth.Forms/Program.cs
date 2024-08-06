@@ -49,7 +49,6 @@ class Program
             services.AddScoped<FilmeServicos>();
             services.AddScoped<AtorServicos>();
             services.AddScoped<UsuarioRepositorio>();
-            services.AddScoped<LoginControlador>();
             services.AddScoped<IValidator<Filme>, FilmeValidacao>();
             services.AddScoped<IValidator<Ator>, AtorValidacao>();
             services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();

@@ -35,8 +35,13 @@ namespace Cod3rsGrowth.Infra
             services.AddScoped<IFilmeRepositorio, FilmeRepositorio>();
             services.AddScoped<IAtorRepositorio, AtorRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<UsuarioServicos>();
+            services.AddScoped<FilmeServicos>();
+            services.AddScoped<AtorServicos>();
             services.AddScoped<UsuarioRepositorio>();
-            services.AddScoped<FilmeValidacao>();
+            services.AddScoped<IValidator<Filme>, FilmeValidacao>();
+            services.AddScoped<IValidator<Ator>, AtorValidacao>();
+            services.AddScoped<IValidator<Usuario>, UsuarioValidacao>();
             services.AddLinqToDBContext<ConexaoDados>((provider, options) => options.UseSqlServer(ConfigurationManager.ConnectionStrings[_stringDeConexao].ConnectionString));
             services.AddAuthentication(x =>
             {
