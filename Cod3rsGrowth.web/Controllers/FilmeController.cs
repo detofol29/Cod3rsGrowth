@@ -22,7 +22,7 @@ namespace Cod3rsGrowth.web.Controllers
             return Created(filme.Id.ToString(), filme);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public NoContentResult Remover([FromRoute] int id)
         {
             servico.Remover(id);
