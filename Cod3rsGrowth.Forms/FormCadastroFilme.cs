@@ -112,24 +112,11 @@ public partial class FormCadastroFilme : Form
                     EmCartaz = false
                 };
 
-                var resultado = service.CriarFilme(filmeCadastrar);
+                service.CriarFilme(filmeCadastrar);
 
-                if (resultado.IsValid)
-                {
-                    var mensagemDeExito = "Filme cadastrado com sucesso!";
-                    MessageBox.Show(mensagemDeExito);
-                    Close();
-                }
-                else
-                {
-                    var listaDeErros = new StringBuilder();
-                    foreach (var excecao in resultado.Errors)
-                    {
-                        listaDeErros.AppendLine(excecao.ErrorMessage);
-                    }
-
-                    throw new Exception(listaDeErros.ToString());
-                }
+                var mensagemDeExito = "Filme cadastrado com sucesso!";
+                MessageBox.Show(mensagemDeExito);
+                Close();
             }
         }
         catch (Exception ex)
