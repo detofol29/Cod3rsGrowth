@@ -52,8 +52,9 @@ namespace Cod3rsGrowth.Web
 
         private static void ConfigurarDetalhesDeErros(ProblemDetails problemDetails, Exception exception)
         {
-            problemDetails.Title = RetornarTipoDeExcessaoDetalhada(exception);
-            problemDetails.Status = StatusCodes.Status500InternalServerError;
+            var excecaoDetalhada = RetornarTipoDeExcessaoDetalhada(exception);
+            problemDetails.Title = excecaoDetalhada.Title;
+            problemDetails.Status = excecaoDetalhada.Status;
             problemDetails.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
             problemDetails.Detail = exception.Message + exception.StackTrace;
         }
@@ -63,27 +64,35 @@ namespace Cod3rsGrowth.Web
             logger.LogError($"Erro: {exception}");
         }
 
-        public static string? RetornarTipoDeExcessaoDetalhada(Exception ex)
+        public static ProblemDetails RetornarTipoDeExcessaoDetalhada(Exception ex)
         {
             var tipoDeExecao = ex.GetType().Name;
-
+            var problemasDetalhes = new ProblemDetails();
             switch (tipoDeExecao)
             {
                 case "ValidationException":
-                    return "Erro de Validação: " + ex.Message;
-
+                    problemasDetalhes.Title = "Erro de Validação: " + ex.Message;
+                    problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    break;
                 case "BadHttpRequestException":
-                    return "Erro de requisicao inválida: " + ex.Message;
-
+                    problemasDetalhes.Title = "Erro de requisicao inválida: " + ex.Message;
+                    problemasDetalhes.Status = StatusCodes.Status400BadRequest;
+                    break;
                 case "SqlException":
-                    return "Erro de banco de dados: " + ex.Message;
-
+                    problemasDetalhes.Title = "Erro de banco de dados: " + ex.Message;
+                    problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    break;
                 case "NullReferenceException":
-                    return "Erro de referência nula: " + ex.Message;
-
+                    problemasDetalhes.Title = "Erro de referência nula: " + ex.Message;
+                    problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    break;
                 default:
-                    return "Erro inesperado: " + ex.Message;
+                    problemasDetalhes.Title = "Erro inesperado: " + ex.Message;
+                    problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    break;
             }
+
+            return problemasDetalhes;
         }
     }
 }
