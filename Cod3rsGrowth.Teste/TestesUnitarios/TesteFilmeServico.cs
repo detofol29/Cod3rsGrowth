@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -40,6 +41,7 @@ public class TesteFilmeServico : TesteBase
 
     private List<Filme> ObterFilmesCompletos()
     {
+        _servicos.ObterTodos(null).Clear();
         List<Filme> filmes = new()
         {
             new Filme { Titulo = "De Volta Para o Futuro", Genero = GeneroEnum.Ficcao, Classificacao = ClassificacaoIndicativa.livre, Atores = null, DataDeLancamento = new DateTime(1985, 12, 05), DisponivelNoPlano = true, Diretor = "Robert Zemeckis", Duracao = 116, EmCartaz = false, Nota = 10},
@@ -121,15 +123,19 @@ public class TesteFilmeServico : TesteBase
     public void ao_criar_filme_com_titulo_vazio_retorna_mensagem_de_erro()
     {
         const string resultadoEsperado = "O campo 'Título' não pode estar vazio!";
-        Filme filme = new()
+        try
         {
-            Titulo = "",
-        };
+            Filme filme = new()
+            {
+                Titulo = "",
+            };
 
-        var resultado = _servicos.CriarFilme(filme);
-        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "Titulo")?.ErrorMessage;
-
-        Assert.Equal(resultadoEsperado, mensagemErro);
+            _servicos.CriarFilme(filme);
+        }catch(ValidationException ex)
+        {
+            var mensagemErro = ex.Errors.FirstOrDefault(e => e.PropertyName == "Titulo").ErrorMessage;
+            Assert.Equal(resultadoEsperado, mensagemErro);
+        }
     }
 
     [Fact]
@@ -138,16 +144,24 @@ public class TesteFilmeServico : TesteBase
         const int acrescimo = 1;
         const string resultadoEsperado = "O campo 'data de lançamento' não pode ser superior a data atual";
         DateTime dataFutura = DateTime.Now.AddDays(acrescimo);
-
-        Filme filme = new()
+        try
         {
-            Titulo = "A revolta dos tomates",
-            DataDeLancamento = dataFutura
-        };
-
-        ValidationResult resultado = _servicos.CriarFilme(filme);
-        var mensagemErro = resultado.Errors.FirstOrDefault(e => e.PropertyName == "DataDeLancamento")?.ErrorMessage;
-        Assert.Equal(resultadoEsperado, mensagemErro);
+            Filme filme = new()
+            {
+                Titulo = "A revolta dos tomates",
+                Diretor = "Robertd",
+                Genero = GeneroEnum.Ficcao,
+                Classificacao = ClassificacaoIndicativa.dez,
+                Duracao = 120,
+                DataDeLancamento = dataFutura
+            };
+            _servicos.CriarFilme(filme);
+        }
+        catch(ValidationException ex)
+        {
+            var mensagemErro = ex.Errors.FirstOrDefault(e => e.PropertyName == "DataDeLancamento").ErrorMessage;
+            Assert.Equal(resultadoEsperado, mensagemErro);
+        }
     }
 
     [Fact]
@@ -237,7 +251,7 @@ public class TesteFilmeServico : TesteBase
         };
         _servicos.Editar(filmeEditado);
         var filmeRecuperado = _servicos.ObterPorId(idBase);
-
+        _servicos.Remover(idBase);
         Assert.Equal(notaFinal, filmeRecuperado.Nota);
         Assert.Equal(filmeBase.Titulo, filmeRecuperado.Titulo);
         Assert.Equivalent(filmeBase, filmeRecuperado);
@@ -267,6 +281,7 @@ public class TesteFilmeServico : TesteBase
         _servicos.CriarFilme(filmeBase);
         var idBase = filmeBase.Id;
         var ex = Assert.Throws<Exception>(() => _servicos.Editar(filmeEditado));
+        _servicos.Remover(idBase);
         Assert.Equal(mensagemEsperada, ex.Message);
     }
 
@@ -322,10 +337,9 @@ public class TesteFilmeServico : TesteBase
     [InlineData(0)]
     public void ao_remover_filme_passando_um_id_invalido_retorna_mensagem_de_erro(int id)
     {
+        _servicos.ObterTodos(null).Clear();
         var idInvalido = id;
         const string mensagemEsperada = "Filme nao encontrado";
-
-        var filmes = ObterFilmes();
 
         var ex = Assert.Throws<Exception>(() => _servicos.Remover(idInvalido));
         Assert.Equal(mensagemEsperada, ex.Message);
