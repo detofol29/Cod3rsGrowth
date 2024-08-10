@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
-using SharpYaml.Serialization;
 
 namespace Cod3rsGrowth.Web
 {
@@ -43,7 +42,7 @@ namespace Cod3rsGrowth.Web
                 Title = "Erro",
                 Status = StatusCodes.Status500InternalServerError,
                 Type = "https://tools.ietf.org/html/rfc7807",
-                Detail = exception.Message + exception.StackTrace
+                Detail = exception.Message
             };
 
             ConfigurarDetalhesDeErros(detalhesDeErro, exception);
@@ -52,11 +51,11 @@ namespace Cod3rsGrowth.Web
 
         private static void ConfigurarDetalhesDeErros(ProblemDetails problemDetails, Exception exception)
         {
-            var excecaoDetalhada = RetornarTipoDeExcessaoDetalhada(exception);
+            var excecaoDetalhada = RetornarTipoDeExcecaoDetalhada(exception);
             problemDetails.Title = excecaoDetalhada.Title;
             problemDetails.Status = excecaoDetalhada.Status;
             problemDetails.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
-            problemDetails.Detail = exception.Message + exception.StackTrace;
+            problemDetails.Detail = exception.Message;
         }
 
         private static void LogException(ILogger logger, Exception exception)
@@ -64,25 +63,25 @@ namespace Cod3rsGrowth.Web
             logger.LogError($"Erro: {exception}");
         }
 
-        public static ProblemDetails RetornarTipoDeExcessaoDetalhada(Exception ex)
+        public static ProblemDetails RetornarTipoDeExcecaoDetalhada(Exception ex)
         {
-            var tipoDeExecao = ex.GetType().Name;
+            var tipoDeExcecao = ex.GetType().Name;
             var problemasDetalhes = new ProblemDetails();
-            switch (tipoDeExecao)
+            switch (tipoDeExcecao)
             {
-                case "ValidationException":
+                case nameof(ValidationException):
                     problemasDetalhes.Title = "Erro de Validação: " + ex.Message;
-                    problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
-                    break;
-                case "BadHttpRequestException":
-                    problemasDetalhes.Title = "Erro de requisicao inválida: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status400BadRequest;
                     break;
-                case "SqlException":
+                case nameof(BadHttpRequestException):
+                    problemasDetalhes.Title = "Erro de requisição inválida: " + ex.Message;
+                    problemasDetalhes.Status = StatusCodes.Status400BadRequest;
+                    break;
+                case nameof(SqlException):
                     problemasDetalhes.Title = "Erro de banco de dados: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
                     break;
-                case "NullReferenceException":
+                case nameof(NullReferenceException):
                     problemasDetalhes.Title = "Erro de referência nula: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
                     break;
