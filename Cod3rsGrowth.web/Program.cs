@@ -2,6 +2,7 @@ using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Web;
 using Microsoft.Extensions.Logging;
 using Microsoft.Owin.Logging;
+using Microsoft.AspNetCore.Mvc;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 using LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory;
 

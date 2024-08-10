@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 
@@ -55,7 +56,7 @@ namespace Cod3rsGrowth.Web
             problemDetails.Title = excecaoDetalhada.Title;
             problemDetails.Status = excecaoDetalhada.Status;
             problemDetails.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
-            problemDetails.Detail = exception.Message;
+            problemDetails.Detail = exception.Message + exception.StackTrace;
         }
 
         private static void LogException(ILogger logger, Exception exception)
