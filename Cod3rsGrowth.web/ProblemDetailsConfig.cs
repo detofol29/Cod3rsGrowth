@@ -55,8 +55,9 @@ namespace Cod3rsGrowth.Web
             var excecaoDetalhada = RetornarTipoDeExcecaoDetalhada(exception);
             problemDetails.Title = excecaoDetalhada.Title;
             problemDetails.Status = excecaoDetalhada.Status;
-            problemDetails.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
-            problemDetails.Detail = exception.Message + exception.StackTrace;
+            problemDetails.Type = excecaoDetalhada.Type;
+            problemDetails.Detail = exception.Message 
+                + exception.StackTrace;
         }
 
         private static void LogException(ILogger logger, Exception exception)
@@ -73,22 +74,27 @@ namespace Cod3rsGrowth.Web
                 case nameof(ValidationException):
                     problemasDetalhes.Title = "Erro de Validação: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status400BadRequest;
+                    problemasDetalhes.Type = "https://tools.ietf.org/html/rfc7807#section-6.5.1";
                     break;
                 case nameof(BadHttpRequestException):
                     problemasDetalhes.Title = "Erro de requisição inválida: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status400BadRequest;
+                    problemasDetalhes.Type = "https://tools.ietf.org/html/rfc7807#section-6.5.1";
                     break;
                 case nameof(SqlException):
                     problemasDetalhes.Title = "Erro de banco de dados: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    problemasDetalhes.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
                     break;
                 case nameof(NullReferenceException):
                     problemasDetalhes.Title = "Erro de referência nula: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    problemasDetalhes.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
                     break;
                 default:
                     problemasDetalhes.Title = "Erro inesperado: " + ex.Message;
                     problemasDetalhes.Status = StatusCodes.Status500InternalServerError;
+                    problemasDetalhes.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
                     break;
             }
 
