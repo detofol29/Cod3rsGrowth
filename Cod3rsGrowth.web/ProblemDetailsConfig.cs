@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using System;
 
 namespace Cod3rsGrowth.Web
 {
@@ -20,7 +21,7 @@ namespace Cod3rsGrowth.Web
                     if (exceptionHandlerFeature != null)
                     {
                         var exception = exceptionHandlerFeature.Error;
-                        var problemDetails = CreateProblemDetails(contexto, exception);
+                        var problemDetails = RetornarExcecaoDetalhada(contexto, exception);
                         var logger = loggerFactory.CreateLogger("GlobalExceptionHandler");
 
                         LogException(logger, exception);
@@ -34,38 +35,12 @@ namespace Cod3rsGrowth.Web
                 });
             });
         }
-
-        private static ProblemDetails CreateProblemDetails(HttpContext contexto, Exception exception)
-        {
-            var detalhesDeErro = new ProblemDetails
-            {
-                Instance = contexto.Request.Path,
-                Title = "Erro",
-                Status = StatusCodes.Status500InternalServerError,
-                Type = "https://tools.ietf.org/html/rfc7807",
-                Detail = exception.Message
-            };
-
-            ConfigurarDetalhesDeErros(detalhesDeErro, exception);
-            return detalhesDeErro;
-        }
-
-        private static void ConfigurarDetalhesDeErros(ProblemDetails problemDetails, Exception exception)
-        {
-            var excecaoDetalhada = RetornarTipoDeExcecaoDetalhada(exception);
-            problemDetails.Title = excecaoDetalhada.Title;
-            problemDetails.Status = excecaoDetalhada.Status;
-            problemDetails.Type = excecaoDetalhada.Type;
-            problemDetails.Detail = exception.Message 
-                + exception.StackTrace;
-        }
-
         private static void LogException(ILogger logger, Exception exception)
         {
             logger.LogError($"Erro: {exception}");
         }
 
-        public static ProblemDetails RetornarTipoDeExcecaoDetalhada(Exception ex)
+        public static ProblemDetails RetornarExcecaoDetalhada(HttpContext contexto, Exception ex)
         {
             var tipoDeExcecao = ex.GetType().Name;
             var problemasDetalhes = new ProblemDetails();
@@ -97,7 +72,9 @@ namespace Cod3rsGrowth.Web
                     problemasDetalhes.Type = "https://tools.ietf.org/html/rfc7807#section-6.6.1";
                     break;
             }
-
+            problemasDetalhes.Detail = ex.Message
+                + ex.StackTrace;
+            problemasDetalhes.Instance = contexto.Request.Path;
             return problemasDetalhes;
         }
     }
