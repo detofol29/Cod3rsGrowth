@@ -2,6 +2,10 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS.Core;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Cod3rsGrowth.web.Controllers
 {

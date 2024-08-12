@@ -14,9 +14,10 @@ public class FilmeRepositorio : IFilmeRepositorio
     {
         filmeContexto = _conexao;
     }
-    public Filme ObterPorId(int id)
+    public Filme? ObterPorId(int id)
     {
-        return filmeContexto.GetTable<Filme>().FirstOrDefault(p => p.Id == id) ?? throw new Exception("Filme não encontrado");
+        return filmeContexto.GetTable<Filme>().FirstOrDefault(p => p.Id == id)
+            ?? throw new Exception("Filme não encontrado");
     }
 
     public List<Filme> ObterTodos(FiltroFilme? filtroFilme)
