@@ -3,6 +3,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Diagnostics;
 using System.Text;
 using System.Threading.Tasks.Dataflow;
 using ValidationException = FluentValidation.ValidationException;
@@ -65,37 +66,21 @@ public class FilmeServicos : IFilmeRepositorio
         }
     }
 
-    public ValidationResult CriarFilme(Filme filme)
+    public void CriarFilme (Filme filme)
     {
-        try
-        {
-            var filmeVerificar = ObterTodos(null)
+        var filmeVerificar = ObterTodos(null)
                 .Where(f => f.Titulo == filme.Titulo)
                 .Select(f => f)
                 .FirstOrDefault();
 
-            if (filmeVerificar is not null)
-            {
-                throw new Exception("Esse Filme ja existe!");
-            }
+        if (filmeVerificar is not null)
+        {
+            throw new Exception("Esse Filme já existe!");
+        }
 
-            filme.Id = GerarId();
-            _validator.ValidateAndThrow(filme);
-            Inserir(filme);
-            return new ValidationResult();
-        }
-        catch (ValidationException ex)
-        {
-            return new ValidationResult(ex.Errors);
-        }
-        catch (Exception ex)
-        {
-            var failures = new List<ValidationFailure>
-            {
-                new ValidationFailure("Exception", ex.Message)
-            };
-            return new ValidationResult(failures);
-        }
+        filme.Id = GerarId();
+        _validator.ValidateAndThrow(filme);
+        Inserir(filme);
     }
 
     public void Editar(Filme filme)
