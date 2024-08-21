@@ -1,0 +1,11 @@
+﻿<mvc:View controllerName="Controller.App"
+    xmlns="sap.m"
+    xmlsns:mvc="sap.ui.core.mvc">
+    <App>
+        <Page title="{i18n>paginaFilme}">
+            <headerContent>
+                <Button id="BotaoDeTeste" text="Clique aqui" press="aoCLicar" visible="true"/>
+            </headerContent>
+        </Page>
+    </App>
+</mvc:View>    
