@@ -1,15 +1,11 @@
 ﻿sap.ui.define([
     "sap/ui/core/mvc/Controller"
-], (Controller) => {
+ ], (Controller) => {
     "use strict";
-
-    return Controller.extend("App.controller", {
-        onInit(){
-
-        },
-
-        aoCLicar(){
-            this.byId("BotaoDeTeste").setText("O botão foi clicado");
-        }
-    });
-});
+ 
+    return Controller.extend("ui5.walkthrough.controller.App", {
+       aoClicarBotao() {
+            this.byId("botaoTeste").setText("Botão clicado!");
+       }
+    }); 
+ });
