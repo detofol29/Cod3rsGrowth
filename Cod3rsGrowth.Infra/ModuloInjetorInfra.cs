@@ -68,5 +68,11 @@ namespace Cod3rsGrowth.Infra
                         .ScanIn(typeof(Migracao20240705001230_CriaTabelaUsuarios_Filmes_Atores).Assembly).For.Migrations())
                     .AddLogging(lb => lb.AddFluentMigratorConsole());
         }
+
+        public static void UpdateDatabase(IServiceProvider serviceProvider)
+        {
+            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+            runner.MigrateUp();
+        }
     }
 }

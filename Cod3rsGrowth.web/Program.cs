@@ -5,23 +5,19 @@ using Microsoft.Owin.Logging;
 using Microsoft.AspNetCore.Mvc;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 using LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory;
+using System.Net.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProblemDetails();
-builder.Services.AddSwaggerGen();
 
 ModuloInjetorInfra.AdquirirServicos(builder.Services);
+var serviceProvider = builder.Services.BuildServiceProvider();
+ModuloInjetorInfra.UpdateDatabase(serviceProvider);
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
@@ -29,6 +25,15 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseFileServer(new FileServerOptions()
+{
+    EnableDirectoryBrowsing = true
+});
+app.UseStaticFiles(new StaticFileOptions()
+{
+    ServeUnknownFileTypes = true
+});
 
 var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 

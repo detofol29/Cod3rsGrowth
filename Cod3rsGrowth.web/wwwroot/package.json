@@ -1,9 +1,9 @@
 {
-    "name": "ui5.walkthrough",
+    "name": "cod3rsgrowth",
     "version": "1.0.0",
-    "description": "The UI5 walkthrough application",
+    "description": "Projetinho massa",
     "scripts": {
-        "start": "ui5 serve -o index.html"
+        "start": "ui5 serve -o testes/integracao/opaTests.qunit.html"
     },
     "devDependencies": {
         "@ui5/cli": "^4.0.5"

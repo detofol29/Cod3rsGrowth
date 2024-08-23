@@ -1,0 +1,66 @@
+{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "cod3rsgrowth",
+    "i18n": "i18n/i18n.properties",
+    "type": "application",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "cod3rsgrowth.i18n.i18n",
+          "fallbackLocale": ""
+         
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "cod3rsgrowth.webapp.App",
+      "type": "XML",
+      "id": "App"
+    },
+
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "cod3rsgrowth.webapp",
+        "controlId": "webapp",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "webapp",
+          "target": "webapp"
+        }
+      ],
+      "targets": {
+        "app": {
+          "id": "webapp",
+          "name": "App"
+        }
+      }
+    }
+  }
+}

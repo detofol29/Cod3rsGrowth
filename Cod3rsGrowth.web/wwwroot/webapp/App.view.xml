@@ -1,0 +1,18 @@
+﻿<mvc:View
+   controllerName="cod3rsgrowth.webapp.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <Shell>
+        <App id="App">
+                <Page id="appPage">
+                        <content>
+                                <Button
+                                id="botaoTeste"
+                                text="{i18n>textoBotaoInicial}"
+                                press=".aoClicarBotao"/>
+                        </content>
+                </Page>
+        </App>
+   </Shell>
+   
+</mvc:View>
