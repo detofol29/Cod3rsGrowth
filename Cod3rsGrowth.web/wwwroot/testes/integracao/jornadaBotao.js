@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
     "cod3rsgrowth/testes/integracao/pages/App"
-  ], function (opaQUnit) {
+  ],(opaQUnit) => {
     "use strict";
 
     QUnit.module("Botao");

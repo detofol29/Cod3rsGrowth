@@ -1,18 +1,19 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	"sap/ui/test/actions/Press",
-	"sap/ui/test/matchers/PropertyStrictEquals"
-], (Opa5, Press, PropertyStrictEquals) => {
+	"sap/ui/test/matchers/I18NText"
+], (Opa5, Press, I18NText) => {
 	"use strict";
 
-	const NOME_VIEW = "app.App";
+	var sNomeDaView = "app.App";
+	var sBotaoId = "botaoTeste";
 
 	Opa5.createPageObjects({
 		onTheAppPage: {
 			actions: {
 				EuClicoNoBotao() {
 					return this.waitFor({
-						viewName: NOME_VIEW,
+						viewName: sNomeDaView,
 						actions: new Press(),
 						errorMessage: "O botão não foi encontrado!"
 					});
@@ -22,11 +23,12 @@ sap.ui.define([
 			assertions: {
 				oBotaoDeveApresentarUmTextoDiferente : function () {
                     return this.waitFor({
-                        viewName : NOME_VIEW,
-                        matchers : new PropertyStrictEquals({
-                            name : "text",
-                            value : "Botão clicado!"
-                        }),
+						id :sBotaoId,
+						viewName : sNomeDaView,
+						matchers : new I18NText({
+							propertyName: "text",
+        					key: "textoBotaoClicado"
+						}),
                         success : function (oButton) {
                             Opa5.assert.ok(true, "O texto do botão foi alterado para: " + oButton.getText());
                         },

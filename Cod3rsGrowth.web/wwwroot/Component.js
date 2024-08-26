@@ -5,7 +5,6 @@ sap.ui.define([
     "use strict";
 
     return UIComponent.extend("cod3rsgrowth.Component",{
-
         metadata : {
             interfaces: ["sap.ui.core.IAsyncContentCreation"],
             manifest: "json"
@@ -17,4 +16,3 @@ sap.ui.define([
         }
     });
 });
-
