@@ -1,7 +1,7 @@
 {
     "name": "cod3rsgrowth",
     "version": "1.0.0",
-    "description": "Projetinho massa",
+    "description": "Projeto de implementação do SAPUI5",
     "scripts": {
         "start": "ui5 serve -o testes/integracao/opaTests.qunit.html"
     },

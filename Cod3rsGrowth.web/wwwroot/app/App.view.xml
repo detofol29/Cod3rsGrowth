@@ -1,5 +1,5 @@
 ﻿<mvc:View
-   controllerName="cod3rsgrowth.webapp.App"
+   controllerName="cod3rsgrowth.app.App"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc">
    <Shell>

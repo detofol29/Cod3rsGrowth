@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/model/json/JSONModel"
-], (UIComponent, JSONModel) => {
+], (UIComponent) => {
     "use strict";
 
     return UIComponent.extend("cod3rsgrowth.Component",{
@@ -15,7 +15,6 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
             this.getRouter().initialize();
         }
-
     });
 });
 

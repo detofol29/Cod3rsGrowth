@@ -5,15 +5,14 @@ sap.ui.define([
 ], (Opa5, Press, PropertyStrictEquals) => {
 	"use strict";
 
-	const VIEW_NAME = "webapp.App";
+	const NOME_VIEW = "app.App";
 
 	Opa5.createPageObjects({
 		onTheAppPage: {
 			actions: {
 				EuClicoNoBotao() {
 					return this.waitFor({
-						id: "botaoTeste",
-						viewName: VIEW_NAME,
+						viewName: NOME_VIEW,
 						actions: new Press(),
 						errorMessage: "O botão não foi encontrado!"
 					});
@@ -23,8 +22,7 @@ sap.ui.define([
 			assertions: {
 				oBotaoDeveApresentarUmTextoDiferente : function () {
                     return this.waitFor({
-                        viewName : VIEW_NAME,
-                        id : "botaoTeste",
+                        viewName : NOME_VIEW,
                         matchers : new PropertyStrictEquals({
                             name : "text",
                             value : "Botão clicado!"

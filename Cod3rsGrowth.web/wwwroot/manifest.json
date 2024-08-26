@@ -33,7 +33,7 @@
       }
     },
     "rootView": {
-      "viewName": "cod3rsgrowth.webapp.App",
+      "viewName": "cod3rsgrowth.app.App",
       "type": "XML",
       "id": "App"
     },
@@ -43,21 +43,21 @@
         "routerClass": "sap.m.routing.Router",
         "type": "View",
         "viewType": "XML",
-        "path": "cod3rsgrowth.webapp",
-        "controlId": "webapp",
+        "path": "cod3rsgrowth.app",
+        "controlId": "app",
         "controlAggregation": "pages",
         "async": true
       },
       "routes": [
         {
           "pattern": "",
-          "name": "webapp",
-          "target": "webapp"
+          "name": "app",
+          "target": "app"
         }
       ],
       "targets": {
         "app": {
-          "id": "webapp",
+          "id": "app",
           "name": "App"
         }
       }

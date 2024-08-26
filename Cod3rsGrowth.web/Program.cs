@@ -1,11 +1,6 @@
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Web;
-using Microsoft.Extensions.Logging;
-using Microsoft.Owin.Logging;
-using Microsoft.AspNetCore.Mvc;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
-using LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory;
-using System.Net.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +15,7 @@ ModuloInjetorInfra.UpdateDatabase(serviceProvider);
 var app = builder.Build();
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -38,7 +31,5 @@ app.UseStaticFiles(new StaticFileOptions()
 var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
 app.UseProblemDetailsExceptionHandler(loggerFactory);
-
 app.MapControllers();
-
 app.Run();
