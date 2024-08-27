@@ -72,7 +72,7 @@ namespace Cod3rsGrowth.Infra
         public static void UpdateDatabase(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-            runner.MigrateUp();
+            runner.MigrateUp(20240705001230);
         }
     }
 }

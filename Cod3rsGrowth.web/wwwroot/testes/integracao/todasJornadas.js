@@ -2,9 +2,7 @@ sap.ui.define([
     "sap/ui/test/Opa5",
     "cod3rsgrowth/testes/integracao/arrangements/Startup",
     "cod3rsgrowth/testes/integracao/jornadaBotao"
-],(Opa5,
-     Startup,
-      jornadaBotao) => {
+],(Opa5, Startup) => {
     "use strict";
  
     var sViewNameSpace = "cod3rsgrowth";

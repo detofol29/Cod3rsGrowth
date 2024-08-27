@@ -32,4 +32,4 @@ var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
 app.UseProblemDetailsExceptionHandler(loggerFactory);
 app.MapControllers();
-app .Run();
+app.Run();
