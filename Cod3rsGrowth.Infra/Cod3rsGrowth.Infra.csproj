@@ -9,12 +9,6 @@
   <ItemGroup>
     <Compile Remove="ConfiguracaoConexao.cs" />
     <Compile Remove="ConfiguracaoDaStringDeConexao.cs" />
-    <Compile Remove="Migracoes\Migracao20240626001100_CriaTabelaUsuarios.cs" />
-    <Compile Remove="Migracoes\Migracao20240626401000_CriaTabelaFilmes.cs" />
-    <Compile Remove="Migracoes\Migracao20240626501000_CriaTabelaAtores.cs" />
-    <Compile Remove="Migracoes\Migracao20240627002000_CriaTabelaMinhaLista.cs" />
-    <Compile Remove="Migracoes\Migracao20240627002100_AdicionaChaveEstrangeira.cs" />
-    <Compile Remove="Migracoes\Migracao20240627002200_CriaTabelaFilmesDoUsuario.cs" />
   </ItemGroup>
 
   <ItemGroup>
