@@ -1,5 +1,6 @@
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Web;
+using FluentMigrator.Runner;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,8 @@ builder.Services.AddProblemDetails();
 
 ModuloInjetorInfra.AdquirirServicos(builder.Services);
 var serviceProvider = builder.Services.BuildServiceProvider();
-ModuloInjetorInfra.UpdateDatabase(serviceProvider);
+var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+runner.MigrateUp(20240705001230);
 
 var app = builder.Build();
 

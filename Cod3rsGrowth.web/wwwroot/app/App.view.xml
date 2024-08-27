@@ -8,7 +8,7 @@
                         <content>
                                 <Button
                                 id="botaoTeste"
-                                text="{i18n>textoBotaoInicial}"
+                                text="{i18n>Botao.TextoInicial}"
                                 press=".aoClicarBotao"/>
                         </content>
                 </Page>

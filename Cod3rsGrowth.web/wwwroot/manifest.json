@@ -51,7 +51,7 @@
         {
           "pattern": "",
           "name": "app",
-          "target": "app"
+          "target": "app" 
         }
       ],
       "targets": {

@@ -1,19 +1,15 @@
 ﻿sap.ui.define([
-   "sap/ui/core/mvc/Controller"
-], (Controller) => {
+   "cod3rsgrowth/app/BaseController"
+], (BaseController) => {
    "use strict";
     
-   var sCaminhoApp = "cod3rsgrowth.app.App";
-   return Controller.extend(sCaminhoApp, {
-      aoClicarBotao() {
-         var oTextosTraduziveis = this.getView().getModel("i18n").getResourceBundle();
-         var sMensagem = oTextosTraduziveis.getText("textoBotaoClicado");
-         this.byId("botaoTeste").setText(sMensagem);
-      },
+   const CAMINHO_APP = "cod3rsgrowth.app.App";
+   return BaseController.extend(CAMINHO_APP, {
 
-      onChangeLanguage(oEvent) {
-         var oItemSelecionado = oEvent.getParameter("selectedItem").getKey();
-         sap.ui.getCore().getConfiguration().setLanguage(oItemSelecionado);
-      },
-   }); 
+      aoClicarBotao() {
+			var textoParaBotaoClicado = this.retornarTextoI18nCorrespondente("Botao.TextoClicado");
+         var idBotao = this.retornarTextoI18nCorrespondente("Botao.Id");
+			this.byId(idBotao).setText(textoParaBotaoClicado);
+		}
+   });
 });
