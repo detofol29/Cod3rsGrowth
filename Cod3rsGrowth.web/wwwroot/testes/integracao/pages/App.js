@@ -29,6 +29,7 @@ sap.ui.define([
 			assertions: {
 				oBotaoDeveApresentarTextoInicialComChaveI18nCorrespondente(textoBotaoInicial) {
                     return this.waitFor({
+						viewName: NOME_VIEW,
 						controlType: "sap.m.Button",
 						matchers : {
 							i18NText : {
@@ -43,6 +44,7 @@ sap.ui.define([
 
 				oBotaoDeveApresentarTextoFinalComChaveI18nCorrespondente(textoBotaoFinal) {
                     return this.waitFor({
+						viewName: NOME_VIEW,
 						controlType: "sap.m.Button",
 						matchers : {
 							i18NText : {
