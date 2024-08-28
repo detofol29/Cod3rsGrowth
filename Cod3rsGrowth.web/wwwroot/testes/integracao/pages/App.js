@@ -37,7 +37,7 @@ sap.ui.define([
         						key: textoBotaoInicial
 							}
 						},
-                        success : () => Opa5.assert.ok(true, "O texto do botão foi alterado com sucesso!"),
+                        success : () => Opa5.assert.ok(true, "O texto do botão inicial está correto!"),
                         errorMessage : "Texto do botão não encontrado!"
                     });
                 },
