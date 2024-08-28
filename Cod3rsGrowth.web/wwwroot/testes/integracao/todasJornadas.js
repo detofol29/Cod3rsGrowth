@@ -5,11 +5,11 @@ sap.ui.define([
 ],(Opa5, Startup) => {
     "use strict";
  
-    var sViewNameSpace = "cod3rsgrowth";
+    const VIEW_NAMESPACE = "cod3rsgrowth";
  
     Opa5.extendConfig({
         arrangements: new Startup(),
-        viewNamespace: sViewNameSpace,
+        viewNamespace: VIEW_NAMESPACE,
         autoWait: true
     });
 });
