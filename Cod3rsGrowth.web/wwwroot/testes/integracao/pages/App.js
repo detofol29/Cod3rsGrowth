@@ -4,7 +4,7 @@ sap.ui.define([
 ], (Opa5, Press) => {
 	"use strict";
 
-	const NOME_VIEW = "app.App";
+	const NOME_VIEW = "app.view.App";
 
 	Opa5.createPageObjects({
 		naPaginaDoApp: {
