@@ -9,7 +9,10 @@
       aoClicarBotao() {
 			var textoParaBotaoClicado = this.retornarTextoI18nCorrespondente("Botao.TextoClicado");
          var idBotao = this.retornarTextoI18nCorrespondente("Botao.Id");
-			this.byId(idBotao).setText(textoParaBotaoClicado);
+         
+			this
+            .byId(idBotao)
+            .setText(textoParaBotaoClicado);
 		}
    });
 });

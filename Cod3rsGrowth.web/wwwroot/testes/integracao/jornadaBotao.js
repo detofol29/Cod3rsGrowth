@@ -4,8 +4,8 @@ sap.ui.define([
 ],(opaQUnit) => {
     "use strict";
 
-    QUnit.module("Pagina App Principal"); ///////
-    opaQUnit("Ao clicar no botão deve mudar o texto", function (Given, When, Then) {
+    QUnit.module("Página App Principal");
+    opaQUnit("Ao clicar no botão o texo deve ser alterado",(Given, When, Then) => {
           
       Given
         .iStartMyUIComponent({
@@ -16,14 +16,14 @@ sap.ui.define([
       Then
         .naPaginaDoApp
         .aTelaFoiCarregadaCorretamente();
-      // Then
-      //   .naPaginaDoApp
-      //   .oBotaoDeveApresentarTextoCorrespondentePrimeiro("Botao.TextoInicial");
+      Then
+        .naPaginaDoApp
+        .oBotaoDeveApresentarTextoInicialComChaveI18nCorrespondente("Botao.TextoInicial");
       When
         .naPaginaDoApp
         .VerificarCliqueNoBotaoDeTeste();
       Then
         .naPaginaDoApp
-        .oBotaoDeveApresentarTextoCorrespondenteSegundo("Botão clicado!");
+        .oBotaoDeveApresentarTextoFinalComChaveI18nCorrespondente("Botao.TextoClicado");
     });
 });
