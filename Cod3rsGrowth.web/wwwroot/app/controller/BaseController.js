@@ -5,7 +5,6 @@ sap.ui.define([
 ], (Controller, History, UIComponent) => {
 	"use strict";
 
-	const ROTA_PRINCIPAL = "app"
 	return Controller.extend("cod3rsgrowth.app.controller.BaseController", {
 
 		retornarTextoI18nCorrespondente(chave) {
@@ -18,10 +17,10 @@ sap.ui.define([
             return UIComponent.getRouterFor(this);
         },
 
-        irParaRotaPrincipal() {
+        irParaRota(rota) {
             return this
 					.getRouter()
-					.navTo(ROTA_PRINCIPAL, {}, true);
+					.navTo(rota, {}, true);
         }
 	});
 });
