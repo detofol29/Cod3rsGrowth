@@ -9,7 +9,7 @@ sap.ui.define([
 
         aoClicarNavButton() {
             var rotaPrincipal = "app";
-            return this.irParaRota(rotaPrincipal);
+            return this.irParaRotaCorrespondente(rotaPrincipal);
         }
 	});
 });

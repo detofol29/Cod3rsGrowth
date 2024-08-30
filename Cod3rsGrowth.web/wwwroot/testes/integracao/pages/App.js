@@ -13,46 +13,46 @@ sap.ui.define([
 					return this.waitFor({
 						viewName: NOME_VIEW,
 						controlType: "sap.m.Button",
-						matchers : {
-							i18NText : {
+						matchers: {
+							i18NText: {
 								propertyName: "text",
         						key: "Botao.TextoInicial"
 							}
 						},
 						actions: new Press(),
-						success : () => Opa5.assert.ok(true, "O botão foi clicado corretamente"),
+						success: () => Opa5.assert.ok(true, "O botão foi clicado corretamente"),
 						errorMessage: "O botão não foi encontrado!"
 					});
 				}
 			},
 
 			assertions: {
-				oBotaoDeveApresentarTextoInicialComChaveI18nCorrespondente(textoBotaoInicial) {
+				oBotaoDeveApresentarTextoInicialComChaveI18nCorrespondente(chave) {
                     return this.waitFor({
 						viewName: NOME_VIEW,
 						controlType: "sap.m.Button",
-						matchers : {
-							i18NText : {
+						matchers: {
+							i18NText: {
 								propertyName: "text",
-        						key: textoBotaoInicial
+        						key: chave
 							}
 						},
-                        success : () => Opa5.assert.ok(true, "O texto do botão inicial está correto!"),
+                        success: () => Opa5.assert.ok(true, "O texto do botão inicial está correto!"),
                         errorMessage : "Texto do botão não encontrado!"
                     });
                 },
 
-				oBotaoDeveApresentarTextoFinalComChaveI18nCorrespondente(textoBotaoFinal) {
+				oBotaoDeveApresentarTextoFinalComChaveI18nCorrespondente(chave) {
                     return this.waitFor({
 						viewName: NOME_VIEW,
 						controlType: "sap.m.Button",
 						matchers : {
 							i18NText : {
 								propertyName: "text",
-        						key: textoBotaoFinal
+        						key: chave
 							}
 						},
-                        success : () => Opa5.assert.ok(true, "O texto do botão foi alterado com sucesso!"),
+                        success: () => Opa5.assert.ok(true, "O texto do botão foi alterado com sucesso!"),
                         errorMessage : "Texto do botão não encontrado!"
                     });
                 },

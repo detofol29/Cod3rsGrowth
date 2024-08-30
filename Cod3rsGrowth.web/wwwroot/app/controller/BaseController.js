@@ -17,7 +17,7 @@ sap.ui.define([
             return UIComponent.getRouterFor(this);
         },
 
-        irParaRota(rota) {
+        irParaRotaCorrespondente(rota) {
             return this
 					.getRouter()
 					.navTo(rota, {}, true);
