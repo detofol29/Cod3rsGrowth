@@ -7,12 +7,13 @@
 	xmlns:m="sap.m"
     height="100%">
 	<m:Page
+		id="ListaDeFilmes"
 		showHeader="false"
 		enableScrolling="false"
 		class="sapUiContentPadding">
 		<m:content>
 			<Table
-				rows="{/filmes}"
+				rows="{filme>/}"
 				selectionMode="MultiToggle"
 				paste="app"
 				ariaLabelledBy="title">
@@ -22,58 +23,57 @@
 					</m:OverflowToolbar>
 				</extension>
 				<columns>
-					<Column width="11rem">
+					<Column width="18rem" hAlign="Center">
 						<m:Label text="Titulo" />
 						<template>
-							<m:Text text="{Name}" wrapping="false" />
+							<m:Text text="{filme>titulo}" wrapping="false" />
 						</template>
 					</Column>
                     
-					<Column width="9rem">
+					<Column width="9rem" hAlign="Center">
 						<m:Label text="Genero" />
 						<template>
-							<m:ObjectStatus text="{Status}"/>
+							<m:ObjectStatus text="{filme>genero}"/> 
 						</template>
 					</Column>
 
-					<Column width="9rem">
-						<m:Label text="Nota" />
+					<Column width="6rem" hAlign="Center">
+						<m:Label text="Nota"/>
 						<template>
-							<u:Currency value="{Price}" currency="{CurrencyCode}"/>
+							<u:Currency value="{filme>nota}"/>
 						</template>
 					</Column>
 
-					<Column width="9rem">
-						<m:Label text="Classificacao" />
+					<Column width="7rem" hAlign="Center">
+						<m:Label text="Classificação" />
 						<template>
-							<m:Button text="Show Details" press="handleDetailsPress"/>
+							<m:ObjectStatus text="{filme>classificacao}"/> 
 						</template>
 					</Column>
 
-					<Column width="7rem">
+					<Column width="9rem" hAlign="Center">
 						<m:Label text="Disponivel no plano" />
 						<template>
 							<m:CheckBox selected="{
-								path: 'Heavy',
+								path: '{filme>disponivelNoPlano}',
 								type: 'sap.ui.model.type.String'
 							}"/>
+							<!-- <m:CheckBox selected="{= ${filme>disponivelNoPlano} == 'true' ? 'true' : 'false' }" /> -->
 						</template>
 					</Column>
 
-					<Column width="12rem">
+					<Column width="8rem" hAlign="Center">
 						<m:Label text="Duracao" />
 						<template>
-							<m:Select selectedKey="{Category}" items="{/Categories}">
-								<c:Item text="{Name}" key="{Name}"/>
-							</m:Select>
+							<u:Currency value="{filme>duracao}"/>
 						</template>
 					</Column>
 	
-					<Column width="11rem" hAlign="Center">
+					<Column width="16rem" hAlign="Center">
 						<m:Label text="Data de Lancamento" />
 						<template>
 							<m:DatePicker value="{
-								path: 'DeliveryDate',
+								path: '{filme>dataDeLancamento}',
 								type: 'sap.ui.model.type.Date',
 								formatOptions: {source: {pattern: 'timestamp'}}
 							}"/>

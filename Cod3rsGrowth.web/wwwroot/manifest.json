@@ -20,7 +20,8 @@
       "libs": {
         "sap.ui.core": {},
         "sap.m": {},
-        "sap.ui.table": {}
+        "sap.ui.table": {},
+        "sap.ui.layout": {}
       }
     },
     "models": {
@@ -30,7 +31,11 @@
           "bundleName": "cod3rsgrowth.i18n.i18n",
           "fallbackLocale": ""
         }
-      }
+      },
+      "filme": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "http://localhost:5152/api/Filme"
+			}
     },
     "rootView": {
       "viewName": "cod3rsgrowth.app.view.App",
@@ -54,14 +59,14 @@
       "routes": [
         {
           "pattern": "",
-          "name": "app",
-          "target": "app" 
+          "name": "ListaDeFilmes",  
+          "target": "ListaDeFilmes" 
         }
       ],
       "targets": {
-        "app": {
-          "id": "app",
-          "name": "app"
+        "ListaDeFilmes": {
+          "id": "ListaDeFilmes",
+          "name": "ListaDeFilmes"
         },
         "notFound": {
 					"id": "notFound",
