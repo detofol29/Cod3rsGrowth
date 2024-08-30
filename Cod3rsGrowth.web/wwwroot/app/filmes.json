@@ -1,0 +1,40 @@
+{
+    "Filmes": [
+        {
+            "Nome": "Deadpool & Wolverine",
+            "Duracao": 210,
+            "Nota": 91.2,
+            "Genero": "A"
+        },
+        {
+            "Nome": "Meu Malvado Favorito 4",
+            "Duracao": 210,
+            "Nota": 93.2,
+            "Genero": "F"
+        },
+        {
+            "Nome": "É assim que acaba",
+            "Duracao": 210,
+            "Nota": 48.2,
+            "Genero": "R"
+        },
+        {
+            "Nome": "Black",
+            "Duracao": 210,
+            "Nota": 47.2,
+            "Genero": "F"
+        },
+        {
+            "Nome": "Divertidamente",
+            "Duracao": 210,
+            "Nota": 72.2,
+            "Genero": "A"
+        },
+        {
+            "Nome": "Divertidamente 2",
+            "Duracao": 210,
+            "Nota": 72.2,
+            "Genero": "A"
+        }
+    ]
+}

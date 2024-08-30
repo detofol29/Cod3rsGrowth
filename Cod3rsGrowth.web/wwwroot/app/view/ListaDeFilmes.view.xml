@@ -1,0 +1,86 @@
+<mvc:View
+	controllerName="cod3rsgrowth.app.controller.ListaDeFilmes"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		showHeader="false"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<Table
+				rows="{/filmes}"
+				selectionMode="MultiToggle"
+				paste="app"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="ListaDeFilmesTitulo" text="Filmes"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="11rem">
+						<m:Label text="Titulo" />
+						<template>
+							<m:Text text="{Name}" wrapping="false" />
+						</template>
+					</Column>
+                    
+					<Column width="9rem">
+						<m:Label text="Genero" />
+						<template>
+							<m:ObjectStatus text="{Status}"/>
+						</template>
+					</Column>
+
+					<Column width="9rem">
+						<m:Label text="Nota" />
+						<template>
+							<u:Currency value="{Price}" currency="{CurrencyCode}"/>
+						</template>
+					</Column>
+
+					<Column width="9rem">
+						<m:Label text="Classificacao" />
+						<template>
+							<m:Button text="Show Details" press="handleDetailsPress"/>
+						</template>
+					</Column>
+
+					<Column width="7rem">
+						<m:Label text="Disponivel no plano" />
+						<template>
+							<m:CheckBox selected="{
+								path: 'Heavy',
+								type: 'sap.ui.model.type.String'
+							}"/>
+						</template>
+					</Column>
+
+					<Column width="12rem">
+						<m:Label text="Duracao" />
+						<template>
+							<m:Select selectedKey="{Category}" items="{/Categories}">
+								<c:Item text="{Name}" key="{Name}"/>
+							</m:Select>
+						</template>
+					</Column>
+	
+					<Column width="11rem" hAlign="Center">
+						<m:Label text="Data de Lancamento" />
+						<template>
+							<m:DatePicker value="{
+								path: 'DeliveryDate',
+								type: 'sap.ui.model.type.Date',
+								formatOptions: {source: {pattern: 'timestamp'}}
+							}"/>
+						</template>
+					</Column>
+				</columns>
+			</Table>
+		</m:content>
+	</m:Page>
+</mvc:View>
