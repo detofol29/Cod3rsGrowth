@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Projeto de implementação do SAPUI5",
     "scripts": {
-        "start": "ui5 serve -o testes/integracao/opaTests.qunit.html"
+        "start": "ui5 serve -o index.html"
     },
     "devDependencies": {
         "@ui5/cli": "^4.0.5"

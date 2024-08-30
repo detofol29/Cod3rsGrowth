@@ -1,9 +1,9 @@
 ﻿sap.ui.define([
-   "cod3rsgrowth/app/BaseController"
+   "cod3rsgrowth/app/controller/BaseController"
 ], (BaseController) => {
    "use strict";
     
-   const CAMINHO_APP = "cod3rsgrowth.app.App";
+   const CAMINHO_APP = "cod3rsgrowth.app.controller.App";
    return BaseController.extend(CAMINHO_APP, {
 
       aoClicarBotao() {
