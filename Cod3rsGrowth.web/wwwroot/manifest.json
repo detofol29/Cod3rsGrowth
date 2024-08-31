@@ -34,7 +34,7 @@
       },
       "filme": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "http://localhost:5152/api/Filme"
+				"uri": "Filmes.json"
 			}
     },
     "rootView": {

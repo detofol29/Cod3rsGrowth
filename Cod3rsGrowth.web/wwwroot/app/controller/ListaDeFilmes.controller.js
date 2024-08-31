@@ -11,7 +11,6 @@ sap.ui.define([
 
 	return Controller.extend("cod3rsgrowth.app.controller.ListaDeFilmes", {
 
-
 		ajustarData(data){
 			// const oDateFormat = DateFormat.getDateInstance({source: {pattern: "timestamp"}, pattern: "dd/MM/yyyy"});
 			// const oProduct = data.ProductCollection[i];
@@ -19,9 +18,22 @@ sap.ui.define([
 			//--> Implementar um metodo para formatar os dados Json <--
 		},
 
-		ajustarGenero(){
-			
-		}
+		formatarGenero(GeneroNumero) {
+            switch (GeneroNumero) {
+                case 1:
+                    return "Ação";
+                case 2:
+                    return "Comédia";
+                case 3:
+                    return "Drama";
+                case 4:
+                    return "Fantasia";
+                case 5:
+                    return "Terror";
+                default:
+                    return "Gênero Desconhecido";
+            }
+        }
 
 		// initSampleDataModel() {
 		// 	const oModel = new JSONModel();

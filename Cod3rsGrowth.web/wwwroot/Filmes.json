@@ -1,5 +1,4 @@
-{
-    "Filmes": [
+[
         {
             "id": 13,
             "titulo": "O Poderoso Chefão",
@@ -86,7 +85,7 @@
             "emCartaz": false,
             "nota": 8.00000,
             "duracao": 149,
-            "disponivelNoPlano": false,
+            "disponivelNoPlano": true,
             "diretor": "Anthony Russo, Joe Russo",
             "classificacao": 2,
             "atores": null
@@ -216,7 +215,7 @@
             "emCartaz": false,
             "nota": 10.00000,
             "duracao": 116,
-            "disponivelNoPlano": false,
+            "disponivelNoPlano": true,
             "diretor": "Robert Zemeckis",
             "classificacao": 2,
             "atores": null
@@ -229,7 +228,7 @@
             "emCartaz": false,
             "nota": 6.00000,
             "duracao": 121,
-            "disponivelNoPlano": false,
+            "disponivelNoPlano": true,
             "diretor": "Chat GPT",
             "classificacao": 3,
             "atores": null
@@ -286,5 +285,4 @@
             "classificacao": 1,
             "atores": null
         }
-    ]
-}
+]
