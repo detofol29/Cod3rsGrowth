@@ -13,14 +13,46 @@
 		class="sapUiContentPadding">
 		<m:content>
 			<Table
+				id = "tabelaFilmes"
 				rows="{filme>/}"
 				selectionMode="MultiToggle"
 				paste="app"
 				ariaLabelledBy="title">
 				<extension>
+					<!-- Comeco -->
 					<m:OverflowToolbar style="Clear">
-					<m:Title id="ListaDeFilmesTitulo" text="Filmes"/>
+						<m:Title id="title" text="Filmes"/>
+						<m:ToolbarSpacer/>
+						<m:SearchField
+							placeholder="Pesquisar"
+							value="{ui>/filterValue}"
+							search="aoFiltrarFilmes"
+							width="15rem"/>
 					</m:OverflowToolbar>
+					<m:FacetFilter
+						id="facetFilter"
+						type="Simple"
+						showReset="true"
+						showPopoverOKButton="true"
+						reset="handleFacetFilterReset"
+						lists="{filtros>/Filters}">
+						<m:lists>
+							<m:FacetFilterList
+								title="{filtros>type}"
+								key="{filtros>key}"
+								mode="MultiSelect"
+								listClose="handleListClose"
+								items="{filtros>values}">
+								<m:items>
+									<m:FacetFilterItem
+										text="{filtros>text}"
+										key="{filtros>key}"/>
+								</m:items>
+							</m:FacetFilterList>
+						</m:lists>
+					</m:FacetFilter>
+
+					<!-- Fim do Codigo a ser alterado -->
 				</extension>
 				<columns>
 					<Column width="18rem" hAlign="Center">
@@ -79,6 +111,9 @@
 						</template>
 					</Column>
 				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+				</footer>
 			</Table>
 		</m:content>
 	</m:Page>

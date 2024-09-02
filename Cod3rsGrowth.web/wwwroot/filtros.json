@@ -1,0 +1,42 @@
+{
+    "Filters": [
+		{
+			"type": "Genero",
+			"values": [
+				{
+					"text": "Ficcao",
+					"data": 0
+				},
+				{
+					"text": "Acao",
+					"data": 1
+				},
+				{
+					"text": "Terror",
+					"data": 2
+				},
+				{
+					"text": "Romance",
+					"data": 3
+				},
+				{
+					"text": "Drama",
+					"data": 4
+				},
+				{
+					"text": "Aventura",
+					"data": 5
+				},
+				{
+					"text": "Comedia",
+					"data": 6
+				},
+				{
+					"text": "Fantasia",
+					"data": 7
+				}
+			]
+		}
+		
+]
+}

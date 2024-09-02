@@ -35,6 +35,11 @@
       "filme": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "Filmes.json"
+			},
+
+      "filtros": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "filtros.json"
 			}
     },
     "rootView": {
