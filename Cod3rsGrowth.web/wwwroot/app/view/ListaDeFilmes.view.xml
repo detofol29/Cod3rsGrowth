@@ -19,7 +19,7 @@
 				ariaLabelledBy="title">
 				<extension>
 					<m:OverflowToolbar style="Clear">
-						<m:Title id="ListaDeFilmesTitulo" text="Filmes"/>
+					<m:Title id="ListaDeFilmesTitulo" text="Filmes"/>
 					</m:OverflowToolbar>
 				</extension>
 				<columns>
@@ -33,9 +33,7 @@
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="Genero" />
 						<template>
-							<m:ObjectStatus text="{filme>genero}"/>
-							<!-- <Text text="{path: 'filme>genero', formatter: '.formatarGenero'}" /> -->
-
+							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
 						</template>
 					</Column>
 
@@ -49,14 +47,14 @@
 					<Column width="7rem" hAlign="Center">
 						<m:Label text="Classificação" />
 						<template>
-							<m:ObjectStatus text="{filme>classificacao}"/> 
+							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.obterClassificacao'}"/> 
 						</template>
 					</Column>
 
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="Disponivel no plano" />
 						<template>
-							<m:CheckBox selected="{filme>disponivelNoPlano}"/>
+							<m:CheckBox selected="{filme>disponivelNoPlano}" editable="false"/>
 						</template>
 					</Column>
 
@@ -66,15 +64,18 @@
 							<u:Currency value="{filme>duracao}"/>
 						</template>
 					</Column>
-	
-					<Column width="16rem" hAlign="Center">
-						<m:Label text="Data de Lancamento" />
+
+					<Column width="12rem" hAlign="Center">
+						<m:Label text="Diretor(es)" />
 						<template>
-							<m:DatePicker value="{
-								path: '{filme>dataDeLancamento}',
-								type: 'sap.ui.model.type.Date',
-								formatOptions: {source: {pattern: 'timestamp'}}
-							}"/>
+							<m:Text text="{filme>diretor}" wrapping="false" />
+						</template>
+					</Column>
+	
+					<Column width="10rem" hAlign="Center">
+						<m:Label text="Data de Lançamento" />
+						<template>
+							<m:DatePicker value="{path: 'filme>dataDeLancamento', formatter: '.formatarData'}" displayFormat="dd/MM/yyyy" editable="false"/>
 						</template>
 					</Column>
 				</columns>

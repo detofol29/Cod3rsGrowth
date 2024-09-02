@@ -9,6 +9,26 @@ sap.ui.define([
 ], function(Log, Controller, JSONModel, MessageToast, DateFormat, jQuery, UI5Date) {
 	"use strict";
 
+	var oGeneroMap = {
+		0: "Ficção Científica",
+		1: "Ação",
+		2: "Terror",
+		3: "Romance",
+		4: "Drama",
+		5: "Aventura",
+		6: "Comédia",
+		7: "Fantasia"
+	};
+	
+	var oClassificacaoMap = {
+		0: "Livre",
+		1: "10 anos",
+		2: "12 anos",
+		3: "14 anos",
+		4: "16 anos",
+		5: "18 anos"
+	};
+
 	return Controller.extend("cod3rsgrowth.app.controller.ListaDeFilmes", {
 
 		ajustarData(data){
@@ -18,98 +38,23 @@ sap.ui.define([
 			//--> Implementar um metodo para formatar os dados Json <--
 		},
 
-		formatarGenero(GeneroNumero) {
-            switch (GeneroNumero) {
-                case 1:
-                    return "Ação";
-                case 2:
-                    return "Comédia";
-                case 3:
-                    return "Drama";
-                case 4:
-                    return "Fantasia";
-                case 5:
-                    return "Terror";
-                default:
-                    return "Gênero Desconhecido";
+		obterGenero(Genero) {
+			return oGeneroMap[Genero];
+		},
+		
+		obterClassificacao(Classificacao) {
+			return oClassificacaoMap[Classificacao];
+		},
+
+		formatarData(Data) {
+            if (!Data) {
+                return null;
             }
-        }
 
-		// initSampleDataModel() {
-		// 	const oModel = new JSONModel();
+            var dataFormato = DateFormat.getDateInstance({pattern: "yyyy-MM-dd"});
+            var oData = new Date(Data); // Converte string para objeto Date
 
-		// 	const oDateFormat = DateFormat.getDateInstance({source: {pattern: "timestamp"}, pattern: "dd/MM/yyyy"});
-
-		// 	jQuery.ajax(sap.ui.require.toUrl("http://localhost:5152/api/Filme"), {
-		// 		dataType: "json",
-		// 		success: function(oData) {
-		// 			const aTemp1 = [];
-		// 			const aTemp2 = [];
-		// 			const aSuppliersData = [];
-		// 			const aCategoryData = [];
-		// 			for (let i = 0; i < oData.ProductCollection.length; i++) {
-		// 				const oProduct = oData.ProductCollection[i];
-		// 				if (oProduct.SupplierName && aTemp1.indexOf(oProduct.SupplierName) < 0) {
-		// 					aTemp1.push(oProduct.SupplierName);
-		// 					aSuppliersData.push({Name: oProduct.SupplierName});
-		// 				}
-		// 				if (oProduct.Category && aTemp2.indexOf(oProduct.Category) < 0) {
-		// 					aTemp2.push(oProduct.Category);
-		// 					aCategoryData.push({Name: oProduct.Category});
-		// 				}
-		// 				oProduct.DeliveryDate = Date.now() - (i % 10 * 4 * 24 * 60 * 60 * 1000);
-		// 				oProduct.DeliveryDateStr = oDateFormat.format(UI5Date.getInstance(oProduct.DeliveryDate));
-		// 				oProduct.Heavy = oProduct.WeightMeasure > 1000 ? "true" : "false";
-		// 				oProduct.Available = oProduct.Status === "Available" ? true : false;
-		// 			}
-
-		// 			oData.Suppliers = aSuppliersData;
-		// 			oData.Categories = aCategoryData;
-
-		// 			oModel.setData(oData);
-		// 		},
-		// 		error: function() {
-		// 			Log.error("failed to load json");
-		// 		}
-		// 	});
-
-		// 	return oModel;
-		// },
-
-		// updateMultipleSelection: function(oEvent) {
-		// 	const oMultiInput = oEvent.getSource();
-		// 	const sTokensPath = oMultiInput.getBinding("tokens").getContext().getPath() + "/" + oMultiInput.getBindingPath("tokens");
-		// 	const aRemovedTokensKeys = oEvent.getParameter("removedTokens").map(function(oToken) {
-		// 		return oToken.getKey();
-		// 	});
-		// 	let aCurrentTokensData = oMultiInput.getTokens().map(function(oToken) {
-		// 		return {"Key": oToken.getKey(), "Name": oToken.getText()};
-		// 	});
-
-		// 	aCurrentTokensData = aCurrentTokensData.filter(function(oToken) {
-		// 		return aRemovedTokensKeys.indexOf(oToken.Key) === -1;
-		// 	});
-
-		// 	oMultiInput.getModel().setProperty(sTokensPath, aCurrentTokensData);
-		// },
-
-		// formatAvailableToObjectState: function(bAvailable) {
-		// 	return bAvailable ? "Success" : "Error";
-		// },
-
-		// formatAvailableToIcon: function(bAvailable) {
-		// 	return bAvailable ? "sap-icon://accept" : "sap-icon://decline";
-		// },
-
-		// handleDetailsPress: function(oEvent) {
-		// 	MessageToast.show("Details for product with id " + this.getView().getModel().getProperty("ProductId", oEvent.getSource().getBindingContext()));
-		// },
-
-		// onPaste: function(oEvent) {
-		// 	const aData = oEvent.getParameter("data");
-		// 	MessageToast.show("Pasted Data: " + aData);
-		// }
-
+            return dataFormato.format(oData); // Formata a data para o formato "yyyy-MM-dd"
+		}	
 	});
-
 });
