@@ -20,13 +20,19 @@
 				ariaLabelledBy="title">
 				<extension>
 					<!-- Comeco -->
+					<m:HBox>
+						<m:items>
+							<c:Icon src="sap-icon://cart" alt="Cart" size="1.25rem"/>
+							<m:Title text="Shopping Portal" titleStyle="H3" class="sapUiTinyMarginBeginEnd"/>
+						</m:items>
+					</m:HBox>
 					<m:OverflowToolbar style="Clear">
-						<m:Title id="title" text="Filmes"/>
+						<m:Title id="title" text="Products"/>
 						<m:ToolbarSpacer/>
 						<m:SearchField
-							placeholder="Pesquisar"
+							placeholder="Filter"
 							value="{ui>/filterValue}"
-							search="aoFiltrarFilmes"
+							search="handleTxtFilter"
 							width="15rem"/>
 					</m:OverflowToolbar>
 					<m:FacetFilter
@@ -42,7 +48,7 @@
 								key="{filtros>key}"
 								mode="MultiSelect"
 								listClose="handleListClose"
-								items="{filtros>values}">
+								items="{filtros>values}" >
 								<m:items>
 									<m:FacetFilterItem
 										text="{filtros>text}"
@@ -51,9 +57,14 @@
 							</m:FacetFilterList>
 						</m:lists>
 					</m:FacetFilter>
-
 					<!-- Fim do Codigo a ser alterado -->
 				</extension>
+				<noData>
+					<m:Link
+						class="sapUiMediumMargin"
+						text="No Data found. Press here to reset all filters."
+						press="clearAllFilters"/>
+				</noData>
 				<columns>
 					<Column width="18rem" hAlign="Center">
 						<m:Label text="Titulo" />
@@ -63,7 +74,7 @@
 					</Column>
                     
 					<Column width="9rem" hAlign="Center">
-						<m:Label text="Genero" />
+						<m:Label text="Gênero" />
 						<template>
 							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
 						</template>
