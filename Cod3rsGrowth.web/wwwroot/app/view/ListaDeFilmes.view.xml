@@ -22,49 +22,29 @@
 					<!-- Comeco -->
 					<m:HBox>
 						<m:items>
-							<c:Icon src="sap-icon://cart" alt="Cart" size="1.25rem"/>
-							<m:Title text="Shopping Portal" titleStyle="H3" class="sapUiTinyMarginBeginEnd"/>
+							<c:Icon src="sap-icon://video" alt="Cart" size="1.5rem"/>
+							<m:Title text="Lista de Filmes" titleStyle="H3" class="sapUiTinyMarginBeginEnd"/>
 						</m:items>
 					</m:HBox>
 					<m:OverflowToolbar style="Clear">
-						<m:Title id="title" text="Products"/>
+						<m:Title id="title" text="Filmes"/>
 						<m:ToolbarSpacer/>
 						<m:SearchField
-							placeholder="Filter"
+							placeholder="Pesquisar"
 							value="{ui>/filterValue}"
 							search="handleTxtFilter"
 							width="15rem"/>
+						
 					</m:OverflowToolbar>
-					<m:FacetFilter
-						id="facetFilter"
-						type="Simple"
-						showReset="true"
-						showPopoverOKButton="true"
-						reset="handleFacetFilterReset"
-						lists="{filtros>/Filters}">
-						<m:lists>
-							<m:FacetFilterList
-								title="{filtros>type}"
-								key="{filtros>key}"
-								mode="MultiSelect"
-								listClose="handleListClose"
-								items="{filtros>values}" >
-								<m:items>
-									<m:FacetFilterItem
-										text="{filtros>text}"
-										key="{filtros>key}"/>
-								</m:items>
-							</m:FacetFilterList>
-						</m:lists>
-					</m:FacetFilter>
+					<!-- <m:ComboBox
+						items="{
+							path: '/CountriesCollection',
+							sorter: { path: 'text' }
+						}">
+						<core:Item key="{key}" text="{text}" />
+					</m:ComboBox> -->
 					<!-- Fim do Codigo a ser alterado -->
 				</extension>
-				<noData>
-					<m:Link
-						class="sapUiMediumMargin"
-						text="No Data found. Press here to reset all filters."
-						press="clearAllFilters"/>
-				</noData>
 				<columns>
 					<Column width="18rem" hAlign="Center">
 						<m:Label text="Titulo" />
@@ -97,7 +77,7 @@
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="Disponivel no plano" />
 						<template>
-							<m:CheckBox selected="{filme>disponivelNoPlano}" editable="false"/>
+							<m:ObjectStatus text="{path: 'filme>disponivelNoPlano', formatter: '.formatarDisponivel'}"/>
 						</template>
 					</Column>
 

@@ -37,9 +37,9 @@
 				"uri": "Filmes.json"
 			},
 
-      "filtros": {
+      "genero": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "filtros.json"
+				"uri": "http://localhost:5152/api/Enum"
 			}
     },
     "rootView": {

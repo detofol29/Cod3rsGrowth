@@ -35,8 +35,6 @@ sap.ui.define([
 
 		onInit: function() {
 			const oView = this.getView();
-
-			// set explored app's demo model on this sample
 			const oJSONModel = this.initSampleDataModel();
 			oView.setModel(oJSONModel);
 
@@ -118,55 +116,12 @@ sap.ui.define([
 			}
 		},
 
-		clearAllFilters: function() {
-			this.handleTxtFilter();
-			this.handleFacetFilterReset();
-			this._filter();
-		},
-
-		_getFacetFilterLists: function() {
-			const oFacetFilter = this.byId("facetFilter");
-			return oFacetFilter.getLists();
-		},
-
-		handleFacetFilterReset: function(oEvent) {
-			const aFacetFilterLists = this._getFacetFilterLists();
-
-			for (let i = 0; i < aFacetFilterLists.length; i++) {
-				aFacetFilterLists[i].setSelectedKeys();
-			}
-			this._oFacetFilter = null;
-
-			if (oEvent) {
-				this._filter();
-			}
-		},
-
-		handleListClose: function(oEvent) {
-			const aFacetFilterLists = this._getFacetFilterLists().filter(function(oList) {
-				return oList.getActive() && oList.getSelectedItems().length;
-			});
-
-			this._oFacetFilter = new Filter(aFacetFilterLists.map(function(oList) {
-				return new Filter(oList.getSelectedItems().map(function(oItem) {
-					return new Filter(oList.getTitle(), FilterOperator.EQ, oItem.getText());
-				}), false);
-			}), true);
-
-			this._filter();
-		},
-
-		formatAvailableToObjectState: function(bAvailable) {
-			return bAvailable ? "Success" : "Error";
-		},
-
-
-		obterGenero(GeneroIndice) {
-			return this.retornarTextoI18nCorrespondente(GENEROS[GeneroIndice]); 
-		},
-		
 		obterClassificacao(ClassificacaoIndice) {
 			return this.retornarTextoI18nCorrespondente(CLASSIFICACAO_INDICATIVA[ClassificacaoIndice]);
+		},
+
+		obterGenero(GeneroIndice){
+			return this.retornarTextoI18nCorrespondente(GENEROS[GeneroIndice]);
 		},
 
 		formatarData(Data) {
@@ -188,6 +143,18 @@ sap.ui.define([
 			oBinding.filter(aFilter);
 		},
 
+		formatarDisponivel(Disponivel) {
+			if(Disponivel){
+				return "Sim"
+			}
+			return "Não"
+		},
+
+		clearAllFilters: function() {
+			this.handleTxtFilter();
+			this.handleFacetFilterReset();
+			this._filter();
+		},
 	});
 
 });
