@@ -8,7 +8,7 @@ sap.ui.define([
 	"sap/m/ToolbarSpacer",
 	"sap/ui/thirdparty/jquery",
 	"sap/ui/core/date/UI5Date"
-], function(Log, Controller, JSONModel, Filter, FilterOperator, DateFormat, ToolbarSpacer, jQuery, UI5Date) {
+], function(Log, BaseController, JSONModel, Filter, FilterOperator, DateFormat, ToolbarSpacer, jQuery, UI5Date) {
 	"use strict";
 
 	const GENEROS = {
@@ -31,7 +31,7 @@ sap.ui.define([
 		5: "Classificacao.18"
 	};
 
-	return Controller.extend("cod3rsgrowth.app.controller.ListaDeFilmes", {
+	return BaseController.extend("cod3rsgrowth.app.controller.ListaDeFilmes", {
 
 		onInit: function() {
 			const oView = this.getView();
@@ -137,7 +137,6 @@ sap.ui.define([
 				aFilter.push(new Filter("titulo", FilterOperator.Contains, sQuery));
 			}
 
-			// filter binding
 			const oList = this.byId("tabelaFilmes");
 			const oBinding = oList.getBinding("rows");
 			oBinding.filter(aFilter);
@@ -155,6 +154,22 @@ sap.ui.define([
 			this.handleFacetFilterReset();
 			this._filter();
 		},
-	});
 
+		fitrarPorGenero(oEvent){
+			var sSelectedGenero = oEvent.getParameter("selectedItem").getKey();
+
+            // Obtém a referência da tabela
+            var oTable = this.byId("tabelaFilmes");
+
+            // Define o filtro
+            var aFilters = [];
+            if (sSelectedGenero !== "todos") {
+                aFilters.push(new Filter("genero", FilterOperator.EQ, sSelectedGenero));
+            }
+
+            // Aplica o filtro à binding da tabela
+            var oBinding = oTable.getBinding("rows");
+            oBinding.filter(aFilters);
+		}
+	});
 });

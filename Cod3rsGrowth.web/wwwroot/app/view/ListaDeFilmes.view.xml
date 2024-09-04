@@ -5,7 +5,8 @@
 	xmlns:u="sap.ui.unified"
 	xmlns:c="sap.ui.core"
 	xmlns:m="sap.m"
-    height="100%">
+    height="100%"
+	xmlns:core="sap.ui.core">
 	<m:Page
 		id="ListaDeFilmes"
 		showHeader="false"
@@ -19,7 +20,6 @@
 				paste="app"
 				ariaLabelledBy="title">
 				<extension>
-					<!-- Comeco -->
 					<m:HBox>
 						<m:items>
 							<c:Icon src="sap-icon://video" alt="Cart" size="1.5rem"/>
@@ -34,16 +34,31 @@
 							value="{ui>/filterValue}"
 							search="handleTxtFilter"
 							width="15rem"/>
-						
+						<!-- <ComboBox
+							items="{
+								path: 'generos>/',
+								sorter: { path: 'text' }
+							}">
+							<core:Item key="{key}" text="{text}" />
+						</ComboBox> -->
+						<m:ComboBox
+							id="comboBoxStatusConta"
+							placeholder="Status da conta"
+							width="auto"
+							items="{
+								path: 'genero>/',
+								sorter: { path: 'genero>descricao' }
+							}">
+							<c:Item key="{genero>id}" text="{genero>descricao}" />
+						</m:ComboBox>
+						<m:ToggleButton
+							id="toggleFiltros"
+							text="filtrar"
+							icon="sap-icon://filter"
+							tooltip="filtrar"
+							visible="true" press=".aoPressionarBotaoFiltros"/>
+						<m:ToolbarSeparator />
 					</m:OverflowToolbar>
-					<!-- <m:ComboBox
-						items="{
-							path: '/CountriesCollection',
-							sorter: { path: 'text' }
-						}">
-						<core:Item key="{key}" text="{text}" />
-					</m:ComboBox> -->
-					<!-- Fim do Codigo a ser alterado -->
 				</extension>
 				<columns>
 					<Column width="18rem" hAlign="Center">
@@ -52,7 +67,6 @@
 							<m:Text text="{filme>titulo}" wrapping="false" />
 						</template>
 					</Column>
-                    
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="Gênero" />
 						<template>
