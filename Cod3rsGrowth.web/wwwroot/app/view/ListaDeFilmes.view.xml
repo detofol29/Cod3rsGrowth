@@ -30,33 +30,24 @@
 						<m:Title id="title" text="Filmes"/>
 						<m:ToolbarSpacer/>
 						<m:SearchField
+							Change="metodoQuePreenche"
 							placeholder="Pesquisar"
 							value="{ui>/filterValue}"
 							search="handleTxtFilter"
 							width="15rem"/>
-						<!-- <ComboBox
-							items="{
-								path: 'generos>/',
-								sorter: { path: 'text' }
-							}">
-							<core:Item key="{key}" text="{text}" />
-						</ComboBox> -->
 						<m:ComboBox
-							id="comboBoxStatusConta"
-							placeholder="Status da conta"
+							id="comboBoxFiltroGenero"
+							placeholder="Genero"
 							width="auto"
-							items="{
-								path: 'genero>/',
-								sorter: { path: 'genero>descricao' }
-							}">
-							<c:Item key="{genero>id}" text="{genero>descricao}" />
+							items="{ path: 'Generos>/' }">
+							<c:Item key="{Generos>id}" text="{Generos>descricao}" />
 						</m:ComboBox>
 						<m:ToggleButton
 							id="toggleFiltros"
 							text="filtrar"
 							icon="sap-icon://filter"
 							tooltip="filtrar"
-							visible="true" press=".aoPressionarBotaoFiltros"/>
+							visible="true" press="filtrarGenerosB"/>
 						<m:ToolbarSeparator />
 					</m:OverflowToolbar>
 				</extension>
@@ -71,6 +62,8 @@
 						<m:Label text="Gênero" />
 						<template>
 							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
+							<!-- <m:Text text="{Generos>descricao}"/> -->
+							<!-- <m:Text text="{filme>genero}"/> -->
 						</template>
 					</Column>
 
@@ -112,7 +105,7 @@
 					<Column width="10rem" hAlign="Center">
 						<m:Label text="Data de Lançamento" />
 						<template>
-							<m:DatePicker value="{path: 'filme>dataDeLancamento', formatter: '.formatarData'}" displayFormat="dd/MM/yyyy" editable="false"/>
+							<m:DatePicker value="{path: 'dataDeLancamento', formatter: '.formatarData'}" displayFormat="dd/MM/yyyy" editable="false"/>
 						</template>
 					</Column>
 				</columns>

@@ -48,6 +48,23 @@ namespace Cod3rsGrowth.web.Controllers
             return Ok(filmes);
         }
 
+        [HttpGet("filtros/{idGenero}")]
+        public OkObjectResult ObterTod([FromRoute]int? idGenero)
+        {
+            var filmes = new List<Filme>();
+            if (idGenero is null)
+            {
+                filmes = servico.ObterTodos(null);
+            }
+            else
+            {
+                FiltroFilme filtro = new();
+                filtro.FiltroGenero = (GeneroEnum)idGenero;
+                filmes = servico.ObterTodos(filtro);
+            }
+            return Ok(filmes);
+        }
+
         [HttpGet("{id}")]
         public OkObjectResult ObterPorId([FromRoute] int id)
         {

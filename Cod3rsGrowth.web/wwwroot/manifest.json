@@ -31,16 +31,7 @@
           "bundleName": "cod3rsgrowth.i18n.i18n",
           "fallbackLocale": ""
         }
-      },
-      "filme": {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "Filmes.json"
-			},
-
-      "genero": {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "http://localhost:5152/api/Enum"
-			}
+      }
     },
     "rootView": {
       "viewName": "cod3rsgrowth.app.view.App",

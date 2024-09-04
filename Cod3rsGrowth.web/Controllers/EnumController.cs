@@ -26,5 +26,14 @@ namespace Cod3rsGrowth.web.Controllers
             var generos = servicoEnum.ObterTodos<GeneroEnum>();
             return Ok(generos);
         }
+        
+        [HttpGet("filtros")]
+        public OkObjectResult ObterFiltros()
+        {
+            FiltroFilme filtro = new();
+            filtro.FiltroGenero = GeneroEnum.Terror;
+            filtro.FiltroDisponivelNoPlano = false;
+            return Ok(filtro);
+        }
     }
 }
