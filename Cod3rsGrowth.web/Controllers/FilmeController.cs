@@ -48,18 +48,35 @@ namespace Cod3rsGrowth.web.Controllers
             return Ok(filmes);
         }
 
-        [HttpGet("filtros/{idGenero}")]
-        public OkObjectResult ObterTod([FromRoute]int? idGenero)
+        [HttpGet("filtros/titulo/{titulo}")]
+        public OkObjectResult ObterTod([FromRoute]string? titulo)
         {
             var filmes = new List<Filme>();
-            if (idGenero is null)
+            if (titulo is null)
             {
                 filmes = servico.ObterTodos(null);
             }
             else
             {
                 FiltroFilme filtro = new();
-                filtro.FiltroGenero = (GeneroEnum)idGenero;
+                filtro.FiltroTitulo = titulo;
+                filmes = servico.ObterTodos(filtro);
+            }
+            return Ok(filmes);
+        }
+
+        [HttpGet("filtros/genero/{generoId}")]
+        public OkObjectResult ObterTod([FromRoute]int? generoId)
+        {
+            var filmes = new List<Filme>();
+            if (generoId is null)
+            {
+                filmes = servico.ObterTodos(null);
+            }
+            else
+            {
+                FiltroFilme filtro = new();
+                filtro.FiltroGenero = (GeneroEnum)generoId;
                 filmes = servico.ObterTodos(filtro);
             }
             return Ok(filmes);

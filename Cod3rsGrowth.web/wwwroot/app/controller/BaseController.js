@@ -13,8 +13,22 @@ sap.ui.define([
 			return mensagem;
 		},
 
-		getRouter() {
+		processarAcao: function(action) {
+            try {
+                const result = action();
+                return result;
+            }
+            catch (error) {
+                console.log("erro");
+            }
+        },
+ 
+        getRouter() {
             return UIComponent.getRouterFor(this);
+        },
+       
+        getModel : function (name) {
+            return this.getView().getModel(name);
         },
 
         irParaRotaCorrespondente(rota) {

@@ -26,7 +26,14 @@ namespace Cod3rsGrowth.web.Controllers
             var generos = servicoEnum.ObterTodos<GeneroEnum>();
             return Ok(generos);
         }
-        
+
+        [HttpGet("classificacao")]
+        public OkObjectResult ObterClassificacao()
+        {
+            var classificacao = servicoEnum.ObterTodos<ClassificacaoIndicativa>();
+            return Ok(classificacao);
+        }
+
         [HttpGet("filtros")]
         public OkObjectResult ObterFiltros()
         {

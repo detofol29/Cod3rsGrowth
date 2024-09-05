@@ -17,7 +17,6 @@
 				id = "tabelaFilmes"
 				rows="{filme>/}"
 				selectionMode="MultiToggle"
-				paste="app"
 				ariaLabelledBy="title">
 				<extension>
 					<m:HBox>
@@ -30,16 +29,18 @@
 						<m:Title id="title" text="Filmes"/>
 						<m:ToolbarSpacer/>
 						<m:SearchField
-							Change="metodoQuePreenche"
+							id="filtroTitulo"
+							change= "aoPerderFocoBarraDePesquisa"
 							placeholder="Pesquisar"
 							value="{ui>/filterValue}"
-							search="handleTxtFilter"
+							search="aoFiltrarFilmes"
 							width="15rem"/>
 						<m:ComboBox
-							id="comboBoxFiltroGenero"
+							id="filtroGenero"
 							placeholder="Genero"
-							width="auto"
-							items="{ path: 'Generos>/' }">
+							width="7rem"
+							items="{ path: 'Generos>/' }"
+							change= "aoSelecionarItem">
 							<c:Item key="{Generos>id}" text="{Generos>descricao}" />
 						</m:ComboBox>
 						<m:ToggleButton
@@ -47,13 +48,13 @@
 							text="filtrar"
 							icon="sap-icon://filter"
 							tooltip="filtrar"
-							visible="true" press="filtrarGenerosB"/>
+							visible="true" press="aoAClicarEmFiltrar"/>
 						<m:ToolbarSeparator />
 					</m:OverflowToolbar>
 				</extension>
 				<columns>
 					<Column width="18rem" hAlign="Center">
-						<m:Label text="Titulo" />
+						<m:Label text="Título" />
 						<template>
 							<m:Text text="{filme>titulo}" wrapping="false" />
 						</template>
@@ -62,8 +63,6 @@
 						<m:Label text="Gênero" />
 						<template>
 							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
-							<!-- <m:Text text="{Generos>descricao}"/> -->
-							<!-- <m:Text text="{filme>genero}"/> -->
 						</template>
 					</Column>
 
@@ -77,19 +76,19 @@
 					<Column width="7rem" hAlign="Center">
 						<m:Label text="Classificação" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.obterClassificacao'}"/> 
+							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.formatarClassificacao'}"/> 
 						</template>
 					</Column>
 
 					<Column width="9rem" hAlign="Center">
-						<m:Label text="Disponivel no plano" />
+						<m:Label text="Disponível no plano" />
 						<template>
 							<m:ObjectStatus text="{path: 'filme>disponivelNoPlano', formatter: '.formatarDisponivel'}"/>
 						</template>
 					</Column>
 
 					<Column width="8rem" hAlign="Center">
-						<m:Label text="Duracao" />
+						<m:Label text="Duração" />
 						<template>
 							<u:Currency value="{filme>duracao}"/>
 						</template>
