@@ -3,34 +3,37 @@ sap.ui.define([
 ], function (JSONModel) {
     "use strict";
  
-    const nomeDoModelo = "filme"
-    const nomeRota = "Filme"
-    //titulo=Carros
+    const NOME_MODELO = "filme"
+    const NOME_ROTA = "Filme"
     return {
-        carregarDadosFilme: async function (filtros, view) {
+
+        async carregarDadosFilme(filtros, view) {
             const urlPagina = window.location.origin;
-            const url = urlPagina + "/api/" + nomeRota;
-            const urlFiltro = urlPagina + "/api/" + nomeRota + "?" + filtros;
+            const url = urlPagina + "/api/" + NOME_ROTA;
+            const urlFiltro = urlPagina + "/api/" + NOME_ROTA + "?" + filtros;
+
             if (filtros == "") {
                 await fetch(url)
                     .then(requisicao => requisicao.json())
-                    .then(dados => view.setModel(new JSONModel(dados), nomeDoModelo))
-            } else {
+                    .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO));
+            } 
+            else {
                 await fetch(urlFiltro)
                     .then(requisicao => requisicao.json())
-                    .then(dados => view.setModel(new JSONModel(dados), nomeDoModelo))
+                    .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO));
             }
         },
  
-        obterEnumGenero: async function(view){
+        async obterEnumGenero(view){
             await fetch ("http://localhost:5152/api/Enum")
                 .then((res) => res.json())
                 .then(dados => view.setModel(new JSONModel(dados), "Generos"))
         },
  
-        obterEnumClassificacao: async function(view){
+        async obterEnumClassificacao(view){
             await fetch ("http://localhost:5152/api/Enum/classificacao")
                 .then((res) => res.json())
                 .then((res) => view.setModel(new JSONModel(res), "Classificacoes"))
         }
-    }});
+    }
+});

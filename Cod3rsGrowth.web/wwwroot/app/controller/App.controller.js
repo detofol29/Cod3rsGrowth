@@ -7,8 +7,8 @@
    return BaseController.extend(CAMINHO_APP, {
 
       aoClicarBotao() {
-			var textoParaBotaoClicado = this.retornarTextoI18nCorrespondente("Botao.TextoClicado");
-         var idBotao = this.retornarTextoI18nCorrespondente("Botao.Id");
+			let textoParaBotaoClicado = this.retornarTextoI18nCorrespondente("Botao.TextoClicado");
+         let idBotao = this.retornarTextoI18nCorrespondente("Botao.Id");
          
 			this
             .byId(idBotao)

@@ -48,7 +48,7 @@
 							text="filtrar"
 							icon="sap-icon://filter"
 							tooltip="filtrar"
-							visible="true" press="aoAClicarEmFiltrar"/>
+							visible="true" press="aoClicarEmFiltrar"/>
 						<m:ToolbarSeparator />
 					</m:OverflowToolbar>
 				</extension>

@@ -8,12 +8,12 @@ sap.ui.define([
 	return Controller.extend("cod3rsgrowth.app.controller.BaseController", {
 
 		retornarTextoI18nCorrespondente(chave) {
-			var textosTraduziveis = this.getView().getModel("i18n").getResourceBundle();
-			var mensagem = textosTraduziveis.getText(chave);
+			let textosTraduziveis = this.getView().getModel("i18n").getResourceBundle();
+			let mensagem = textosTraduziveis.getText(chave);
 			return mensagem;
 		},
 
-		processarAcao: function(action) {
+		processarAcao(action) {
             try {
                 const result = action();
                 return result;
@@ -27,7 +27,7 @@ sap.ui.define([
             return UIComponent.getRouterFor(this);
         },
        
-        getModel : function (name) {
+        getModel(name) {
             return this.getView().getModel(name);
         },
 
