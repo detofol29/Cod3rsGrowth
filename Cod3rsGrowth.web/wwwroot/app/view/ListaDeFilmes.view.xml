@@ -16,7 +16,7 @@
 			<Table
 				id = "tabelaFilmes"
 				rows="{filme>/}"
-				selectionMode="MultiToggle"
+				selectionMode="Single"
 				ariaLabelledBy="title">
 				<extension>
 					<m:HBox>
@@ -32,13 +32,12 @@
 							id="filtroTitulo"
 							change= "aoPerderFocoBarraDePesquisa"
 							placeholder="Pesquisar"
-							value="{ui>/filterValue}"
-							search="aoFiltrarFilmes"
 							width="15rem"/>
 						<m:ComboBox
 							id="filtroGenero"
 							placeholder="Genero"
 							width="7rem"
+							selectedKey="{Generos>id}"
 							items="{ path: 'Generos>/' }"
 							change= "aoSelecionarItem">
 							<c:Item key="{Generos>id}" text="{Generos>descricao}" />
@@ -76,14 +75,14 @@
 					<Column width="7rem" hAlign="Center">
 						<m:Label text="Classificação" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.formatarClassificacao'}"/> 
+							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.obterClassificacao'}"/> 
 						</template>
 					</Column>
 
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="Disponível no plano" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>disponivelNoPlano', formatter: '.formatarDisponivel'}"/>
+							<m:ObjectStatus text="{path: 'filme>disponivelNoPlano', formatter: '.obterDisponivel'}"/>
 						</template>
 					</Column>
 
@@ -104,7 +103,7 @@
 					<Column width="10rem" hAlign="Center">
 						<m:Label text="Data de Lançamento" />
 						<template>
-							<m:DatePicker value="{path: 'dataDeLancamento', formatter: '.formatarData'}" displayFormat="dd/MM/yyyy" editable="false"/>
+							<m:DatePicker value="{path: 'filme>dataDeLancamento', formatter: '.obterData'}" displayFormat="dd/MM/yyyy" editable="false"/>
 						</template>
 					</Column>
 				</columns>
