@@ -1,21 +1,20 @@
 sap.ui.define([
-	"sap/base/Log",
 	"cod3rsgrowth/app/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
-	"sap/ui/core/format/DateFormat",
-	"sap/ui/thirdparty/jquery",
 	"cod3rsgrowth/app/model/repositorio",
 	"cod3rsgrowth/app/model/formatador"
-], function(Log, BaseController, JSONModel, Filter, FilterOperator, DateFormat, jQuery, repositorio, Formatador) {
+], function(BaseController, JSONModel, Repositorio, Formatador) {
 	"use strict";
+
+	const STRING_VAZIA = "";
+	const MODELO_GENEROS_NOME = "Generos";
+	const MODELO_FILTRO_NOME = "modeloFiltro";
+	const COMBOBOX_FILTRO_GENERO_ID = "filtroGenero";
 
 	return BaseController.extend("cod3rsgrowth.app.controller.ListaDeFilmes", {
 
 		onInit() {
-			let nomeModeloFiltro = "modeloFiltro"
-			const modeloFiltro = new JSONModel({genero: "", titulo: ""});
+			let modeloFiltro = new JSONModel({genero: STRING_VAZIA, titulo: STRING_VAZIA});
 			
 			this
 			.getRouter()
@@ -25,16 +24,16 @@ sap.ui.define([
 			}, this);
 			
 			const oView = this.getView();
-			oView.setModel(modeloFiltro, nomeModeloFiltro);
+			oView.setModel(modeloFiltro, MODELO_FILTRO_NOME);
 		},
 
 		aoCoincidirRota() {
             let view = this.getView();
             this.processarAcao(async () => {
                 await Promise.all([
-                    repositorio.carregarDadosFilme("", view),
-                    repositorio.obterEnumGenero(view),
-                    repositorio.obterEnumClassificacao(view)
+                    Repositorio.carregarDadosFilme(STRING_VAZIA, view),
+                    Repositorio.obterEnumGenero(view),
+                    Repositorio.obterEnumClassificacao(view)
                 ]);
             });
         },
@@ -48,69 +47,32 @@ sap.ui.define([
 		},
 
 		obterIndiceGenero(Genero){
-			let genero = this.getView().getModel("Generos").getData();
-			for (let i = 0; i < genero.length; i++) {
-				if(genero[i].descricao == Genero){
+			let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
+			for (let i = 0; i < generos.length; i++) {
+				if(generos[i].descricao == Genero){
 					return i;
 				}
 			}
 		},
 
 		aoSelecionarItem(event) {
-			debugger
 			let generoSelecionado = event.getParameter("newValue");
-			if(generoSelecionado == ""){
+			if(generoSelecionado == STRING_VAZIA){
 				this
 				.getView()
-				.getModel("modeloFiltro")
-				.setProperty("/genero", "");
+				.getModel(MODELO_FILTRO_NOME)
+				.setProperty("/genero", STRING_VAZIA);
 			}else{
 				let indiceGenero = this.obterIndiceGenero(generoSelecionado);
 				this
 					.getView()
-					.getModel("modeloFiltro")
+					.getModel(MODELO_FILTRO_NOME)
 					.setProperty("/genero", indiceGenero);
 			}
 		},
 
-		aoSairDaBarraPesquisa(event){
-			let textoDigitado = event.getParameter("value");
-			this
-				.getView()
-				.getModel("modeloFiltro")
-				.setProperty("/titulo", textoDigitado);
-		},
-
-		aoClicarBotaoFiltrar(event){
-			let modeloFiltro = this.getView().getModel("modeloFiltro").getData();
-			let titulo = modeloFiltro.titulo;
-			let generoIndice = modeloFiltro.genero;
-			window.alert("O titulo selecionada para filtro eh: " + titulo + " e o indice do genero eh: " + generoIndice.toString());
-			// Codigo a ser construído
-		},
-
 		obterData(Data) {
             return Formatador.formatarData(Data);
-		},
-
-		aoFiltrarFilmes(event){
-			const aFilter = [];
-			const sQuery = event.getParameter("query");
-			this
-				.getView()
-				.getModel("modeloFiltro")
-				.setProperty("/titulo", sQuery);
-
-			if (sQuery) {
-				aFilter
-					.push(
-						new Filter("titulo", FilterOperator.Contains, sQuery)
-					);
-			}
-
-			const oList = this.byId("tabelaFilmes");
-			const oBinding = oList.getBinding("rows");
-			oBinding.filter(aFilter);
 		},
 		
 		obterDisponivel(Disponivel) {
@@ -121,27 +83,30 @@ sap.ui.define([
 			const sQuery = event.getParameter("value");
 			this
 				.getView()
-				.getModel("modeloFiltro")
+				.getModel(MODELO_FILTRO_NOME)
 				.setProperty("/titulo", sQuery);
 		},
 
 		async aoClicarEmFiltrar() {
             this.processarAcao(() => {
-				let modeloFiltro = this.getView().getModel("modeloFiltro").getData();
-				let titulo = modeloFiltro.titulo;
-				let generoIndice = modeloFiltro.genero;
                 let view = this.getView();
-                let filtros = "";
+				let modeloFiltro = view.getModel(MODELO_FILTRO_NOME).getData();
+				let titulo = modeloFiltro.titulo;
+
+				let generoNome = view.byId(COMBOBOX_FILTRO_GENERO_ID).mProperties.value;
+				let generoIndice = this.obterIndiceGenero(generoNome);
+
+                let filtros = STRING_VAZIA;
 
                 filtros = titulo.length == 0
 					? filtros + ""
 					: "FiltroTitulo=" + titulo;
 
-                filtros = generoIndice.length == 0
+                filtros = generoIndice == undefined
 					? filtros + ""
 					: (filtros.length == 0 ? filtros + "FiltroGenero=" + generoIndice: filtros + "&FiltroGenero=" + generoIndice);
 
-                repositorio.carregarDadosFilme(filtros, view);
+                Repositorio.carregarDadosFilme(filtros, view);
             });
         }
 	});

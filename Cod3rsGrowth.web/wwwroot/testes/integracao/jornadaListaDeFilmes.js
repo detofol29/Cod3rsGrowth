@@ -5,8 +5,15 @@ sap.ui.define([
     "use strict";
   
     QUnit.module("Pagina lista de filmes");
+
+    const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_GENERO = 6;
+    const QUANTIDADE_DE_FILMES_TOTAL_ESPERADA = 22;
+    const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME = 1;
+    const CHAVE_I18N_ESPERADA = "ListaDeFilmes.Titulo";
+    const TITULO_FILME = "Carros";
+
     opaQUnit("Carregar tela de lista",(Given, When, Then) => {
-          
+      
       Given
         .iStartMyUIComponent({
           componentConfig: {
@@ -16,14 +23,14 @@ sap.ui.define([
       Then
         .naListaDeFilmes
         .aTelaFoiCarregadaCorretamente();
-        
-      When
-          .naListaDeFilmes
-          .aoClicarComboBox();
+
+      Then
+        .naListaDeFilmes
+        .oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente(CHAVE_I18N_ESPERADA);
+
       When
         .naListaDeFilmes
         .aoClicarGenero();
-
 
       When 
         .naListaDeFilmes
@@ -31,27 +38,30 @@ sap.ui.define([
 
       Then
         .naListaDeFilmes
-        .aTabelaDevePossuirAQuantidadeDeElementos(6);
+        .aTabelaDevePossuirAQuantidadeDeElementos(QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_GENERO);
+
+      When
+        .naListaDeFilmes
+        .aoRemoverFiltrosGenero();
+      
+      When 
+        .naListaDeFilmes
+        .aoClicarBotaoFiltro();
+
+      Then
+        .naListaDeFilmes
+        .aTabelaDevePossuirAQuantidadeDeElementos(QUANTIDADE_DE_FILMES_TOTAL_ESPERADA);
+
+      When
+        .naListaDeFilmes
+        .aoAdicionarTituloDoFilmeCorrespondenteNaBarraDePesquisa(TITULO_FILME);
+      
+      When 
+        .naListaDeFilmes
+        .aoClicarBotaoFiltro();
+      
+      Then
+        .naListaDeFilmes
+        .aTabelaDevePossuirAQuantidadeDeElementos(QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME);
     });
-
-    opaQUnit("Filtrar por genero",(Given, When, Then) => {
-          
-        Given
-          .iStartMyUIComponent({
-            componentConfig: {
-              name: "cod3rsgrowth"
-            }
-          });
-
-        When
-          .naListaDeFilmes
-          .aoSelecionarGenero();
-
-        When 
-          .naListaDeFilmes
-          .aoClicarBotaoFiltro();
-        Then
-          .naListaDeFilmes
-          .aTabelaDevePossuirAQuantidadeDeElementos(6);
-      });
-  });
+});

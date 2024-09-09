@@ -1,9 +1,11 @@
 sap.ui.define([
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/core/format/DateFormat",
-], function (JSONModel, DateFormat) {
+    "sap/ui/core/format/DateFormat"
+], function (DateFormat) {
     "use strict";
  
+	const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
+	const INDICE_NULO = 0;
+
     return {
         formatarDisponivel(Disponivel) {
 			let valorFormatado = "Não";
@@ -20,20 +22,18 @@ sap.ui.define([
 		},
 
         formatarClassificacao(indiceClassificacao, view){
-			let indiceNulo = 0;
 			let indice = indiceClassificacao;
 			if(!indiceClassificacao){
-				indice = indiceNulo;
+				indice = INDICE_NULO;
 			}
-			let classificacao = view.getModel("Classificacoes").getData();
+			let classificacao = view.getModel(MODELO_CLASSIFICACOES_NOME).getData();
 			return classificacao[indice].descricao;
 		},
 
         formatarGenero(GeneroIndice, view){
-			let indiceNulo = 0;
 			let indice = GeneroIndice;
 			if(!GeneroIndice){
-				indice = indiceNulo;
+				indice = INDICE_NULO;
 			}
 			let genero = view.getModel("Generos").getData();
 			return genero[indice].descricao;

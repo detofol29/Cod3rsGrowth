@@ -1,9 +1,8 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	"sap/ui/test/actions/Press",
-    "sap/ui/test/actions/EnterText",
-	"sap/ui/test/matchers/Properties"
-], (Opa5, Press, EnterText, Properties) => {
+    "sap/ui/test/actions/EnterText"
+], (Opa5, Press, EnterText) => {
 	"use strict";
 
 	const NOME_VIEW = "app.view.ListaDeFilmes";
@@ -15,23 +14,10 @@ sap.ui.define([
 						viewName: NOME_VIEW,
 						controlType: "sap.m.ComboBox",
 						actions: (item) => {
-							//debugger
 							var itemSelecionado = item.mAggregations.items[7];
-							item.selectText(7)
-							//item.setSelectedItem(itemSelecionado);
-							//item.fireChange();
+							item.setSelectedItem(itemSelecionado);
 						},
-						success: () => Opa5.assert.ok(true, "O combo box foi selecionado com sucesso!<3"),
-						errorMessage: "O combo box não foi encontrado!"
-					});
-                },
-
-				aoClicarComboBox(){
-                    return this.waitFor({
-						viewName: NOME_VIEW,
-						controlType: "sap.m.ComboBox",
-						actions: new Press(),
-						success: () => Opa5.assert.ok(true, "O combo box foi selecionado com sucesso!<3"),
+						success: () => Opa5.assert.ok(true, "O combo box foi selecionado com sucesso!"),
 						errorMessage: "O combo box não foi encontrado!"
 					});
                 },
@@ -41,10 +27,32 @@ sap.ui.define([
                         viewName: NOME_VIEW,
                         controlType: "sap.m.ToggleButton",
                         actions: new Press(),
-                        success: () => Opa5.assert.ok(true, "O botao de filtrar foi clicado com sucesso!<3"),
-						errorMessage: "O botao filtrar nao foi encontrado não foi encontrado!"
+                        success: () => Opa5.assert.ok(true, "O botao de filtrar foi clicado com sucesso!"),
+						errorMessage: "O botao filtrar não foi encontrado não foi encontrado!"
                     });
-                }
+                },
+
+				aoAdicionarTituloDoFilmeCorrespondenteNaBarraDePesquisa(titulo){
+					return this.waitFor({
+						viewName: NOME_VIEW,
+						controlType: "sap.m.SearchField",
+						actions: new EnterText({ text: titulo}),
+						success: () => Opa5.assert.ok(true, "O nome do filme foi digitado com sucesso!"),
+						errorMessage: "O nome do filme não foi digitado com sucesso"
+					})
+				},
+
+				aoRemoverFiltrosGenero(){
+					return this.waitFor({
+						viewName: NOME_VIEW,
+						controlType: "sap.m.ComboBox",
+						actions: (item) => {
+							item.clearSelection();
+						},
+						success: () => Opa5.assert.ok(true, "O combo box foi limpo!"),
+						errorMessage: "O combo box não foi limpo!"
+					});
+				}
 			},
 
 			assertions: {
@@ -61,12 +69,27 @@ sap.ui.define([
                         viewName: NOME_VIEW,
                         controlType: "sap.ui.table.Table",
                         check: function (tabela) {
-                            return tabela[0].getModel("filme").getData().length == quantidadeDeFilmes
+                            return tabela[0]._iBindingLength == quantidadeDeFilmes
                         },
-                        success: () => Opa5.assert.ok(true, "A quantidade esta correta!"),
+                        success: () => Opa5.assert.ok(true, "A quantidade está correta!"),
                         errorMessage: "Não foi possível verificar a quantidade de filmes filtrados"
                     });
                 },
+
+				oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente(chave){
+					return this.waitFor({
+						viewName: NOME_VIEW,
+						controlType: "sap.m.Title",
+						matchers: {
+							i18NText: {
+								propertyName: "text",
+        						key: chave
+							}
+						},
+						success: () => Opa5.assert.ok(true, "O título apresenta o valor correspondente!"),
+						errorMessage: "O título não possui o valor correspondente!"
+					});
+				}
 			}
 		}
 	});
