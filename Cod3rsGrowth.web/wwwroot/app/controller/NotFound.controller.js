@@ -1,15 +1,17 @@
 sap.ui.define([
     "cod3rsgrowth/app/controller/BaseController"
-], (BaseController) => {
+], function(BaseController) {
     "use strict";
 
-    return BaseController.extend("cod3rsgrowth.app.controller.NotFound", {
-        onInit(){
+    const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.NotFound";
+    const ROTA_PRINCIPAL = "app";
+    
+    return BaseController.extend(ROTA_CONTROLLER, {
+        onInit: function(){
         },
 
-        aoClicarNavButton() {
-            var rotaPrincipal = "app";
-            return this.irParaRotaCorrespondente(rotaPrincipal);
+        aoClicarNavButton: function() {
+            return this.irParaRotaCorrespondente(ROTA_PRINCIPAL);
         }
 	});
 });

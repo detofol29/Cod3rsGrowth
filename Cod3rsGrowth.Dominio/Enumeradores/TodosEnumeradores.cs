@@ -1,7 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Enumeradores;
 using Cod3rsGrowth.Dominio.Extensoes;
+using Cod3rsGrowth.Dominio.Modelos;
 
-namespace Cod3rsGrowth.Domuinio.Enumeradores;
+namespace Cod3rsGrowth.Dominio.Enumeradores;
 
 public class TodosEnumeradores
 {

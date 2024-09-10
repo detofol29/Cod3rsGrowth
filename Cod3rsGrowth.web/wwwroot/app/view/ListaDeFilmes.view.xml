@@ -1,0 +1,116 @@
+<mvc:View
+	controllerName="cod3rsgrowth.app.controller.ListaDeFilmes"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:t="sap.ui.table"
+    height="100%"
+	xmlns:core="sap.ui.core">
+	<m:Page
+		id="ListaDeFilmes"
+		showHeader="false"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<t:Table
+				id = "tabelaFilmes"
+				rows="{filme>/}"
+				selectionMode="Single"
+				ariaLabelledBy="title">
+				<extension>
+					<m:HBox>
+						<m:items>
+							<c:Icon src="sap-icon://video" alt="Cart" size="1.5rem"/>
+							<m:Title text="{i18n>ListaDeFilmes.Titulo}" titleStyle="H3" class="sapUiTinyMarginBeginEnd"/>
+						</m:items>
+					</m:HBox>
+					<m:OverflowToolbar style="Clear">
+						<m:ToolbarSpacer/>
+						<m:SearchField
+							id="filtroTitulo"
+							change= "aoPerderFocoBarraDePesquisa"
+							placeholder="{i18n>ListaDeFilmes.BarraDePesquisa.TextoDeFundo}"
+							width="15rem"/>
+						<m:ComboBox
+							id="filtroGenero"
+							placeholder="{i18n>ListaDeFilmes.ComboBox.TextoDeFundo}"
+							width="7rem"
+							selectedKey="{Generos>id}"
+							items="{ path: 'Generos>/' }"
+							change= "aoSelecionarItem">
+							<c:ListItem key="{Generos>id}" text="{Generos>descricao}"/>
+						</m:ComboBox>
+						<m:ToggleButton
+							id="toggleFiltros"
+							text="{i18n>ListaDeFilmes.BotaoFiltrar.Texto}"
+							icon="sap-icon://filter"
+							tooltip="filtrar"
+							visible="true" press="aoClicarEmFiltrar"/>
+						<m:ToolbarSeparator />
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="18rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Titulo}" />
+						<template>
+							<m:Text text="{filme>titulo}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Genero}" />
+						<template>
+							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
+						</template>
+					</Column>
+
+					<Column width="6rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Nota}"/>
+						<template>
+							<u:Currency value="{filme>nota}"/>
+						</template>
+					</Column>
+
+					<Column width="7rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Classificacao}" />
+						<template>
+							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.obterClassificacao'}"/> 
+						</template>
+					</Column>
+
+					<Column width="9rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Disponivel}" />
+						<template>
+							<m:ObjectStatus text="{path: 'filme>disponivelNoPlano', formatter: '.obterDisponivel'}"/>
+						</template>
+					</Column>
+
+					<Column width="8rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Duracao}" />
+						<template>
+							<u:Currency value="{filme>duracao}"/>
+						</template>
+					</Column>
+
+					<Column width="12rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Diretor}" />
+						<template>
+							<m:Text text="{filme>diretor}" wrapping="false" />
+						</template>
+					</Column>
+	
+					<Column width="10rem" hAlign="Center">
+						<m:Label text="{i18n>ListaDeFilmes.Colunas.Data}" />
+						<template>
+							<m:DatePicker value="{path: 'filme>dataDeLancamento', formatter: '.obterData'}" displayFormat="dd/MM/yyyy" editable="false"/>
+						</template>
+					</Column>
+				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+				</footer>
+			</t:Table>
+		</m:content>
+	</m:Page>
+</mvc:View>

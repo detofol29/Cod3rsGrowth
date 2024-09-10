@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Dominio.Enumeradores;
 using Cod3rsGrowth.Servicos.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IIS.Core;

@@ -4,15 +4,6 @@
    xmlns:mvc="sap.ui.core.mvc"
    displayBlock="true">
    <Shell>
-        <App id="app">
-                <Page id="appPage">
-                        <content>
-                                <Button
-                                id="botaoTeste"
-                                text="{i18n>Botao.TextoInicial}"
-                                press="aoClicarBotao"/>
-                        </content>
-                </Page>
-        </App>
+        <App id="app"/>
    </Shell>
 </mvc:View>

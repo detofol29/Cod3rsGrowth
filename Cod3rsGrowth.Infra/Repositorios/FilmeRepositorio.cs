@@ -60,6 +60,13 @@ public class FilmeRepositorio : IFilmeRepositorio
                     select a;
         }
 
+        if (filtroFilme?.FiltroTitulo != null)
+        {
+            query = from a in query
+                    where a.Titulo.Contains(filtroFilme.FiltroTitulo)
+                    select a;
+        }
+
         return query.ToList<Filme>();
     }
 
