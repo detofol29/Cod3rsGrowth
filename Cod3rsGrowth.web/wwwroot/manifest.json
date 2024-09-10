@@ -53,8 +53,14 @@
         "async": true
       },
       "routes": [
+        
         {
           "pattern": "",
+          "name": "CadastroDeFilmes",
+          "target": "CadastroDeFilmes"
+        },
+        {
+          "pattern": "ddd",
           "name": "ListaDeFilmes",  
           "target": "ListaDeFilmes" 
         }
@@ -64,6 +70,12 @@
           "id": "ListaDeFilmes",
           "name": "ListaDeFilmes"
         },
+
+        "CadastroDeFilmes": {
+          "id": "CadastroDeFilmes",
+          "name": "CadastroDeFilmes"
+        },
+
         "notFound": {
 					"id": "notFound",
 					"name": "NotFound"

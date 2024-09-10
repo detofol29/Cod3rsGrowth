@@ -28,11 +28,11 @@ sap.ui.define([
 			.getRouter()
 			.getRoute(ROTA_LISTA_DE_FILMES)
 			.attachPatternMatched(async () => {
-				return this.aoCoincidirRota();
+				return this._aoCoincidirRota();
 			}, this);			
 		},
 
-		aoCoincidirRota: function() {
+		_aoCoincidirRota: function() {
             let view = this.getView();
             this.processarAcao(async () => {
                 await Promise.all([

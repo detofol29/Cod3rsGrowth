@@ -1,0 +1,127 @@
+<mvc:View
+	controllerName="cod3rsgrowth.app.controller.CadastroDeFilmes"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:t="sap.ui.table"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    height="100%"
+	xmlns:core="sap.ui.core">
+	<m:Page
+        title="Cadastro de filmes"
+        showNavButton="true"
+        navButtonPress="">
+		<VBox
+            class="sapUiSmallMargin"
+            alignItems="Center"
+            justifyContent="Center"
+            alignContent="Center"
+            >
+            <f:Form
+                editable="true"
+                title="Cadastro de filmes">
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        labelSpanXL="4"
+                        labelSpanL="3"
+                        labelSpanM="4"
+                        emptySpanXL="0"
+                        emptySpanL="4"
+                        columnsXL="2"
+                        columnsL="1"/>
+                </f:layout>
+                <f:FormContainer>
+                    <f:formElements>
+                        <f:FormElement
+                            label="Título">
+                            <f:fields>
+                                <Input
+                                    id="tituloFilmeInput"
+                                    placeholder="título"
+                                />
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement
+                            label="Gênero">
+                            <f:fields>
+                                <m:ComboBox
+							        id="generoFilmeInput"
+							        placeholder="Generos"
+							        selectedKey="{Generos>id}"
+							        items="{ path: 'Generos>/' }">
+							        <c:ListItem key="{Generos>id}" text="{Generos>descricao}"/>
+						        </m:ComboBox>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement label="Data de Lançamento">
+                            <f:fields>
+                                <Input
+                                    id="dataDeLancamentoInput"
+                                    type="Date"
+                                    placeholder="Data de Lançamento"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement
+                            label="Diretor">
+                            <f:fields>
+                                <Input
+                                    id="diretorFilmeInput"
+                                    placeholder="Diretor"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement
+                            label="Classificação Indicativa">
+                            <f:fields>
+                                <m:ComboBox
+							        id="classificacaoFilmeInput"
+							        placeholder="Classificacoes"
+							        selectedKey="{Classificacoes>id}"
+							        items="{ path: 'Classificacoes>/' }">
+							        <c:ListItem key="{Classificacoes>id}" text="{Classificacoes>descricao}"/>
+						        </m:ComboBox>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement
+                            label="Nota">
+                            <f:fields>
+                                <Input
+                                    id="notaFilmeInput"
+                                    type="Number"
+                                    placeholder="Nota"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement
+                            label="Duração(min)">
+                            <f:fields>
+                                <Input
+                                    id="duracaoFilmeInput"
+                                    type="Number"
+                                    placeholder="Duração"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement>
+                            <f:fields>
+                                <Button
+                                    text="Cadastrar Filme"
+                                    type="Ghost"
+                                    tooltip="Cadastrar Filme"
+                                    visible="true"
+                                    press="aoClicarEmCadastrar"/>
+                            </f:fields>
+                        </f:FormElement>
+                    </f:formElements>
+                </f:FormContainer>
+            </f:Form>
+        </VBox>
+	</m:Page>
+</mvc:View>
