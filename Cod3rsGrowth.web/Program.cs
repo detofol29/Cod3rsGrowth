@@ -12,7 +12,7 @@ builder.Services.AddProblemDetails();
 ModuloInjetorInfra.AdquirirServicos(builder.Services);
 var serviceProvider = builder.Services.BuildServiceProvider();
 var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-//runner.MigrateUp(20240705001230);
+runner.MigrateUp(20240705001230);
 
 var app = builder.Build();
 
