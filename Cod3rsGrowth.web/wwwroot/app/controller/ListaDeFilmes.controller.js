@@ -7,104 +7,111 @@ sap.ui.define([
 	"use strict";
 
 	const STRING_VAZIA = "";
+	const COMBOBOX_FILTRO_GENERO_ID = "filtroGenero";
 	const MODELO_GENEROS_NOME = "Generos";
 	const MODELO_FILTRO_NOME = "modeloFiltro";
-	const COMBOBOX_FILTRO_GENERO_ID = "filtroGenero";
+	const MODELO_FILTRO_TITULO = "/titulo";
+	const MODELO_FILTRO_GENERO = "/genero";
+	const EVENTO_PROPRIEDADE_VALUE = "value";
+	const EVENTO_PROPRIEDADE_NEWVALUE = "newValue";
+	const URL_COMPONENTE_TITULO = "FiltroTitulo=";
+	const URL_COMPONENTE_GENERO = "FiltroGenero=";
+	const URL_COMPONENTE_GENERO_ACRESCIDO = "&FiltroGenero=";
+	const ROTA_LISTA_DE_FILMES = "ListaDeFilmes";
+	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.ListaDeFilmes";
+	const INDICE_ZERO = 0;
 
-	return BaseController.extend("cod3rsgrowth.app.controller.ListaDeFilmes", {
+	return BaseController.extend(ROTA_CONTROLLER, {
 
-		onInit() {
-			let modeloFiltro = new JSONModel({genero: STRING_VAZIA, titulo: STRING_VAZIA});
-			
+		onInit: function() {			
 			this
 			.getRouter()
-			.getRoute("ListaDeFilmes")
+			.getRoute(ROTA_LISTA_DE_FILMES)
 			.attachPatternMatched(async () => {
 				return this.aoCoincidirRota();
-			}, this);
-			
-			const oView = this.getView();
-			oView.setModel(modeloFiltro, MODELO_FILTRO_NOME);
+			}, this);			
 		},
 
-		aoCoincidirRota() {
+		aoCoincidirRota: function() {
             let view = this.getView();
             this.processarAcao(async () => {
                 await Promise.all([
                     Repositorio.carregarDadosFilme(STRING_VAZIA, view),
                     Repositorio.obterEnumGenero(view),
-                    Repositorio.obterEnumClassificacao(view)
+                    Repositorio.obterEnumClassificacao(view),
+					Repositorio.obterModeloFiltro(view)
                 ]);
             });
         },
 
-		obterGenero(GeneroIndice){
+		obterGenero: function(GeneroIndice){
 			return Formatador.formatarGenero(GeneroIndice, this.getView());
 		},
 
-		obterClassificacao(indiceClassificacao){
+		obterClassificacao: function(indiceClassificacao){
 			return Formatador.formatarClassificacao(indiceClassificacao, this.getView());
 		},
 
-		obterIndiceGenero(Genero){
+		_obterIndiceGenero: function(Genero){
 			let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
-			for (let i = 0; i < generos.length; i++) {
+			for (let i = INDICE_ZERO; i < generos.length; i++) {
 				if(generos[i].descricao == Genero){
 					return i;
 				}
 			}
 		},
 
-		aoSelecionarItem(event) {
-			let generoSelecionado = event.getParameter("newValue");
+		aoSelecionarItem: function(event) {
+			let generoSelecionado = event.getParameter(EVENTO_PROPRIEDADE_NEWVALUE);
 			if(generoSelecionado == STRING_VAZIA){
 				this
 				.getView()
 				.getModel(MODELO_FILTRO_NOME)
-				.setProperty("/genero", STRING_VAZIA);
+				.setProperty(MODELO_FILTRO_GENERO, STRING_VAZIA);
 			}else{
-				let indiceGenero = this.obterIndiceGenero(generoSelecionado);
+				let indiceGenero = this._obterIndiceGenero(generoSelecionado);
 				this
 					.getView()
 					.getModel(MODELO_FILTRO_NOME)
-					.setProperty("/genero", indiceGenero);
+					.setProperty(MODELO_FILTRO_GENERO, indiceGenero);
 			}
 		},
 
-		obterData(Data) {
+		obterData: function(Data) {
             return Formatador.formatarData(Data);
 		},
 		
-		obterDisponivel(Disponivel) {
-			return Formatador.formatarDisponivel(Disponivel);
+		obterDisponivel: function(Disponivel) {
+			let chaveI18n = Formatador.formatarDisponivel(Disponivel);
+			return this.retornarTextoI18nCorrespondente(chaveI18n);
 		},
 
-		aoPerderFocoBarraDePesquisa(event){
-			const sQuery = event.getParameter("value");
+		aoPerderFocoBarraDePesquisa: function(event){
+			let query = event.getParameter(EVENTO_PROPRIEDADE_VALUE);
 			this
 				.getView()
 				.getModel(MODELO_FILTRO_NOME)
-				.setProperty("/titulo", sQuery);
+				.setProperty(MODELO_FILTRO_TITULO, query);
 		},
 
-		async aoClicarEmFiltrar() {
+		aoClicarEmFiltrar: async function() {
             this.processarAcao(() => {
                 let view = this.getView();
 				let modeloFiltro = view.getModel(MODELO_FILTRO_NOME).getData();
 				let titulo = modeloFiltro.titulo;
 
 				let generoNome = view.byId(COMBOBOX_FILTRO_GENERO_ID).mProperties.value;
-				let generoIndice = this.obterIndiceGenero(generoNome);
+				let generoIndice = this._obterIndiceGenero(generoNome);
 
                 let filtros = STRING_VAZIA;
 
-                filtros = titulo.length == 0
-					? filtros + ""
-					: "FiltroTitulo=" + titulo;
+                filtros = titulo.length == INDICE_ZERO
+					? filtros + STRING_VAZIA
+					: URL_COMPONENTE_TITULO + titulo;
 
                 filtros = generoIndice == undefined
-					? filtros + ""
-					: (filtros.length == 0 ? filtros + "FiltroGenero=" + generoIndice: filtros + "&FiltroGenero=" + generoIndice);
+					? filtros + STRING_VAZIA
+					: (filtros.length == INDICE_ZERO ? filtros + URL_COMPONENTE_GENERO + generoIndice: filtros + URL_COMPONENTE_GENERO_ACRESCIDO + generoIndice);
 
                 Repositorio.carregarDadosFilme(filtros, view);
             });

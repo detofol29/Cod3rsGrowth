@@ -3,16 +3,25 @@ sap.ui.define([
 ], function (JSONModel) {
     "use strict";
  
+    const STRING_VAZIA = "";
     const NOME_MODELO = "filme"
     const NOME_ROTA = "Filme"
+    const URL_COMPONENTE_API = "/api/";
+    const URL_COMPONENTE_FILTROS_OPERADOR = "?";
+    const URL_RETORNO_ENUNS_GENERO = "http://localhost:5152/api/Enum";
+    const URL_RETORNO_ENUNS_CLASSIFICACOES = "http://localhost:5152/api/Enum/classificacao";
+    const MODELO_GENEROS_NOME = "Generos";
+    const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
+    const MODELO_FILTRO_NOME = "modeloFiltro";
+
     return {
 
-        async carregarDadosFilme(filtros, view) {
+        carregarDadosFilme: async function(filtros, view) {
             const urlPagina = window.location.origin;
-            const url = urlPagina + "/api/" + NOME_ROTA;
-            const urlFiltro = urlPagina + "/api/" + NOME_ROTA + "?" + filtros;
+            const url = urlPagina + URL_COMPONENTE_API + NOME_ROTA;
+            const urlFiltro = urlPagina + URL_COMPONENTE_API + NOME_ROTA + URL_COMPONENTE_FILTROS_OPERADOR + filtros;
 
-            if (filtros == "") {
+            if (filtros == STRING_VAZIA) {
                 await fetch(url)
                     .then(requisicao => requisicao.json())
                     .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO));
@@ -24,16 +33,21 @@ sap.ui.define([
             }
         },
  
-        async obterEnumGenero(view){
-            await fetch ("http://localhost:5152/api/Enum")
+        obterEnumGenero: async function(view){
+            await fetch (URL_RETORNO_ENUNS_GENERO)
                 .then((res) => res.json())
-                .then(dados => view.setModel(new JSONModel(dados), "Generos"))
+                .then(dados => view.setModel(new JSONModel(dados), MODELO_GENEROS_NOME));
         },
  
-        async obterEnumClassificacao(view){
-            await fetch ("http://localhost:5152/api/Enum/classificacao")
+        obterEnumClassificacao: async function(view){
+            await fetch (URL_RETORNO_ENUNS_CLASSIFICACOES)
                 .then((res) => res.json())
-                .then((res) => view.setModel(new JSONModel(res), "Classificacoes"))
+                .then((res) => view.setModel(new JSONModel(res), MODELO_CLASSIFICACOES_NOME));
+        },
+
+        obterModeloFiltro: async function(view){
+            let modeloFiltro = new JSONModel({genero: STRING_VAZIA, titulo: STRING_VAZIA});
+            view.setModel(modeloFiltro, MODELO_FILTRO_NOME);
         }
     }
 });

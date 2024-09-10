@@ -2,19 +2,29 @@ sap.ui.define([
 	"sap/ui/test/Opa5",
 	"sap/ui/test/actions/Press",
     "sap/ui/test/actions/EnterText"
-], (Opa5, Press, EnterText) => {
+], function(Opa5, Press, EnterText) {
 	"use strict";
 
 	const NOME_VIEW = "app.view.ListaDeFilmes";
+	const INDICE_INICIAL = 0;
+	const INDICE_GENERO_FANTASIA = 7;
+	const COMBOBOX_IDENTIFICADOR = "sap.m.ComboBox";
+	const BOTAO_FILTRAR_IDENTIFICADOR = "sap.m.ToggleButton";
+	const BARRA_DE_PESQUISA_IDENTIFICADOR = "sap.m.SearchField";
+	const TABELA_IDENTIFICADOR = "sap.ui.table.Table";
+	const TITULO_IDENTIFICADOR = "sap.m.Title";
+	const PROPRIEDADE_TEXTO = "text";
+	
+
 	Opa5.createPageObjects({
 		naListaDeFilmes: {
 			actions: {
-				aoClicarGenero(){
+				aoClicarGenero: function(){
                     return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.ComboBox",
+						controlType: COMBOBOX_IDENTIFICADOR,
 						actions: (item) => {
-							var itemSelecionado = item.mAggregations.items[7];
+							var itemSelecionado = item.mAggregations.items[INDICE_GENERO_FANTASIA];
 							item.setSelectedItem(itemSelecionado);
 						},
 						success: () => Opa5.assert.ok(true, "O combo box foi selecionado com sucesso!"),
@@ -22,30 +32,30 @@ sap.ui.define([
 					});
                 },
 
-                aoClicarBotaoFiltro(){
+                aoClicarBotaoFiltro: function(){
                     return this.waitFor({
                         viewName: NOME_VIEW,
-                        controlType: "sap.m.ToggleButton",
+                        controlType: BOTAO_FILTRAR_IDENTIFICADOR,
                         actions: new Press(),
                         success: () => Opa5.assert.ok(true, "O botao de filtrar foi clicado com sucesso!"),
 						errorMessage: "O botao filtrar não foi encontrado não foi encontrado!"
                     });
                 },
 
-				aoAdicionarTituloDoFilmeCorrespondenteNaBarraDePesquisa(titulo){
+				aoAdicionarTituloDoFilmeCorrespondenteNaBarraDePesquisa: function(titulo){
 					return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.SearchField",
+						controlType: BARRA_DE_PESQUISA_IDENTIFICADOR,
 						actions: new EnterText({ text: titulo}),
 						success: () => Opa5.assert.ok(true, "O nome do filme foi digitado com sucesso!"),
 						errorMessage: "O nome do filme não foi digitado com sucesso"
 					})
 				},
 
-				aoRemoverFiltrosGenero(){
+				aoRemoverFiltrosGenero: function(){
 					return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.ComboBox",
+						controlType: COMBOBOX_IDENTIFICADOR,
 						actions: (item) => {
 							item.clearSelection();
 						},
@@ -56,7 +66,7 @@ sap.ui.define([
 			},
 
 			assertions: {
-                aTelaFoiCarregadaCorretamente() {
+                aTelaFoiCarregadaCorretamente: function() {
 					return this.waitFor({
 						viewName: NOME_VIEW,
 						success: () => Opa5.assert.ok(true, "A tela Lista de filmes foi carregada corretamete!"),
@@ -64,25 +74,25 @@ sap.ui.define([
 					});
 				},
 
-                aTabelaDevePossuirAQuantidadeDeElementos(quantidadeDeFilmes){
+                aTabelaDevePossuirAQuantidadeDeElementos: function(quantidadeDeFilmes){
                     return this.waitFor({
                         viewName: NOME_VIEW,
-                        controlType: "sap.ui.table.Table",
+                        controlType: TABELA_IDENTIFICADOR,
                         check: function (tabela) {
-                            return tabela[0]._iBindingLength == quantidadeDeFilmes
+                            return tabela[INDICE_INICIAL]._iBindingLength == quantidadeDeFilmes
                         },
                         success: () => Opa5.assert.ok(true, "A quantidade está correta!"),
                         errorMessage: "Não foi possível verificar a quantidade de filmes filtrados"
                     });
                 },
 
-				oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente(chave){
+				oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente: function(chave){
 					return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.Title",
+						controlType: TITULO_IDENTIFICADOR,
 						matchers: {
 							i18NText: {
-								propertyName: "text",
+								propertyName: PROPRIEDADE_TEXTO,
         						key: chave
 							}
 						},
@@ -93,4 +103,4 @@ sap.ui.define([
 			}
 		}
 	});
-})
+});

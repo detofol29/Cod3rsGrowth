@@ -3,10 +3,10 @@ sap.ui.define([
     "cod3rsgrowth/testes/integracao/arrangements/Startup",
     "cod3rsgrowth/testes/integracao/jornadaNotFound",
     "cod3rsgrowth/testes/integracao/jornadaListaDeFilmes"
-],(Opa5,
+],function(Opa5,
      Startup,
      JornadaNotFound,
-     JornadaListaDeFilmes) => {
+     JornadaListaDeFilmes) {
     "use strict";
  
     const VIEW_NAMESPACE = "cod3rsgrowth";

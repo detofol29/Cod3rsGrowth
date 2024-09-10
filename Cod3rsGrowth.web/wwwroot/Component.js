@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/model/json/JSONModel"
-], (UIComponent) => {
+], function(UIComponent) {
     "use strict";
 
     return UIComponent.extend("cod3rsgrowth.Component",{
@@ -10,7 +10,7 @@ sap.ui.define([
             manifest: "json"
         },
         
-        init() {
+        init: function() {
             UIComponent.prototype.init.apply(this, arguments);
             this.getRouter().initialize();
         }

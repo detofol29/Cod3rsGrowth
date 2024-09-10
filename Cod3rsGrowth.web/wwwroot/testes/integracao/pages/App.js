@@ -5,6 +5,9 @@ sap.ui.define([
 	"use strict";
 
 	const NOME_VIEW = "app.view.App";
+	const BOTAO_IDENTIFICADOR = "sap.m.Button";
+	const BOTAO_PROPRIEDADE_TEXTO = "text";
+	const BOTAO_TEXTO_INICIAL = "Botao.TextoInicial";
 
 	Opa5.createPageObjects({
 		naPaginaDoApp: {
@@ -12,11 +15,11 @@ sap.ui.define([
 				VerificarCliqueNoBotaoDeTeste() {
 					return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.Button",
+						controlType: BOTAO_IDENTIFICADOR,
 						matchers: {
 							i18NText: {
-								propertyName: "text",
-        						key: "Botao.TextoInicial"
+								propertyName: BOTAO_PROPRIEDADE_TEXTO,
+        						key: BOTAO_TEXTO_INICIAL
 							}
 						},
 						actions: new Press(),
@@ -30,10 +33,10 @@ sap.ui.define([
 				oBotaoDeveApresentarTextoInicialComChaveI18nCorrespondente(chave) {
                     return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.Button",
+						controlType: BOTAO_IDENTIFICADOR,
 						matchers: {
 							i18NText: {
-								propertyName: "text",
+								propertyName: BOTAO_PROPRIEDADE_TEXTO,
         						key: chave
 							}
 						},
@@ -45,10 +48,10 @@ sap.ui.define([
 				oBotaoDeveApresentarTextoFinalComChaveI18nCorrespondente(chave) {
                     return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.Button",
+						controlType: BOTAO_IDENTIFICADOR,
 						matchers : {
 							i18NText : {
-								propertyName: "text",
+								propertyName: BOTAO_PROPRIEDADE_TEXTO,
         						key: chave
 							}
 						},
@@ -67,4 +70,4 @@ sap.ui.define([
 			}
 		}
 	});
-})
+});

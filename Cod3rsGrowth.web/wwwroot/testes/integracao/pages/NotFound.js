@@ -1,10 +1,14 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
 	"sap/ui/test/actions/Press"
-], (Opa5, Press) => {
+], function(Opa5, Press) {
     "use strict";
 
     const NOME_VIEW = "app.view.NotFound";
+    const MENSAGEM_PAGINA_IDENTIFICADOR = "sap.m.MessagePage";
+    const PROPRIEDADE_TITULO = "title";
+    const PROPRIEDADE_TEXTO = "text";
+    const PROPRIEDADE_DESCRICAO = "description";
 
     Opa5.createPageObjects({
         naPaginaNotFound: {
@@ -12,7 +16,7 @@ sap.ui.define([
             },
             
             assertions: {
-                aTelaFoiCarregadaCorretamente(){
+                aTelaFoiCarregadaCorretamente: function(){
                     return this.waitFor({
                         viewName : NOME_VIEW,
                         success : () => Opa5.assert.ok(true, "A tela de NotFound foi carregada corretamente!"),
@@ -20,13 +24,13 @@ sap.ui.define([
                     });
                 },
 
-                oTituloDeveSerIgualAoComChaveI18nCorrespondente(chave){
+                oTituloDeveSerIgualAoComChaveI18nCorrespondente: function(chave){
                     return this.waitFor({
                         viewName: NOME_VIEW,
-                        controlType: "sap.m.MessagePage",
+                        controlType: MENSAGEM_PAGINA_IDENTIFICADOR,
                         matchers: {
                             i18NText : {
-								propertyName: "title",
+								propertyName: PROPRIEDADE_TITULO,
         						key: chave
 							}
                         },
@@ -35,13 +39,13 @@ sap.ui.define([
                     });
                 },
 
-                oTextoDeveSerIgualAoComChaveI18nCorrespondente(chave){
+                oTextoDeveSerIgualAoComChaveI18nCorrespondente: function(chave){
                     return this.waitFor({
                         viewName: NOME_VIEW,
-                        controlType: "sap.m.MessagePage",
+                        controlType: MENSAGEM_PAGINA_IDENTIFICADOR,
                         matchers: {
                             i18NText : {
-								propertyName: "text",
+								propertyName: PROPRIEDADE_TEXTO,
         						key: chave
 							}
                         },
@@ -50,19 +54,19 @@ sap.ui.define([
                     })
                 },
 
-                aDescricaoDeveSerIgualAoComChaveI18nCorrespondente(chave){
+                aDescricaoDeveSerIgualAoComChaveI18nCorrespondente: function(chave){
                     return this.waitFor({
                         viewName: NOME_VIEW,
-                        controlType: "sap.m.MessagePage",
+                        controlType: MENSAGEM_PAGINA_IDENTIFICADOR,
                         matchers: {
                             i18NText : {
-								propertyName: "description",
+								propertyName: PROPRIEDADE_DESCRICAO,
         						key: chave
 							}
                         },
                         success: () => Opa5.assert.ok(true, "O texto da descrição está sendo apresentado corretamente!"),
                         errorMessage: "O texto da descrição não foi encontrado!"
-                    })
+                    });
                 }
             }
         }

@@ -1,11 +1,14 @@
 sap.ui.define([
     "sap/ui/test/Opa5"
-],(Opa5) => {
+], function(Opa5) {
     "use strict";
     
-    return Opa5.extend("cod3rsgrowth.testes.integracao.arrangements.Startup", {
-        iStartMyApp() {
-            return this.iStartMyAppInAFrame("../index.html");
+    const ROTA_CONTROLLER = "cod3rsgrowth.testes.integracao.arrangements.Startup";
+    const ROTA_INDEX = "../index.html";
+    
+    return Opa5.extend(ROTA_CONTROLLER, {
+        iStartMyApp: function() {
+            return this.iStartMyAppInAFrame(ROTA_INDEX);
         }
     });
 });

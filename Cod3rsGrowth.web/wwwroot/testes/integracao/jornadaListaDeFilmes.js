@@ -1,23 +1,24 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
     "cod3rsgrowth/testes/integracao/pages/ListaDeFilmes"
-  ],(opaQUnit) => {
+  ], function(opaQUnit) {
     "use strict";
   
-    QUnit.module("Pagina lista de filmes");
+    QUnit.module("Página lista de filmes");
 
     const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_GENERO = 6;
     const QUANTIDADE_DE_FILMES_TOTAL_ESPERADA = 22;
     const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME = 1;
     const CHAVE_I18N_ESPERADA = "ListaDeFilmes.Titulo";
     const TITULO_FILME = "Carros";
+    const PROJETO_NOME = "cod3rsgrowth";
 
     opaQUnit("Carregar tela de lista",(Given, When, Then) => {
       
       Given
         .iStartMyUIComponent({
           componentConfig: {
-            name: "cod3rsgrowth"
+            name: PROJETO_NOME
           }
         });
       Then

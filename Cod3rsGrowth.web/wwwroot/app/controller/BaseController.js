@@ -2,36 +2,40 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
     "sap/ui/core/UIComponent"
-], (Controller, History, UIComponent) => {
+], function(Controller, History, UIComponent) {
 	"use strict";
 
-	return Controller.extend("cod3rsgrowth.app.controller.BaseController", {
+    const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.BaseController";
+    const ROTA_I18N = "i18n";
+    const MENSAGEM_ERRO = "erro";
+    
+	return Controller.extend(ROTA_CONTROLLER, {
 
-		retornarTextoI18nCorrespondente(chave) {
-			let textosTraduziveis = this.getView().getModel("i18n").getResourceBundle();
+		retornarTextoI18nCorrespondente: function(chave) {
+			let textosTraduziveis = this.getView().getModel(ROTA_I18N).getResourceBundle();
 			let mensagem = textosTraduziveis.getText(chave);
 			return mensagem;
 		},
 
-		processarAcao(action) {
+		processarAcao: function(action) {
             try {
                 const result = action();
                 return result;
             }
             catch (error) {
-                console.log("erro");
+                console.log(MENSAGEM_ERRO);
             }
         },
  
-        getRouter() {
+        getRouter: function() {
             return UIComponent.getRouterFor(this);
         },
        
-        getModel(name) {
+        getModel: function(name) {
             return this.getView().getModel(name);
         },
 
-        irParaRotaCorrespondente(rota) {
+        irParaRotaCorrespondente: function(rota) {
             return this
 					.getRouter()
 					.navTo(rota, {}, true);
