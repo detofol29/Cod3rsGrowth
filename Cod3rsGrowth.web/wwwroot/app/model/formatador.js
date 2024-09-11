@@ -8,7 +8,6 @@ sap.ui.define([
 	const INDICE_NULO = 0;
 	const CHAVE_I18N_DISPONIVEL = "Formatador.Disponivel";
 	const CHAVE_I18N_INDISPONIVEL = "Formatador.Indisponivel";
-	const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
 	const MODELO_GENEROS = "Generos";
 
     return  {
@@ -20,8 +19,8 @@ sap.ui.define([
 			return valorFormatado;
 		},
 
-        formatarData: function(Data) {
-            let dataFormato = DateFormat.getDateInstance({pattern: MODELO_FORMATACAO_DATA});
+        formatarData: function(Data, Formato) {
+            let dataFormato = DateFormat.getDateInstance({pattern: Formato});
             let oData = new Date(Data);
             return dataFormato.format(oData);
 		},

@@ -10,6 +10,7 @@ sap.ui.define([
     const URL_COMPONENTE_FILTROS_OPERADOR = "?";
     const URL_RETORNO_ENUNS_GENERO = "http://localhost:5152/api/Enum";
     const URL_RETORNO_ENUNS_CLASSIFICACOES = "http://localhost:5152/api/Enum/classificacao";
+    const URL_RETORNO_CRIAR_FILME = "http://localhost:5152/api/Filme";
     const MODELO_GENEROS_NOME = "Generos";
     const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
     const MODELO_FILTRO_NOME = "modeloFiltro";
@@ -48,6 +49,23 @@ sap.ui.define([
         obterModeloFiltro: async function(view){
             let modeloFiltro = new JSONModel({genero: STRING_VAZIA, titulo: STRING_VAZIA});
             view.setModel(modeloFiltro, MODELO_FILTRO_NOME);
+        },
+
+        cadastrarFilme: async function(modeloJson){
+            //debugger
+            await fetch(URL_RETORNO_CRIAR_FILME, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: modeloJson
+            })
+            .then(response => {
+                if(!response.ok)
+                    debugger
+                    throw new Error("não foi possível completar cadastro");
+                console.log(response.text());
+                return response.text();
+            })
+            .then(data => alert(data));
         }
     }
 });

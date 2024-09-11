@@ -19,6 +19,7 @@ sap.ui.define([
 	const URL_COMPONENTE_GENERO_ACRESCIDO = "&FiltroGenero=";
 	const ROTA_LISTA_DE_FILMES = "ListaDeFilmes";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.ListaDeFilmes";
+	const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
 	const INDICE_ZERO = 0;
 
 	return BaseController.extend(ROTA_CONTROLLER, {
@@ -78,7 +79,7 @@ sap.ui.define([
 		},
 
 		obterData: function(Data) {
-            return Formatador.formatarData(Data);
+            return Formatador.formatarData(Data, MODELO_FORMATACAO_DATA);
 		},
 		
 		obterDisponivel: function(Disponivel) {
@@ -115,6 +116,10 @@ sap.ui.define([
 
                 Repositorio.carregarDadosFilme(filtros, view);
             });
-        }
+        },
+
+		aoClicarEmCadastrar: function(){
+            return this.irParaRotaCorrespondente("CadastroDeFilmes");
+		}
 	});
 });

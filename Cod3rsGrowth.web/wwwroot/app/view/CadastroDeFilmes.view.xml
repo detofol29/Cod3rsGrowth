@@ -13,7 +13,7 @@
 	<m:Page
         title="Cadastro de filmes"
         showNavButton="true"
-        navButtonPress="">
+        navButtonPress="aoClicarEmVoltar">
 		<VBox
             class="sapUiSmallMargin"
             alignItems="Center"
@@ -51,6 +51,7 @@
                                 <m:ComboBox
 							        id="generoFilmeInput"
 							        placeholder="Generos"
+                                    valueState=""
 							        selectedKey="{Generos>id}"
 							        items="{ path: 'Generos>/' }">
 							        <c:ListItem key="{Generos>id}" text="{Generos>descricao}"/>
@@ -72,6 +73,7 @@
                             <f:fields>
                                 <Input
                                     id="diretorFilmeInput"
+                                    type="Text"
                                     placeholder="Diretor"/>
                             </f:fields>
                         </f:FormElement>
