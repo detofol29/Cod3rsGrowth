@@ -64,14 +64,14 @@ sap.ui.define([
             let view = this.getView();
             let inputGenero = view.byId("generoFilmeInput");
             if(inputGenero._lastValue.length == INDICE_ZERO){
-                inputGenero.mProperties.valueState = "Error";
+                //inputGenero.mProperties.valueState = "Error";
                 return "O campo genero nao pode estar vazio!"
             }
 
             let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
             for (let i = INDICE_ZERO; i < generos.length; i++) {
                 if(generos[i].descricao == inputGenero._lastValue){
-                    inputGenero.mProperties.valueState = "None"
+                    //inputGenero.mProperties.valueState = "None"
                     return true
                 }
             }
@@ -83,14 +83,14 @@ sap.ui.define([
             let view = this.getView();
             let inputClassificacao = view.byId("classificacaoFilmeInput");
             if(inputClassificacao._lastValue.length == INDICE_ZERO){
-                inputClassificacao.mProperties.valueState = "Error";
+                //inputClassificacao.mProperties.valueState = "Error";
                 return "O campo Classificacao nao pode estar vazio!"
             }
 
             let classificacoes = this.getView().getModel(MODELO_CLASSIFICACAO_NOME).getData();
             for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
                 if(classificacoes[i].descricao == inputClassificacao._lastValue){
-                    inputClassificacao.mProperties.valueState = "None"
+                    //inputClassificacao.mProperties.valueState = "None"
                     return true
                 }
             }
@@ -198,13 +198,14 @@ sap.ui.define([
         _validarData: function(){
             let view = this.getView();
             let inputData = view.byId("dataDeLancamentoInput");
-            let data = inputData._lastValue;
-            if(data.length == INDICE_ZERO){
+            let data = inputData.getDateValue();
+            if(inputData.getValue().length == INDICE_ZERO){
                 return "O campo Data nao pode estar vazio!"
             }
             let dataAtual = new Date();
             let dataFilme = new Date(data);
             let dataLimite = new Date('12 28 1895');
+            //debugger
             if(dataFilme.getTime() > dataAtual.getTime()){
                 return "A data de lancamento nao pode ser superior a data atual!";
             }
@@ -218,9 +219,8 @@ sap.ui.define([
 
         //FIM VALIDADORES
 
-        aoClicarEmCadastrar: function(event){
+        aoClicarEmCadastrar: async function(event){
             let view = this.getView();
-
             let validacaoDeEntradas = this._validarTodos();
             if(validacaoDeEntradas != true){
                 return MessageBox.alert(validacaoDeEntradas);
@@ -229,13 +229,13 @@ sap.ui.define([
             let titulo = view.byId("tituloFilmeInput")._lastValue;
             let diretor = view.byId("diretorFilmeInput")._lastValue;
             let genero = view.byId("generoFilmeInput")._lastValue;
-            let data = view.byId("dataDeLancamentoInput")._lastValue;
+            let data = view.byId("dataDeLancamentoInput").getDateValue();
             let classificacao = view.byId("classificacaoFilmeInput")._lastValue;
             let nota = view.byId("notaFilmeInput")._lastValue;
             let duracao = view.byId("duracaoFilmeInput")._lastValue;
 
             //Formatacoes
-            let dataFormatada = Formatador.formatarData(data, MODELO_FORMATACAO_DATA);
+            let dataFormatada = data;
             let generoFormatado = this._obterIndiceGenero(genero);
             let classificacaoFormatada = this._obterIndiceClassificacao(classificacao);
             let notaFormatada = parseFloat(nota);
@@ -255,7 +255,12 @@ sap.ui.define([
             });
             view.setModel(ModeloFilme, "FilmeCadastrado");
             let dadosFilme = ModeloFilme.getJSON();
-            Repositorio.cadastrarFilme(dadosFilme);
+            let resultado = await Repositorio.cadastrarFilme(dadosFilme);
+            if(!resultado.ok){
+                return MessageBox.alert(resultado.Title);
+            }
+
+            return MessageBox.success("O filme foi cadastrado com sucesso!");
         },
 
         aoClicarEmVoltar: function(){

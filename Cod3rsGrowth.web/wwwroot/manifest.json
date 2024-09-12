@@ -55,12 +55,12 @@
       "routes": [
         
         {
-          "pattern": "",
+          "pattern": "CadastroDeFilmes",
           "name": "CadastroDeFilmes",
           "target": "CadastroDeFilmes"
         },
         {
-          "pattern": "ListaDeFilmes",
+          "pattern": "",
           "name": "ListaDeFilmes",  
           "target": "ListaDeFilmes" 
         }

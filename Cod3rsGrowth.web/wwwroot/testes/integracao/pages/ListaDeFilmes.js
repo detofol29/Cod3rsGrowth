@@ -75,14 +75,16 @@ sap.ui.define([
 				},
 
                 aTabelaDevePossuirAQuantidadeDeElementos: function(quantidadeDeFilmes){
+					let numero = null;
                     return this.waitFor({
                         viewName: NOME_VIEW,
                         controlType: TABELA_IDENTIFICADOR,
                         check: function (tabela) {
+							this.numero = tabela[INDICE_INICIAL]._iBindingLength;
                             return tabela[INDICE_INICIAL]._iBindingLength == quantidadeDeFilmes
                         },
                         success: () => Opa5.assert.ok(true, "A quantidade está correta!"),
-                        errorMessage: "Não foi possível verificar a quantidade de filmes filtrados"
+                        errorMessage: "Não foi possível verificar a quantidade de filmes filtrados" + numero.toString()
                     });
                 },
 

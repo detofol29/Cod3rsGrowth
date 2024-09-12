@@ -52,20 +52,15 @@ sap.ui.define([
         },
 
         cadastrarFilme: async function(modeloJson){
-            //debugger
-            await fetch(URL_RETORNO_CRIAR_FILME, {
+            let resposta = await fetch(URL_RETORNO_CRIAR_FILME, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: modeloJson
-            })
-            .then(response => {
-                if(!response.ok)
-                    debugger
-                    throw new Error("não foi possível completar cadastro");
-                console.log(response.text());
-                return response.text();
-            })
-            .then(data => alert(data));
+            });
+            if(!resposta.ok){
+                return resposta.json();
+            }
+            return resposta;
         }
     }
 });

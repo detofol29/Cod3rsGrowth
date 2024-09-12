@@ -61,10 +61,14 @@
 
                         <f:FormElement label="Data de Lançamento">
                             <f:fields>
-                                <Input
+                                <!-- <Input
                                     id="dataDeLancamentoInput"
                                     type="Date"
-                                    placeholder="Data de Lançamento"/>
+                                    placeholder="Data de Lançamento"/> -->
+                                    <m:DatePicker
+                                    id="dataDeLancamentoInput"
+                                    displayFormat="dd/MM/yyyy"
+                                    editable="true"/>
                             </f:fields>
                         </f:FormElement>
 

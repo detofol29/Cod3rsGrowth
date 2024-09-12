@@ -6,12 +6,13 @@ sap.ui.define([
   
     QUnit.module("Página lista de filmes");
 
-    const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_GENERO = 6;
-    const QUANTIDADE_DE_FILMES_TOTAL_ESPERADA = 22;
-    const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME = 1;
+    const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_GENERO = 8;
+    const QUANTIDADE_DE_FILMES_TOTAL_ESPERADA = 37;
+    const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME = 3;
     const CHAVE_I18N_ESPERADA = "ListaDeFilmes.Titulo";
     const TITULO_FILME = "Carros";
     const PROJETO_NOME = "cod3rsgrowth";
+    const HASH_LISTA = "ListaDeFilmes"
 
     opaQUnit("Carregar tela de lista",(Given, When, Then) => {
       
@@ -19,12 +20,12 @@ sap.ui.define([
         .iStartMyUIComponent({
           componentConfig: {
             name: PROJETO_NOME
-          }
+          },
         });
       Then
         .naListaDeFilmes
         .aTelaFoiCarregadaCorretamente();
-
+        
       Then
         .naListaDeFilmes
         .oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente(CHAVE_I18N_ESPERADA);
