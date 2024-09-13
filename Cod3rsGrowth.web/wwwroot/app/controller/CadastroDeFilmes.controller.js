@@ -13,8 +13,33 @@ sap.ui.define([
     const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
     const MODELO_GENEROS_NOME = "Generos";
 	const MODELO_CLASSIFICACAO_NOME = "Classificacoes";
+    const MODELO_FILME_CADASTRADO = "FilmeCadastrado";
     const INDICE_ZERO = 0;
     const SALTO_DE_LINHA = "\n";
+    const INPUT_GENERO_ID = "generoFilmeInput";
+    const INPUT_CLASSIFICACAO_ID = "classificacaoFilmeInput";
+    const INPUT_TITULO_ID = "tituloFilmeInput";
+    const INPUT_DIRETOR_ID = "diretorFilmeInput";
+    const INPUT_NOTA_ID = "notaFilmeInput";
+    const INPUT_DURACAO_ID = "duracaoFilmeInput";
+    const INPUT_DATA_ID = "dataDeLancamentoInput";
+    const MENSAGEM_GENERO_VAZIO = "O Campo Gênero não pode estar vazio!";
+    const MENSAGEM_GENERO_INVALIDO = "Selecione um Gênero válido!";
+    const MENSAGEM_CLASSIFICACAO_VAZIO = "O campo Classificação não pode estar vazio!";
+    const MENSAGEM_CLASSIFICACAO_INVALIDA = "Selecione uma classificação válida!";
+    const MENSAGEM_TITULO_VAZIO = "O campo Título não pode estar vazio!";
+    const MENSAGEM_DIRETOR_VAZIO = "O campo Diretor não pode estar vazio!";
+    const MENSAGEM_DIRETOR_COM_NUMEROS = "O campo Diretor não pode conter números!";
+    const MENSAGEM_NOTA_VAZIO = "O campo nota não pode estar vazio!";
+    const MENSAGEM_NOTA_INVALIDA = "A nota deve estar no intervalo [0-10]!";
+    const MENSAGEM_DURACAO_VAZIO = "O campo Duração não pode estar vazio!";
+    const MENSAGEM_DURACAO_INVALIDA = "A duração deve estar no intervalo entre 1 e 1000 minutos!";
+    const MENSAGEM_DATA_VAZIA = "O campo Data não pode estar vazio!";
+    const MENSAGEM_DATA_SUPERIOR = "A data de lançamento não pode ser superior a data atual!";
+    const MENSAGEM_DATA_INFERIOR = "A data de lançamento não pode ser inferior a data do primeiro filme!";
+    const DATA_LIMITE = '12 28 1895';
+    const MENSAGEM_CADASTRO_SUCESSO = "O filme foi cadastrado com sucesso!";
+    const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
 
 
 	return BaseController.extend(ROTA_CONTROLLER, {
@@ -60,64 +85,56 @@ sap.ui.define([
         //VALIDADORES
 
         _validarGenero: function() {
-            //debugger
             let view = this.getView();
-            let inputGenero = view.byId("generoFilmeInput");
+            let inputGenero = view.byId(INPUT_GENERO_ID);
             if(inputGenero._lastValue.length == INDICE_ZERO){
-                //inputGenero.mProperties.valueState = "Error";
-                return "O campo genero nao pode estar vazio!"
+                return MENSAGEM_GENERO_VAZIO
             }
 
             let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
             for (let i = INDICE_ZERO; i < generos.length; i++) {
                 if(generos[i].descricao == inputGenero._lastValue){
-                    //inputGenero.mProperties.valueState = "None"
                     return true
                 }
             }
-            inputGenero.mProperties.valueState = "None"
-            return "Selecione um genero valido";
+            return MENSAGEM_GENERO_INVALIDO;
         },
 
         _validarClassificacao: function(){
             let view = this.getView();
-            let inputClassificacao = view.byId("classificacaoFilmeInput");
+            let inputClassificacao = view.byId(INPUT_CLASSIFICACAO_ID);
             if(inputClassificacao._lastValue.length == INDICE_ZERO){
-                //inputClassificacao.mProperties.valueState = "Error";
-                return "O campo Classificacao nao pode estar vazio!"
+                return MENSAGEM_CLASSIFICACAO_VAZIO
             }
 
             let classificacoes = this.getView().getModel(MODELO_CLASSIFICACAO_NOME).getData();
             for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
                 if(classificacoes[i].descricao == inputClassificacao._lastValue){
-                    //inputClassificacao.mProperties.valueState = "None"
                     return true
                 }
             }
-            inputClassificacao.mProperties.valueState = "None"
-            return "Selecione uma classificacao valida!";
+            return MENSAGEM_CLASSIFICACAO_INVALIDA;
         },
 
         _validarTitulo: function(){
             let view = this.getView();
-            let inputTitulo = view.byId("tituloFilmeInput");
+            let inputTitulo = view.byId(INPUT_TITULO_ID);
             if(inputTitulo._lastValue.length == INDICE_ZERO){
-                //inputTitulo.mProperties.valueState = "Error";
-                return "O campo Titulo nao pode estar vazio!";
+                return MENSAGEM_TITULO_VAZIO;
             }
             return true;
         },
 
         _validarDiretor: function(){
             let view = this.getView();
-            let inputDiretor = view.byId("diretorFilmeInput");
+            let inputDiretor = view.byId(INPUT_DIRETOR_ID);
             if(inputDiretor._lastValue.length == INDICE_ZERO){
 
-                return "O campo Diretor nao pode estar vazio!";
+                return MENSAGEM_DIRETOR_VAZIO;
             }
             for (let i = 0; i < 9; i++) {
                 if(inputDiretor._lastValue.includes(i.toString())){
-                    return "O campo Diretor nao pode conter numeros";
+                    return MENSAGEM_DIRETOR_COM_NUMEROS;
                 }
             }
             return true;
@@ -125,27 +142,27 @@ sap.ui.define([
 
         _validarNota: function(){
             let view = this.getView();
-            let inputNota = view.byId("notaFilmeInput");
+            let inputNota = view.byId(INPUT_NOTA_ID);
             let notaConvertida = inputNota._lastValue;
             if(inputNota._lastValue.length == INDICE_ZERO){
-                return "O campo nota nao pode estar vazio!"
+                return MENSAGEM_NOTA_VAZIO
             }
             if(notaConvertida > 10 || notaConvertida < 0){
-                return "Nota invalida";
+                return MENSAGEM_NOTA_INVALIDA;
             }
             return true;
         },
 
         _validarDuracao: function(){
             let view = this.getView();
-            let inputDuracao = view.byId("duracaoFilmeInput");
+            let inputDuracao = view.byId(INPUT_DURACAO_ID);
             let duracao = inputDuracao._lastValue;
             if(inputDuracao._lastValue.length == INDICE_ZERO){
-                return "O campo Duracao nao pode estar vazio!"
+                return MENSAGEM_DURACAO_VAZIO
             }
 
             if(duracao < 1 || duracao > 1000){
-                return "A duracao deve estar no intervalo entre 1 e 1000 minutos!";
+                return MENSAGEM_DURACAO_INVALIDA;
             }
 
             return true;
@@ -154,7 +171,7 @@ sap.ui.define([
         _validarTodos: function(){
 
             let generoValidado = this._validarGenero();
-            let tituloValidado = this. _validarTitulo();
+            let tituloValidado = this._validarTitulo();
             let diretorValidado = this._validarDiretor();
             let notaValidada = this._validarNota();
             let duracaoValidada = this._validarDuracao();
@@ -197,21 +214,21 @@ sap.ui.define([
 
         _validarData: function(){
             let view = this.getView();
-            let inputData = view.byId("dataDeLancamentoInput");
+            let inputData = view.byId(INPUT_DATA_ID);
             let data = inputData.getDateValue();
             if(inputData.getValue().length == INDICE_ZERO){
-                return "O campo Data nao pode estar vazio!"
+                return MENSAGEM_DATA_VAZIA
             }
             let dataAtual = new Date();
             let dataFilme = new Date(data);
-            let dataLimite = new Date('12 28 1895');
-            //debugger
+            let dataLimite = new Date(DATA_LIMITE);
+
             if(dataFilme.getTime() > dataAtual.getTime()){
-                return "A data de lancamento nao pode ser superior a data atual!";
+                return MENSAGEM_DATA_SUPERIOR;
             }
 
             if(dataFilme.getTime() < dataLimite.getTime()){
-                return "A data de lancamento nao pode ser inferior a data do primeiro filme!";
+                return MENSAGEM_DATA_INFERIOR;
             }
 
             return true;
@@ -226,13 +243,13 @@ sap.ui.define([
                 return MessageBox.alert(validacaoDeEntradas);
             }
 
-            let titulo = view.byId("tituloFilmeInput")._lastValue;
-            let diretor = view.byId("diretorFilmeInput")._lastValue;
-            let genero = view.byId("generoFilmeInput")._lastValue;
-            let data = view.byId("dataDeLancamentoInput").getDateValue();
-            let classificacao = view.byId("classificacaoFilmeInput")._lastValue;
-            let nota = view.byId("notaFilmeInput")._lastValue;
-            let duracao = view.byId("duracaoFilmeInput")._lastValue;
+            let titulo = view.byId(INPUT_TITULO_ID)._lastValue;
+            let diretor = view.byId(INPUT_DIRETOR_ID)._lastValue;
+            let genero = view.byId(INPUT_GENERO_ID)._lastValue;
+            let data = view.byId(INPUT_DATA_ID).getDateValue();
+            let classificacao = view.byId(INPUT_CLASSIFICACAO_ID)._lastValue;
+            let nota = view.byId(INPUT_NOTA_ID)._lastValue;
+            let duracao = view.byId(INPUT_DURACAO_ID)._lastValue;
 
             //Formatacoes
             let dataFormatada = data;
@@ -253,18 +270,18 @@ sap.ui.define([
                 classificacao: classificacaoFormatada,
                 atores: null
             });
-            view.setModel(ModeloFilme, "FilmeCadastrado");
+            view.setModel(ModeloFilme, MODELO_FILME_CADASTRADO);
             let dadosFilme = ModeloFilme.getJSON();
             let resultado = await Repositorio.cadastrarFilme(dadosFilme);
             if(!resultado.ok){
                 return MessageBox.alert(resultado.Title);
             }
 
-            return MessageBox.success("O filme foi cadastrado com sucesso!");
+            return MessageBox.success(MENSAGEM_CADASTRO_SUCESSO);
         },
 
         aoClicarEmVoltar: function(){
-            return this.irParaRotaCorrespondente("ListaDeFilmes");
+            return this.irParaRotaCorrespondente(VIEW_TELA_DE_LISTAGEM);
         }
 
 	});
