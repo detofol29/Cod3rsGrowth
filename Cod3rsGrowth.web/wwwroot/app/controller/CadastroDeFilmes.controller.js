@@ -3,8 +3,13 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"cod3rsgrowth/app/model/repositorio",
 	"cod3rsgrowth/app/model/formatador",
-    "sap/m/MessageBox"
-], function(BaseController, JSONModel, Repositorio, Formatador, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/m/Dialog",
+	"sap/m/Button",
+	"sap/m/Text",
+    "sap/m/library",
+    "sap/ui/core/library"
+], function(BaseController, JSONModel, Repositorio, Formatador, MessageBox, Dialog, Button, Text, mobileLibrary, coreLibrary) {
 	"use strict";
 
 	const STRING_VAZIA = "";
@@ -40,6 +45,10 @@ sap.ui.define([
     const DATA_LIMITE = '12 28 1895';
     const MENSAGEM_CADASTRO_SUCESSO = "O filme foi cadastrado com sucesso!";
     const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
+    const MESSAGE_BOX_TITULO = "Erro de Validação";
+    const MENSAGEM_CADASTRO_NAO_CONCLUIDO = "Cadastro não realizado";
+    const MENSAGEM_CONFIRMACAO_DIALOG = "OK";
+    const MENSAGEM_FILME_CADASTRADO = "Filme cadastrado com sucesso!";
 
 
 	return BaseController.extend(ROTA_CONTROLLER, {
@@ -240,7 +249,8 @@ sap.ui.define([
             let view = this.getView();
             let validacaoDeEntradas = this._validarTodos();
             if(validacaoDeEntradas != true){
-                return MessageBox.alert(validacaoDeEntradas);
+                let mensagemDeErro = this._criarDialog(MESSAGE_BOX_TITULO, validacaoDeEntradas);
+                return mensagemDeErro.open();
             }
 
             let titulo = view.byId(INPUT_TITULO_ID)._lastValue;
@@ -274,10 +284,43 @@ sap.ui.define([
             let dadosFilme = ModeloFilme.getJSON();
             let resultado = await Repositorio.cadastrarFilme(dadosFilme);
             if(!resultado.ok){
-                return MessageBox.alert(resultado.Title);
+                let mensagemDeSucesso = this._criarDialog(MENSAGEM_CADASTRO_NAO_CONCLUIDO, resultado.Title);
+                return mensagemDeSucesso.open();
             }
 
-            return MessageBox.success(MENSAGEM_CADASTRO_SUCESSO);
+            let mensagemDeSucesso = new Dialog({
+                type: mobileLibrary.DialogType.Message,
+                title: MENSAGEM_CONFIRMACAO_DIALOG,
+                state: coreLibrary.ValueState.Information,
+                content: new Text({ text: MENSAGEM_FILME_CADASTRADO }),
+                beginButton: new Button({
+                    type: mobileLibrary.ButtonType.Emphasized,
+                    text: MENSAGEM_CONFIRMACAO_DIALOG,
+                    press: function () {
+                        this.aoClicarEmVoltar();
+                    }.bind(this)
+                })
+            });
+
+            return mensagemDeSucesso.open();
+        },
+
+        _criarDialog: function(titulo, mensagem){
+            let dialog = new Dialog({
+                type: mobileLibrary.DialogType.Message,
+                title: titulo,
+                state: coreLibrary.ValueState.Information,
+                content: new Text({ text: mensagem }),
+                beginButton: new Button({
+                    type: mobileLibrary.ButtonType.Emphasized,
+                    text: MENSAGEM_CONFIRMACAO_DIALOG,
+                    press: function () {
+                        dialog.close();
+                    }.bind(this)
+                })
+            });
+
+            return dialog;
         },
 
         aoClicarEmVoltar: function(){

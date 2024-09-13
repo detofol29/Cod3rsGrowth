@@ -111,7 +111,7 @@
 					<m:OverflowToolbar id="infobar">
 						<m:ToggleButton
 							id="toggleCadastrar"
-							text="Cadastrar Filme"
+							text="{i18n>ListaDeFilmes.BotaoCadastrar.Texto}"
 							icon="sap-icon://add"
 							tooltip="Cadastrar"
 							visible="true" press="aoClicarEmCadastrar"/>

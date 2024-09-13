@@ -60,7 +60,7 @@
           "target": "CadastroDeFilmes"
         },
         {
-          "pattern": "",
+          "pattern": "ListaDeFilmes",
           "name": "ListaDeFilmes",  
           "target": "ListaDeFilmes" 
         }

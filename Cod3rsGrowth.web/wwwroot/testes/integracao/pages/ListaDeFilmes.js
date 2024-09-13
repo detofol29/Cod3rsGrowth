@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
 	"sap/ui/test/actions/Press",
-    "sap/ui/test/actions/EnterText"
-], function(Opa5, Press, EnterText) {
+    "sap/ui/test/actions/EnterText",
+	"sap/ui/test/matchers/I18NText"
+], function(Opa5, Press, EnterText, I18NText) {
 	"use strict";
 
 	const NOME_VIEW = "app.view.ListaDeFilmes";
@@ -36,6 +37,10 @@ sap.ui.define([
                     return this.waitFor({
                         viewName: NOME_VIEW,
                         controlType: BOTAO_FILTRAR_IDENTIFICADOR,
+						matchers: new I18NText({
+							propertyName : "text",
+							key: "ListaDeFilmes.BotaoFiltrar.Texto"
+						}),
                         actions: new Press(),
                         success: () => Opa5.assert.ok(true, "O botao de filtrar foi clicado com sucesso!"),
 						errorMessage: "O botao filtrar não foi encontrado não foi encontrado!"
@@ -84,7 +89,7 @@ sap.ui.define([
                             return tabela[INDICE_INICIAL]._iBindingLength == quantidadeDeFilmes
                         },
                         success: () => Opa5.assert.ok(true, "A quantidade está correta!"),
-                        errorMessage: "Não foi possível verificar a quantidade de filmes filtrados" + numero.toString()
+                        errorMessage: "Não foi possível verificar a quantidade de filmes filtrados"
                     });
                 },
 

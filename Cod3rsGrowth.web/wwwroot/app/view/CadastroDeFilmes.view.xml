@@ -11,7 +11,7 @@
     height="100%"
 	xmlns:core="sap.ui.core">
 	<m:Page
-        title="Cadastro de filmes"
+        title="{i18n>CadastroDeFilmes.Pagina.Titulo}"
         showNavButton="true"
         navButtonPress="aoClicarEmVoltar">
 		<VBox
@@ -22,7 +22,7 @@
             >
             <f:Form
                 editable="true"
-                title="Cadastro de filmes">
+                title="{i18n>CadastroDeFilmes.Formulario.Titulo}">
                 <f:layout>
                     <f:ResponsiveGridLayout
                         labelSpanXL="4"
@@ -38,9 +38,9 @@
                         <f:FormElement
                             label="Título">
                             <f:fields>
-                                <Input
+                                <m:Input
                                     id="tituloFilmeInput"
-                                    placeholder="título"
+                                    placeholder="{i18n>CadastroDeFilmes.InputTitulo.Texto}"
                                 />
                             </f:fields>
                         </f:FormElement>
@@ -50,7 +50,7 @@
                             <f:fields>
                                 <m:ComboBox
 							        id="generoFilmeInput"
-							        placeholder="Generos"
+							        placeholder="{i18n>CadastroDeFilmes.InputGenero.Texto}"
                                     valueState=""
 							        selectedKey="{Generos>id}"
 							        items="{ path: 'Generos>/' }">
@@ -61,10 +61,6 @@
 
                         <f:FormElement label="Data de Lançamento">
                             <f:fields>
-                                <!-- <Input
-                                    id="dataDeLancamentoInput"
-                                    type="Date"
-                                    placeholder="Data de Lançamento"/> -->
                                     <m:DatePicker
                                     id="dataDeLancamentoInput"
                                     displayFormat="dd/MM/yyyy"
@@ -78,7 +74,7 @@
                                 <Input
                                     id="diretorFilmeInput"
                                     type="Text"
-                                    placeholder="Diretor"/>
+                                    placeholder="{i18n>CadastroDeFilmes.InputDiretor.Texto}"/>
                             </f:fields>
                         </f:FormElement>
 
@@ -87,7 +83,7 @@
                             <f:fields>
                                 <m:ComboBox
 							        id="classificacaoFilmeInput"
-							        placeholder="Classificacoes"
+							        placeholder="{i18n>CadastroDeFilmes.InputClassificacao.Texto}"
 							        selectedKey="{Classificacoes>id}"
 							        items="{ path: 'Classificacoes>/' }">
 							        <c:ListItem key="{Classificacoes>id}" text="{Classificacoes>descricao}"/>
@@ -101,7 +97,7 @@
                                 <Input
                                     id="notaFilmeInput"
                                     type="Number"
-                                    placeholder="Nota"/>
+                                    placeholder="{i18n>CadastroDeFilmes.InputNota.Texto}"/>
                             </f:fields>
                         </f:FormElement>
 
@@ -111,14 +107,14 @@
                                 <Input
                                     id="duracaoFilmeInput"
                                     type="Number"
-                                    placeholder="Duração"/>
+                                    placeholder="{i18n>CadastroDeFilmes.InputDuracao.Texto}"/>
                             </f:fields>
                         </f:FormElement>
 
                         <f:FormElement>
                             <f:fields>
-                                <Button
-                                    text="Cadastrar Filme"
+                                <m:Button
+                                    text="{i18n>CadastroDeFilmes.BotaoDeCadastrar.Texto}"
                                     type="Ghost"
                                     tooltip="Cadastrar Filme"
                                     visible="true"

@@ -21,6 +21,7 @@ sap.ui.define([
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.ListaDeFilmes";
 	const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
 	const INDICE_ZERO = 0;
+	const ROTA_CADASTRO = "CadastroDeFilmes"
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 
@@ -119,7 +120,7 @@ sap.ui.define([
         },
 
 		aoClicarEmCadastrar: function(){
-            return this.irParaRotaCorrespondente("CadastroDeFilmes");
+            return this.irParaRotaCorrespondente(ROTA_CADASTRO);
 		}
 	});
 });
