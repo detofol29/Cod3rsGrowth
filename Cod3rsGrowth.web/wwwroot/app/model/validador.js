@@ -39,15 +39,15 @@ sap.ui.define([
 
     return  {
 
-        validarGenero: function(viewController) {
-            let view = viewController.getView();
+        _validarGenero: function(viewController) {
+            let view = viewController;
             let inputGenero = view.byId(INPUT_GENERO_ID);
 
             if(inputGenero._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_GENERO_VAZIO
             }
 
-            let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
+            let generos = view.getModel(MODELO_GENEROS_NOME).getData();
             
             for (let i = INDICE_ZERO; i < generos.length; i++) {
                 if(generos[i].descricao == inputGenero._lastValue){
@@ -58,15 +58,15 @@ sap.ui.define([
             return MENSAGEM_GENERO_INVALIDO;
         },
 
-        validarClassificacao: function(viewController){
-            let view = viewController.getView();
+        _validarClassificacao: function(viewController){
+            let view = viewController;
             let inputClassificacao = view.byId(INPUT_CLASSIFICACAO_ID);
 
             if(inputClassificacao._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_CLASSIFICACAO_VAZIO
             }
 
-            let classificacoes = this.getView().getModel(MODELO_CLASSIFICACAO_NOME).getData();
+            let classificacoes = view.getModel(MODELO_CLASSIFICACAO_NOME).getData();
 
             for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
                 if(classificacoes[i].descricao == inputClassificacao._lastValue){
@@ -77,8 +77,8 @@ sap.ui.define([
             return MENSAGEM_CLASSIFICACAO_INVALIDA;
         },
 
-        validarTitulo: function(viewController){
-            let view = viewController.getView();
+        _validarTitulo: function(viewController){
+            let view = viewController;
             let inputTitulo = view.byId(INPUT_TITULO_ID);
 
             if(inputTitulo._lastValue.length == INDICE_ZERO){
@@ -88,8 +88,8 @@ sap.ui.define([
             return true;
         },
 
-        validarDiretor: function(viewController){
-            let view = viewController.getView();
+        _validarDiretor: function(viewController){
+            let view = viewController;
             let inputDiretor = view.byId(INPUT_DIRETOR_ID);
 
             if(inputDiretor._lastValue.length == INDICE_ZERO){
@@ -105,8 +105,8 @@ sap.ui.define([
             return true;
         },
 
-        validarNota: function(viewController){
-            let view = viewController.getView();
+        _validarNota: function(viewController){
+            let view = viewController;
             let inputNota = view.byId(INPUT_NOTA_ID);
             let notaConvertida = inputNota._lastValue;
 
@@ -121,8 +121,8 @@ sap.ui.define([
             return true;
         },
 
-        validarDuracao: function(viewController){
-            let view = viewController.getView();
+        _validarDuracao: function(viewController){
+            let view = viewController;
             let inputDuracao = view.byId(INPUT_DURACAO_ID);
             let duracao = inputDuracao._lastValue;
 
@@ -137,8 +137,31 @@ sap.ui.define([
             return true;
         },
 
-        validarTodos: function(viewController){
+        _validarData: function(viewController){
+            let view = viewController;
+            let inputData = view.byId(INPUT_DATA_ID);
+            let data = inputData.getDateValue();
 
+            if(inputData.getValue().length == INDICE_ZERO){
+                return MENSAGEM_DATA_VAZIA
+            }
+
+            let dataAtual = new Date();
+            let dataFilme = new Date(data);
+            let dataLimite = new Date(DATA_LIMITE);
+
+            if(dataFilme.getTime() > dataAtual.getTime()){
+                return MENSAGEM_DATA_SUPERIOR;
+            }
+
+            if(dataFilme.getTime() < dataLimite.getTime()){
+                return MENSAGEM_DATA_INFERIOR;
+            }
+
+            return true;
+        },
+
+        validarTodos: function(viewController){
             let generoValidado = this._validarGenero(viewController);
             let tituloValidado = this._validarTitulo(viewController);
             let diretorValidado = this._validarDiretor(viewController);
@@ -180,30 +203,6 @@ sap.ui.define([
             }
             
             return ErrosDeValidacao;
-        },
-
-        validarData: function(viewController){
-            let view = viewController.getView();
-            let inputData = view.byId(INPUT_DATA_ID);
-            let data = inputData.getDateValue();
-
-            if(inputData.getValue().length == INDICE_ZERO){
-                return MENSAGEM_DATA_VAZIA
-            }
-
-            let dataAtual = new Date();
-            let dataFilme = new Date(data);
-            let dataLimite = new Date(DATA_LIMITE);
-
-            if(dataFilme.getTime() > dataAtual.getTime()){
-                return MENSAGEM_DATA_SUPERIOR;
-            }
-
-            if(dataFilme.getTime() < dataLimite.getTime()){
-                return MENSAGEM_DATA_INFERIOR;
-            }
-
-            return true;
         },
     }
 });
