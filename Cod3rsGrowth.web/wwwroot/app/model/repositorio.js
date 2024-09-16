@@ -10,9 +10,11 @@ sap.ui.define([
     const URL_COMPONENTE_FILTROS_OPERADOR = "?";
     const URL_RETORNO_ENUNS_GENERO = "http://localhost:5152/api/Enum";
     const URL_RETORNO_ENUNS_CLASSIFICACOES = "http://localhost:5152/api/Enum/classificacao";
+    const URL_RETORNO_CRIAR_FILME = "http://localhost:5152/api/Filme";
     const MODELO_GENEROS_NOME = "Generos";
     const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
     const MODELO_FILTRO_NOME = "modeloFiltro";
+    const METODO_DE_REQUISICAO_POST = 'POST';
 
     return {
 
@@ -48,6 +50,18 @@ sap.ui.define([
         obterModeloFiltro: async function(view){
             let modeloFiltro = new JSONModel({genero: STRING_VAZIA, titulo: STRING_VAZIA});
             view.setModel(modeloFiltro, MODELO_FILTRO_NOME);
+        },
+
+        cadastrarFilme: async function(modeloJson){
+            let resposta = await fetch(URL_RETORNO_CRIAR_FILME, {
+                method: METODO_DE_REQUISICAO_POST,
+                headers: { 'Content-Type': 'application/json' },
+                body: modeloJson
+            });
+            if(!resposta.ok){
+                return resposta.json();
+            }
+            return resposta;
         }
     }
 });

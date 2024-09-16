@@ -19,20 +19,25 @@ sap.ui.define([
 	const URL_COMPONENTE_GENERO_ACRESCIDO = "&FiltroGenero=";
 	const ROTA_LISTA_DE_FILMES = "ListaDeFilmes";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.ListaDeFilmes";
+	const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
 	const INDICE_ZERO = 0;
+	const ROTA_CADASTRO = "CadastroDeFilmes"
 
 	return BaseController.extend(ROTA_CONTROLLER, {
-
+		
+		
 		onInit: function() {			
 			this
 			.getRouter()
 			.getRoute(ROTA_LISTA_DE_FILMES)
 			.attachPatternMatched(async () => {
-				return this.aoCoincidirRota();
+				return this._aoCoincidirRota();
 			}, this);			
 		},
+		
+		formatador: Formatador,
 
-		aoCoincidirRota: function() {
+		_aoCoincidirRota: function() {
             let view = this.getView();
             this.processarAcao(async () => {
                 await Promise.all([
@@ -43,14 +48,6 @@ sap.ui.define([
                 ]);
             });
         },
-
-		obterGenero: function(GeneroIndice){
-			return Formatador.formatarGenero(GeneroIndice, this.getView());
-		},
-
-		obterClassificacao: function(indiceClassificacao){
-			return Formatador.formatarClassificacao(indiceClassificacao, this.getView());
-		},
 
 		_obterIndiceGenero: function(Genero){
 			let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
@@ -78,7 +75,7 @@ sap.ui.define([
 		},
 
 		obterData: function(Data) {
-            return Formatador.formatarData(Data);
+            return Formatador.formatarData(Data, MODELO_FORMATACAO_DATA);
 		},
 		
 		obterDisponivel: function(Disponivel) {
@@ -115,6 +112,10 @@ sap.ui.define([
 
                 Repositorio.carregarDadosFilme(filtros, view);
             });
-        }
+        },
+	
+		aoClicarEmCadastrar: function(){
+            return this.irParaRotaCorrespondente(ROTA_CADASTRO);
+		}
 	});
 });

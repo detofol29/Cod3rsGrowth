@@ -4,7 +4,7 @@ sap.ui.define([
     "use strict";
 
     const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.NotFound";
-    const ROTA_PRINCIPAL = "app";
+    const ROTA_PRINCIPAL = "ListaDeFilmes";
     
     return BaseController.extend(ROTA_CONTROLLER, {
         onInit: function(){

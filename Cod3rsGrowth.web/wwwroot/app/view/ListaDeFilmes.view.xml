@@ -61,7 +61,7 @@
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="{i18n>ListaDeFilmes.Colunas.Genero}" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
+							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.formatador.formatarGenero'}"/>
 						</template>
 					</Column>
 
@@ -75,7 +75,7 @@
 					<Column width="7rem" hAlign="Center">
 						<m:Label text="{i18n>ListaDeFilmes.Colunas.Classificacao}" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.obterClassificacao'}"/> 
+							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.formatador.formatarClassificacao'}"/> 
 						</template>
 					</Column>
 
@@ -108,7 +108,14 @@
 					</Column>
 				</columns>
 				<footer>
-					<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+					<m:OverflowToolbar id="infobar">
+						<m:ToggleButton
+							id="toggleCadastrar"
+							text="{i18n>ListaDeFilmes.BotaoCadastrar.Texto}"
+							icon="sap-icon://add"
+							tooltip="Cadastrar"
+							visible="true" press="aoClicarEmCadastrar"/>
+					</m:OverflowToolbar>
 				</footer>
 			</t:Table>
 		</m:content>
