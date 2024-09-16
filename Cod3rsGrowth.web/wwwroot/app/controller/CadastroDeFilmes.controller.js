@@ -84,6 +84,37 @@ sap.ui.define([
                 return mensagemDeErro.open();
             }
 
+            let modeloFilme = this._criarModeloFilmeCadastrado();
+
+            view.setModel(modeloFilme, MODELO_FILME_CADASTRADO);
+            let dadosFilme = modeloFilme.getJSON();
+            let resultado = await Repositorio.cadastrarFilme(dadosFilme);
+
+            if(!resultado.ok){
+                let mensagemDeErro = this._criarDialog(MENSAGEM_CADASTRO_NAO_CONCLUIDO, resultado.Title);
+                return mensagemDeErro.open();
+            }
+
+            let mensagemDeSucesso = new Dialog({
+                type: mobileLibrary.DialogType.Message,
+                title: MENSAGEM_CONFIRMACAO_DIALOG,
+                state: coreLibrary.ValueState.Information,
+                content: new Text({ text: MENSAGEM_FILME_CADASTRADO }),
+                beginButton: new Button({
+                    type: mobileLibrary.ButtonType.Emphasized,
+                    text: MENSAGEM_CONFIRMACAO_DIALOG,
+                    press: function () {
+                        this.aoClicarEmVoltar();
+                    }.bind(this)
+                })
+            });
+
+            return mensagemDeSucesso.open();
+        },
+
+        _criarModeloFilmeCadastrado: function(){
+
+            let view = this.getView();
             let titulo = view.byId(INPUT_TITULO_ID).getValue();
             let diretor = view.byId(INPUT_DIRETOR_ID).getValue();
             let genero = view.byId(INPUT_GENERO_ID).getValue();
@@ -92,7 +123,6 @@ sap.ui.define([
             let nota = view.byId(INPUT_NOTA_ID).getValue();
             let duracao = view.byId(INPUT_DURACAO_ID).getValue();
 
-            //Formatacoes
             let dataFormatada = data;
             let generoFormatado = this._obterIndiceGenero(genero);
             let classificacaoFormatada = this._obterIndiceClassificacao(classificacao);
@@ -112,30 +142,7 @@ sap.ui.define([
                 atores: null
             });
 
-            view.setModel(ModeloFilme, MODELO_FILME_CADASTRADO);
-            let dadosFilme = ModeloFilme.getJSON();
-            let resultado = await Repositorio.cadastrarFilme(dadosFilme);
-
-            if(!resultado.ok){
-                let mensagemDeSucesso = this._criarDialog(MENSAGEM_CADASTRO_NAO_CONCLUIDO, resultado.Title);
-                return mensagemDeSucesso.open();
-            }
-
-            let mensagemDeSucesso = new Dialog({
-                type: mobileLibrary.DialogType.Message,
-                title: MENSAGEM_CONFIRMACAO_DIALOG,
-                state: coreLibrary.ValueState.Information,
-                content: new Text({ text: MENSAGEM_FILME_CADASTRADO }),
-                beginButton: new Button({
-                    type: mobileLibrary.ButtonType.Emphasized,
-                    text: MENSAGEM_CONFIRMACAO_DIALOG,
-                    press: function () {
-                        this.aoClicarEmVoltar();
-                    }.bind(this)
-                })
-            });
-
-            return mensagemDeSucesso.open();
+            return ModeloFilme
         },
 
         _criarDialog: function(titulo, mensagem){
