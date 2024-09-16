@@ -61,7 +61,7 @@
 					<Column width="9rem" hAlign="Center">
 						<m:Label text="{i18n>ListaDeFilmes.Colunas.Genero}" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.obterGenero'}"/>
+							<m:ObjectStatus text="{path: 'filme>genero', formatter: '.formatador.formatarGenero'}"/>
 						</template>
 					</Column>
 
@@ -75,7 +75,7 @@
 					<Column width="7rem" hAlign="Center">
 						<m:Label text="{i18n>ListaDeFilmes.Colunas.Classificacao}" />
 						<template>
-							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.obterClassificacao'}"/> 
+							<m:ObjectStatus text="{path: 'filme>classificacao', formatter: '.formatador.formatarClassificacao'}"/> 
 						</template>
 					</Column>
 

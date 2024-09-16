@@ -14,12 +14,7 @@ sap.ui.define([
 	"use strict";
 
     const INDICE_ZERO = 0;
-    const MAIOR_INDICE_NUMERICO = 9;
-    const NOTA_MAXIMA_PERMITIDA = 10;
-    const DURACAO_MINIMA_PERMITIDA = 1;
-    const DURACAO_MAXIMA_PERMITIDA = 1000;
 	const STRING_VAZIA = "";
-    const SALTO_DE_LINHA = "\n";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.CadastroDeFilmes";
     const ROTA_CADASTRO = "CadastroDeFilmes";
     const MODELO_GENEROS_NOME = "Generos";
@@ -32,24 +27,9 @@ sap.ui.define([
     const INPUT_NOTA_ID = "notaFilmeInput";
     const INPUT_DURACAO_ID = "duracaoFilmeInput";
     const INPUT_DATA_ID = "dataDeLancamentoInput";
-    const MENSAGEM_GENERO_VAZIO = "O Campo Gênero não pode estar vazio!";
-    const MENSAGEM_GENERO_INVALIDO = "Selecione um Gênero válido!";
-    const MENSAGEM_CLASSIFICACAO_VAZIO = "O campo Classificação não pode estar vazio!";
-    const MENSAGEM_CLASSIFICACAO_INVALIDA = "Selecione uma classificação válida!";
-    const MENSAGEM_TITULO_VAZIO = "O campo Título não pode estar vazio!";
-    const MENSAGEM_DIRETOR_VAZIO = "O campo Diretor não pode estar vazio!";
-    const MENSAGEM_DIRETOR_COM_NUMEROS = "O campo Diretor não pode conter números!";
-    const MENSAGEM_NOTA_VAZIO = "O campo nota não pode estar vazio!";
-    const MENSAGEM_NOTA_INVALIDA = "A nota deve estar no intervalo [0-10]!";
-    const MENSAGEM_DURACAO_VAZIO = "O campo Duração não pode estar vazio!";
-    const MENSAGEM_DURACAO_INVALIDA = "A duração deve estar no intervalo entre 1 e 1000 minutos!";
-    const MENSAGEM_DATA_VAZIA = "O campo Data não pode estar vazio!";
-    const MENSAGEM_DATA_SUPERIOR = "A data de lançamento não pode ser superior a data atual!";
-    const MENSAGEM_DATA_INFERIOR = "A data de lançamento não pode ser inferior a data do primeiro filme!";
     const MENSAGEM_CADASTRO_NAO_CONCLUIDO = "Cadastro não realizado";
     const MENSAGEM_CONFIRMACAO_DIALOG = "OK";
     const MENSAGEM_FILME_CADASTRADO = "Filme cadastrado com sucesso!";
-    const DATA_LIMITE = '12 28 1895';
     const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
     const MESSAGE_BOX_TITULO = "Erro de Validação";
 
@@ -95,7 +75,7 @@ sap.ui.define([
 			}
 		},
 
-        aoClicarEmCadastrar: async function(event){
+        aoClicarEmCadastrar: async function(){
             let view = this.getView();
             let validacaoDeEntradas = Validador.validarTodos(view);
 
@@ -104,13 +84,13 @@ sap.ui.define([
                 return mensagemDeErro.open();
             }
 
-            let titulo = view.byId(INPUT_TITULO_ID)._lastValue;
-            let diretor = view.byId(INPUT_DIRETOR_ID)._lastValue;
-            let genero = view.byId(INPUT_GENERO_ID)._lastValue;
+            let titulo = view.byId(INPUT_TITULO_ID).getValue();
+            let diretor = view.byId(INPUT_DIRETOR_ID).getValue();
+            let genero = view.byId(INPUT_GENERO_ID).getValue();
             let data = view.byId(INPUT_DATA_ID).getDateValue();
-            let classificacao = view.byId(INPUT_CLASSIFICACAO_ID)._lastValue;
-            let nota = view.byId(INPUT_NOTA_ID)._lastValue;
-            let duracao = view.byId(INPUT_DURACAO_ID)._lastValue;
+            let classificacao = view.byId(INPUT_CLASSIFICACAO_ID).getValue();
+            let nota = view.byId(INPUT_NOTA_ID).getValue();
+            let duracao = view.byId(INPUT_DURACAO_ID).getValue();
 
             //Formatacoes
             let dataFormatada = data;

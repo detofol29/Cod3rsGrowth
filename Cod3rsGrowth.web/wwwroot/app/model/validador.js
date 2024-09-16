@@ -36,6 +36,9 @@ sap.ui.define([
     const MENSAGEM_DATA_SUPERIOR = "A data de lançamento não pode ser superior a data atual!";
     const MENSAGEM_DATA_INFERIOR = "A data de lançamento não pode ser inferior a data do primeiro filme!";
     const DATA_LIMITE = '12 28 1895';
+    const ESTADO_ENTRADA_INVALIDA = "Error";
+    const ESTADO_ENTRADA_VALIDA = "None";
+
 
     return  {
 
@@ -43,18 +46,20 @@ sap.ui.define([
             let view = viewController;
             let inputGenero = view.byId(INPUT_GENERO_ID);
 
-            if(inputGenero._lastValue.length == INDICE_ZERO){
+            if(inputGenero.getValue().length == INDICE_ZERO){
+                inputGenero.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_GENERO_VAZIO
             }
 
             let generos = view.getModel(MODELO_GENEROS_NOME).getData();
             
             for (let i = INDICE_ZERO; i < generos.length; i++) {
-                if(generos[i].descricao == inputGenero._lastValue){
+                if(generos[i].descricao == inputGenero.getValue()){
+                    inputGenero.setValueState(ESTADO_ENTRADA_VALIDA);
                     return true
                 }
             }
-
+            inputGenero.setValueState(ESTADO_ENTRADA_INVALIDA);
             return MENSAGEM_GENERO_INVALIDO;
         },
 
@@ -62,18 +67,21 @@ sap.ui.define([
             let view = viewController;
             let inputClassificacao = view.byId(INPUT_CLASSIFICACAO_ID);
 
-            if(inputClassificacao._lastValue.length == INDICE_ZERO){
+            if(inputClassificacao.getValue().length == INDICE_ZERO){
+                inputClassificacao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_CLASSIFICACAO_VAZIO
             }
 
             let classificacoes = view.getModel(MODELO_CLASSIFICACAO_NOME).getData();
 
             for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
-                if(classificacoes[i].descricao == inputClassificacao._lastValue){
+                if(classificacoes[i].descricao == inputClassificacao.getValue()){
+                    inputClassificacao.setValueState(ESTADO_ENTRADA_VALIDA);
                     return true
                 }
             }
 
+            inputClassificacao.setValueState(ESTADO_ENTRADA_INVALIDA);
             return MENSAGEM_CLASSIFICACAO_INVALIDA;
         },
 
@@ -81,10 +89,12 @@ sap.ui.define([
             let view = viewController;
             let inputTitulo = view.byId(INPUT_TITULO_ID);
 
-            if(inputTitulo._lastValue.length == INDICE_ZERO){
+            if(inputTitulo.getValue().length == INDICE_ZERO){
+                inputTitulo.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_TITULO_VAZIO;
             }
 
+            inputTitulo.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 
@@ -92,48 +102,54 @@ sap.ui.define([
             let view = viewController;
             let inputDiretor = view.byId(INPUT_DIRETOR_ID);
 
-            if(inputDiretor._lastValue.length == INDICE_ZERO){
+            if(inputDiretor.getValue().length == INDICE_ZERO){
+                inputDiretor.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DIRETOR_VAZIO;
             }
 
             for (let i = INDICE_ZERO; i < MAIOR_INDICE_NUMERICO; i++) {
-                if(inputDiretor._lastValue.includes(i.toString())){
+                if(inputDiretor.getValue().includes(i.toString())){
+                    inputDiretor.setValueState(ESTADO_ENTRADA_INVALIDA);
                     return MENSAGEM_DIRETOR_COM_NUMEROS;
                 }
             }
-
+            inputDiretor.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 
         _validarNota: function(viewController){
             let view = viewController;
             let inputNota = view.byId(INPUT_NOTA_ID);
-            let notaConvertida = inputNota._lastValue;
+            let notaConvertida = inputNota.getValue();
 
-            if(inputNota._lastValue.length == INDICE_ZERO){
+            if(inputNota.getValue().length == INDICE_ZERO){
+                inputNota.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_NOTA_VAZIO
             }
 
             if(notaConvertida > NOTA_MAXIMA_PERMITIDA || notaConvertida < INDICE_ZERO){
+                inputNota.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_NOTA_INVALIDA;
             }
-
+            inputNota.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 
         _validarDuracao: function(viewController){
             let view = viewController;
             let inputDuracao = view.byId(INPUT_DURACAO_ID);
-            let duracao = inputDuracao._lastValue;
+            let duracao = inputDuracao.getValue();
 
-            if(inputDuracao._lastValue.length == INDICE_ZERO){
+            if(inputDuracao.getValue().length == INDICE_ZERO){
+                inputDuracao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DURACAO_VAZIO
             }
 
             if(duracao < DURACAO_MINIMA_PERMITIDA || duracao > DURACAO_MAXIMA_PERMITIDA){
+                inputDuracao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DURACAO_INVALIDA;
             }
-
+            inputDuracao.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 
@@ -143,6 +159,7 @@ sap.ui.define([
             let data = inputData.getDateValue();
 
             if(inputData.getValue().length == INDICE_ZERO){
+                inputData.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DATA_VAZIA
             }
 
@@ -151,13 +168,16 @@ sap.ui.define([
             let dataLimite = new Date(DATA_LIMITE);
 
             if(dataFilme.getTime() > dataAtual.getTime()){
+                inputData.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DATA_SUPERIOR;
             }
 
             if(dataFilme.getTime() < dataLimite.getTime()){
+                inputData.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DATA_INFERIOR;
             }
 
+            inputData.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 

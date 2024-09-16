@@ -24,7 +24,8 @@ sap.ui.define([
 	const ROTA_CADASTRO = "CadastroDeFilmes"
 
 	return BaseController.extend(ROTA_CONTROLLER, {
-
+		
+		
 		onInit: function() {			
 			this
 			.getRouter()
@@ -33,6 +34,8 @@ sap.ui.define([
 				return this._aoCoincidirRota();
 			}, this);			
 		},
+		
+		formatador: Formatador,
 
 		_aoCoincidirRota: function() {
             let view = this.getView();
@@ -45,14 +48,6 @@ sap.ui.define([
                 ]);
             });
         },
-
-		obterGenero: function(GeneroIndice){
-			return Formatador.formatarGenero(GeneroIndice, this.getView());
-		},
-
-		obterClassificacao: function(indiceClassificacao){
-			return Formatador.formatarClassificacao(indiceClassificacao, this.getView());
-		},
 
 		_obterIndiceGenero: function(Genero){
 			let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
@@ -118,7 +113,7 @@ sap.ui.define([
                 Repositorio.carregarDadosFilme(filtros, view);
             });
         },
-
+	
 		aoClicarEmCadastrar: function(){
             return this.irParaRotaCorrespondente(ROTA_CADASTRO);
 		}
