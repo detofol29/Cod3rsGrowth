@@ -14,6 +14,7 @@ sap.ui.define([
     const MODELO_GENEROS_NOME = "Generos";
     const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
     const MODELO_FILTRO_NOME = "modeloFiltro";
+    const METODO_DE_REQUISICAO_POST = 'POST';
 
     return {
 
@@ -53,7 +54,7 @@ sap.ui.define([
 
         cadastrarFilme: async function(modeloJson){
             let resposta = await fetch(URL_RETORNO_CRIAR_FILME, {
-                method: 'POST',
+                method: METODO_DE_REQUISICAO_POST,
                 headers: { 'Content-Type': 'application/json' },
                 body: modeloJson
             });

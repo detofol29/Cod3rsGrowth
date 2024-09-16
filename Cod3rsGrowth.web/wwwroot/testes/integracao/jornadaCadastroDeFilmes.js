@@ -10,80 +10,85 @@ sap.ui.define([
     const HASH = "CadastroDeFilmes";
     const ERROS_INICIAIS = "O campo Título não pode estar vazio!\nO Campo Gênero não pode estar vazio!\nO campo Data não pode estar vazio!\nO campo Diretor não pode estar vazio!\nO campo Classificação não pode estar vazio!\nO campo nota não pode estar vazio!\nO campo Duração não pode estar vazio!\n";
     const MENSAGEM_SUCESSO = "Filme cadastrado com sucesso!";
+    const CHAVE_I18N_PAGINA_TITULO = "CadastroDeFilmes.Pagina.Titulo";
+    const CHAVE_I18N_FORMULARIO_TITULO = "CadastroDeFilmes.Formulario.Titulo";
+    const CHAVE_I18N_BOTAO_CADASTRO_TEXTO = "CadastroDeFilmes.BotaoDeCadastrar.Texto";
+
     opaQUnit("Carregar tela de cadastro",(Given, When, Then) => {
       
         Given
-        .iStartMyUIComponent({
-        componentConfig: {
-            name: PROJETO_NOME
-        },
-        hash: HASH
-        });
+            .iStartMyUIComponent({
+                componentConfig: {
+                name: PROJETO_NOME
+                },
+                hash: HASH
+            });
 
         Then
-        .noCadastroDeFilmes
-        .aTelaFoiCarregadaCorretamente();
+            .noCadastroDeFilmes
+            .aTelaFoiCarregadaCorretamente();
 
         Then
-        .noCadastroDeFilmes
-        .oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente("CadastroDeFilmes.Pagina.Titulo");
+            .noCadastroDeFilmes
+            .oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente(CHAVE_I18N_PAGINA_TITULO);
 
         Then
-        .noCadastroDeFilmes
-        .oTextoDoFormularioDeveTerOValorDaChaveI18nCorrespondente("CadastroDeFilmes.Formulario.Titulo");
+            .noCadastroDeFilmes
+            .oTextoDoFormularioDeveTerOValorDaChaveI18nCorrespondente(CHAVE_I18N_FORMULARIO_TITULO);
 
         When
-        .noCadastroDeFilmes
-        .aoClicarNoBotaoCadastrarFilme("CadastroDeFilmes.BotaoDeCadastrar.Texto");
+            .noCadastroDeFilmes
+            .aoClicarNoBotaoCadastrarFilme(CHAVE_I18N_BOTAO_CADASTRO_TEXTO);
 
         Then
-        .noCadastroDeFilmes
-        .aCaixaDeMensagemDeveAparecerComOsErrosCorrespondentes(ERROS_INICIAIS);
+            .noCadastroDeFilmes
+            .aCaixaDeMensagemDeveAparecerComOsErrosCorrespondentes(ERROS_INICIAIS);
 
         When
-        .noCadastroDeFilmes
-        .aoPreencherOCampoTitulo();
+            .noCadastroDeFilmes
+            .aoPreencherOCampoTitulo();
 
         When
-        .noCadastroDeFilmes
-        .aoSelecionarGenero();
+            .noCadastroDeFilmes
+            .aoSelecionarGenero();
 
         When
-        .noCadastroDeFilmes
-        .aoSelecionarData();
+            .noCadastroDeFilmes
+            .aoSelecionarData();
 
         When
-        .noCadastroDeFilmes
-        .aoPreencherOCampoDiretor();
+            .noCadastroDeFilmes
+            .aoPreencherOCampoDiretor();
 
         When
-        .noCadastroDeFilmes
-        .aoPreencherOCampoClassificacao();
+            .noCadastroDeFilmes
+            .aoPreencherOCampoClassificacao();
 
         When
-        .noCadastroDeFilmes
-        .aoPreencherOCampoNota();
+            .noCadastroDeFilmes
+            .aoPreencherOCampoNota();
 
         When
-        .noCadastroDeFilmes
-        .aoPreencherOCampoDuracao();
+            .noCadastroDeFilmes
+            .aoPreencherOCampoDuracao();
 
         When
-        .noCadastroDeFilmes
-        .aoClicarNoBotaoCadastrarFilme("CadastroDeFilmes.BotaoDeCadastrar.Texto");
+            .noCadastroDeFilmes
+            .aoClicarNoBotaoCadastrarFilme(CHAVE_I18N_BOTAO_CADASTRO_TEXTO);
 
         Then
-        .noCadastroDeFilmes
-        .aCaixaDialogDeveAparecerComAMensagemDeSucesso(MENSAGEM_SUCESSO);
+            .noCadastroDeFilmes
+            .aCaixaDialogDeveAparecerComAMensagemDeSucesso(MENSAGEM_SUCESSO);
 
         When
-        .noCadastroDeFilmes
-        .aoClicarNoBotaoDialogDeSucesso();
+            .noCadastroDeFilmes
+            .aoClicarNoBotaoDialogDeSucesso();
 
         Then
-        .noCadastroDeFilmes
-        .oBotaoDeveLevarParaTelaDeListagem();
+            .noCadastroDeFilmes
+            .oBotaoDeveLevarParaTelaDeListagem();
 
-        Then.iTeardownMyApp();
+        Then
+            .iTeardownMyApp();
     });
 });

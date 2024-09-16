@@ -46,12 +46,11 @@
                         </f:FormElement>
 
                         <f:FormElement
-                            label="Gênero">
+                            label="{i18n>CadastroDeFilmes.InputGenero.Texto}">
                             <f:fields>
                                 <m:ComboBox
 							        id="generoFilmeInput"
 							        placeholder="{i18n>CadastroDeFilmes.InputGenero.Texto}"
-                                    valueState=""
 							        selectedKey="{Generos>id}"
 							        items="{ path: 'Generos>/' }">
 							        <c:ListItem key="{Generos>id}" text="{Generos>descricao}"/>
@@ -59,7 +58,7 @@
                             </f:fields>
                         </f:FormElement>
 
-                        <f:FormElement label="Data de Lançamento">
+                        <f:FormElement label="{i18n>CadastroDeFilmes.InputData.Texto}">
                             <f:fields>
                                     <m:DatePicker
                                     id="dataDeLancamentoInput"
@@ -69,7 +68,7 @@
                         </f:FormElement>
 
                         <f:FormElement
-                            label="Diretor">
+                            label="{i18n>CadastroDeFilmes.InputDiretor.Texto}">
                             <f:fields>
                                 <Input
                                     id="diretorFilmeInput"
@@ -79,7 +78,7 @@
                         </f:FormElement>
 
                         <f:FormElement
-                            label="Classificação Indicativa">
+                            label="{i18n>CadastroDeFilmes.InputClassificacao.Texto}">
                             <f:fields>
                                 <m:ComboBox
 							        id="classificacaoFilmeInput"
@@ -92,7 +91,7 @@
                         </f:FormElement>
 
                         <f:FormElement
-                            label="Nota">
+                            label="{i18n>CadastroDeFilmes.InputNota.Texto}">
                             <f:fields>
                                 <Input
                                     id="notaFilmeInput"
@@ -102,7 +101,7 @@
                         </f:FormElement>
 
                         <f:FormElement
-                            label="Duração(min)">
+                            label="{i18n>CadastroDeFilmes.InputDuracao.Texto}">
                             <f:fields>
                                 <Input
                                     id="duracaoFilmeInput"

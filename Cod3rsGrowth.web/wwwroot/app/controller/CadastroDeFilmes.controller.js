@@ -3,24 +3,28 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"cod3rsgrowth/app/model/repositorio",
 	"cod3rsgrowth/app/model/formatador",
+    "cod3rsgrowth/app/model/validador",
     "sap/m/MessageBox",
     "sap/m/Dialog",
 	"sap/m/Button",
 	"sap/m/Text",
     "sap/m/library",
     "sap/ui/core/library"
-], function(BaseController, JSONModel, Repositorio, Formatador, MessageBox, Dialog, Button, Text, mobileLibrary, coreLibrary) {
+], function(BaseController, JSONModel, Repositorio, Formatador, Validador,  MessageBox, Dialog, Button, Text, mobileLibrary, coreLibrary) {
 	"use strict";
 
+    const INDICE_ZERO = 0;
+    const MAIOR_INDICE_NUMERICO = 9;
+    const NOTA_MAXIMA_PERMITIDA = 10;
+    const DURACAO_MINIMA_PERMITIDA = 1;
+    const DURACAO_MAXIMA_PERMITIDA = 1000;
 	const STRING_VAZIA = "";
+    const SALTO_DE_LINHA = "\n";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.CadastroDeFilmes";
     const ROTA_CADASTRO = "CadastroDeFilmes";
-    const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
     const MODELO_GENEROS_NOME = "Generos";
 	const MODELO_CLASSIFICACAO_NOME = "Classificacoes";
     const MODELO_FILME_CADASTRADO = "FilmeCadastrado";
-    const INDICE_ZERO = 0;
-    const SALTO_DE_LINHA = "\n";
     const INPUT_GENERO_ID = "generoFilmeInput";
     const INPUT_CLASSIFICACAO_ID = "classificacaoFilmeInput";
     const INPUT_TITULO_ID = "tituloFilmeInput";
@@ -42,13 +46,12 @@ sap.ui.define([
     const MENSAGEM_DATA_VAZIA = "O campo Data não pode estar vazio!";
     const MENSAGEM_DATA_SUPERIOR = "A data de lançamento não pode ser superior a data atual!";
     const MENSAGEM_DATA_INFERIOR = "A data de lançamento não pode ser inferior a data do primeiro filme!";
-    const DATA_LIMITE = '12 28 1895';
-    const MENSAGEM_CADASTRO_SUCESSO = "O filme foi cadastrado com sucesso!";
-    const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
-    const MESSAGE_BOX_TITULO = "Erro de Validação";
     const MENSAGEM_CADASTRO_NAO_CONCLUIDO = "Cadastro não realizado";
     const MENSAGEM_CONFIRMACAO_DIALOG = "OK";
     const MENSAGEM_FILME_CADASTRADO = "Filme cadastrado com sucesso!";
+    const DATA_LIMITE = '12 28 1895';
+    const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
+    const MESSAGE_BOX_TITULO = "Erro de Validação";
 
 
 	return BaseController.extend(ROTA_CONTROLLER, {
@@ -96,56 +99,66 @@ sap.ui.define([
         _validarGenero: function() {
             let view = this.getView();
             let inputGenero = view.byId(INPUT_GENERO_ID);
+
             if(inputGenero._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_GENERO_VAZIO
             }
 
             let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
+            
             for (let i = INDICE_ZERO; i < generos.length; i++) {
                 if(generos[i].descricao == inputGenero._lastValue){
                     return true
                 }
             }
+
             return MENSAGEM_GENERO_INVALIDO;
         },
 
         _validarClassificacao: function(){
             let view = this.getView();
             let inputClassificacao = view.byId(INPUT_CLASSIFICACAO_ID);
+
             if(inputClassificacao._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_CLASSIFICACAO_VAZIO
             }
 
             let classificacoes = this.getView().getModel(MODELO_CLASSIFICACAO_NOME).getData();
+
             for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
                 if(classificacoes[i].descricao == inputClassificacao._lastValue){
                     return true
                 }
             }
+
             return MENSAGEM_CLASSIFICACAO_INVALIDA;
         },
 
         _validarTitulo: function(){
             let view = this.getView();
             let inputTitulo = view.byId(INPUT_TITULO_ID);
+
             if(inputTitulo._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_TITULO_VAZIO;
             }
+
             return true;
         },
 
         _validarDiretor: function(){
             let view = this.getView();
             let inputDiretor = view.byId(INPUT_DIRETOR_ID);
-            if(inputDiretor._lastValue.length == INDICE_ZERO){
 
+            if(inputDiretor._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_DIRETOR_VAZIO;
             }
-            for (let i = 0; i < 9; i++) {
+
+            for (let i = INDICE_ZERO; i < MAIOR_INDICE_NUMERICO; i++) {
                 if(inputDiretor._lastValue.includes(i.toString())){
                     return MENSAGEM_DIRETOR_COM_NUMEROS;
                 }
             }
+
             return true;
         },
 
@@ -153,12 +166,15 @@ sap.ui.define([
             let view = this.getView();
             let inputNota = view.byId(INPUT_NOTA_ID);
             let notaConvertida = inputNota._lastValue;
+
             if(inputNota._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_NOTA_VAZIO
             }
-            if(notaConvertida > 10 || notaConvertida < 0){
+
+            if(notaConvertida > NOTA_MAXIMA_PERMITIDA || notaConvertida < INDICE_ZERO){
                 return MENSAGEM_NOTA_INVALIDA;
             }
+
             return true;
         },
 
@@ -166,11 +182,12 @@ sap.ui.define([
             let view = this.getView();
             let inputDuracao = view.byId(INPUT_DURACAO_ID);
             let duracao = inputDuracao._lastValue;
+
             if(inputDuracao._lastValue.length == INDICE_ZERO){
                 return MENSAGEM_DURACAO_VAZIO
             }
 
-            if(duracao < 1 || duracao > 1000){
+            if(duracao < DURACAO_MINIMA_PERMITIDA || duracao > DURACAO_MAXIMA_PERMITIDA){
                 return MENSAGEM_DURACAO_INVALIDA;
             }
 
@@ -218,6 +235,7 @@ sap.ui.define([
             if(ErrosDeValidacao.length == INDICE_ZERO){
                 return true;
             }
+            
             return ErrosDeValidacao;
         },
 
@@ -225,9 +243,11 @@ sap.ui.define([
             let view = this.getView();
             let inputData = view.byId(INPUT_DATA_ID);
             let data = inputData.getDateValue();
+
             if(inputData.getValue().length == INDICE_ZERO){
                 return MENSAGEM_DATA_VAZIA
             }
+
             let dataAtual = new Date();
             let dataFilme = new Date(data);
             let dataLimite = new Date(DATA_LIMITE);
@@ -247,7 +267,9 @@ sap.ui.define([
 
         aoClicarEmCadastrar: async function(event){
             let view = this.getView();
-            let validacaoDeEntradas = this._validarTodos();
+            let validacaoDeEntradas = Validador._validarTodos(view);
+            //Testar
+
             if(validacaoDeEntradas != true){
                 let mensagemDeErro = this._criarDialog(MESSAGE_BOX_TITULO, validacaoDeEntradas);
                 return mensagemDeErro.open();
@@ -280,9 +302,11 @@ sap.ui.define([
                 classificacao: classificacaoFormatada,
                 atores: null
             });
+
             view.setModel(ModeloFilme, MODELO_FILME_CADASTRADO);
             let dadosFilme = ModeloFilme.getJSON();
             let resultado = await Repositorio.cadastrarFilme(dadosFilme);
+
             if(!resultado.ok){
                 let mensagemDeSucesso = this._criarDialog(MENSAGEM_CADASTRO_NAO_CONCLUIDO, resultado.Title);
                 return mensagemDeSucesso.open();
@@ -326,6 +350,5 @@ sap.ui.define([
         aoClicarEmVoltar: function(){
             return this.irParaRotaCorrespondente(VIEW_TELA_DE_LISTAGEM);
         }
-
 	});
 });
