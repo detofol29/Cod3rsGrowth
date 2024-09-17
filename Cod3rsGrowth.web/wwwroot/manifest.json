@@ -63,6 +63,16 @@
           "pattern": "ListaDeFilmes",
           "name": "ListaDeFilmes",  
           "target": "ListaDeFilmes" 
+        },
+        {
+          "pattern": "DetalhesDeFilmes/{id}",
+          "name": "DetalhesDeFilmes",
+          "target": "DetalhesDeFilmes"
+        },
+        {
+          "pattern": "EdicaoDeFilmes",
+          "name": "EdicaoDeFilmes",
+          "target": "EdicaoDeFilmes"
         }
       ],
       "targets": {
@@ -74,6 +84,16 @@
         "CadastroDeFilmes": {
           "id": "CadastroDeFilmes",
           "name": "CadastroDeFilmes"
+        },
+
+        "DetalhesDeFilmes": {
+          "id": "DetalhesDeFilmes",
+          "name": "DetalhesDeFilmes"
+        },
+
+        "EdicaoDeFilmes": {
+          "id": "EdicaoDeFilmes",
+          "name": "EdicaoDeFilmes"
         },
 
         "notFound": {

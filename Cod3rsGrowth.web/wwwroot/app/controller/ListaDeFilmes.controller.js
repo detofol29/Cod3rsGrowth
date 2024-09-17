@@ -22,6 +22,7 @@ sap.ui.define([
 	const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
 	const INDICE_ZERO = 0;
 	const ROTA_CADASTRO = "CadastroDeFilmes"
+	const ROTA_DETALHES = "DetalhesDeFilmes"
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 		
@@ -116,6 +117,11 @@ sap.ui.define([
 	
 		aoClicarEmCadastrar: function(){
             return this.irParaRotaCorrespondente(ROTA_CADASTRO);
+		},
+
+		aoSelecionarLinha: function(event){
+			let idFilme = event.getParameters().rowBindingContext.getObject().id;
+			return this.irParaRotaCorrespondente(ROTA_DETALHES, idFilme);
 		}
 	});
 });

@@ -9,6 +9,7 @@ sap.ui.define([
 	const CHAVE_I18N_DISPONIVEL = "Formatador.Disponivel";
 	const CHAVE_I18N_INDISPONIVEL = "Formatador.Indisponivel";
 	const MODELO_GENEROS = "Generos";
+	const MODELO_FORMATACAO_DATA = "dd/MM/yyyy";
 
     return  {
         formatarDisponivel: function(Disponivel) {
@@ -19,8 +20,8 @@ sap.ui.define([
 			return valorFormatado;
 		},
 
-        formatarData: function(Data, Formato) {
-            let dataFormato = DateFormat.getDateInstance({pattern: Formato});
+        formatarData: function(Data) {
+            let dataFormato = DateFormat.getDateInstance({pattern: MODELO_FORMATACAO_DATA});
             let oData = new Date(Data);
             return dataFormato.format(oData);
 		},

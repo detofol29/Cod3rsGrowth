@@ -1,0 +1,67 @@
+sap.ui.define([
+	"cod3rsgrowth/app/controller/BaseController",
+	"sap/ui/model/json/JSONModel",
+	"cod3rsgrowth/app/model/repositorio",
+	"cod3rsgrowth/app/model/formatador",
+    "cod3rsgrowth/app/model/validador",
+    "sap/m/MessageBox",
+    "sap/m/Dialog",
+	"sap/m/Button",
+	"sap/m/Text",
+    "sap/m/library",
+    "sap/ui/core/library"
+], function(BaseController, JSONModel, Repositorio, Formatador, Validador,  MessageBox, Dialog, Button, Text, mobileLibrary, coreLibrary) {
+	"use strict";
+
+	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.DetalhesDeFilmes";
+    const ROTA_DETALHES = "DetalhesDeFilmes";
+    const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
+    const VIEW_TELA_DE_EDITAR = "EdicaoDeFilmes"
+    const STRING_VAZIA = "";
+    
+
+	return BaseController.extend(ROTA_CONTROLLER, {
+
+		onInit: function() {			
+            this
+			.getRouter()
+			.getRoute(ROTA_DETALHES)
+			.attachPatternMatched(async (evento) => {
+				return this._aoCoincidirRota(evento);
+			}, this);
+		},
+
+        _aoCoincidirRota: function(evento) {
+            const argumentoDoEvento = "arguments";
+            let view = this.getView();
+            let idFilme = evento.getParameter(argumentoDoEvento).id;
+            this.processarAcao(async () => {
+                await Promise.all([
+                    Repositorio.carregarDadosFilme(STRING_VAZIA, view),
+                    Repositorio.obterEnumGenero(view),
+                    Repositorio.obterEnumClassificacao(view),
+					Repositorio.obterModeloFiltro(view),
+                    Repositorio.obterPorId(view, idFilme)
+                ]);
+            });
+        },
+
+        aoClicarEmVoltar: function(){
+            return this.irParaRotaCorrespondente(VIEW_TELA_DE_LISTAGEM);
+        },
+
+        obterDisponivel: function(Disponivel) {
+			let chaveI18n = Formatador.formatarDisponivel(Disponivel);
+			return this.retornarTextoI18nCorrespondente(chaveI18n);
+		},
+
+        aoClicarEmEditar: function(){
+            const nomeModeloFilmeSelecionado = "filmeDetalhe";
+            let idFilme = this.getView().getModel(nomeModeloFilmeSelecionado).getData().id;
+            return this.irParaRotaCorrespondente(VIEW_TELA_DE_EDITAR);
+        },
+
+        formatador: Formatador
+
+	});
+});

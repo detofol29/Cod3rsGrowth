@@ -15,6 +15,7 @@ sap.ui.define([
     const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
     const MODELO_FILTRO_NOME = "modeloFiltro";
     const METODO_DE_REQUISICAO_POST = 'POST';
+    const NOME_MODELO_DETALHE = "filmeDetalhe";
 
     return {
 
@@ -62,6 +63,13 @@ sap.ui.define([
                 return resposta.json();
             }
             return resposta;
+        },
+
+        obterPorId: async function(view, idFilme){
+            let url = URL_RETORNO_CRIAR_FILME + "/" + idFilme.toString();
+            await fetch(url)
+            .then(requisicao => requisicao.json())
+            .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO_DETALHE));
         }
     }
 });

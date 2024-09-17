@@ -35,10 +35,10 @@ sap.ui.define([
             return this.getView().getModel(name);
         },
 
-        irParaRotaCorrespondente: function(rota) {
+        irParaRotaCorrespondente: function(rota, id) {
             return this
 					.getRouter()
-					.navTo(rota, {}, true);
+					.navTo(rota, {id: id}, true);
         }
 	});
 });
