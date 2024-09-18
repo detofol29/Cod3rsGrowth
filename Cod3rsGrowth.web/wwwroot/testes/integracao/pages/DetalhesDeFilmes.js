@@ -33,6 +33,10 @@ sap.ui.define([
                         success: () => Opa5.assert.ok(true, "O botão de editar foi clicado com sucesso!"),
 						errorMessage: "O botão editar não foi encontrado!"
                     });
+                },
+
+                aoClicarEmRemover: function(){
+                    
                 }
             },
 
