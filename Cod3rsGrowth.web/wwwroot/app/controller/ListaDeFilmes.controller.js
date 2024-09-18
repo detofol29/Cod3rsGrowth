@@ -7,22 +7,10 @@ sap.ui.define([
 	"use strict";
 
 	const STRING_VAZIA = "";
-	const COMBOBOX_FILTRO_GENERO_ID = "filtroGenero";
-	const MODELO_GENEROS_NOME = "Generos";
 	const MODELO_FILTRO_NOME = "modeloFiltro";
-	const MODELO_FILTRO_TITULO = "/titulo";
-	const MODELO_FILTRO_GENERO = "/genero";
-	const EVENTO_PROPRIEDADE_VALUE = "value";
-	const EVENTO_PROPRIEDADE_NEWVALUE = "newValue";
-	const URL_COMPONENTE_TITULO = "FiltroTitulo=";
-	const URL_COMPONENTE_GENERO = "FiltroGenero=";
-	const URL_COMPONENTE_GENERO_ACRESCIDO = "&FiltroGenero=";
 	const ROTA_LISTA_DE_FILMES = "ListaDeFilmes";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.ListaDeFilmes";
-	const MODELO_FORMATACAO_DATA = "yyyy-MM-dd";
 	const INDICE_ZERO = 0;
-	const ROTA_CADASTRO = "CadastroDeFilmes"
-	const ROTA_DETALHES = "DetalhesDeFilmes"
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 		
@@ -51,7 +39,9 @@ sap.ui.define([
         },
 
 		_obterIndiceGenero: function(Genero){
-			let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
+			const modeloGenerosNome = "Generos";
+
+			let generos = this.getView().getModel(modeloGenerosNome).getData();
 			for (let i = INDICE_ZERO; i < generos.length; i++) {
 				if(generos[i].descricao == Genero){
 					return i;
@@ -60,23 +50,27 @@ sap.ui.define([
 		},
 
 		aoSelecionarItem: function(event) {
-			let generoSelecionado = event.getParameter(EVENTO_PROPRIEDADE_NEWVALUE);
+			const modeloFiltroGenero = "/genero";
+			const eventoPropriedadeNewValue = "newValue";
+
+			let generoSelecionado = event.getParameter(eventoPropriedadeNewValue);
 			if(generoSelecionado == STRING_VAZIA){
 				this
 				.getView()
 				.getModel(MODELO_FILTRO_NOME)
-				.setProperty(MODELO_FILTRO_GENERO, STRING_VAZIA);
-			}else{
+				.setProperty(modeloFiltroGenero, STRING_VAZIA);
+			} else{
 				let indiceGenero = this._obterIndiceGenero(generoSelecionado);
 				this
 					.getView()
 					.getModel(MODELO_FILTRO_NOME)
-					.setProperty(MODELO_FILTRO_GENERO, indiceGenero);
+					.setProperty(modeloFiltroGenero, indiceGenero);
 			}
 		},
 
 		obterData: function(Data) {
-            return Formatador.formatarData(Data, MODELO_FORMATACAO_DATA);
+			const modeloFormatacaoData = "yyyy-MM-dd";
+            return Formatador.formatarData(Data, modeloFormatacaoData);
 		},
 		
 		obterDisponivel: function(Disponivel) {
@@ -85,43 +79,53 @@ sap.ui.define([
 		},
 
 		aoPerderFocoBarraDePesquisa: function(event){
-			let query = event.getParameter(EVENTO_PROPRIEDADE_VALUE);
+			const modeloFiltroTitulo = "/titulo";
+			const eventoPropriedadeValue = "value";
+
+			let query = event.getParameter(eventoPropriedadeValue);
 			this
 				.getView()
 				.getModel(MODELO_FILTRO_NOME)
-				.setProperty(MODELO_FILTRO_TITULO, query);
+				.setProperty(modeloFiltroTitulo, query);
 		},
 
 		aoClicarEmFiltrar: async function() {
+			const comboBoxFiltroGeneroId = "filtroGenero";
+			const urlComponenteGeneroAcrescido = "&FiltroGenero=";
+			const urlComponenteGenero = "FiltroGenero=";
+			const urlComponenteTitulo = "FiltroTitulo=";
+
             this.processarAcao(() => {
                 let view = this.getView();
 				let modeloFiltro = view.getModel(MODELO_FILTRO_NOME).getData();
 				let titulo = modeloFiltro.titulo;
 
-				let generoNome = view.byId(COMBOBOX_FILTRO_GENERO_ID).mProperties.value;
+				let generoNome = view.byId(comboBoxFiltroGeneroId).mProperties.value;
 				let generoIndice = this._obterIndiceGenero(generoNome);
 
                 let filtros = STRING_VAZIA;
 
                 filtros = titulo.length == INDICE_ZERO
 					? filtros + STRING_VAZIA
-					: URL_COMPONENTE_TITULO + titulo;
+					: urlComponenteTitulo + titulo;
 
                 filtros = generoIndice == undefined
 					? filtros + STRING_VAZIA
-					: (filtros.length == INDICE_ZERO ? filtros + URL_COMPONENTE_GENERO + generoIndice: filtros + URL_COMPONENTE_GENERO_ACRESCIDO + generoIndice);
+					: (filtros.length == INDICE_ZERO ? filtros + urlComponenteGenero + generoIndice: filtros + urlComponenteGeneroAcrescido + generoIndice);
 
                 Repositorio.carregarDadosFilme(filtros, view);
             });
         },
 	
 		aoClicarEmCadastrar: function(){
-            return this.irParaRotaCorrespondente(ROTA_CADASTRO);
+			const rotaCadastro = "CadastroDeFilmes"
+            return this.irParaRotaCorrespondente(rotaCadastro);
 		},
 
 		aoSelecionarLinha: function(event){
+			const rotaDetalhes = "DetalhesDeFilmes"
 			let idFilme = event.getParameters().rowBindingContext.getObject().id;
-			return this.irParaRotaCorrespondente(ROTA_DETALHES, idFilme);
+			return this.irParaRotaCorrespondente(rotaDetalhes, idFilme);
 		}
 	});
 });

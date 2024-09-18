@@ -20,23 +20,37 @@
                 title="{i18n>DetalhesDoFilme.Texto}"
                 class="sapUiResponsivePadding--header">
                 <m:attributes>
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Titulo}"
-                        text="{filmeDetalhe>/titulo}" />
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Genero}"
-                        text="{path: 'filmeDetalhe>/genero', formatter: '.formatador.formatarGenero'}" />
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Data}"
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Titulo}"
+                        text="{filmeDetalhe>/titulo}"/>
+
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Genero}"
+                        text="{path: 'filmeDetalhe>/genero', formatter: '.formatador.formatarGenero'}"/>
+
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Data}"
                         text="{path: 'filmeDetalhe>/dataDeLancamento', formatter: '.formatador.formatarData'}"/>
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Nota}"
-                        text="{filmeDetalhe>/nota}" />
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Classificacao}"
+
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Nota}"
+                        text="{filmeDetalhe>/nota}"/>
+
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Classificacao}"
                         text="{path: 'filmeDetalhe>/classificacao', formatter: '.formatador.formatarClassificacao'}"/>
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Duracao}"
-                        text="{filmeDetalhe>/duracao}" />
+
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Duracao}"
+                        text="{filmeDetalhe>/duracao}"/>
+
                     <m:ObjectAttribute
                         title="{i18n>ListaDeFilmes.Colunas.Diretor}"
-                        text="{filmeDetalhe>/diretor}" />
-                    <m:ObjectAttribute title="{i18n>ListaDeFilmes.Colunas.Disponivel}"
-                        text="{path: 'filmeDetalhe>/disponivelNoPlano', formatter: '.obterDisponivel'}" />
+                        text="{filmeDetalhe>/diretor}"/>
+
+                    <m:ObjectAttribute 
+                        title="{i18n>ListaDeFilmes.Colunas.Disponivel}"
+                        text="{path: 'filmeDetalhe>/disponivelNoPlano', formatter: '.obterDisponivel'}"/>
                 </m:attributes>
             </m:ObjectHeader>
             <m:OverflowToolbar id="infobar">
@@ -45,14 +59,16 @@
                         text="{i18n>DetalhesDoFilme.BotaoEditar.Texto}"
                         icon="sap-icon://edit"
                         tooltip="{i18n>DetalhesDoFilme.BotaoEditar.Texto}"
-                        visible="true" press="aoClicarEmEditar"/>
+                        visible="true" 
+                        press="aoClicarEmEditar"/>
     
                         <m:ToggleButton
                         id="toggleRemover"
                         text="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
                         icon="sap-icon://decline"
                         tooltip="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
-                        visible="true" press="aoClicarEmCadastrar"/>
+                        visible="true" 
+                        press="aoClicarEmCadastrar"/>
                 </m:OverflowToolbar>
 		</m:content>
 	</m:Page>

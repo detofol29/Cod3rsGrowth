@@ -4,35 +4,34 @@ sap.ui.define([
     "use strict";
  
     const STRING_VAZIA = "";
-    const NOME_MODELO = "filme"
-    const NOME_ROTA = "Filme"
-    const URL_COMPONENTE_API = "/api/";
-    const URL_COMPONENTE_FILTROS_OPERADOR = "?";
     const URL_RETORNO_ENUNS_GENERO = "http://localhost:5152/api/Enum";
     const URL_RETORNO_ENUNS_CLASSIFICACOES = "http://localhost:5152/api/Enum/classificacao";
     const URL_RETORNO_CRIAR_FILME = "http://localhost:5152/api/Filme";
     const MODELO_GENEROS_NOME = "Generos";
     const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
     const MODELO_FILTRO_NOME = "modeloFiltro";
-    const METODO_DE_REQUISICAO_POST = 'POST';
-    const NOME_MODELO_DETALHE = "filmeDetalhe";
 
     return {
 
         carregarDadosFilme: async function(filtros, view) {
+            const urlComponenteApi = "/api/";
+            const nomeRota = "Filme";
+            const urlComponenteFiltrosOperador = "?";
+            const nomeModelo = "filme";
+            
             const urlPagina = window.location.origin;
-            const url = urlPagina + URL_COMPONENTE_API + NOME_ROTA;
-            const urlFiltro = urlPagina + URL_COMPONENTE_API + NOME_ROTA + URL_COMPONENTE_FILTROS_OPERADOR + filtros;
+            const url = urlPagina + urlComponenteApi + nomeRota;
+            const urlFiltro = urlPagina + urlComponenteApi + nomeRota + urlComponenteFiltrosOperador + filtros;
 
             if (filtros == STRING_VAZIA) {
                 await fetch(url)
                     .then(requisicao => requisicao.json())
-                    .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO));
+                    .then(dados => view.setModel(new JSONModel(dados), nomeModelo));
             } 
             else {
                 await fetch(urlFiltro)
                     .then(requisicao => requisicao.json())
-                    .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO));
+                    .then(dados => view.setModel(new JSONModel(dados), nomeModelo));
             }
         },
  
@@ -54,22 +53,29 @@ sap.ui.define([
         },
 
         cadastrarFilme: async function(modeloJson){
+            const metodoDeRequisicaoPost = 'POST';
+
             let resposta = await fetch(URL_RETORNO_CRIAR_FILME, {
-                method: METODO_DE_REQUISICAO_POST,
+                method: metodoDeRequisicaoPost,
                 headers: { 'Content-Type': 'application/json' },
                 body: modeloJson
             });
+
             if(!resposta.ok){
                 return resposta.json();
             }
+
             return resposta;
         },
 
         obterPorId: async function(view, idFilme){
-            let url = URL_RETORNO_CRIAR_FILME + "/" + idFilme.toString();
+            const urlConectivo = "/";
+            const nomeModeloDetalhe = "filmeDetalhe";
+
+            let url = URL_RETORNO_CRIAR_FILME + urlConectivo + idFilme.toString();
             await fetch(url)
             .then(requisicao => requisicao.json())
-            .then(dados => view.setModel(new JSONModel(dados), NOME_MODELO_DETALHE));
+            .then(dados => view.setModel(new JSONModel(dados), nomeModeloDetalhe));
         }
     }
 });

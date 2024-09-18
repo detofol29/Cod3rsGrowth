@@ -14,6 +14,6 @@
         title="{i18n>CadastroDeFilmes.Pagina.Titulo}"
         showNavButton="true"
         navButtonPress="aoClicarEmVoltar">
-		<Text text="View de Edicao"/>
+		<Text text="View de Edição"/>
 	</m:Page>
 </mvc:View>

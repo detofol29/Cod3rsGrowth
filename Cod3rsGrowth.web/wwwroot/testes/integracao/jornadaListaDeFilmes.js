@@ -23,6 +23,7 @@ sap.ui.define([
           },
           hash: HASH_LISTA
         });
+        
       Then
         .naListaDeFilmes
         .aTelaFoiCarregadaCorretamente();
@@ -68,6 +69,6 @@ sap.ui.define([
         .aTabelaDevePossuirAQuantidadeDeElementos(QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME);
 
       Then
-      .iTeardownMyApp();
+        .iTeardownMyApp();
     });
 });

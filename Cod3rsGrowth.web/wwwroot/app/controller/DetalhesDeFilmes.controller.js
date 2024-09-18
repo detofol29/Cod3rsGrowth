@@ -13,11 +13,9 @@ sap.ui.define([
 ], function(BaseController, JSONModel, Repositorio, Formatador, Validador,  MessageBox, Dialog, Button, Text, mobileLibrary, coreLibrary) {
 	"use strict";
 
+    const STRING_VAZIA = "";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.DetalhesDeFilmes";
     const ROTA_DETALHES = "DetalhesDeFilmes";
-    const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
-    const VIEW_TELA_DE_EDITAR = "EdicaoDeFilmes"
-    const STRING_VAZIA = "";
     
 
 	return BaseController.extend(ROTA_CONTROLLER, {
@@ -30,6 +28,8 @@ sap.ui.define([
 				return this._aoCoincidirRota(evento);
 			}, this);
 		},
+
+        formatador: Formatador,
 
         _aoCoincidirRota: function(evento) {
             const argumentoDoEvento = "arguments";
@@ -47,7 +47,8 @@ sap.ui.define([
         },
 
         aoClicarEmVoltar: function(){
-            return this.irParaRotaCorrespondente(VIEW_TELA_DE_LISTAGEM);
+            const viewTelaDeLista = "ListaDeFilmes";
+            return this.irParaRotaCorrespondente(viewTelaDeLista);
         },
 
         obterDisponivel: function(Disponivel) {
@@ -57,11 +58,10 @@ sap.ui.define([
 
         aoClicarEmEditar: function(){
             const nomeModeloFilmeSelecionado = "filmeDetalhe";
+            const viewTelaDeEditar = "EdicaoDeFilmes";
+
             let idFilme = this.getView().getModel(nomeModeloFilmeSelecionado).getData().id;
-            return this.irParaRotaCorrespondente(VIEW_TELA_DE_EDITAR);
+            return this.irParaRotaCorrespondente(viewTelaDeEditar);
         },
-
-        formatador: Formatador
-
 	});
 });

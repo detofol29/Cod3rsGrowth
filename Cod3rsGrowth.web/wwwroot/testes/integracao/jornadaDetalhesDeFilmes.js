@@ -31,56 +31,56 @@ sap.ui.define([
             });
         
         Then
-        .naTelaDeDetalhes
-        .aTelaFoiCarregadaCorretamente();
+            .naTelaDeDetalhes
+            .aTelaFoiCarregadaCorretamente();
 
         Then
-        .naTelaDeDetalhes
-        .oTextoDaPaginaApresentaOValorCorrespondente(CHAVE_I18N_TITULO_DA_PAGINA);
+            .naTelaDeDetalhes
+            .oTextoDaPaginaApresentaOValorCorrespondente(CHAVE_I18N_TITULO_DA_PAGINA);
 
         Then
-        .naTelaDeDetalhes
-        .oTituloDaPaginaApresentaOValorCorrespondente(CHAVE_I18N_TEXTO_DA_PAGINA);
+            .naTelaDeDetalhes
+            .oTituloDaPaginaApresentaOValorCorrespondente(CHAVE_I18N_TEXTO_DA_PAGINA);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeTituloDeveApresentarOValorCorrespondente(TITULO_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeTituloDeveApresentarOValorCorrespondente(TITULO_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeGeneroDeveApresentarOValorCorrespondente(GENERO_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeGeneroDeveApresentarOValorCorrespondente(GENERO_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeDataDeveApresentarOValorCorrespondente(DATA_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeDataDeveApresentarOValorCorrespondente(DATA_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeNotaDeveApresentarOValorCorrespondente(NOTA_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeNotaDeveApresentarOValorCorrespondente(NOTA_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeClassificacaoDeveApresentarOValorCorrespondente(CLASSIFICACAO_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeClassificacaoDeveApresentarOValorCorrespondente(CLASSIFICACAO_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeDuracaoDeveApresentarOValorCorrespondente(DURACAO_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeDuracaoDeveApresentarOValorCorrespondente(DURACAO_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeDiretorDeveApresentarOValorCorrespondente(DIRETOR_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeDiretorDeveApresentarOValorCorrespondente(DIRETOR_FILME_ESPERADO);
 
         Then
-        .naTelaDeDetalhes
-        .aProprioedadeDisponivelDeveApresentarOValorCorrespondente(DISPONIVEL_FILME_ESPERADO);
+            .naTelaDeDetalhes
+            .aProprioedadeDisponivelDeveApresentarOValorCorrespondente(DISPONIVEL_FILME_ESPERADO);
 
         When
-        .naTelaDeDetalhes
-        .aoClicarEmEditar(CHAVE_I18N_BOTAO_EDITAR);
+            .naTelaDeDetalhes
+            .aoClicarEmEditar(CHAVE_I18N_BOTAO_EDITAR);
 
         Then
-        .naTelaDeDetalhes
-        .aTelaDeEdicaoDeveSerAberta();
+            .naTelaDeDetalhes
+            .aTelaDeEdicaoDeveSerAberta();
 
         Then
             .iTeardownMyApp();

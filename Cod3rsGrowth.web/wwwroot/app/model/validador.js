@@ -149,6 +149,7 @@ sap.ui.define([
                 inputDuracao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return MENSAGEM_DURACAO_INVALIDA;
             }
+            
             inputDuracao.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },

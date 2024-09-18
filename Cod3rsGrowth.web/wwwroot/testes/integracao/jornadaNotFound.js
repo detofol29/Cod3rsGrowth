@@ -16,10 +16,10 @@ sap.ui.define([
           
       Given
         .iStartMyUIComponent({
-        componentConfig: {
-            name: PROJETO_NOME
-        },
-        hash: HASH_NOTFOUND
+          componentConfig: {
+              name: PROJETO_NOME
+          },
+          hash: HASH_NOTFOUND
         });
       Then
         .naPaginaNotFound
