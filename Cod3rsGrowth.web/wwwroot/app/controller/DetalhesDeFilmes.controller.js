@@ -37,10 +37,8 @@ sap.ui.define([
             let idFilme = evento.getParameter(argumentoDoEvento).id;
             this.processarAcao(async () => {
                 await Promise.all([
-                    Repositorio.carregarDadosFilme(STRING_VAZIA, view),
                     Repositorio.obterEnumGenero(view),
                     Repositorio.obterEnumClassificacao(view),
-					Repositorio.obterModeloFiltro(view),
                     Repositorio.obterPorId(view, idFilme)
                 ]);
             });
