@@ -1,0 +1,19 @@
+<mvc:View
+	controllerName="cod3rsgrowth.app.controller.CadastroDeFilmes"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:t="sap.ui.table"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    height="100%"
+	xmlns:core="sap.ui.core">
+	<m:Page
+        title="{i18n>EdicaoDeFilmes.Pagina.Titulo}"
+        showNavButton="true"
+        navButtonPress="aoClicarEmVoltar">
+		<Text text="View de Edição"/>
+	</m:Page>
+</mvc:View>

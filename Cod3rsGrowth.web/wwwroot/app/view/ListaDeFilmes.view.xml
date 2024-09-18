@@ -18,7 +18,9 @@
 				id = "tabelaFilmes"
 				rows="{filme>/}"
 				selectionMode="Single"
-				ariaLabelledBy="title">
+				selectionBehavior="RowOnly"
+				ariaLabelledBy="title"
+				cellClick="aoSelecionarLinha">
 				<extension>
 					<m:HBox>
 						<m:items>

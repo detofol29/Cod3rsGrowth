@@ -17,22 +17,7 @@ sap.ui.define([
 	const STRING_VAZIA = "";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.CadastroDeFilmes";
     const ROTA_CADASTRO = "CadastroDeFilmes";
-    const MODELO_GENEROS_NOME = "Generos";
-	const MODELO_CLASSIFICACAO_NOME = "Classificacoes";
-    const MODELO_FILME_CADASTRADO = "FilmeCadastrado";
-    const INPUT_GENERO_ID = "generoFilmeInput";
-    const INPUT_CLASSIFICACAO_ID = "classificacaoFilmeInput";
-    const INPUT_TITULO_ID = "tituloFilmeInput";
-    const INPUT_DIRETOR_ID = "diretorFilmeInput";
-    const INPUT_NOTA_ID = "notaFilmeInput";
-    const INPUT_DURACAO_ID = "duracaoFilmeInput";
-    const INPUT_DATA_ID = "dataDeLancamentoInput";
-    const MENSAGEM_CADASTRO_NAO_CONCLUIDO = "Cadastro não realizado";
     const MENSAGEM_CONFIRMACAO_DIALOG = "OK";
-    const MENSAGEM_FILME_CADASTRADO = "Filme cadastrado com sucesso!";
-    const VIEW_TELA_DE_LISTAGEM = "ListaDeFilmes";
-    const MESSAGE_BOX_TITULO = "Erro de Validação";
-
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 
@@ -58,7 +43,9 @@ sap.ui.define([
         },
 
         _obterIndiceGenero: function(Genero){
-			let generos = this.getView().getModel(MODELO_GENEROS_NOME).getData();
+            const modeloGenerosNome = "Generos";
+
+			let generos = this.getView().getModel(modeloGenerosNome).getData();
 			for (let i = INDICE_ZERO; i < generos.length; i++) {
 				if(generos[i].descricao == Genero){
 					return i;
@@ -67,7 +54,9 @@ sap.ui.define([
 		},
 
         _obterIndiceClassificacao: function(Classificacao){
-			let classificacoes = this.getView().getModel(MODELO_CLASSIFICACAO_NOME).getData();
+	        const modeloClassificacaoNome = "Classificacoes";
+            
+			let classificacoes = this.getView().getModel(modeloClassificacaoNome).getData();
 			for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
 				if(classificacoes[i].descricao == Classificacao){
 					return i;
@@ -76,22 +65,29 @@ sap.ui.define([
 		},
 
         aoClicarEmCadastrar: async function(){
+
+            const mensagemCadastroNaoConcluido = "Cadastro não realizado";
+            const modeloFilmeCadastrado = "FilmeCadastrado";
+            const messageBoxTitulo = "Erro de Validação";
+            const mensagemFilmeCadastrado = "Filme cadastrado com sucesso!";
+
+
             let view = this.getView();
             let validacaoDeEntradas = Validador.validarTodos(view);
 
             if(validacaoDeEntradas != true){
-                let mensagemDeErro = this._criarDialog(MESSAGE_BOX_TITULO, validacaoDeEntradas);
+                let mensagemDeErro = this._criarDialog(messageBoxTitulo, validacaoDeEntradas);
                 return mensagemDeErro.open();
             }
 
             let modeloFilme = this._criarModeloFilmeCadastrado();
 
-            view.setModel(modeloFilme, MODELO_FILME_CADASTRADO);
+            view.setModel(modeloFilme, modeloFilmeCadastrado);
             let dadosFilme = modeloFilme.getJSON();
             let resultado = await Repositorio.cadastrarFilme(dadosFilme);
 
             if(!resultado.ok){
-                let mensagemDeErro = this._criarDialog(MENSAGEM_CADASTRO_NAO_CONCLUIDO, resultado.Title);
+                let mensagemDeErro = this._criarDialog(mensagemCadastroNaoConcluido, resultado.Title);
                 return mensagemDeErro.open();
             }
 
@@ -99,7 +95,7 @@ sap.ui.define([
                 type: mobileLibrary.DialogType.Message,
                 title: MENSAGEM_CONFIRMACAO_DIALOG,
                 state: coreLibrary.ValueState.Information,
-                content: new Text({ text: MENSAGEM_FILME_CADASTRADO }),
+                content: new Text({ text: mensagemFilmeCadastrado }),
                 beginButton: new Button({
                     type: mobileLibrary.ButtonType.Emphasized,
                     text: MENSAGEM_CONFIRMACAO_DIALOG,
@@ -113,15 +109,22 @@ sap.ui.define([
         },
 
         _criarModeloFilmeCadastrado: function(){
+            const inputGeneroId = "generoFilmeInput";
+            const inputClassificacaoId = "classificacaoFilmeInput";
+            const inputTituloId = "tituloFilmeInput";
+            const inputDiretorId = "diretorFilmeInput";
+            const inputNotaId = "notaFilmeInput";
+            const inputDuracaoId = "duracaoFilmeInput";
+            const inputDataId = "dataDeLancamentoInput";
 
             let view = this.getView();
-            let titulo = view.byId(INPUT_TITULO_ID).getValue();
-            let diretor = view.byId(INPUT_DIRETOR_ID).getValue();
-            let genero = view.byId(INPUT_GENERO_ID).getValue();
-            let data = view.byId(INPUT_DATA_ID).getDateValue();
-            let classificacao = view.byId(INPUT_CLASSIFICACAO_ID).getValue();
-            let nota = view.byId(INPUT_NOTA_ID).getValue();
-            let duracao = view.byId(INPUT_DURACAO_ID).getValue();
+            let titulo = view.byId(inputTituloId).getValue();
+            let diretor = view.byId(inputDiretorId).getValue();
+            let genero = view.byId(inputGeneroId).getValue();
+            let data = view.byId(inputDataId).getDateValue();
+            let classificacao = view.byId(inputClassificacaoId).getValue();
+            let nota = view.byId(inputNotaId).getValue();
+            let duracao = view.byId(inputDuracaoId).getValue();
 
             let dataFormatada = data;
             let generoFormatado = this._obterIndiceGenero(genero);
@@ -164,7 +167,8 @@ sap.ui.define([
         },
 
         aoClicarEmVoltar: function(){
-            return this.irParaRotaCorrespondente(VIEW_TELA_DE_LISTAGEM);
+            const viewTelaDeListagem = "ListaDeFilmes";
+            return this.irParaRotaCorrespondente(viewTelaDeListagem);
         }
 	});
 });

@@ -4,42 +4,47 @@ sap.ui.define([
 ], function (DateFormat, BaseController) {
     "use strict";
  
-	const MODELO_CLASSIFICACOES_NOME = "Classificacoes";
 	const INDICE_NULO = 0;
-	const CHAVE_I18N_DISPONIVEL = "Formatador.Disponivel";
-	const CHAVE_I18N_INDISPONIVEL = "Formatador.Indisponivel";
-	const MODELO_GENEROS = "Generos";
 
     return  {
         formatarDisponivel: function(Disponivel) {
-			let valorFormatado = CHAVE_I18N_INDISPONIVEL;
+			const chaveI18nDisponivel = "Formatador.Disponivel";
+			const chaveI18nIndisponivel = "Formatador.Indisponivel";
+
+			let valorFormatado = chaveI18nIndisponivel;
 			if(Disponivel){
-				valorFormatado = CHAVE_I18N_DISPONIVEL;
+				valorFormatado = chaveI18nDisponivel;
 			}
 			return valorFormatado;
 		},
 
-        formatarData: function(Data, Formato) {
-            let dataFormato = DateFormat.getDateInstance({pattern: Formato});
+        formatarData: function(Data) {
+			const modeloFormatacaoData = "dd/MM/yyyy";
+
+            let dataFormato = DateFormat.getDateInstance({pattern: modeloFormatacaoData});
             let oData = new Date(Data);
             return dataFormato.format(oData);
 		},
 
         formatarClassificacao: function(indiceClassificacao){
+			const modeloClassificacoesNome = "Classificacoes";
+
 			let indice = indiceClassificacao;
 			if(!indiceClassificacao){
 				indice = INDICE_NULO;
 			}
-			let classificacao = this.getView().getModel(MODELO_CLASSIFICACOES_NOME).getData();
+			let classificacao = this.getView().getModel(modeloClassificacoesNome).getData();
 			return classificacao[indice].descricao;
 		},
 
         formatarGenero: function(indiceGenero){
+			const modeloGeneros = "Generos";
+
 			let indice = indiceGenero;
 			if(!indiceGenero){
 				indice = INDICE_NULO;
 			}
-			let genero = this.getView().getModel(MODELO_GENEROS).getData();
+			let genero = this.getView().getModel(modeloGeneros).getData();
 			return genero[indice].descricao;
 		},
     }
