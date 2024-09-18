@@ -15,26 +15,26 @@
         showNavButton="true"
         navButtonPress="aoClicarEmVoltar"
         class="sapUiContentPadding">
-		<m:content>
-            <m:OverflowToolbar id="infobar">
-                    <m:ToggleButton
-                        id="toggleEditar"
-                        text="{i18n>DetalhesDoFilme.BotaoEditar.Texto}"
-                        icon="sap-icon://edit"
-                        tooltip="{i18n>DetalhesDoFilme.BotaoEditar.Texto}"
-                        visible="true" 
-                        press="aoClicarEmEditar"
-                        width="6.5rem"/>
+        <headerContent>
+            <m:ToggleButton
+            id="toggleEditar"
+            text="{i18n>DetalhesDoFilme.BotaoEditar.Texto}"
+            icon="sap-icon://edit"
+            tooltip="{i18n>DetalhesDoFilme.BotaoEditar.Texto}"
+            visible="true" 
+            press="aoClicarEmEditar"
+            width="6.5rem"/>
     
-                        <m:ToggleButton
-                        id="toggleRemover"
-                        text="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
-                        icon="sap-icon://decline"
-                        tooltip="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
-                        visible="true" 
-                        press="aoClicarEmCadastrar"
-                        width="6.5rem"/>
-            </m:OverflowToolbar>
+            <m:ToggleButton
+            id="toggleRemover"
+            text="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
+            icon="sap-icon://decline"
+            tooltip="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
+            visible="true" 
+            press="aoClicarEmCadastrar"
+            width="6.5rem"/>
+        </headerContent>
+		<m:content>
 			<m:ObjectHeader
                 title="{i18n>DetalhesDoFilme.Texto}"
                 class="sapUiResponsivePadding--header">
