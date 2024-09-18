@@ -10,13 +10,6 @@ sap.ui.define([
 	"use strict";
 
 	const NOME_VIEW = "app.view.CadastroDeFilmes";
-	const INDICE_INICIAL = 0;
-	const INDICE_GENERO_FANTASIA = 7;
-	const COMBOBOX_IDENTIFICADOR = "sap.m.ComboBox";
-	const BOTAO_FILTRAR_IDENTIFICADOR = "sap.m.ToggleButton";
-	const BARRA_DE_PESQUISA_IDENTIFICADOR = "sap.m.SearchField";
-	const TABELA_IDENTIFICADOR = "sap.ui.table.Table";
-	const TITULO_IDENTIFICADOR = "sap.m.Title";
 	const BOTAO_IDENTIFICADOR = "sap.m.Button";
 	const PROPRIEDADE_TEXTO = "text";
 	const INPUT_IDENTIFICADOR = "sap.m.Input";

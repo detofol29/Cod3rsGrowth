@@ -30,8 +30,8 @@ sap.ui.define([
 							key: chave
 						}),
 						actions: new Press(),
-                        success: () => Opa5.assert.ok(true, "O botao de editar foi clicado com sucesso!"),
-						errorMessage: "O botao editar não foi encontrado!"
+                        success: () => Opa5.assert.ok(true, "O botão de editar foi clicado com sucesso!"),
+						errorMessage: "O botão editar não foi encontrado!"
                     });
                 }
             },
@@ -53,8 +53,8 @@ sap.ui.define([
 							propertyName : PROPRIEDADE_TITULO,
 							key: chave
 						}),
-						success: () => Opa5.assert.ok(true, "O texto da pagina apresenta o valor correspondente!"),
-						errorMessage: "O texto da pagina nao apresenta o valor correspondente!"
+						success: () => Opa5.assert.ok(true, "O texto da página apresenta o valor correspondente!"),
+						errorMessage: "O texto da página não apresenta o valor correspondente!"
                     });
                 },
 
@@ -66,8 +66,8 @@ sap.ui.define([
 							propertyName : PROPRIEDADE_TITULO,
 							key: chave
 						}),
-						success: () => Opa5.assert.ok(true, "O titulo da pagina apresenta o valor correspondente!"),
-						errorMessage: "O titulo da pagina nao apresenta o valor correspondente!"
+						success: () => Opa5.assert.ok(true, "O título da página apresenta o valor correspondente!"),
+						errorMessage: "O título da página não apresenta o valor correspondente!"
                     });
                 },
 
@@ -76,8 +76,8 @@ sap.ui.define([
                         viewName: NOME_VIEW,
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : titulo}),
-						success: () => Opa5.assert.ok(true, "O titulo do filme apresenta o valor correspondente!"),
-						errorMessage: "O titulo do filme nao apresenta o valor correspondente!"
+						success: () => Opa5.assert.ok(true, "O título do filme apresenta o valor correspondente!"),
+						errorMessage: "O título do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -86,8 +86,8 @@ sap.ui.define([
                         viewName: NOME_VIEW,
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : genero}),
-						success: () => Opa5.assert.ok(true, "O genero do filme apresenta o valor correspondente!"),
-						errorMessage: "O genero do filme nao apresenta o valor correspondente!"
+						success: () => Opa5.assert.ok(true, "O gênero do filme apresenta o valor correspondente!"),
+						errorMessage: "O gênero do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -97,7 +97,7 @@ sap.ui.define([
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : data}),
 						success: () => Opa5.assert.ok(true, "A data do filme apresenta o valor correspondente!"),
-						errorMessage: "A data do filme nao apresenta o valor correspondente!"
+						errorMessage: "A data do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -107,7 +107,7 @@ sap.ui.define([
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : nota}),
 						success: () => Opa5.assert.ok(true, "A nota do filme apresenta o valor correspondente!"),
-						errorMessage: "A nota do filme nao apresenta o valor correspondente!"
+						errorMessage: "A nota do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -116,8 +116,8 @@ sap.ui.define([
                         viewName: NOME_VIEW,
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : classificacao}),
-						success: () => Opa5.assert.ok(true, "A classificacao do filme apresenta o valor correspondente!"),
-						errorMessage: "A classificacao do filme nao apresenta o valor correspondente!"
+						success: () => Opa5.assert.ok(true, "A classificação do filme apresenta o valor correspondente!"),
+						errorMessage: "A classificação do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -126,8 +126,8 @@ sap.ui.define([
                         viewName: NOME_VIEW,
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : duracao}),
-						success: () => Opa5.assert.ok(true, "A duracao do filme apresenta o valor correspondente!"),
-						errorMessage: "A duracao do filme nao apresenta o valor correspondente!"
+						success: () => Opa5.assert.ok(true, "A duração do filme apresenta o valor correspondente!"),
+						errorMessage: "A duração do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -137,7 +137,7 @@ sap.ui.define([
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : diretor}),
 						success: () => Opa5.assert.ok(true, "O diretor do filme apresenta o valor correspondente!"),
-						errorMessage: "O diretor do filme nao apresenta o valor correspondente!"
+						errorMessage: "O diretor do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -147,7 +147,7 @@ sap.ui.define([
                         controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
                         matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : disponivel}),
 						success: () => Opa5.assert.ok(true, "O disponivel do filme apresenta o valor correspondente!"),
-						errorMessage: "O disponivel do filme nao apresenta o valor correspondente!"
+						errorMessage: "O disponivel do filme não apresenta o valor correspondente!"
                     });
                 },
 
@@ -156,7 +156,7 @@ sap.ui.define([
                     return this.waitFor({
                         viewName: viewDaTelaEditar,
 						success: () => Opa5.assert.ok(true, "A tela de editar foi carregada corretamente!"),
-						errorMessage: "A tela de editar nao foi carregada corretamente!"
+						errorMessage: "A tela de editar não foi carregada corretamente!"
                     });
                 }
 			}

@@ -11,7 +11,7 @@
     height="100%"
 	xmlns:core="sap.ui.core">
 	<m:Page
-        title="{i18n>CadastroDeFilmes.Pagina.Titulo}"
+        title="{i18n>EdicaoDeFilmes.Pagina.Titulo}"
         showNavButton="true"
         navButtonPress="aoClicarEmVoltar">
 		<Text text="View de Edição"/>
