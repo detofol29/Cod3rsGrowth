@@ -16,6 +16,7 @@ sap.ui.define([
     const STRING_VAZIA = "";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.DetalhesDeFilmes";
     const ROTA_DETALHES = "DetalhesDeFilmes";
+    let FILME_ID;
     
 
 	return BaseController.extend(ROTA_CONTROLLER, {
@@ -34,12 +35,12 @@ sap.ui.define([
         _aoCoincidirRota: function(evento) {
             const argumentoDoEvento = "arguments";
             let view = this.getView();
-            let idFilme = evento.getParameter(argumentoDoEvento).id;
+            FILME_ID = evento.getParameter(argumentoDoEvento).id;
             this.processarAcao(async () => {
                 await Promise.all([
                     Repositorio.obterEnumGenero(view),
                     Repositorio.obterEnumClassificacao(view),
-                    Repositorio.obterPorId(view, idFilme)
+                    Repositorio.obterPorId(view, FILME_ID)
                 ]);
             });
         },
@@ -67,10 +68,9 @@ sap.ui.define([
             const view =  this.getView();
             let modeloFilme = view.getModel(nomeModeloDetalhe);
             let filmeTitulo = modeloFilme.getData().titulo;
-            let filmeId = modeloFilme.getData().id;
-            let dialogConfirmacao = this._criarDialogConfirmacao(filmeTitulo, filmeId);
+            let dialogConfirmacao = this._criarDialogConfirmacao(filmeTitulo, FILME_ID);
 
-            return dialogConfirmacao.open();
+            return dialogConfirmacao;
         },
 
         _exibirDialogSucesso: function(){
@@ -145,7 +145,7 @@ sap.ui.define([
                 endButton: dialogBotaoRetornar
             });
 
-            return dialogConfirmacao;
+            return dialogConfirmacao.open();
         }
 	});
 });
