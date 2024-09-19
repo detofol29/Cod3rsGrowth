@@ -15,9 +15,7 @@ sap.ui.define([
 
     const STRING_VAZIA = "";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.DetalhesDeFilmes";
-    const ROTA_DETALHES = "DetalhesDeFilmes";
-    let FILME_ID;
-    
+    const ROTA_DETALHES = "DetalhesDeFilmes";    
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 
@@ -32,15 +30,18 @@ sap.ui.define([
 
         formatador: Formatador,
 
+        FILME_ID : null,
+
         _aoCoincidirRota: function(evento) {
             const argumentoDoEvento = "arguments";
             let view = this.getView();
-            FILME_ID = evento.getParameter(argumentoDoEvento).id;
+            this.FILME_ID = evento.getParameter(argumentoDoEvento).id;
+
             this.processarAcao(async () => {
                 await Promise.all([
                     Repositorio.obterEnumGenero(view),
                     Repositorio.obterEnumClassificacao(view),
-                    Repositorio.obterPorId(view, FILME_ID)
+                    Repositorio.obterPorId(view, this.FILME_ID)
                 ]);
             });
         },
@@ -56,19 +57,16 @@ sap.ui.define([
 		},
 
         aoClicarEmEditar: function(){
-            const nomeModeloFilmeSelecionado = "filmeDetalhe";
             const viewTelaDeEditar = "EdicaoDeFilmes";
-
-            let idFilme = this.getView().getModel(nomeModeloFilmeSelecionado).getData().id;
             return this.irParaRotaCorrespondente(viewTelaDeEditar);
         },
 
         aoClicarEmRemover: function(){
             const nomeModeloDetalhe = "filmeDetalhe";
-            const view =  this.getView();
-            let modeloFilme = view.getModel(nomeModeloDetalhe);
-            let filmeTitulo = modeloFilme.getData().titulo;
-            let dialogConfirmacao = this._criarDialogConfirmacao(filmeTitulo, FILME_ID);
+            const propriedadeTitulo = "/titulo";
+
+            let filmeTitulo = this.getModel(nomeModeloDetalhe).getProperty(propriedadeTitulo);
+            let dialogConfirmacao = this._criarDialogConfirmacao(filmeTitulo, this.FILME_ID);
 
             return dialogConfirmacao;
         },
