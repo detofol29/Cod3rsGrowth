@@ -72,21 +72,21 @@ sap.ui.define([
             .noCadastroDeFilmes
             .aoPreencherOCampoDuracao();
 
-        // When
-        //     .noCadastroDeFilmes
-        //     .aoClicarNoBotaoCadastrarFilme(CHAVE_I18N_BOTAO_CADASTRO_TEXTO);
+        When
+            .noCadastroDeFilmes
+            .aoClicarNoBotaoCadastrarFilme(CHAVE_I18N_BOTAO_CADASTRO_TEXTO);
 
-        // Then
-        //     .noCadastroDeFilmes
-        //     .aCaixaDialogDeveAparecerComAMensagemDeSucesso(MENSAGEM_SUCESSO);
+        Then
+            .noCadastroDeFilmes
+            .aCaixaDialogDeveAparecerComAMensagemDeSucesso(MENSAGEM_SUCESSO);
 
-        // When
-        //     .noCadastroDeFilmes
-        //     .aoClicarNoBotaoDialogDeSucesso();
+        When
+            .noCadastroDeFilmes
+            .aoClicarNoBotaoDialogDeSucesso();
 
-        // Then
-        //     .noCadastroDeFilmes
-        //     .oBotaoDeveLevarParaTelaDeListagem();
+        Then
+            .noCadastroDeFilmes
+            .oBotaoDeveLevarParaTelaDeListagem();
 
         Then
             .iTeardownMyApp();
