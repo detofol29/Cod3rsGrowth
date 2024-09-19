@@ -11,12 +11,13 @@ sap.ui.define([
 
 	const NOME_VIEW = "app.view.DetalhesDeFilmes";
 	const BOTAO_TOGGLE_IDENTIFICADOR = "sap.m.ToggleButton";
+    const DIALOG_IDENTIFICADOR = "sap.m.Dialog";
 	const PROPRIEDADE_TEXTO = "text";
     const PROPRIEDADE_TITULO = "title";
     const PAGINA_IDENTIFICADOR = "sap.m.Page";
     const OBJECT_HEADER_IDENTIFICADOR = "sap.m.ObjectHeader";
     const OBJECT_ATTRIBUTE_IDENTIFICADOR = "sap.m.ObjectAttribute";
-	
+	const BOTAO_IDENTIFICADOR = "sap.m.Button";
 
 	Opa5.createPageObjects({
 		naTelaDeDetalhes: {
@@ -32,6 +33,30 @@ sap.ui.define([
 						actions: new Press(),
                         success: () => Opa5.assert.ok(true, "O botão de editar foi clicado com sucesso!"),
 						errorMessage: "O botão editar não foi encontrado!"
+                    });
+                },
+
+                aoClicarEmRemover: function(chave){
+                    return this.waitFor({
+                        viewName: NOME_VIEW,
+						controlType: BOTAO_TOGGLE_IDENTIFICADOR,
+						matchers: new I18NText({
+							propertyName : PROPRIEDADE_TEXTO,
+							key: chave
+						}),
+						actions: new Press(),
+                        success: () => Opa5.assert.ok(true, "O botão de remover foi clicado com sucesso!"),
+						errorMessage: "O botão de remover não foi encontrado!"
+                    });
+                },
+
+                aoClicarNoBotaoDialogComOTextoCorrespondente: function(textoBotao){
+                    return this.waitFor({
+						controlType: BOTAO_IDENTIFICADOR,
+						matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : textoBotao}),
+						actions: new Press(),
+                        success: () => Opa5.assert.ok(true, "O botão do dialog foi clicado com sucesso!"),
+						errorMessage: "O botão do dialog não foi encontrado!"
                     });
                 }
             },
@@ -157,6 +182,39 @@ sap.ui.define([
                         viewName: viewDaTelaEditar,
 						success: () => Opa5.assert.ok(true, "A tela de editar foi carregada corretamente!"),
 						errorMessage: "A tela de editar não foi carregada corretamente!"
+                    });
+                },
+
+                aCaixaDialogDeveAparecerComAMensagemDeConfirmacao(MensagemdDeConfirmacao){
+					return this.waitFor({
+						controlType: DIALOG_IDENTIFICADOR,
+						check: function (Dialog) {
+							let result = Dialog[0].getContent()[0].mProperties.text === MensagemdDeConfirmacao
+							return result;
+						},
+						success: () => Opa5.assert.ok(true, "A caixa de confirmacao foi aberta com sucesso!"),
+						errorMessage: "A caixa de confirmacao nao foi aberta!"
+					});
+				},
+
+                aCaixaDialogDeveAparecerComAMensagemDeSucesso(MensagemdDeConfirmacao){
+					return this.waitFor({
+						controlType: DIALOG_IDENTIFICADOR,
+						check: function (Dialog) {
+							let result = Dialog[0].getContent()[0].mProperties.text === MensagemdDeConfirmacao
+							return result;
+						},
+						success: () => Opa5.assert.ok(true, "A caixa de sucesso foi aberta com sucesso!"),
+						errorMessage: "A caixa de sucesso nao foi aberta!"
+					});
+				},
+
+                aTelaDeListagemDeveSerAberta: function(){
+                    const viewDaTelaLista = "app.view.ListaDeFilmes"
+                    return this.waitFor({
+                        viewName: viewDaTelaLista,
+						success: () => Opa5.assert.ok(true, "A tela de Listagem foi carregada corretamente!"),
+						errorMessage: "A tela de Listagem não foi carregada corretamente!"
                     });
                 }
 			}

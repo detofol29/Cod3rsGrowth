@@ -31,7 +31,7 @@
             icon="sap-icon://decline"
             tooltip="{i18n>DetalhesDoFilme.BotaoRemover.Texto}"
             visible="true" 
-            press="aoClicarEmCadastrar"
+            press="aoClicarEmRemover"
             width="6.5rem"/>
         </headerContent>
 		<m:content>

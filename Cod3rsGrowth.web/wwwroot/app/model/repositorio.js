@@ -76,6 +76,23 @@ sap.ui.define([
             await fetch(url)
             .then(requisicao => requisicao.json())
             .then(dados => view.setModel(new JSONModel(dados), nomeModeloDetalhe));
+        },
+
+        remover: async function(id){
+            const urlConectivo = "/";
+            const urlRequisicao = URL_RETORNO_CRIAR_FILME + urlConectivo + id;
+            const metodoDeRequisicaoDelete = 'DELETE';
+
+            let resposta = await fetch(urlRequisicao, {
+                method: metodoDeRequisicaoDelete,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if(!resposta.ok){
+                return resposta.json();
+            }
+
+            return resposta;
         }
     }
 });
