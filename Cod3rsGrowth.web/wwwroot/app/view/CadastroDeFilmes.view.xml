@@ -11,6 +11,7 @@
     height="100%"
 	xmlns:core="sap.ui.core">
 	<m:Page
+        id="PaginaCadastro"
         title="{i18n>CadastroDeFilmes.Pagina.Titulo}"
         showNavButton="true"
         navButtonPress="aoClicarEmVoltar">
@@ -21,6 +22,7 @@
             alignContent="Center"
             >
             <f:Form
+                id="FormCadastro"
                 editable="true"
                 title="{i18n>CadastroDeFilmes.Formulario.Titulo}">
                 <f:layout>
@@ -113,6 +115,7 @@
                         <f:FormElement>
                             <f:fields>
                                 <m:Button
+                                    id="botaoCadastrar"
                                     text="{i18n>CadastroDeFilmes.BotaoDeCadastrar.Texto}"
                                     type="Ghost"
                                     tooltip="Cadastrar Filme"

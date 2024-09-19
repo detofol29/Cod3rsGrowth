@@ -68,14 +68,28 @@ sap.ui.define([
             return resposta;
         },
 
-        obterPorId: async function(view, idFilme){
-            const urlConectivo = "/";
-            const nomeModeloDetalhe = "filmeDetalhe";
+        editar: async function(modeloJson){
+            const metodoDeRequisicaoPost = 'PATCH';
 
+            let resposta = await fetch(URL_RETORNO_CRIAR_FILME, {
+                method: metodoDeRequisicaoPost,
+                headers: { 'Content-Type': 'application/json' },
+                body: modeloJson
+            });
+
+            if(!resposta.ok){
+                return resposta.json();
+            }
+
+            return resposta;
+        },
+
+        obterPorId: async function(view, idFilme, nomeModelo){
+            const urlConectivo = "/";
             let url = URL_RETORNO_CRIAR_FILME + urlConectivo + idFilme.toString();
             await fetch(url)
             .then(requisicao => requisicao.json())
-            .then(dados => view.setModel(new JSONModel(dados), nomeModeloDetalhe));
+            .then(dados => view.setModel(new JSONModel(dados), nomeModelo));
         },
 
         remover: async function(id){

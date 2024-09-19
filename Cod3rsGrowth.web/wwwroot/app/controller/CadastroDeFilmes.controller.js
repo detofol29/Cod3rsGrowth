@@ -18,26 +18,41 @@ sap.ui.define([
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.CadastroDeFilmes";
     const ROTA_CADASTRO = "CadastroDeFilmes";
     const MENSAGEM_CONFIRMACAO_DIALOG = "OK";
+    const ROTA_EDICAO = "EdicaoDeFilmes";
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 
-		onInit: function() {			
+        
+		onInit: function() {	
             this
 			.getRouter()
 			.getRoute(ROTA_CADASTRO)
-			.attachPatternMatched(async () => {
-				return this._aoCoincidirRota();
+			.attachPatternMatched(async (evento,) => {
+				return this._aoCoincidirRota(evento);
 			}, this);
+
+            this
+			.getRouter()
+			.getRoute(ROTA_EDICAO)
+			.attachPatternMatched(async (evento) => {
+                this.alterarParaEdicao();
+				return this._aoCoincidirRota(evento);
+			}, this);
+
+            this.preencherCamposEdicao();
+
 		},
 
-        _aoCoincidirRota: function() {
+        _aoCoincidirRota: function(evento) {
             let view = this.getView();
+            const argumentoDoEvento = "arguments";
+            const nomeModelo = "filmeEditar";
+            let id = evento.getParameter(argumentoDoEvento).id;
             this.processarAcao(async () => {
                 await Promise.all([
-                    Repositorio.carregarDadosFilme(STRING_VAZIA, view),
+                    Repositorio.obterPorId(view, id, nomeModelo),
                     Repositorio.obterEnumGenero(view),
-                    Repositorio.obterEnumClassificacao(view),
-					Repositorio.obterModeloFiltro(view)
+                    Repositorio.obterEnumClassificacao(view)
                 ]);
             });
         },
@@ -55,7 +70,6 @@ sap.ui.define([
 
         _obterIndiceClassificacao: function(Classificacao){
 	        const modeloClassificacaoNome = "Classificacoes";
-            
 			let classificacoes = this.getView().getModel(modeloClassificacaoNome).getData();
 			for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
 				if(classificacoes[i].descricao == Classificacao){
@@ -169,6 +183,26 @@ sap.ui.define([
         aoClicarEmVoltar: function(){
             const viewTelaDeListagem = "ListaDeFilmes";
             return this.irParaRotaCorrespondente(viewTelaDeListagem);
+        },
+
+        alterarParaEdicao: function(){
+            
+            let view = this.getView();
+            let formularioTitulo = this.retornarTextoI18nCorrespondente("EdicaoDeFilmes.Formulario.Titulo");
+            let paginaTitulo = this.retornarTextoI18nCorrespondente("EdicaoDeFilmes.Pagina.Titulo");
+            let textoBotaoEditar = this.retornarTextoI18nCorrespondente("EdicaoDeFilmes.Botao.Texto");
+
+            view.byId("FormCadastro").setTitle(formularioTitulo);
+            view.getContent()[0].setTitle(paginaTitulo);
+            view.byId("botaoCadastrar").setText(textoBotaoEditar);
+        },
+
+        preencherCamposEdicao: function(){
+            debugger
+            const nomeModeloDetalhe = "filmeEditar";
+            const propriedadeTitulo = "/titulo";
+            let view = this.getView();
+            //Nao consegue achar o modelo
         }
 	});
 });

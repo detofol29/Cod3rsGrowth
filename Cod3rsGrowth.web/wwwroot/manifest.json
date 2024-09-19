@@ -69,7 +69,7 @@
           "target": "DetalhesDeFilmes"
         },
         {
-          "pattern": "EdicaoDeFilmes",
+          "pattern": "EdicaoDeFilmes/{id}",
           "name": "EdicaoDeFilmes",
           "target": "EdicaoDeFilmes"
         }
@@ -92,7 +92,7 @@
 
         "EdicaoDeFilmes": {
           "id": "EdicaoDeFilmes",
-          "name": "EdicaoDeFilmes"
+          "name": "CadastroDeFilmes"
         },
 
         "notFound": {
