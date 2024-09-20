@@ -86,7 +86,7 @@ sap.ui.define([
 
         Then
             .noCadastroDeFilmes
-            .oBotaoDeveLevarParaTelaDeListagem();
+            .oBotaoDeveLevarParaTelaDeDetalhes();
 
         Then
             .iTeardownMyApp();

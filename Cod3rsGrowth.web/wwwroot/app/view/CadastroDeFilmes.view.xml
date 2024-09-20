@@ -120,7 +120,7 @@
                                     type="Ghost"
                                     tooltip="Cadastrar Filme"
                                     visible="true"
-                                    press="aoClicarEmCadastrar"/>
+                                    press="aoClicarNoBotao"/>
                             </f:fields>
                         </f:FormElement>
                     </f:formElements>

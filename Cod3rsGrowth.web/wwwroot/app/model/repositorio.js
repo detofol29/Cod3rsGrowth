@@ -69,10 +69,10 @@ sap.ui.define([
         },
 
         editar: async function(modeloJson){
-            const metodoDeRequisicaoPost = 'PATCH';
+            const metodoDeRequisicaoPatch = 'PATCH';
 
             let resposta = await fetch(URL_RETORNO_CRIAR_FILME, {
-                method: metodoDeRequisicaoPost,
+                method: metodoDeRequisicaoPatch,
                 headers: { 'Content-Type': 'application/json' },
                 body: modeloJson
             });
@@ -80,7 +80,6 @@ sap.ui.define([
             if(!resposta.ok){
                 return resposta.json();
             }
-
             return resposta;
         },
 

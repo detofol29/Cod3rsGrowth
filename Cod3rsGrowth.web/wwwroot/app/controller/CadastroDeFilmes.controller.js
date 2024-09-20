@@ -21,8 +21,8 @@ sap.ui.define([
     const ROTA_EDICAO = "EdicaoDeFilmes";
 
 	return BaseController.extend(ROTA_CONTROLLER, {
+        ID_FILME : null,
 
-        
 		onInit: function() {	
             this
 			.getRouter()
@@ -35,25 +35,26 @@ sap.ui.define([
 			.getRouter()
 			.getRoute(ROTA_EDICAO)
 			.attachPatternMatched(async (evento) => {
-                this.alterarParaEdicao();
+                this._alterarParaEdicao();
 				return this._aoCoincidirRota(evento);
 			}, this);
-
-            this.preencherCamposEdicao();
-
 		},
 
         _aoCoincidirRota: function(evento) {
-            let view = this.getView();
             const argumentoDoEvento = "arguments";
             const nomeModelo = "filmeEditar";
+
+            let view = this.getView();
             let id = evento.getParameter(argumentoDoEvento).id;
+
             this.processarAcao(async () => {
                 await Promise.all([
-                    Repositorio.obterPorId(view, id, nomeModelo),
                     Repositorio.obterEnumGenero(view),
-                    Repositorio.obterEnumClassificacao(view)
+                    Repositorio.obterEnumClassificacao(view),
                 ]);
+                Repositorio.obterPorId(view, id, nomeModelo).then(() => {
+                    this._preencherCamposEdicao();
+                })
             });
         },
 
@@ -78,13 +79,12 @@ sap.ui.define([
 			}
 		},
 
-        aoClicarEmCadastrar: async function(){
+        _aoClicarEmCadastrar: async function(){
 
             const mensagemCadastroNaoConcluido = "Cadastro não realizado";
             const modeloFilmeCadastrado = "FilmeCadastrado";
             const messageBoxTitulo = "Erro de Validação";
             const mensagemFilmeCadastrado = "Filme cadastrado com sucesso!";
-
 
             let view = this.getView();
             let validacaoDeEntradas = Validador.validarTodos(view);
@@ -105,6 +105,7 @@ sap.ui.define([
                 return mensagemDeErro.open();
             }
 
+            let filmeCriado = await resultado.json();
             let mensagemDeSucesso = new Dialog({
                 type: mobileLibrary.DialogType.Message,
                 title: MENSAGEM_CONFIRMACAO_DIALOG,
@@ -114,7 +115,49 @@ sap.ui.define([
                     type: mobileLibrary.ButtonType.Emphasized,
                     text: MENSAGEM_CONFIRMACAO_DIALOG,
                     press: function () {
-                        this.aoClicarEmVoltar();
+                        this._voltarParaDetalhes(filmeCriado.id);
+                    }.bind(this)
+                })
+            });
+            //this._limparCampos();
+            return mensagemDeSucesso.open();
+        },
+
+        _aoClicarEmEditar: async function(){
+            const mensagemEdicaoNaoConcluida = "Cadastro não realizado";
+            const modeloFilmeEditado = "FilmeEditado";
+            const messageBoxTitulo = "Erro de Validação";
+            const mensagemFilmeEditado = "Filme editado com sucesso!";
+
+            let view = this.getView();
+            let validacaoDeEntradas = Validador.validarTodos(view);
+
+            if(validacaoDeEntradas != true){
+                let mensagemDeErro = this._criarDialog(messageBoxTitulo, validacaoDeEntradas);
+                return mensagemDeErro.open();
+            }
+
+            let modeloFilme = this._criarModeloFilmeEditado();
+
+            view.setModel(modeloFilme, modeloFilmeEditado);
+            let dadosFilme = modeloFilme.getJSON();
+            let resultado = await Repositorio.editar(dadosFilme);
+
+            if(!resultado.ok){
+                let mensagemDeErro = this._criarDialog(mensagemEdicaoNaoConcluida, resultado.Title);
+                return mensagemDeErro.open();
+            }
+
+            let mensagemDeSucesso = new Dialog({
+                type: mobileLibrary.DialogType.Message,
+                title: MENSAGEM_CONFIRMACAO_DIALOG,
+                state: coreLibrary.ValueState.Information,
+                content: new Text({ text: mensagemFilmeEditado }),
+                beginButton: new Button({
+                    type: mobileLibrary.ButtonType.Emphasized,
+                    text: MENSAGEM_CONFIRMACAO_DIALOG,
+                    press: function () {
+                        this._voltarParaDetalhes(this.ID_FILME);
                     }.bind(this)
                 })
             });
@@ -132,6 +175,7 @@ sap.ui.define([
             const inputDataId = "dataDeLancamentoInput";
 
             let view = this.getView();
+
             let titulo = view.byId(inputTituloId).getValue();
             let diretor = view.byId(inputDiretorId).getValue();
             let genero = view.byId(inputGeneroId).getValue();
@@ -147,6 +191,48 @@ sap.ui.define([
             let duracaoFormatada = parseInt(duracao);
 
             let ModeloFilme = new JSONModel({
+                titulo: titulo,
+                dataDeLancamento: dataFormatada,
+                genero: generoFormatado,
+                emCartaz: false,
+                nota: notaFormatada,
+                duracao: duracaoFormatada,
+                disponivelNoPlano: false,
+                diretor: diretor,
+                classificacao: classificacaoFormatada,
+                atores: null
+            });
+
+            return ModeloFilme
+        },
+
+        _criarModeloFilmeEditado: function(){
+            const inputGeneroId = "generoFilmeInput";
+            const inputClassificacaoId = "classificacaoFilmeInput";
+            const inputTituloId = "tituloFilmeInput";
+            const inputDiretorId = "diretorFilmeInput";
+            const inputNotaId = "notaFilmeInput";
+            const inputDuracaoId = "duracaoFilmeInput";
+            const inputDataId = "dataDeLancamentoInput";
+
+            let view = this.getView();
+
+            let titulo = view.byId(inputTituloId).getValue();
+            let diretor = view.byId(inputDiretorId).getValue();
+            let genero = view.byId(inputGeneroId).getValue();
+            let data = view.byId(inputDataId).getDateValue();
+            let classificacao = view.byId(inputClassificacaoId).getValue();
+            let nota = view.byId(inputNotaId).getValue();
+            let duracao = view.byId(inputDuracaoId).getValue();
+
+            let dataFormatada = data;
+            let generoFormatado = this._obterIndiceGenero(genero);
+            let classificacaoFormatada = this._obterIndiceClassificacao(classificacao);
+            let notaFormatada = parseFloat(nota);
+            let duracaoFormatada = parseInt(duracao);
+
+            let ModeloFilme = new JSONModel({
+                id: this.ID_FILME,
                 titulo: titulo,
                 dataDeLancamento: dataFormatada,
                 genero: generoFormatado,
@@ -182,27 +268,107 @@ sap.ui.define([
 
         aoClicarEmVoltar: function(){
             const viewTelaDeListagem = "ListaDeFilmes";
+            this._limparCampos();
             return this.irParaRotaCorrespondente(viewTelaDeListagem);
         },
 
-        alterarParaEdicao: function(){
-            
-            let view = this.getView();
-            let formularioTitulo = this.retornarTextoI18nCorrespondente("EdicaoDeFilmes.Formulario.Titulo");
-            let paginaTitulo = this.retornarTextoI18nCorrespondente("EdicaoDeFilmes.Pagina.Titulo");
-            let textoBotaoEditar = this.retornarTextoI18nCorrespondente("EdicaoDeFilmes.Botao.Texto");
-
-            view.byId("FormCadastro").setTitle(formularioTitulo);
-            view.getContent()[0].setTitle(paginaTitulo);
-            view.byId("botaoCadastrar").setText(textoBotaoEditar);
+        _voltarParaDetalhes: function(id){
+            const rotaDetalhes = "DetalhesDeFilmes"
+			return this.irParaRotaCorrespondente(rotaDetalhes, id.toString());
         },
 
-        preencherCamposEdicao: function(){
-            debugger
-            const nomeModeloDetalhe = "filmeEditar";
-            const propriedadeTitulo = "/titulo";
+        _alterarParaEdicao: function(){
+            const chaveI18nFormularioTitulo = "EdicaoDeFilmes.Formulario.Titulo";
+            const chaveI18nPaginaTitulo = "EdicaoDeFilmes.Pagina.Titulo";
+            const chaveI18nBotaoTexto = "EdicaoDeFilmes.Botao.Texto";
+            const idFormulario = "FormCadastro";
+            const idBotao = "botaoCadastrar";
+
             let view = this.getView();
-            //Nao consegue achar o modelo
+            let formularioTitulo = this.retornarTextoI18nCorrespondente(chaveI18nFormularioTitulo);
+            let paginaTitulo = this.retornarTextoI18nCorrespondente(chaveI18nPaginaTitulo);
+            let textoBotaoEditar = this.retornarTextoI18nCorrespondente(chaveI18nBotaoTexto);
+
+            let botao = view.byId(idBotao);
+            view.byId(idFormulario).setTitle(formularioTitulo);
+            view.getContent()[0].setTitle(paginaTitulo);
+            botao.setText(textoBotaoEditar);            
+        },
+
+        aoClicarNoBotao: function(){
+            if(!this.ID_FILME){
+                return this._aoClicarEmCadastrar();
+            }
+            return this._aoClicarEmEditar();
+        },
+
+        _preencherCamposEdicao: function(){
+            const nomeModeloDetalhe = "filmeEditar";
+            const idInputTitulo = "tituloFilmeInput";
+            const idInputGenero = "generoFilmeInput";
+            const idInputData = "dataDeLancamentoInput";
+            const idInputDiretor = "diretorFilmeInput";
+            const idInputClassificacao = "classificacaoFilmeInput";
+            const idInputNota = "notaFilmeInput";
+            const idInputDuracao = "duracaoFilmeInput";
+
+            let view = this.getView();
+            let modelo = view.getModel(nomeModeloDetalhe).getData();
+
+            let inputTitulo = view.byId(idInputTitulo);
+            let inputGenero = view.byId(idInputGenero);
+            let inputData = view.byId(idInputData);
+            let inputDiretor = view.byId(idInputDiretor);
+            let inputClassificacao = view.byId(idInputClassificacao);
+            let inputNota = view.byId(idInputNota);
+            let inputDuracao = view.byId(idInputDuracao);
+
+            inputTitulo.setValue(modelo.titulo);
+            inputTitulo.setEditable(false);
+            
+            let generoSelecionado = inputGenero.mAggregations.items[modelo.genero];
+			inputGenero.setSelectedItem(generoSelecionado);
+
+            let dataFormatada = Formatador.formatarData(modelo.dataDeLancamento);
+            inputData.setValue(dataFormatada);
+
+            inputDiretor.setValue(modelo.diretor);
+
+            let classificacaoSelecionada = inputClassificacao.mAggregations.items[modelo.classificacao];
+			inputClassificacao.setSelectedItem(classificacaoSelecionada);
+
+            inputNota.setValue(modelo.nota);
+            inputDuracao.setValue(modelo.duracao);
+
+            this.ID_FILME = modelo.id;
+        },
+
+        _limparCampos: function(){
+            const nomeModeloDetalhe = "filmeEditar";
+            const idInputTitulo = "tituloFilmeInput";
+            const idInputGenero = "generoFilmeInput";
+            const idInputData = "dataDeLancamentoInput";
+            const idInputDiretor = "diretorFilmeInput";
+            const idInputClassificacao = "classificacaoFilmeInput";
+            const idInputNota = "notaFilmeInput";
+            const idInputDuracao = "duracaoFilmeInput";
+
+            let view = this.getView();
+            let inputTitulo = view.byId(idInputTitulo);
+            let inputGenero = view.byId(idInputGenero);
+            let inputData = view.byId(idInputData);
+            let inputDiretor = view.byId(idInputDiretor);
+            let inputClassificacao = view.byId(idInputClassificacao);
+            let inputNota = view.byId(idInputNota);
+            let inputDuracao = view.byId(idInputDuracao);
+
+            inputTitulo.setValue();
+            inputDiretor.setValue();
+            inputNota.setValue();
+            inputDuracao.setValue();
+            inputGenero.clearSelection();
+            inputClassificacao.clearSelection();
+            inputData.setValue();
         }
 	});
 });

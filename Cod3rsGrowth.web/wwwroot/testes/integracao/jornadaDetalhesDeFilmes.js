@@ -7,12 +7,12 @@ sap.ui.define([
     QUnit.module("Página Detalhes de filmes");
 
     const PROJETO_NOME = "cod3rsgrowth";
-    const HASH = "DetalhesDeFilmes/2092";
+    const HASH = "DetalhesDeFilmes/2117";
     const CHAVE_I18N_TITULO_DA_PAGINA = "DetalhesDoFilme.Titulo";
     const CHAVE_I18N_TEXTO_DA_PAGINA = "DetalhesDoFilme.Texto";
     const CHAVE_I18N_BOTAO_EDITAR = "DetalhesDoFilme.BotaoEditar.Texto";
     const CHAVE_I18N_BOTAO_REMOVER = "DetalhesDoFilme.BotaoRemover.Texto";
-    const TITULO_FILME_ESPERADO = "FilmeTesteOpa8";
+    const TITULO_FILME_ESPERADO = "FilmeTesteOpa681";
     const GENERO_FILME_ESPERADO = "Ficção";
     const DATA_FILME_ESPERADO = "02/09/2024";
     const NOTA_FILME_ESPERADO = "7";
@@ -25,6 +25,27 @@ sap.ui.define([
     const TEXTO_BOTAO_DIALOG_CONFIRMACAO_SIM = "Sim";
     const MENSAGEM_SUCESSO_REMOCAO = "O filme foi removido com sucesso!";
     const TEXTO_BOTAO_DIALOG_SUCESSO = "Ok";
+
+    opaQUnit("Testar Botao Editar",(Given, When, Then) => {
+        Given
+            .iStartMyUIComponent({
+                componentConfig: {
+                name: PROJETO_NOME
+                },
+                hash: HASH
+            });
+        
+        When
+            .naTelaDeDetalhes
+            .aoClicarEmEditar(CHAVE_I18N_BOTAO_EDITAR);
+
+        Then
+            .naTelaDeDetalhes
+            .aTelaDeEdicaoDeveSerAberta();
+
+        Then
+            .iTeardownMyApp();
+    });
 
     opaQUnit("Carregar tela de detalhes",(Given, When, Then) => {
       
@@ -116,24 +137,5 @@ sap.ui.define([
             .iTeardownMyApp();
     });
 
-    opaQUnit("Testar Botao Editar",(Given, When, Then) => {
-        Given
-            .iStartMyUIComponent({
-                componentConfig: {
-                name: PROJETO_NOME
-                },
-                hash: HASH
-            });
-        
-        When
-            .naTelaDeDetalhes
-            .aoClicarEmEditar(CHAVE_I18N_BOTAO_EDITAR);
-
-        Then
-            .naTelaDeDetalhes
-            .aTelaDeEdicaoDeveSerAberta();
-
-        Then
-            .iTeardownMyApp();
-    });
+    
 });

@@ -177,7 +177,7 @@ sap.ui.define([
                 },
 
                 aTelaDeEdicaoDeveSerAberta: function(){
-                    const viewDaTelaEditar = "app.view.EdicaoDeFilmes"
+                    const viewDaTelaEditar = "app.view.CadastroDeFilmes"
                     return this.waitFor({
                         viewName: viewDaTelaEditar,
 						success: () => Opa5.assert.ok(true, "A tela de editar foi carregada corretamente!"),

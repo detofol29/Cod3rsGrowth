@@ -203,11 +203,11 @@ sap.ui.define([
 					});
 				},
 
-				oBotaoDeveLevarParaTelaDeListagem: function(){
+				oBotaoDeveLevarParaTelaDeDetalhes: function(){
 					return this.waitFor({
-						viewName: "app.view.ListaDeFilmes",
-						success: () => Opa5.assert.ok(true, "A tela Cadastro de listagem foi carregada corretamete!"),
-						errorMessage: "A tela de filmes não foi carregada corretamente!"
+						viewName: "app.view.DetalhesDeFilmes",
+						success: () => Opa5.assert.ok(true, "A tela Detalhes de listagem foi carregada corretamete!"),
+						errorMessage: "A tela de Detalhes não foi carregada corretamente!"
 					});
 				}
 			}
