@@ -119,7 +119,6 @@ sap.ui.define([
                     }.bind(this)
                 })
             });
-            //this._limparCampos();
             return mensagemDeSucesso.open();
         },
 
@@ -344,7 +343,6 @@ sap.ui.define([
         },
 
         _limparCampos: function(){
-            const nomeModeloDetalhe = "filmeEditar";
             const idInputTitulo = "tituloFilmeInput";
             const idInputGenero = "generoFilmeInput";
             const idInputData = "dataDeLancamentoInput";

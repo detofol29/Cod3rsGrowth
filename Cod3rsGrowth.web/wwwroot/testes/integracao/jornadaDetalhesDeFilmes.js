@@ -7,12 +7,12 @@ sap.ui.define([
     QUnit.module("Página Detalhes de filmes");
 
     const PROJETO_NOME = "cod3rsgrowth";
-    const HASH = "DetalhesDeFilmes/2117";
+    const HASH = "DetalhesDeFilmes/2116";
     const CHAVE_I18N_TITULO_DA_PAGINA = "DetalhesDoFilme.Titulo";
     const CHAVE_I18N_TEXTO_DA_PAGINA = "DetalhesDoFilme.Texto";
     const CHAVE_I18N_BOTAO_EDITAR = "DetalhesDoFilme.BotaoEditar.Texto";
     const CHAVE_I18N_BOTAO_REMOVER = "DetalhesDoFilme.BotaoRemover.Texto";
-    const TITULO_FILME_ESPERADO = "FilmeTesteOpa681";
+    const TITULO_FILME_ESPERADO = "FilmeTesteOpa10";
     const GENERO_FILME_ESPERADO = "Ficção";
     const DATA_FILME_ESPERADO = "02/09/2024";
     const NOTA_FILME_ESPERADO = "7";

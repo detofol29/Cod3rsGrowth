@@ -10,13 +10,17 @@ sap.ui.define([
 	"use strict";
 
 	const NOME_VIEW = "app.view.CadastroDeFilmes";
-    const NOME_VIEW_DETALHES = "app.view.DetalhesDeFilmes";
 	const BOTAO_IDENTIFICADOR = "sap.m.Button";
 	const PROPRIEDADE_TEXTO = "text";
+    const PROPRIEDADE_TITULO = "title";
 	const INPUT_IDENTIFICADOR = "sap.m.Input";
 	const PLACEHOLDER_IDENTIFICADOR = "placeholder";
-    const OBJECT_ATTRIBUTE_IDENTIFICADOR = "sap.m.ObjectAttribute";
-	
+    const VIEW_DETALHES = "app.view.DetalhesDeFilmes";
+    const DIALOG_IDENTIFICADOR = "sap.m.Dialog";
+    const FORM_IDENTIFICADOR = "sap.ui.layout.form.Form";
+    const PAGINA_IDENTIFICADOR = "sap.m.Page";
+    const CHAVE_I18N_INPUT_DIRETOR = "CadastroDeFilmes.InputDiretor.Texto";
+    const CHAVE_I18N_INPUT_NOTA = "CadastroDeFilmes.InputNota.Texto";
 
 	Opa5.createPageObjects({
 		naTelaDeEdicao: {
@@ -27,7 +31,7 @@ sap.ui.define([
 						controlType: INPUT_IDENTIFICADOR,
 						matchers: new I18NText({
 							propertyName : PLACEHOLDER_IDENTIFICADOR,
-							key: "CadastroDeFilmes.InputNota.Texto"
+							key: CHAVE_I18N_INPUT_NOTA
 						}),
 						actions: new EnterText({ text: nota.toString() }),
 						success: () => Opa5.assert.ok(true, "O campo nota foi preenchido corretamente!"),
@@ -41,7 +45,7 @@ sap.ui.define([
 						controlType: INPUT_IDENTIFICADOR,
 						matchers: new I18NText({
 							propertyName : PLACEHOLDER_IDENTIFICADOR,
-							key: "CadastroDeFilmes.InputDiretor.Texto"
+							key: CHAVE_I18N_INPUT_DIRETOR
 						}),
 						actions: new EnterText({ text: diretor }),
 						success: () => Opa5.assert.ok(true, "O campo diretor foi preenchido corretamente!"),
@@ -85,9 +89,9 @@ sap.ui.define([
                 oTextoDaPaginaDeveTerOValorDaChaveI18nCorrespondente: function(chave){
                     return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.m.Page",
+						controlType: PAGINA_IDENTIFICADOR,
 						matchers: new I18NText({
-							propertyName : "title",
+							propertyName : PROPRIEDADE_TITULO,
 							key: chave
 						}),
 						success: () => Opa5.assert.ok(true, "O titulo da pagina foi encontrado com sucesso!"),
@@ -98,9 +102,9 @@ sap.ui.define([
                 oTextoDoFormularioDeveTerOValorDaChaveI18nCorrespondente: function(chave){
                     return this.waitFor({
 						viewName: NOME_VIEW,
-						controlType: "sap.ui.layout.form.Form",
+						controlType: FORM_IDENTIFICADOR,
 						matchers: new I18NText({
-							propertyName : "title",
+							propertyName : PROPRIEDADE_TITULO,
 							key: chave
 						}),
 						success: () => Opa5.assert.ok(true, "O titulo do formulario foi encontrado com sucesso!"),
@@ -110,7 +114,7 @@ sap.ui.define([
 
                 aCaixaDialogDeveAparecerComAMensagemDeSucesso: function(MensagemSucesso){
                     return this.waitFor({
-						controlType: "sap.m.Dialog",
+						controlType: DIALOG_IDENTIFICADOR,
 						check: function (DialogErro) {
 							let result = DialogErro[0].getContent()[0].mProperties.text === MensagemSucesso
 							return result;
@@ -122,40 +126,12 @@ sap.ui.define([
 
                 oBotaoDeveLevarParaTelaDeDetalhes: function(){
                     return this.waitFor({
-						viewName: "app.view.DetalhesDeFilmes",
+						viewName: VIEW_DETALHES,
 						success: () => Opa5.assert.ok(true, "A tela Cadastro de detalhes foi carregada corretamete!"),
 						errorMessage: "A tela de detalhes não foi carregada corretamente!"
 					});
                 }
 			}
-		},
-
-        naTelaDeDetalhes: {
-            actions: {
-
-            },
-
-            assertions: {
-                oCampoNotaDeveEstarEditadoComOValorCorrespondente: function(nota){
-                    return this.waitFor({
-                        viewName: NOME_VIEW_DETALHES,
-                        controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
-                        matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : nota}),
-						success: () => Opa5.assert.ok(true, "A nota do filme apresenta o valor correspondente!"),
-						errorMessage: "A nota do filme não apresenta o valor correspondente!"
-                    });
-                },
-
-                oCampoDiretorDeveEstarEditadoComOValorCorrespondente: function(diretor){
-                    return this.waitFor({
-                        viewName: NOME_VIEW,
-                        controlType: OBJECT_ATTRIBUTE_IDENTIFICADOR,
-                        matchers : new PropertyStrictEquals({name : PROPRIEDADE_TEXTO, value : diretor}),
-						success: () => Opa5.assert.ok(true, "O diretor do filme apresenta o valor correspondente!"),
-						errorMessage: "O diretor do filme não apresenta o valor correspondente!"
-                    });
-                }
-            }
-        }
+		}
 	});
 });
