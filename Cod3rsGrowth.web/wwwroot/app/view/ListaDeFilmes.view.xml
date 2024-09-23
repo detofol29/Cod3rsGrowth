@@ -34,7 +34,8 @@
 							id="filtroTitulo"
 							change= "aoPerderFocoBarraDePesquisa"
 							placeholder="{i18n>ListaDeFilmes.BarraDePesquisa.TextoDeFundo}"
-							width="15rem"/>
+							width="15rem"
+							search="aoClicarEmFiltrar"/>
 						<m:ComboBox
 							id="filtroGenero"
 							placeholder="{i18n>ListaDeFilmes.ComboBox.TextoDeFundo}"
