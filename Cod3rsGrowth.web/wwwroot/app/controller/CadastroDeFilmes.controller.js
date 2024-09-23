@@ -100,7 +100,7 @@ sap.ui.define([
             let view = this.getView();
             let validacaoDeEntradas = Validador.validarTodos(view);
 
-            if(validacaoDeEntradas != true){
+            if(validacaoDeEntradas != STRING_VAZIA){
                 let mensagemDeErro = this._criarDialog(messageBoxTitulo, validacaoDeEntradas);
                 return mensagemDeErro.open();
             }
@@ -142,7 +142,7 @@ sap.ui.define([
             let view = this.getView();
             let validacaoDeEntradas = Validador.validarTodos(view);
 
-            if(validacaoDeEntradas != true){
+            if(validacaoDeEntradas != STRING_VAZIA){
                 let mensagemDeErro = this._criarDialog(messageBoxTitulo, validacaoDeEntradas);
                 return mensagemDeErro.open();
             }
@@ -184,15 +184,13 @@ sap.ui.define([
             const inputDuracaoId = "duracaoFilmeInput";
             const inputDataId = "dataDeLancamentoInput";
 
-            let view = this.getView();
-
-            let titulo = view.byId(inputTituloId).getValue();
-            let diretor = view.byId(inputDiretorId).getValue();
-            let genero = view.byId(inputGeneroId).getValue();
-            let data = view.byId(inputDataId).getDateValue();
-            let classificacao = view.byId(inputClassificacaoId).getValue();
-            let nota = view.byId(inputNotaId).getValue();
-            let duracao = view.byId(inputDuracaoId).getValue();
+            let titulo = this.byId(inputTituloId).getValue();
+            let diretor = this.byId(inputDiretorId).getValue();
+            let genero = this.byId(inputGeneroId).getValue();
+            let data = this.byId(inputDataId).getDateValue();
+            let classificacao = this.byId(inputClassificacaoId).getValue();
+            let nota = this.byId(inputNotaId).getValue();
+            let duracao = this.byId(inputDuracaoId).getValue();
 
             let dataFormatada = data;
             let generoFormatado = this._obterIndiceGenero(genero);
@@ -225,15 +223,13 @@ sap.ui.define([
             const inputDuracaoId = "duracaoFilmeInput";
             const inputDataId = "dataDeLancamentoInput";
 
-            let view = this.getView();
-
-            let titulo = view.byId(inputTituloId).getValue();
-            let diretor = view.byId(inputDiretorId).getValue();
-            let genero = view.byId(inputGeneroId).getValue();
-            let data = view.byId(inputDataId).getDateValue();
-            let classificacao = view.byId(inputClassificacaoId).getValue();
-            let nota = view.byId(inputNotaId).getValue();
-            let duracao = view.byId(inputDuracaoId).getValue();
+            let titulo = this.byId(inputTituloId).getValue();
+            let diretor = this.byId(inputDiretorId).getValue();
+            let genero = this.byId(inputGeneroId).getValue();
+            let data = this.byId(inputDataId).getDateValue();
+            let classificacao = this.byId(inputClassificacaoId).getValue();
+            let nota = this.byId(inputNotaId).getValue();
+            let duracao = this.byId(inputDuracaoId).getValue();
 
             let dataFormatada = data;
             let generoFormatado = this._obterIndiceGenero(genero);
@@ -299,9 +295,9 @@ sap.ui.define([
             let paginaTitulo = this.retornarTextoI18nCorrespondente(chaveI18nPaginaTitulo);
             let textoBotaoEditar = this.retornarTextoI18nCorrespondente(chaveI18nBotaoTexto);
 
-            let botao = view.byId(idBotao);
-            view.byId(idFormulario).setTitle(formularioTitulo);
-            view.getContent()[0].setTitle(paginaTitulo);
+            let botao = this.byId(idBotao);
+            this.byId(idFormulario).setTitle(formularioTitulo);
+            view.getContent()[INDICE_ZERO].setTitle(paginaTitulo);
             botao.setText(textoBotaoEditar);      
         },
 
@@ -319,12 +315,12 @@ sap.ui.define([
             let paginaTitulo = this.retornarTextoI18nCorrespondente(chaveI18nPaginaTitulo);
             let textoBotaoEditar = this.retornarTextoI18nCorrespondente(chaveI18nBotaoTexto);
 
-            let botao = view.byId(idBotao);
-            view.byId(idFormulario).setTitle(formularioTitulo);
-            view.getContent()[0].setTitle(paginaTitulo);
+            let botao = this.byId(idBotao);
+            this.byId(idFormulario).setTitle(formularioTitulo);
+            view.getContent()[INDICE_ZERO].setTitle(paginaTitulo);
             botao.setText(textoBotaoEditar);
 
-            let inputTitulo = view.byId(idInputTitulo);
+            let inputTitulo = this.byId(idInputTitulo);
             inputTitulo.setEditable(true);
 
             this.ID_FILME = null;
@@ -350,13 +346,13 @@ sap.ui.define([
             let view = this.getView();
             let modelo = view.getModel(nomeModeloDetalhe).getData();
 
-            let inputTitulo = view.byId(idInputTitulo);
-            let inputGenero = view.byId(idInputGenero);
-            let inputData = view.byId(idInputData);
-            let inputDiretor = view.byId(idInputDiretor);
-            let inputClassificacao = view.byId(idInputClassificacao);
-            let inputNota = view.byId(idInputNota);
-            let inputDuracao = view.byId(idInputDuracao);
+            let inputTitulo = this.byId(idInputTitulo);
+            let inputGenero = this.byId(idInputGenero);
+            let inputData = this.byId(idInputData);
+            let inputDiretor = this.byId(idInputDiretor);
+            let inputClassificacao = this.byId(idInputClassificacao);
+            let inputNota = this.byId(idInputNota);
+            let inputDuracao = this.byId(idInputDuracao);
 
             inputTitulo.setValue(modelo.titulo);
             inputTitulo.setEditable(false);
@@ -387,14 +383,13 @@ sap.ui.define([
             const idInputNota = "notaFilmeInput";
             const idInputDuracao = "duracaoFilmeInput";
 
-            let view = this.getView();
-            let inputTitulo = view.byId(idInputTitulo);
-            let inputGenero = view.byId(idInputGenero);
-            let inputData = view.byId(idInputData);
-            let inputDiretor = view.byId(idInputDiretor);
-            let inputClassificacao = view.byId(idInputClassificacao);
-            let inputNota = view.byId(idInputNota);
-            let inputDuracao = view.byId(idInputDuracao);
+            let inputTitulo = this.byId(idInputTitulo);
+            let inputGenero = this.byId(idInputGenero);
+            let inputData = this.byId(idInputData);
+            let inputDiretor = this.byId(idInputDiretor);
+            let inputClassificacao = this.byId(idInputClassificacao);
+            let inputNota = this.byId(idInputNota);
+            let inputDuracao = this.byId(idInputDuracao);
 
             inputTitulo.setValue();
             inputDiretor.setValue();

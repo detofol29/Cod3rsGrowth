@@ -9,6 +9,7 @@ sap.ui.define([
 ], function(Opa5, Press, EnterText, I18NText, Properties, PropertyStrictEquals, Text) {
 	"use strict";
 
+    const INDICE_ZERO = 0;
 	const NOME_VIEW = "app.view.CadastroDeFilmes";
 	const BOTAO_IDENTIFICADOR = "sap.m.Button";
 	const PROPRIEDADE_TEXTO = "text";
@@ -116,7 +117,7 @@ sap.ui.define([
                     return this.waitFor({
 						controlType: DIALOG_IDENTIFICADOR,
 						check: function (DialogErro) {
-							let result = DialogErro[0].getContent()[0].mProperties.text === MensagemSucesso
+							let result = DialogErro[INDICE_ZERO].getContent()[INDICE_ZERO].mProperties.text === MensagemSucesso
 							return result;
 						},
 						success: () => Opa5.assert.ok(true, "A caixa de mensagem cadastro foi aberto com sucesso!"),

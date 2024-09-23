@@ -100,7 +100,7 @@ sap.ui.define([
 				let modeloFiltro = view.getModel(MODELO_FILTRO_NOME).getData();
 				let titulo = modeloFiltro.titulo;
 
-				let generoNome = view.byId(comboBoxFiltroGeneroId).mProperties.value;
+				let generoNome = this.byId(comboBoxFiltroGeneroId).mProperties.value;
 				let generoIndice = this._obterIndiceGenero(generoNome);
 
                 let filtros = STRING_VAZIA;

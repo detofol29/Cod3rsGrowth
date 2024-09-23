@@ -18,6 +18,7 @@ sap.ui.define([
     const OBJECT_HEADER_IDENTIFICADOR = "sap.m.ObjectHeader";
     const OBJECT_ATTRIBUTE_IDENTIFICADOR = "sap.m.ObjectAttribute";
 	const BOTAO_IDENTIFICADOR = "sap.m.Button";
+    const INDICE_ZERO = 0;
 
 	Opa5.createPageObjects({
 		naTelaDeDetalhes: {
@@ -189,7 +190,7 @@ sap.ui.define([
 					return this.waitFor({
 						controlType: DIALOG_IDENTIFICADOR,
 						check: function (Dialog) {
-							let result = Dialog[0].getContent()[0].mProperties.text === MensagemdDeConfirmacao
+							let result = Dialog[INDICE_ZERO].getContent()[INDICE_ZERO].mProperties.text === MensagemdDeConfirmacao
 							return result;
 						},
 						success: () => Opa5.assert.ok(true, "A caixa de confirmacao foi aberta com sucesso!"),
@@ -201,7 +202,7 @@ sap.ui.define([
 					return this.waitFor({
 						controlType: DIALOG_IDENTIFICADOR,
 						check: function (Dialog) {
-							let result = Dialog[0].getContent()[0].mProperties.text === MensagemdDeConfirmacao
+							let result = Dialog[INDICE_ZERO].getContent()[INDICE_ZERO].mProperties.text === MensagemdDeConfirmacao
 							return result;
 						},
 						success: () => Opa5.assert.ok(true, "A caixa de sucesso foi aberta com sucesso!"),
