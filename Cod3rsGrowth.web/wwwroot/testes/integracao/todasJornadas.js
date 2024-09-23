@@ -4,13 +4,16 @@ sap.ui.define([
     "cod3rsgrowth/testes/integracao/jornadaListaDeFilmes",
     "cod3rsgrowth/testes/integracao/jornadaNotFound",
     "cod3rsgrowth/testes/integracao/jornadaCadastroDeFilmes",
-    "cod3rsgrowth/testes/integracao/jornadaDetalhesDeFilmes"
+    "cod3rsgrowth/testes/integracao/jornadaDetalhesDeFilmes",
+    "cod3rsgrowth/testes/integracao/jornadaEdicaoDeFilmes"
+
 ],function(Opa5,
      Startup,
      JornadaListaDeFilmes,
      JornadaNotFound,
      JornadaCadastroDeFilmes,
-     jornadaDetalhesDeFilmes
+     jornadaDetalhesDeFilmes,
+     jornadaEdicaoDeFilmes
      ) {
     "use strict";
  

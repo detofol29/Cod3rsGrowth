@@ -7,7 +7,7 @@ sap.ui.define([
     QUnit.module("Página lista de filmes");
 
     const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_GENERO = 8;
-    const QUANTIDADE_DE_FILMES_TOTAL_ESPERADA = 45;
+    const QUANTIDADE_DE_FILMES_TOTAL_ESPERADA = 57;
     const QUANTIDADE_DE_FILMES_ESPERADA_NA_PESQUISA_POR_NOME = 3;
     const CHAVE_I18N_ESPERADA = "ListaDeFilmes.Titulo";
     const TITULO_FILME = "Carros";

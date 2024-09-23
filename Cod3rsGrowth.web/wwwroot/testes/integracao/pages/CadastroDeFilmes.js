@@ -14,7 +14,7 @@ sap.ui.define([
 	const PROPRIEDADE_TEXTO = "text";
 	const INPUT_IDENTIFICADOR = "sap.m.Input";
 	const PLACEHOLDER_IDENTIFICADOR = "placeholder";
-	
+	const INDICE_ZERO = 0;
 
 	Opa5.createPageObjects({
 		noCadastroDeFilmes: {
@@ -56,7 +56,7 @@ sap.ui.define([
 							key: "CadastroDeFilmes.InputGenero.Texto"
 						}),
 						actions: (item) => {
-							var itemSelecionado = item.mAggregations.items[0];
+							var itemSelecionado = item.mAggregations.items[INDICE_ZERO];
 							item.setSelectedItem(itemSelecionado);
 						},
 						success: () => Opa5.assert.ok(true, "O campo genero foi preenchido corretamente!"),
@@ -97,7 +97,7 @@ sap.ui.define([
 							key: "CadastroDeFilmes.InputClassificacao.Texto"
 						}),
 						actions: (item) => {
-							var itemSelecionado = item.mAggregations.items[0];
+							var itemSelecionado = item.mAggregations.items[INDICE_ZERO];
 							item.setSelectedItem(itemSelecionado);
 						},
 						success: () => Opa5.assert.ok(true, "O campo classificacao foi preenchido corretamente!"),
@@ -182,8 +182,8 @@ sap.ui.define([
 					return this.waitFor({
 						controlType: "sap.m.Dialog",
 						check: function (DialogErro) {
-							let result = DialogErro[0].getContent()[0].mProperties.text === Erros
-							DialogErro[0].close();
+							let result = DialogErro[INDICE_ZERO].getContent()[INDICE_ZERO].mProperties.text === Erros
+							DialogErro[INDICE_ZERO].close();
 							return result;
 						},
 						success: () => Opa5.assert.ok(true, "A caixa de mensagem foi aberto com sucesso!"),
@@ -195,7 +195,7 @@ sap.ui.define([
 					return this.waitFor({
 						controlType: "sap.m.Dialog",
 						check: function (DialogErro) {
-							let result = DialogErro[0].getContent()[0].mProperties.text === MensagemSucesso
+							let result = DialogErro[INDICE_ZERO].getContent()[INDICE_ZERO].mProperties.text === MensagemSucesso
 							return result;
 						},
 						success: () => Opa5.assert.ok(true, "A caixa de mensagem cadastro foi aberto com sucesso!"),
@@ -203,11 +203,11 @@ sap.ui.define([
 					});
 				},
 
-				oBotaoDeveLevarParaTelaDeListagem: function(){
+				oBotaoDeveLevarParaTelaDeDetalhes: function(){
 					return this.waitFor({
-						viewName: "app.view.ListaDeFilmes",
-						success: () => Opa5.assert.ok(true, "A tela Cadastro de listagem foi carregada corretamete!"),
-						errorMessage: "A tela de filmes não foi carregada corretamente!"
+						viewName: "app.view.DetalhesDeFilmes",
+						success: () => Opa5.assert.ok(true, "A tela Detalhes de listagem foi carregada corretamete!"),
+						errorMessage: "A tela de Detalhes não foi carregada corretamente!"
 					});
 				}
 			}

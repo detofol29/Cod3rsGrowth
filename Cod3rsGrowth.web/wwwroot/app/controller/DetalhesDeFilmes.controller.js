@@ -15,7 +15,8 @@ sap.ui.define([
 
     const STRING_VAZIA = "";
 	const ROTA_CONTROLLER = "cod3rsgrowth.app.controller.DetalhesDeFilmes";
-    const ROTA_DETALHES = "DetalhesDeFilmes";    
+    const ROTA_DETALHES = "DetalhesDeFilmes";
+    
 
 	return BaseController.extend(ROTA_CONTROLLER, {
 
@@ -30,10 +31,11 @@ sap.ui.define([
 
         formatador: Formatador,
 
-        FILME_ID : null,
+	    FILME_ID : null,
 
         _aoCoincidirRota: function(evento) {
             const argumentoDoEvento = "arguments";
+            const nomeModelo = "filmeDetalhe"
             let view = this.getView();
             this.FILME_ID = evento.getParameter(argumentoDoEvento).id;
 
@@ -41,7 +43,7 @@ sap.ui.define([
                 await Promise.all([
                     Repositorio.obterEnumGenero(view),
                     Repositorio.obterEnumClassificacao(view),
-                    Repositorio.obterPorId(view, this.FILME_ID)
+                    Repositorio.obterPorId(view, this.FILME_ID, nomeModelo)
                 ]);
             });
         },
@@ -58,14 +60,14 @@ sap.ui.define([
 
         aoClicarEmEditar: function(){
             const viewTelaDeEditar = "EdicaoDeFilmes";
-            return this.irParaRotaCorrespondente(viewTelaDeEditar);
+            return this.irParaRotaCorrespondente(viewTelaDeEditar, this.FILME_ID.toString());
         },
 
         aoClicarEmRemover: function(){
             const nomeModeloDetalhe = "filmeDetalhe";
             const propriedadeTitulo = "/titulo";
-
-            let filmeTitulo = this.getModel(nomeModeloDetalhe).getProperty(propriedadeTitulo);
+            let view = this.getView();
+            let filmeTitulo = view.getModel(nomeModeloDetalhe).getProperty(propriedadeTitulo);
             let dialogConfirmacao = this._criarDialogConfirmacao(filmeTitulo, this.FILME_ID);
 
             return dialogConfirmacao;

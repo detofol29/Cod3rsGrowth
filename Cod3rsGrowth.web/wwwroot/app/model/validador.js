@@ -226,7 +226,7 @@ sap.ui.define([
             : duracaoValidada + saltoDeLinha;
             
             if(ErrosDeValidacao.length == INDICE_ZERO){
-                return true;
+                return stringVazia;
             }
             
             return ErrosDeValidacao;
