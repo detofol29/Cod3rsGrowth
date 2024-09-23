@@ -1,16 +1,16 @@
 sap.ui.define([
     "sap/ui/core/format/DateFormat",
-	"cod3rsgrowth/app/controller/BaseController"
+    "cod3rsgrowth/app/controller/BaseController"
 ], function (DateFormat, BaseController) {
     "use strict";
- 
+
     const INDICE_ZERO = 0;
     const ESTADO_ENTRADA_INVALIDA = "Error";
     const ESTADO_ENTRADA_VALIDA = "None";
 
-    return  {
+    return {
 
-        _validarGenero: function(viewController) {
+        _validarGenero: function (viewController) {
             const mensagemGeneroVazio = "O Campo Gênero não pode estar vazio!";
             const mensagemGeneroInvalido = "Selecione um Gênero válido!";
             const inputGeneroId = "generoFilmeInput";
@@ -19,15 +19,15 @@ sap.ui.define([
             let view = viewController;
             let inputGenero = view.byId(inputGeneroId);
 
-            if(inputGenero.getValue().length == INDICE_ZERO){
+            if (inputGenero.getValue().length == INDICE_ZERO) {
                 inputGenero.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemGeneroVazio
             }
 
             let generos = view.getModel(modeloGenerosNome).getData();
-            
+
             for (let i = INDICE_ZERO; i < generos.length; i++) {
-                if(generos[i].descricao == inputGenero.getValue()){
+                if (generos[i].descricao == inputGenero.getValue()) {
                     inputGenero.setValueState(ESTADO_ENTRADA_VALIDA);
                     return true
                 }
@@ -36,7 +36,7 @@ sap.ui.define([
             return mensagemGeneroInvalido;
         },
 
-        _validarClassificacao: function(viewController){
+        _validarClassificacao: function (viewController) {
             const mensagemClassificacaoVazio = "O campo Classificação não pode estar vazio!";
             const mensagemClassificacaoInvalida = "Selecione uma classificação válida!";
             const inputClassificacaoId = "classificacaoFilmeInput";
@@ -45,7 +45,7 @@ sap.ui.define([
             let view = viewController;
             let inputClassificacao = view.byId(inputClassificacaoId);
 
-            if(inputClassificacao.getValue().length == INDICE_ZERO){
+            if (inputClassificacao.getValue().length == INDICE_ZERO) {
                 inputClassificacao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemClassificacaoVazio
             }
@@ -53,7 +53,7 @@ sap.ui.define([
             let classificacoes = view.getModel(modeloClassificacaoNome).getData();
 
             for (let i = INDICE_ZERO; i < classificacoes.length; i++) {
-                if(classificacoes[i].descricao == inputClassificacao.getValue()){
+                if (classificacoes[i].descricao == inputClassificacao.getValue()) {
                     inputClassificacao.setValueState(ESTADO_ENTRADA_VALIDA);
                     return true
                 }
@@ -63,14 +63,14 @@ sap.ui.define([
             return mensagemClassificacaoInvalida;
         },
 
-        _validarTitulo: function(viewController){
+        _validarTitulo: function (viewController) {
             const mensagemTituloVazio = "O campo Título não pode estar vazio!";
             const inputTituloId = "tituloFilmeInput";
 
             let view = viewController;
             let inputTitulo = view.byId(inputTituloId);
 
-            if(inputTitulo.getValue().length == INDICE_ZERO){
+            if (inputTitulo.getValue().length == INDICE_ZERO) {
                 inputTitulo.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemTituloVazio;
             }
@@ -79,7 +79,7 @@ sap.ui.define([
             return true;
         },
 
-        _validarDiretor: function(viewController){
+        _validarDiretor: function (viewController) {
             const mensagemDiretorVazio = "O campo Diretor não pode estar vazio!";
             const mensagemDiretorComNumeros = "O campo Diretor não pode conter números!";
             const inputDiretorId = "diretorFilmeInput";
@@ -88,13 +88,13 @@ sap.ui.define([
             let view = viewController;
             let inputDiretor = view.byId(inputDiretorId);
 
-            if(inputDiretor.getValue().length == INDICE_ZERO){
+            if (inputDiretor.getValue().length == INDICE_ZERO) {
                 inputDiretor.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemDiretorVazio;
             }
 
             for (let i = INDICE_ZERO; i < maiorIndiceNumerico; i++) {
-                if(inputDiretor.getValue().includes(i.toString())){
+                if (inputDiretor.getValue().includes(i.toString())) {
                     inputDiretor.setValueState(ESTADO_ENTRADA_INVALIDA);
                     return mensagemDiretorComNumeros;
                 }
@@ -103,30 +103,38 @@ sap.ui.define([
             return true;
         },
 
-        _validarNota: function(viewController){
+        _validarNota: function (viewController) {
             const mensagemNotaVazio = "O campo nota não pode estar vazio!";
+            const mensagemNotaTamanho = "O campo nota só pode possuir uma casa decimal!";
             const mensagemNotaInvalida = "A nota deve estar no intervalo [0-10]!";
             const notaMaximaPermitida = 10;
+            const tamanhoMaximoPermitido = 3;
             const inputNotaId = "notaFilmeInput";
 
             let view = viewController;
             let inputNota = view.byId(inputNotaId);
             let notaConvertida = inputNota.getValue();
 
-            if(inputNota.getValue().length == INDICE_ZERO){
+            if (inputNota.getValue().length == INDICE_ZERO) {
                 inputNota.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemNotaVazio
             }
 
-            if(notaConvertida > notaMaximaPermitida || notaConvertida < INDICE_ZERO){
+            if (notaConvertida > notaMaximaPermitida || notaConvertida < INDICE_ZERO) {
                 inputNota.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemNotaInvalida;
             }
+            
+            if (inputNota.getValue().length > tamanhoMaximoPermitido){
+                inputNota.setValueState(ESTADO_ENTRADA_INVALIDA);
+                return mensagemNotaTamanho
+            }
+
             inputNota.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 
-        _validarDuracao: function(viewController){
+        _validarDuracao: function (viewController) {
             const mensagemDuracaoVazio = "O campo Duração não pode estar vazio!";
             const mensagemDuracaoInvalida = "A duração deve estar no intervalo entre 1 e 1000 minutos!";
             const duracaoMinimaPermitida = 1;
@@ -137,21 +145,21 @@ sap.ui.define([
             let inputDuracao = view.byId(inputDuracaoId);
             let duracao = inputDuracao.getValue();
 
-            if(inputDuracao.getValue().length == INDICE_ZERO){
+            if (inputDuracao.getValue().length == INDICE_ZERO) {
                 inputDuracao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemDuracaoVazio
             }
 
-            if(duracao < duracaoMinimaPermitida || duracao > duracaoMaximaPermitida){
+            if (duracao < duracaoMinimaPermitida || duracao > duracaoMaximaPermitida) {
                 inputDuracao.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemDuracaoInvalida;
             }
-            
+
             inputDuracao.setValueState(ESTADO_ENTRADA_VALIDA);
             return true;
         },
 
-        _validarData: function(viewController){
+        _validarData: function (viewController) {
             const dataLimite = '12 28 1895';
             const mensagemDataVazia = "O campo Data não pode estar vazio!";
             const mensagemDataSuperior = "A data de lançamento não pode ser superior a data atual!";
@@ -162,7 +170,7 @@ sap.ui.define([
             let inputData = view.byId(inputDataId);
             let data = inputData.getDateValue();
 
-            if(inputData.getValue().length == INDICE_ZERO){
+            if (inputData.getValue().length == INDICE_ZERO) {
                 inputData.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemDataVazia
             }
@@ -171,12 +179,12 @@ sap.ui.define([
             let dataFilme = new Date(data);
             let objetoDataLimite = new Date(dataLimite);
 
-            if(dataFilme.getTime() > dataAtual.getTime()){
+            if (dataFilme.getTime() > dataAtual.getTime()) {
                 inputData.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemDataSuperior;
             }
 
-            if(dataFilme.getTime() < objetoDataLimite.getTime()){
+            if (dataFilme.getTime() < objetoDataLimite.getTime()) {
                 inputData.setValueState(ESTADO_ENTRADA_INVALIDA);
                 return mensagemDataInferior;
             }
@@ -185,7 +193,7 @@ sap.ui.define([
             return true;
         },
 
-        validarTodos: function(viewController){
+        validarTodos: function (viewController) {
             const saltoDeLinha = "\n";
             const stringVazia = "";
 
@@ -197,38 +205,38 @@ sap.ui.define([
             let classificacaoValidada = this._validarClassificacao(viewController);
             let dataValidada = this._validarData(viewController);
 
-            let ErrosDeValidacao = tituloValidado == true 
-            ? stringVazia 
-            : tituloValidado + saltoDeLinha;
+            let ErrosDeValidacao = tituloValidado == true
+                ? stringVazia
+                : tituloValidado + saltoDeLinha;
 
-            ErrosDeValidacao += generoValidado == true 
-            ? stringVazia 
-            : generoValidado + saltoDeLinha;
+            ErrosDeValidacao += generoValidado == true
+                ? stringVazia
+                : generoValidado + saltoDeLinha;
 
-            ErrosDeValidacao += dataValidada == true 
-            ? stringVazia 
-            : dataValidada + saltoDeLinha;
+            ErrosDeValidacao += dataValidada == true
+                ? stringVazia
+                : dataValidada + saltoDeLinha;
 
-            ErrosDeValidacao += diretorValidado == true 
-            ? stringVazia 
-            : diretorValidado + saltoDeLinha;
+            ErrosDeValidacao += diretorValidado == true
+                ? stringVazia
+                : diretorValidado + saltoDeLinha;
 
-            ErrosDeValidacao += classificacaoValidada == true 
-            ? stringVazia 
-            : classificacaoValidada + saltoDeLinha;
+            ErrosDeValidacao += classificacaoValidada == true
+                ? stringVazia
+                : classificacaoValidada + saltoDeLinha;
 
-            ErrosDeValidacao += notaValidada == true 
-            ? stringVazia 
-            : notaValidada + saltoDeLinha;
+            ErrosDeValidacao += notaValidada == true
+                ? stringVazia
+                : notaValidada + saltoDeLinha;
 
-            ErrosDeValidacao += duracaoValidada == true 
-            ? stringVazia 
-            : duracaoValidada + saltoDeLinha;
-            
-            if(ErrosDeValidacao.length == INDICE_ZERO){
+            ErrosDeValidacao += duracaoValidada == true
+                ? stringVazia
+                : duracaoValidada + saltoDeLinha;
+
+            if (ErrosDeValidacao.length == INDICE_ZERO) {
                 return stringVazia;
             }
-            
+
             return ErrosDeValidacao;
         },
     }

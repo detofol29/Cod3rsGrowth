@@ -69,7 +69,7 @@ public class FilmeServicos : IFilmeRepositorio
     public void CriarFilme (Filme filme)
     {
         var filmeVerificar = ObterTodos(null)
-                .Where(f => f.Titulo == filme.Titulo)
+                .Where(f => f.Titulo.Contains(filme.Titulo))
                 .Select(f => f)
                 .FirstOrDefault();
 

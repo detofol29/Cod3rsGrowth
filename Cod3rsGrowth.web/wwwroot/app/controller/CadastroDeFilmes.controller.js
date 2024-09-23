@@ -199,14 +199,14 @@ sap.ui.define([
             let duracaoFormatada = parseInt(duracao);
 
             let ModeloFilme = new JSONModel({
-                titulo: titulo,
+                titulo: titulo.trim(),
                 dataDeLancamento: dataFormatada,
                 genero: generoFormatado,
                 emCartaz: false,
                 nota: notaFormatada,
                 duracao: duracaoFormatada,
                 disponivelNoPlano: false,
-                diretor: diretor,
+                diretor: diretor.trim(),
                 classificacao: classificacaoFormatada,
                 atores: null
             });
@@ -382,6 +382,7 @@ sap.ui.define([
             const idInputClassificacao = "classificacaoFilmeInput";
             const idInputNota = "notaFilmeInput";
             const idInputDuracao = "duracaoFilmeInput";
+            const estadoEntradaValida = "None";
 
             let inputTitulo = this.byId(idInputTitulo);
             let inputGenero = this.byId(idInputGenero);
@@ -398,6 +399,14 @@ sap.ui.define([
             inputGenero.clearSelection();
             inputClassificacao.clearSelection();
             inputData.setValue();
+
+            inputTitulo.setValueState(estadoEntradaValida);
+            inputDiretor.setValueState(estadoEntradaValida);
+            inputNota.setValueState(estadoEntradaValida);
+            inputDuracao.setValueState(estadoEntradaValida);
+            inputGenero.setValueState(estadoEntradaValida);
+            inputClassificacao.setValueState(estadoEntradaValida);
+            inputData.setValueState(estadoEntradaValida);
         }
 	});
 });
