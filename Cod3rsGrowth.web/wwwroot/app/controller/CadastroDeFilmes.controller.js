@@ -27,8 +27,9 @@ sap.ui.define([
             this
 			.getRouter()
 			.getRoute(ROTA_CADASTRO)
-			.attachPatternMatched(async (evento,) => {
-				return this._aoCoincidirRota(evento);
+			.attachPatternMatched(async () => {
+                this._alterarParaCadastro();
+				return this._aoCoincidirRotaCadastro();
 			}, this);
 
             this
@@ -36,11 +37,11 @@ sap.ui.define([
 			.getRoute(ROTA_EDICAO)
 			.attachPatternMatched(async (evento) => {
                 this._alterarParaEdicao();
-				return this._aoCoincidirRota(evento);
+				return this._aoCoincidirRotaEdicao(evento);
 			}, this);
 		},
 
-        _aoCoincidirRota: function(evento) {
+        _aoCoincidirRotaEdicao: function(evento) {
             const argumentoDoEvento = "arguments";
             const nomeModelo = "filmeEditar";
 
@@ -55,6 +56,16 @@ sap.ui.define([
                 Repositorio.obterPorId(view, id, nomeModelo).then(() => {
                     this._preencherCamposEdicao();
                 })
+            });
+        },
+
+        _aoCoincidirRotaCadastro: function() {
+            let view = this.getView();
+            this.processarAcao(async () => {
+                await Promise.all([
+                    Repositorio.obterEnumGenero(view),
+                    Repositorio.obterEnumClassificacao(view),
+                ]);
             });
         },
 
@@ -160,7 +171,7 @@ sap.ui.define([
                     }.bind(this)
                 })
             });
-
+            this._limparCampos();
             return mensagemDeSucesso.open();
         },
 
@@ -291,7 +302,32 @@ sap.ui.define([
             let botao = view.byId(idBotao);
             view.byId(idFormulario).setTitle(formularioTitulo);
             view.getContent()[0].setTitle(paginaTitulo);
-            botao.setText(textoBotaoEditar);            
+            botao.setText(textoBotaoEditar);      
+        },
+
+        _alterarParaCadastro: function(){
+            const idInputTitulo = "tituloFilmeInput";
+            const chaveI18nFormularioTitulo = "CadastroDeFilmes.Formulario.Titulo";
+            const chaveI18nPaginaTitulo = "CadastroDeFilmes.Pagina.Titulo";
+            const chaveI18nBotaoTexto = "CadastroDeFilmes.BotaoDeCadastrar.Texto";
+            const idFormulario = "FormCadastro";
+            const idBotao = "botaoCadastrar";
+
+            this._limparCampos();
+            let view = this.getView();
+            let formularioTitulo = this.retornarTextoI18nCorrespondente(chaveI18nFormularioTitulo);
+            let paginaTitulo = this.retornarTextoI18nCorrespondente(chaveI18nPaginaTitulo);
+            let textoBotaoEditar = this.retornarTextoI18nCorrespondente(chaveI18nBotaoTexto);
+
+            let botao = view.byId(idBotao);
+            view.byId(idFormulario).setTitle(formularioTitulo);
+            view.getContent()[0].setTitle(paginaTitulo);
+            botao.setText(textoBotaoEditar);
+
+            let inputTitulo = view.byId(idInputTitulo);
+            inputTitulo.setEditable(true);
+
+            this.ID_FILME = null;
         },
 
         aoClicarNoBotao: function(){
