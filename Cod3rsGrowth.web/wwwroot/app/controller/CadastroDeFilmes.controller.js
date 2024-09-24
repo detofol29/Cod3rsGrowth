@@ -115,7 +115,6 @@ sap.ui.define([
                 let mensagemDeErro = this._criarDialog(mensagemCadastroNaoConcluido, resultado.Title);
                 return mensagemDeErro.open();
             }
-
             let filmeCriado = await resultado.json();
             let mensagemDeSucesso = new Dialog({
                 type: mobileLibrary.DialogType.Message,

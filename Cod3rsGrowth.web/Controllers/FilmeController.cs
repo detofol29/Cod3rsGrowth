@@ -23,8 +23,9 @@ namespace Cod3rsGrowth.web.Controllers
         [HttpPost]
         public CreatedResult Adicionar([FromBody] Filme filme)
         {
-            servico.CriarFilme(filme);
-            return Created(filme.Id.ToString(), filme);
+            var id = servico.CriarFilme(filme);
+            filme.Id = id;
+            return Created(id.ToString(), filme);
         }
 
         [HttpDelete("{id}")]
