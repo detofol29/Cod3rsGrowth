@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Extensoes;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Domuinio.Enumeradores;
+using Cod3rsGrowth.Dominio.Enumeradores;
 using Cod3rsGrowth.Forms.Properties;
 using Cod3rsGrowth.Servicos.Servicos;
 using System.Data;

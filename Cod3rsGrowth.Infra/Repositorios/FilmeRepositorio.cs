@@ -60,12 +60,19 @@ public class FilmeRepositorio : IFilmeRepositorio
                     select a;
         }
 
+        if (filtroFilme?.FiltroTitulo != null)
+        {
+            query = from a in query
+                    where a.Titulo.Contains(filtroFilme.FiltroTitulo)
+                    select a;
+        }
+
         return query.ToList<Filme>();
     }
 
-    public void Inserir(Filme filme)
+    public int Inserir(Filme filme)
     {
-        filmeContexto.Insert(filme);
+        return filmeContexto.InsertWithInt32Identity(filme);
     }
 
     public void Remover(int id)

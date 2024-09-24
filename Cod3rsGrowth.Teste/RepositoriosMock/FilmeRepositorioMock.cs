@@ -13,9 +13,10 @@ public class FilmeRepositorioMock :IFilmeRepositorio
     {
         tabelasSingleton = TabelasSingleton.ObterInstanciaFilmes;
     }
-    public void Inserir(Filme filme)
+    public int Inserir(Filme filme)
     {
         tabelasSingleton.Add(filme);
+        return 0;
     }
 
     public Filme ObterPorId(int id)

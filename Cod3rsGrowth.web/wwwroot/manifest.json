@@ -1,0 +1,105 @@
+{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "cod3rsgrowth",
+    "i18n": "i18n/i18n.properties",
+    "type": "application",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.table": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "cod3rsgrowth.i18n.i18n",
+          "fallbackLocale": ""
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "cod3rsgrowth.app.view.App",
+      "type": "XML",
+      "id": "App"
+    },
+
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "cod3rsgrowth.app.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "bypassed": {
+               "target": "notFound"
+            },
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "CadastroDeFilmes",
+          "name": "CadastroDeFilmes",
+          "target": "CadastroDeFilmes"
+        },
+        {
+          "pattern": "",
+          "name": "ListaDeFilmes",  
+          "target": "ListaDeFilmes" 
+        },
+        {
+          "pattern": "DetalhesDeFilmes/{id}",
+          "name": "DetalhesDeFilmes",
+          "target": "DetalhesDeFilmes"
+        },
+        {
+          "pattern": "EdicaoDeFilmes/{id}",
+          "name": "EdicaoDeFilmes",
+          "target": "EdicaoDeFilmes"
+        }
+      ],
+      "targets": {
+        "ListaDeFilmes": {
+          "id": "ListaDeFilmes",
+          "name": "ListaDeFilmes"
+        },
+
+        "CadastroDeFilmes": {
+          "id": "CadastroDeFilmes",
+          "name": "CadastroDeFilmes"
+        },
+
+        "DetalhesDeFilmes": {
+          "id": "DetalhesDeFilmes",
+          "name": "DetalhesDeFilmes"
+        },
+
+        "EdicaoDeFilmes": {
+          "id": "EdicaoDeFilmes",
+          "name": "CadastroDeFilmes"
+        },
+
+        "notFound": {
+					"id": "notFound",
+					"name": "NotFound"
+				}
+      }
+    }
+  }
+}
