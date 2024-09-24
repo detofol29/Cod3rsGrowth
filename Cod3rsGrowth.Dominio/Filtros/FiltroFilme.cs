@@ -4,6 +4,7 @@ namespace Cod3rsGrowth.Dominio.Filtros;
 
 public class FiltroFilme
 {
+    public string? FiltroTitulo { get; set; }
     public GeneroEnum? FiltroGenero { get; set; }
     public ClassificacaoIndicativa? FiltroClassificacao { get; set; }
     public bool? FiltroDisponivelNoPlano { get; set; }

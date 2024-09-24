@@ -2,3 +2,6 @@
 .vs
 **/obj/
 **/bin/
+Cod3rsGrowth.web/node_modules/
+Cod3rsGrowth.web/bin/
+Cod3rsGrowth.web/obj/

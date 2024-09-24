@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Filtros;
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Dominio.Enumeradores;
 using Cod3rsGrowth.Servicos.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IIS.Core;
@@ -22,8 +23,9 @@ namespace Cod3rsGrowth.web.Controllers
         [HttpPost]
         public CreatedResult Adicionar([FromBody] Filme filme)
         {
-            servico.CriarFilme(filme);
-            return Created(filme.Id.ToString(), filme);
+            var id = servico.CriarFilme(filme);
+            filme.Id = id;
+            return Created(id.ToString(), filme);
         }
 
         [HttpDelete("{id}")]

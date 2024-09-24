@@ -33,9 +33,9 @@ public class FilmeServicos : IFilmeRepositorio
         return _filmeRepositorio.ObterPorId(id);
     }
 
-    public void Inserir(Filme filme)
+    public int Inserir(Filme filme)
     {
-        _filmeRepositorio.Inserir(filme);
+        return _filmeRepositorio.Inserir(filme);
     }
 
     public void Remover(int id)
@@ -66,7 +66,7 @@ public class FilmeServicos : IFilmeRepositorio
         }
     }
 
-    public void CriarFilme (Filme filme)
+    public int CriarFilme (Filme filme)
     {
         var filmeVerificar = ObterTodos(null)
                 .Where(f => f.Titulo == filme.Titulo)
@@ -78,9 +78,8 @@ public class FilmeServicos : IFilmeRepositorio
             throw new Exception("Esse Filme já existe!");
         }
 
-        filme.Id = GerarId();
         _validator.ValidateAndThrow(filme);
-        Inserir(filme);
+        return Inserir(filme);
     }
 
     public void Editar(Filme filme)
@@ -99,23 +98,5 @@ public class FilmeServicos : IFilmeRepositorio
             }
             throw new Exception(erros.ToString());
         }
-    }
-
-    private int GerarId()
-    {
-        const int idInicial = 1;
-        const int indiceVazio = 0;
-
-        List<int> ListaIds = new List<int>();
-        var listaFilmes = _filmeRepositorio.ObterTodos(null);
-        foreach (var filme in listaFilmes)
-        {
-            ListaIds.Add(filme.Id);
-        }
-        if (ListaIds.Count() == indiceVazio) { return idInicial; }
-        ListaIds.Sort();
-        var indiceUltimo = ListaIds.Count() - idInicial;
-        var idFinal = ListaIds[indiceUltimo] + idInicial;
-        return idFinal;
     }
 }
